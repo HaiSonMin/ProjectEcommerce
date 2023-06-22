@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Category";
-const CategorySchema = new Schema(
+const COLLECTION_NAME = "ProductCategory";
+const productCategorySchema = new Schema(
   {
     category_name: {
       type: String,
@@ -13,4 +13,4 @@ const CategorySchema = new Schema(
   }
 );
 //Export the model
-module.exports = model(COLLECTION_NAME, CategorySchema);
+module.exports = model(COLLECTION_NAME, productCategorySchema);

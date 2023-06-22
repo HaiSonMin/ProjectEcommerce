@@ -23,7 +23,8 @@ const getSelectData = (select = []) =>
   Object.fromEntries(select.map((el) => [el, 1]));
 
 // ["A","B","C"] => {A:0, B:0, C:0}
-const getUnSelectData = (select = []) =>  Object.fromEntries(select.map((el) => [el, 0]));
+const getUnSelectData = (select = []) =>
+  Object.fromEntries(select.map((el) => [el, 0]));
 
 const skipPage = ({ page, limit }) => (page - 1) * limit;
 
