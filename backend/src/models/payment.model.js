@@ -3,13 +3,21 @@ const COLLECTION_NAME = "Payment";
 const PaymentSchema = new Schema(
   {
     payment_amount: {
-      type: String,
+      type: Number,
       required: [true, "Please provide blog name"],
-      maxlength: 50,
+      min: [1, "Please provide value getter than 1"],
     },
     payment_orderId: {
       type: Schema.Types.ObjectId,
       ref: "Order",
+    },
+    payment_userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    payment_method: {
+      type: String,
+      required: true,
     },
   },
   {

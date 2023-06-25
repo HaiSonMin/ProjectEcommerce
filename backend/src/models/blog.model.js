@@ -10,9 +10,9 @@ const BlogSchema = new Schema(
       type: String,
       required: true,
     },
-    blog_categories: {
+    blog_category: {
       type: Schema.Types.ObjectId,
-      ref: "blogCategory",
+      ref: "BlogCategory",
     },
     blog_numberViews: {
       type: Number,
@@ -22,13 +22,27 @@ const BlogSchema = new Schema(
       type: Number,
       default: 0,
     },
+    blog_likeByUsers: {
+      type: [Schema.Types.ObjectId],
+      ref: "User",
+      default: [],
+    },
     blog_numberDislikes: {
       type: Number,
       default: 0,
     },
+    blog_disLikeByUsers: {
+      type: [Schema.Types.ObjectId],
+      ref: "User",
+      default: [],
+    },
     blog_thumb: {
       type: String,
       required: true,
+    },
+    blog_images: {
+      type: [String],
+      default: [],
     },
     blog_author: {
       type: String,

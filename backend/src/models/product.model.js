@@ -15,6 +15,10 @@ const ProductSchema = new Schema(
       min: [1, "Rating must be getter than 1"],
       required: [true, "Please provide price"],
     },
+    product_priceAppliedDiscount: {
+      type: Number,
+      default: 0,
+    }, 
     product_thumb: String,
     product_description: {
       type: String,
@@ -22,12 +26,12 @@ const ProductSchema = new Schema(
     },
     product_brand: {
       type: Schema.Types.ObjectId,
-      ref:"Brand",
+      ref: "Brand",
       required: true,
     },
     product_category: {
       type: Schema.Types.ObjectId,
-      ref: "Category",
+      ref: "ProductCategory",
     },
     product_quantity: {
       type: Number,
@@ -39,19 +43,7 @@ const ProductSchema = new Schema(
     },
     product_images: [String],
     product_color: [String],
-    product_rating: [
-      {
-        star: {
-          type: Number,
-          default: 5,
-          min: [1, "Rating must be getter than 1"],
-          max: [5, "Rating must be less then 5"],
-        },
-        ratingBy: { type: [Schema.Types.ObjectId], ref: "User" },
-        comment: { type: String },
-      },
-    ],
-    product_totalRating: {
+    product_ratingAverage: {
       type: Number,
       default: 0,
     },

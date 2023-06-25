@@ -1,4 +1,4 @@
-const { convertObjectIdMongo } = require("../../../ProjectDelivery/src/utils");
+const { convertToMongoObjectId } = require("../utils");
 const { ProductModel } = require("../models");
 const {
   skipPage,
@@ -6,6 +6,7 @@ const {
   getSelectData,
   getUnSelectData,
 } = require("../utils");
+
 class ProductRepository {
   static async getAllProducts({
     filter,
@@ -15,18 +16,30 @@ class ProductRepository {
     unselect,
     sort,
   }) {
-    console.log("convertSortBy(sort)::::",convertSortBy(sort));
     return await ProductModel.find(filter)
       .select(getSelectData(select))
       .select(getUnSelectData(unselect))
       .skip(skipPage({ page, limit }))
       .limit(limit)
       .sort(convertSortBy(sort))
+      .populate({ path: "product_brand", select: "brand_name" })
+      .populate({ path: "product_category", select: "category_name" })
       .lean()
       .exec();
   }
-  static async getProductById({ productId }) {
-    return await ProductModel.findById(convertObjectIdMongo(productId))
+  static async getProductById({ productId, unselect }) {
+    return await ProductModel.findById(convertToMongoObjectId(productId))
+      .select(getUnSelectData(unselect))
+      .exec();
+  }
+  static async getProductByIds({ productIds, select }) {
+    return await ProductModel.find({ _id: { $in: productIds } })
+      .select(getSelectData(select))
+      .lean()
+      .exec();
+  }
+  static async getProductNotByIds({ productIds }) {
+    return await ProductModel.find({ _id: { $nin: productIds } })
       .lean()
       .exec();
   }
@@ -38,13 +51,9 @@ class ProductRepository {
     unselect,
   }) {
     const regexSearch = new RegExp(keySearch, "i");
-    return await ProductModel.find(
-      {
-        $text: { $search: regexSearch },
-      },
-      { score: { $meta: "textScore" } }
-    )
-      .sort({ score: { $meta: "textScore" } })
+    return await ProductModel.find({
+      $text: { $search: regexSearch },
+    })
       .select(getSelectData(select))
       .select(getUnSelectData(unselect))
       .skip(skipPage({ page, limit }))

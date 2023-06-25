@@ -1,4 +1,4 @@
-const { convertObjectIdMongo } = require("../../../ProjectDelivery/src/utils");
+const { convertObjectIdMongo } = require("../utils");
 const { UserModel } = require("../models");
 const { getSelectData, getUnSelectData } = require("../utils/index");
 

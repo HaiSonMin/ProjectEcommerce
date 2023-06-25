@@ -1,4 +1,5 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
+const { BadRequestError } = require("../core/error.response");
 const COLLECTION_NAME = "Discount";
 const DiscountSchema = new Schema(
   {
@@ -10,10 +11,11 @@ const DiscountSchema = new Schema(
       type: String,
       required: true,
       uppercase: true,
+      unique: true,
     },
     discount_type: {
       type: String,
-      enum: ["fix_amount", "percentage"],
+      enum: ["fixed_amount", "percentage"],
       default: "percentage",
     },
     discount_value: {
@@ -23,6 +25,7 @@ const DiscountSchema = new Schema(
     },
     discount_productIds: {
       type: [Schema.Types.ObjectId],
+      ref: "Product",
       default: [],
     },
     discount_startDate: {
@@ -38,6 +41,36 @@ const DiscountSchema = new Schema(
     timestamps: true,
   }
 );
+
+DiscountSchema.pre("save", function (next) {
+  if (
+    this.discount_type === "percentage" &&
+    (this.discount_value < 1 || this.discount_value > 100)
+  )
+    throw new BadRequestError(
+      "Value not correct with type discount, value must be (1 <= value <= 100), please try again"
+    );
+  if (this.discount_type === "fixed_amount" && this.discount_value < 5)
+    throw new BadRequestError(
+      "Value not correct with type discount, value must be (value >= 5), please try again"
+    );
+  next();
+});
+
+// DiscountSchema.pre("updateOne", function (next) {
+//   if (
+//     this.discount_type === "percentage" &&
+//     (this.discount_value < 1 || this.discount_value > 100)
+//   )
+//     throw new BadRequestError(
+//       "Value not correct with type discount, value must be (1 <= value <= 100), please try again"
+//     );
+//   if (this.discount_type === "fixed_amount" && this.discount_value <= 50000)
+//     throw new BadRequestError(
+//       "Value not correct with type discount, value must be (value >= 50000), please try again"
+//     );
+//   next();
+// });
 
 //Export the model
 module.exports = model(COLLECTION_NAME, DiscountSchema);

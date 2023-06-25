@@ -11,14 +11,22 @@ const InventorySchema = new Schema(
       required: true,
       ref: "Product",
     },
+    inventory_numberImport: {
+      type: Number,
+      require: true,
+    },
+    inventory_numberExport: {
+      type: Number,
+      default: 0,
+    },
     inventory_stock: {
       type: Number,
       required: true,
     },
     inventory_reservation: {
-        /**
-         * {cartId, numberProduct, createOn}
-         */
+      /**
+       * {cartId, numberProduct, createOn}
+       */
       type: Array,
       default: [],
     },

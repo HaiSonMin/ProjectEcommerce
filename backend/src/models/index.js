@@ -7,6 +7,7 @@ const BlogModel = require("./blog.model");
 const BlogCategoryModel = require("./blogCategory.model");
 const CartModel = require("./cart.model");
 const DiscountModel = require("./discount.model");
+const CouponModel = require("./coupon.model");
 const RatingModel = require("./rating.model");
 const WishlistModel = require("./wishlist.model");
 const InventoryModel = require("./inventory.model");
@@ -22,9 +23,10 @@ module.exports = {
   BlogCategoryModel,
   CartModel,
   DiscountModel,
+  CouponModel,
   RatingModel,
   WishlistModel,
   InventoryModel,
   OrderModel,
-  PaymentModel
+  PaymentModel,
 };

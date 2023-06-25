@@ -6,6 +6,7 @@ const BlogCategorySchema = new Schema(
       type: String,
       required: [true, "Please provide blog name"],
       maxlength: 50,
+      unique: true,
     },
   },
   {

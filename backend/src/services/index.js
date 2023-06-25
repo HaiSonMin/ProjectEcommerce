@@ -7,6 +7,7 @@ const ProductCategoryService = require("./productCategory.service");
 const BlogService = require("./blog.service");
 const BlogCategoryService = require("./blogCategory.service");
 const DiscountService = require("./discount.service");
+const CouponService = require("./coupon.service");
 const CartService = require("./cart.service");
 const OrderService = require("./order.service");
 const InventoryService = require("./inventory.service");
@@ -24,6 +25,7 @@ module.exports = {
   BlogService,
   BlogCategoryService,
   DiscountService,
+  CouponService,
   CartService,
   OrderService,
   InventoryService,

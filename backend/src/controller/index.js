@@ -7,6 +7,7 @@ const ProductCategoryController = require("./productCategory.controller");
 const BlogController = require("./blog.controller");
 const BlogCategoryController = require("./blogCategory.controller");
 const DiscountController = require("./discount.controller");
+const CouponController = require("./coupon.controller");
 const CartController = require("./cart.controller");
 const WishlistController = require("./wishlist.controller");
 const InventoryController = require("./inventory.controller");
@@ -24,10 +25,11 @@ module.exports = {
   BlogController,
   BlogCategoryController,
   DiscountController,
+  CouponController,
   CartController,
   WishlistController,
   InventoryController,
   PaymentController,
   RatingController,
-  OrderController
+  OrderController,
 };

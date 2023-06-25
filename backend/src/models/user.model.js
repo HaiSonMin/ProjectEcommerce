@@ -52,7 +52,7 @@ const UserSchema = new Schema(
     },
     user_wishList: {
       type: [Schema.Types.ObjectId],
-      ref: "Product",
+      ref: "WistList",
     },
     user_isBlocking: {
       type: Boolean,

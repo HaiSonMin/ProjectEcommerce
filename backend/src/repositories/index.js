@@ -7,6 +7,7 @@ const ProductCategoryRepo = require("./productCategory.repo");
 const BlogRepo = require("./blog.repo");
 const BlogCategoryRepo = require("./blogCategory.repo");
 const DiscountRepo = require("./discount.repo");
+const CouponRepo = require("./coupon.repo");
 const RatingRepo = require("./rating.repo");
 const CartRepo = require("./cart.repo");
 const OrderRepo = require("./order.repo");
@@ -23,6 +24,7 @@ module.exports = {
   BlogRepo,
   BlogCategoryRepo,
   DiscountRepo,
+  CouponRepo,
   RatingRepo,
   CartRepo,
   OrderRepo,

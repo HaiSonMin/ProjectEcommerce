@@ -18,6 +18,8 @@ const deleteTokenCookie = ({ tokenName, res }) =>
   });
 const convertToMongoObjectId = (id) => new Types.ObjectId(id);
 
+const convertFieldsToArray = (fields) => fields && fields.split(",");
+
 // ["A","B","C"] => {A:1, B:1, C:1}
 const getSelectData = (select = []) =>
   Object.fromEntries(select.map((el) => [el, 1]));
@@ -28,19 +30,21 @@ const getUnSelectData = (select = []) =>
 
 const skipPage = ({ page, limit }) => (page - 1) * limit;
 
-const convertSortBy = (sort = "") => {
-  return Object.fromEntries(
+// [_id, -1] => {_id:-1}
+const convertSortBy = (sort) =>
+  sort &&
+  Object.fromEntries(
     sort.split(",").map((el) => {
       if (el === "ctime") return ["_id", -1];
       else if (el.startsWith("-")) return [el.slice(1), -1];
       else return [el, 1];
     })
   );
-};
 
 const excludeFields = () => ["sort", "limit", "page", "filter"];
 
 const getOptionOperator = (option = []) => option;
+
 const convertOperatorObject = ({ option = [], numericFilters = "" }) => {
   const queryObject = {};
 
@@ -77,4 +81,5 @@ module.exports = {
   getOptionOperator,
   convertOperatorObject,
   convertToMongoObjectId,
+  convertFieldsToArray,
 };

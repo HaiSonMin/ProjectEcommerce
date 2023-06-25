@@ -5,7 +5,7 @@ const productCategorySchema = new Schema(
     category_name: {
       type: String,
       required: [true, "Please provide product name"],
-      maxlength: 50,
+      unique: true,
     },
   },
   {

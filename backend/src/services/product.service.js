@@ -1,11 +1,15 @@
 const { BadRequestError, NotFoundError } = require("../core/error.response");
 const { ProductModel } = require("../models");
-const { ProductRepo } = require("../repositories");
+const {
+  ProductRepo,
+  BrandRepo,
+  ProductCategoryRepo,
+} = require("../repositories");
 const {
   convertOperatorObject,
   getOptionOperator,
-  excludeFields,
   convertSortBy,
+  convertFieldsToArray,
 } = require("../utils");
 class ProductService {
   static async createProduct(req, res) {
@@ -14,11 +18,9 @@ class ProductService {
     if (!newProduct) throw new BadRequestError("Create Product Error");
     return newProduct;
   }
+
   static async getAllProducts(req, res) {
-    const queries = req.query;
-    const { sort, limit, page, filter, numericFilters } = queries;
-    console.log("numericFilters:::", JSON.stringify(numericFilters));
-    // excludeFields().forEach((el) => delete queries[el]);
+    const { sort, limit, page, fields, unFields, numericFilters } = req.query;
     const operatorFilter = convertOperatorObject({
       numericFilters,
       option: getOptionOperator([
@@ -27,11 +29,16 @@ class ProductService {
         "product_sold",
       ]),
     });
+
+    console.log(sort, limit, page, fields, unFields, numericFilters);
+
     const products = await ProductRepo.getAllProducts({
-      filter: { ...operatorFilter, ...filter },
       sort,
       limit,
       page,
+      select: convertFieldsToArray(fields),
+      unselect: convertFieldsToArray(unFields),
+      filter: { ...operatorFilter },
     });
     if (!products.length) throw new NotFoundError("Product don't exists");
     return {
@@ -39,6 +46,7 @@ class ProductService {
       products,
     };
   }
+
   static async getAllProductsAvailable(req, res) {
     const filter = {
       product_quantity: { $gt: 0 },
@@ -85,21 +93,38 @@ class ProductService {
   static async updateProductById(req, res) {
     const { productId } = req.params;
     const payload = req.body;
-    console.log("productId::::", productId);
-    console.log("payload::::", payload);
+
+    const keyPayload = Object.getOwnPropertyNames(payload);
+
+    // Check Product brand has exist
+    if (keyPayload.includes("product_brand")) {
+      const brandId = payload.product_brand;
+      const findBrand = await BrandRepo.getBrandById({ brandId });
+      if (!findBrand) throw new NotFoundError("Brand doesn't exist");
+    }
+    // Check Product category has exist
+    if (keyPayload.includes("product_category")) {
+      const productCategoryId = payload.product_category;
+      const findProductCategory =
+        await ProductCategoryRepo.getProductCategoryById({ productCategoryId });
+      if (!findProductCategory)
+        throw new NotFoundError("Product Category doesn't exist");
+    }
+
     if (!Object.keys(payload).length)
+      // Check Product brand has exist
       throw new BadRequestError("Missing Payload Update");
     const productUpdated = await ProductRepo.updateProductById({
       productId,
       payload,
     });
-    if (!productUpdated) throw new NotFoundError("Product doesn't exists");
+    if (!productUpdated) throw new BadRequestError("Product update error");
     return { productUpdated };
   }
   static async deleteProductById(req, res) {
     const { productId } = req.params;
     const productDeleted = await ProductRepo.deleteProductById({ productId });
-    if (!productDeleted) throw new NotFoundError("Product doesn't exists");
+    if (!productDeleted) throw new BadRequestError("Product delete error");
     return { productDeleted };
   }
 }

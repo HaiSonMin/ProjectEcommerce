@@ -45,6 +45,7 @@ const checkAuthIsAdmin = async (req, res, next) => {
 };
 
 module.exports = {
+  authentication,
   checkAuthIsUser,
   checkAuthIsAdmin,
 };
