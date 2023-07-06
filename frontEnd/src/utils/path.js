@@ -1,11 +1,9 @@
-const  PATH = {
+const PATH = {
+  ALL: "*",
+  PUBLIC: "/",
+  HOME: "/",
+  LOGIN: "/login",
+  REGISTER: "/register",
+};
 
-        ALL:"*",
-        PUBLIC:"/",
-        HOME:"/",
-        LOGIN:"/login",
-        REGISTER:"/register"
-
-}
-
-export default PATH
+export default PATH;

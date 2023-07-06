@@ -1,13 +1,5 @@
 import { Link } from "react-router-dom";
 import PATH from "../../utils/path";
-import { useState } from "react";
-
-const [step, setStep] = useState(0);
-const incStep = () => setStep((s) => s + 1);
-const descStep = () => setStep((s) => s - 1);
-
-const [person, setPerson] = useState({});
-const setInfo = () => setPerson((per) => {...person, name:newName});
 
 
 export default function Register() {
