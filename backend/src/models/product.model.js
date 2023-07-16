@@ -10,42 +10,27 @@ const ProductSchema = new Schema(
       trim: true,
     },
     product_slugify: String,
-    product_price: {
-      type: Number,
-      min: [1, "Rating must be getter than 1"],
-      required: [true, "Please provide price"],
+    product_thumb: {
+      type: [String],
+      required: [true, "Please provide thumb for product"],
     },
-    product_priceAppliedDiscount: {
-      type: Number,
-      default: 0,
-    }, 
-    product_thumb: String,
-    product_description: {
-      type: String,
-      required: true,
+    product_images: [String],
+    product_mainInfo: {
+      type: [Schema.Types.ObjectId],
+      ref: "ProductMainInfo",
     },
-    product_brand: {
+    product_brandId: {
       type: Schema.Types.ObjectId,
       ref: "Brand",
       required: true,
     },
-    product_category: {
+    product_categoryId: {
       type: Schema.Types.ObjectId,
       ref: "ProductCategory",
     },
-    product_quantity: {
-      type: Number,
-      default: 0,
-    },
-    product_sold: {
-      type: Number,
-      default: 0,
-    },
-    product_images: [String],
-    product_color: [String],
-    product_ratingAverage: {
-      type: Number,
-      default: 0,
+    product_ratingIds: {
+      type: [Schema.Types.ObjectId],
+      ref: "Rating",
     },
   },
   {

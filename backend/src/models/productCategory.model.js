@@ -1,11 +1,15 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
 const COLLECTION_NAME = "ProductCategory";
-const productCategorySchema = new Schema(
+const ProductCategorySchema = new Schema(
   {
-    category_name: {
+    productCategory_name: {
       type: String,
-      required: [true, "Please provide product name"],
+      required: [true, "Please provide product category name"],
       unique: true,
+    },
+    productCategory_image: {
+      type: String,
+      required: [true, "Please provide product category image"],
     },
   },
   {
@@ -13,4 +17,4 @@ const productCategorySchema = new Schema(
   }
 );
 //Export the model
-module.exports = model(COLLECTION_NAME, productCategorySchema);
+module.exports = model(COLLECTION_NAME, ProductCategorySchema);

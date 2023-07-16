@@ -7,6 +7,13 @@ const BrandSchema = new Schema(
       required: [true, "Please provide brand name"],
       unique: true,
     },
+    brand_origin: {
+      type: String,
+      required: [true, "Please provide brand origin"],
+    },
+    brand_image: {
+      type: String,
+    },
   },
   {
     timestamps: true,

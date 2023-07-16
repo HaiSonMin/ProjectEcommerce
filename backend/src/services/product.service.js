@@ -1,22 +1,114 @@
 const { BadRequestError, NotFoundError } = require("../core/error.response");
-const { ProductModel } = require("../models");
+const {
+  ProductModel,
+  RatingModel,
+  ProductMainInfoModel,
+} = require("../models");
 const {
   ProductRepo,
   BrandRepo,
   ProductCategoryRepo,
+  ProductMainInfoRepo,
 } = require("../repositories");
 const {
   convertOperatorObject,
   getOptionOperator,
-  convertSortBy,
   convertFieldsToArray,
+  getFieldsPath,
+  getImagesPath,
 } = require("../utils");
+
 class ProductService {
   static async createProduct(req, res) {
     const payload = req.body;
-    const newProduct = await ProductModel.create(payload);
-    if (!newProduct) throw new BadRequestError("Create Product Error");
-    return newProduct;
+    const { product_brandId, product_categoryId } = payload;
+    // 1. Check brand
+    const findBrand = await BrandRepo.getBrandById({
+      brandId: product_brandId,
+    });
+    if (!findBrand) throw new NotFoundError("Brand doesn't exist");
+
+    // 2. Check category
+    const findCategory = await ProductCategoryRepo.getProductCategoryById({
+      productCategoryId: product_categoryId,
+    });
+    if (!findCategory)
+      throw new NotFoundError("Product category doesn't exist");
+
+    // 3. Check image
+    const fieldsImage = req?.files;
+    if (!Object.keys(fieldsImage).length)
+      throw new BadRequestError("Please provide images for product");
+
+    // 3. Create product
+    const dataCreate = {
+      ...payload,
+      ...getFieldsPath(fieldsImage),
+    };
+    const newProduct = await ProductModel.create(dataCreate);
+
+    // 4. Create Storage(RAM, ROM, color, price)
+    try {
+      const newMainInfoProduct = await ProductMainInfoModel.create({
+        ...payload,
+        product_productId: newProduct._id,
+        ...getFieldsPath(fieldsImage),
+      });
+      await newProduct.updateOne({
+        $set: {
+          product_mainInfo: newMainInfoProduct._id,
+        },
+      });
+      return newProduct;
+    } catch (error) {
+      await ProductRepo.deleteProductById({ productId: newProduct._id });
+      throw new BadRequestError(error.message);
+    }
+  }
+
+  // Some thing provide: storage, image
+  static async provideInfoProductById(req, res) {
+    const { productId } = req.params;
+    const payload = req.body;
+    const fieldsImage = req?.files;
+
+    console.log("fieldsImage:::", getFieldsPath(fieldsImage));
+
+    // 1. Get product and check product
+    const product = await ProductRepo.getProductById({ productId });
+    if (!product) throw new NotFoundError("Product not found for provide info");
+
+    // 2. Create new MainInfo with this product
+    const newMainInfo = await ProductMainInfoModel.create({
+      ...payload,
+      product_productId: productId,
+      product_imageColor: getFieldsPath(fieldsImage).product_imageColor,
+    });
+
+    try {
+      // 3.Perform update
+      await product.updateOne({
+        $addToSet: {
+          product_mainInfo: newMainInfo._id,
+        },
+        $set: {
+          product_images: [
+            ...product.product_images,
+            ...getFieldsPath(fieldsImage).product_images,
+          ],
+        },
+      });
+    } catch (error) {
+      await ProductMainInfoRepo.deleteProductMainById({
+        productMainInfoId: newMainInfo._id,
+      });
+      throw new BadRequestError(error.message);
+    }
+
+    return {
+      newInfoProvide: newMainInfo,
+      product_images: getFieldsPath(fieldsImage),
+    };
   }
 
   static async getAllProducts(req, res) {
@@ -75,6 +167,7 @@ class ProductService {
       products,
     };
   }
+
   static async getProductById(req, res) {
     const { productId } = req.params;
     const product = await ProductRepo.getProductById({ productId });
@@ -93,6 +186,13 @@ class ProductService {
   static async updateProductById(req, res) {
     const { productId } = req.params;
     const payload = req.body;
+    const fieldsImage = req?.files;
+
+    let fieldsPath = {};
+    if (Object.keys(fieldsImage).length > 0)
+      for (const [keys, value] of Object.entries(fieldsImage)) {
+        fieldsPath[keys] = value.map((v) => v.path);
+      }
 
     const keyPayload = Object.getOwnPropertyNames(payload);
 
@@ -114,17 +214,29 @@ class ProductService {
     if (!Object.keys(payload).length)
       // Check Product brand has exist
       throw new BadRequestError("Missing Payload Update");
+
+    const dataUpdate = {
+      ...payload,
+      ...fieldsPath,
+    };
+
+    console.log("dataUpdate:::", dataUpdate);
     const productUpdated = await ProductRepo.updateProductById({
       productId,
-      payload,
+      payload: dataUpdate,
     });
     if (!productUpdated) throw new BadRequestError("Product update error");
     return { productUpdated };
   }
+
   static async deleteProductById(req, res) {
     const { productId } = req.params;
+    // 1. Delete product
     const productDeleted = await ProductRepo.deleteProductById({ productId });
     if (!productDeleted) throw new BadRequestError("Product delete error");
+    // 2. Delete ratings in product
+    await RatingModel.deleteMany({ rating_productId: productId });
+
     return { productDeleted };
   }
 }

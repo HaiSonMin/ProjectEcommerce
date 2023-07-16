@@ -6,28 +6,47 @@ const { convertFieldsToArray } = require("../utils");
 class ProductCategoryService {
   static async createProductCategory(req, res) {
     const payload = req.body;
-    const newProductCategory = await ProductCategoryModel.create(payload);
+    const { path: pathImage } = req?.file || {};
+    console.log("pathImage:::");
+    const newProductCategory = await ProductCategoryModel.create({
+      ...payload,
+      productCategory_image: pathImage,
+    });
     if (!newProductCategory) throw new BadRequestError("Create Category Error");
     return newProductCategory;
   }
 
   static async getAllProductCategories(req, res) {
     const { sort, limit, page, fields } = req.query;
-    const productCategories = await ProductCategoryRepo.getAllProductCategories(
-      { sort, limit, page, select: convertFieldsToArray(fields) }
-    );
+    const { productCategories, totalProductCategories } =
+      await ProductCategoryRepo.getAllProductCategories({
+        sort,
+        limit,
+        page,
+        select: convertFieldsToArray(fields),
+      });
     if (!productCategories.length)
       throw new NotFoundError("Not Found ProductCategories");
-    return productCategories;
+    return {
+      totalProductCategories,
+      productCategoriesPerPage: productCategories.length,
+      productCategories,
+    };
   }
 
   static async updateProductCategory(req, res) {
     const { productCategoryId } = req.params;
     const payload = req.body;
+
+    console.log("productCategoryId:::", productCategoryId);
+    const { path: pathImage } = req?.file || {};
+
+    console.log("pathImage:::", pathImage);
+
     const productCategoryUpdated =
       await ProductCategoryRepo.updateProductCategoryById({
         productCategoryId,
-        payload,
+        payload: { ...payload, productCategory_image: pathImage },
       });
     if (!productCategoryUpdated)
       throw new BadRequestError("Updated Category Error");

@@ -1,4 +1,5 @@
 const { BrandModel } = require("../models");
+const { getSelectData, skipPage, convertSortBy } = require("../utils");
 
 class BrandRepo {
   static async getBrandById({ brandId }) {
@@ -13,17 +14,22 @@ class BrandRepo {
     });
   }
 
-  static async getAllBrands({ brandName }) {
-    return await BrandModel.find().lean().exec();
+  static async getAllBrands({ sort, page, limit, select }) {
+    const [brands, totalBrands] = await Promise.all([
+      BrandModel.find()
+        .sort(convertSortBy(sort))
+        .select(getSelectData(select))
+        .skip(skipPage({ page, limit }))
+        .limit(limit)
+        .lean()
+        .exec(),
+      BrandModel.count(),
+    ]);
+
+    return { brands, totalBrands };
   }
 
   static async updateBrandById({ brandId, payload }) {
-    return await BrandModel.findByIdAndUpdate(brandId, payload, { new: true })
-      .lean()
-      .exec();
-  }
-
-  static async deleteBrandById({ brandId, payload }) {
     return await BrandModel.findByIdAndUpdate(brandId, payload, { new: true })
       .lean()
       .exec();

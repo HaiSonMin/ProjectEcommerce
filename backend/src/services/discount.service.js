@@ -1,8 +1,7 @@
-const { BadRequestError, NotFoundError } = require("../core/error.response");
 const { DiscountModel } = require("../models");
-const { discriminators } = require("../models/product.model");
 const { DiscountRepo, ProductRepo } = require("../repositories");
 const { convertOperatorObject, convertFieldsToArray } = require("../utils");
+const { BadRequestError, NotFoundError } = require("../core/error.response");
 
 class DiscountService {
   static async createDiscount(req, res) {

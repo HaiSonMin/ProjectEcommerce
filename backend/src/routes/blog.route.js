@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { BlogController } = require("../controller");
+const { BlogController } = require("../controllers");
 const {
   authentication,
   checkAuthIsAdmin,

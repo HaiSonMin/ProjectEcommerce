@@ -1,7 +1,6 @@
 ﻿const { StatusCodes } = require("http-status-codes");
 
 const errorHandlerMiddleware = function (err, req, res, next) {
-  console.log("err:::::", err);
   // Custom error
   const customError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
@@ -10,11 +9,11 @@ const errorHandlerMiddleware = function (err, req, res, next) {
   };
   // if (err instanceof CustomErrorApi) return res.status(err.statusCode).json({ message: err.message });
 
-  // Email have exist
-  // if (err.code || err.code === 11000) {
-  //   customError.message = `Duplicate email, please enter email other than ${err.keyValue?.email}`;
-  //   customError.statusCode = StatusCodes.BAD_REQUEST;
-  // }
+  // Duplicate Erro
+  if (err.code || err.code === 11000) {
+    customError.message = `Duplicate item, Please try again`;
+    customError.statusCode = StatusCodes.BAD_REQUEST;
+  }
 
   // Enter miss name, email, password
   if (err.name === "ValidationError") {
@@ -27,13 +26,12 @@ const errorHandlerMiddleware = function (err, req, res, next) {
     customError.message = `No item found with id :${err.value}`;
     customError.statusCode = StatusCodes.NOT_FOUND;
   }
-  return res
-    .status(customError.statusCode)
-    .json({
-      status: customError.statusCode,
-      error: customError.reasonStatusCode,
-      message: customError.message,
-    });
+
+  return res.status(customError.statusCode).json({
+    status: customError.statusCode,
+    error: customError.reasonStatusCode,
+    message: customError.message,
+  });
 };
 
 module.exports = errorHandlerMiddleware;

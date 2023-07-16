@@ -16,14 +16,18 @@ class ProductCategoryRepo {
     select,
     unselect,
   }) {
-    return await ProductCategoryModel.find(filter)
-      .select(getSelectData(select))
-      .select(getUnSelectData(unselect))
-      .sort(convertSortBy(sort))
-      .limit(limit)
-      .skip(skipPage({ limit, page }))
-      .lean()
-      .exec();
+    const [productCategories, totalProductCategories] = await Promise.all([
+      ProductCategoryModel.find(filter)
+        .select(getSelectData(select))
+        .select(getUnSelectData(unselect))
+        .sort(convertSortBy(sort))
+        .limit(limit)
+        .skip(skipPage({ limit, page }))
+        .lean()
+        .exec(),
+      ProductCategoryModel.count(),
+    ]);
+    return { productCategories, totalProductCategories };
   }
 
   static async getProductCategoryById({ productCategoryId }) {

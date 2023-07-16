@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { CartController } = require("../controller");
+const { CartController } = require("../controllers");
 const { authentication } = require("../middleware/checkAuth.middleware");
 
 router.use(authentication);

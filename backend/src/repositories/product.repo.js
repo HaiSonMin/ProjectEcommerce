@@ -22,8 +22,11 @@ class ProductRepository {
       .skip(skipPage({ page, limit }))
       .limit(limit)
       .sort(convertSortBy(sort))
-      .populate({ path: "product_brand", select: "brand_name" })
-      .populate({ path: "product_category", select: "category_name" })
+      .populate([
+        { path: "product_brandId", select: ["brand_name", "brand_origin"] },
+        { path: "product_categoryId", select: "productCategory_name" },
+        { path: "product_mainInfo",select:["-product_productId",'-__v'] },
+      ])
       .lean()
       .exec();
   }

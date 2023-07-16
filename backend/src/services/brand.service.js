@@ -1,12 +1,19 @@
 const { BadRequestError, NotFoundError } = require("../core/error.response");
 const { BrandModel } = require("../models");
 const { BrandRepo } = require("../repositories");
+const { convertFieldsToArray } = require("../utils");
 
 class BrandService {
   static async createBrand(req, res) {
     const payload = req.body;
-    const newBrand = await BrandModel.create(payload);
+    const { path: pathImage } = req?.file || {};
+    if (!pathImage) throw new BadRequestError("Please provide image brand");
+    const newBrand = await BrandModel.create({
+      ...payload,
+      brand_image: pathImage,
+    });
     if (!newBrand) throw new BadRequestError("Create brand error");
+
     return newBrand;
   }
 
@@ -25,15 +32,31 @@ class BrandService {
   }
 
   static async getAllBrand(req, res) {
-    const brands = await BrandRepo.getAllBrands();
-    if (!brands.length) throw new NotFoundError("Brands don't exists");
-    return brands;
+    const { sort, limit, page, fields } = req.query;
+    const { brands, totalBrands } = await BrandRepo.getAllBrands({
+      sort,
+      limit,
+      page,
+      select: convertFieldsToArray(fields),
+    });
+    // console.log("brands::::", brands);
+    // if (!brands.length) throw new NotFoundError("Brands don't exists");
+    return {
+      totalBrands,
+      brandsPerPage: brands.length,
+      brands,
+    };
   }
 
   static async updateBrand(req, res) {
-    const payload = req.body;
     const { brandId } = req.params;
-    const brandUpdated = await BrandRepo.updateBrandById({ brandId, payload });
+    const payload = req.body;
+    const pathImages = req?.file?.path;
+
+    const brandUpdated = await BrandRepo.updateBrandById({
+      brandId,
+      payload: { ...payload, brand_image: pathImages },
+    });
     if (!brandUpdated) throw new BadRequestError("Not found brand for update");
     return brandUpdated;
   }

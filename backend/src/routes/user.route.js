@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { UserController } = require("../controller");
+const { UserController } = require("../controllers");
 const { checkAuthIsUser } = require("../middleware/checkAuth.middleware");
 
 router.use(checkAuthIsUser);
