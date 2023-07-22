@@ -8,13 +8,13 @@ const RatingSchema = new Schema(
       min: [1, "Please provide rating point getter than equal 1"],
       max: [5, "Please provide rating point less than equal 5"],
     },
-    rating_productId: {
+    rating_product: {
       type: Schema.Types.ObjectId,
       ref: "Product",
       required: true,
       index: true,
     },
-    rating_userId: {
+    rating_user: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
@@ -22,6 +22,7 @@ const RatingSchema = new Schema(
     rating_description: {
       type: String,
     },
+    rating_response: String,
     rating_responseAdmin: {
       type: Schema.Types.ObjectId,
       ref: "User",

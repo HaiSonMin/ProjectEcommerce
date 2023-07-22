@@ -9,9 +9,13 @@ const ProductSchema = new Schema(
       maxlength: 50,
       trim: true,
     },
+    product_price: {
+      type: Number,
+      required: [true, "Please provide product price"],
+    },
     product_slugify: String,
     product_thumb: {
-      type: [String],
+      type: String,
       required: [true, "Please provide thumb for product"],
     },
     product_images: [String],
@@ -19,16 +23,16 @@ const ProductSchema = new Schema(
       type: [Schema.Types.ObjectId],
       ref: "ProductMainInfo",
     },
-    product_brandId: {
+    product_brand: {
       type: Schema.Types.ObjectId,
       ref: "Brand",
       required: true,
     },
-    product_categoryId: {
+    product_category: {
       type: Schema.Types.ObjectId,
       ref: "ProductCategory",
     },
-    product_ratingIds: {
+    product_ratings: {
       type: [Schema.Types.ObjectId],
       ref: "Rating",
     },

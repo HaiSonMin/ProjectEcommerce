@@ -36,6 +36,13 @@ class ProductController {
     }).send(res);
   }
 
+  static async getProductMainInfoById(req, res) {
+    new OK({
+      message: "Get Product Main Info By Id Successfully",
+      metadata: await ProductService.getProductMainInfoById(req, res),
+    }).send(res);
+  }
+
   static async getProductByNameOrDescription(req, res) {
     new OK({
       message: "Get Product By Name Or Description Successfully",
@@ -43,17 +50,24 @@ class ProductController {
     }).send(res);
   }
 
-  static async updateProductById(req, res) {
+  static async updateProductBasic(req, res) {
     new OK({
       message: "Update Product By Id Successfully",
-      metadata: await ProductService.updateProductById(req, res),
+      metadata: await ProductService.updateProductBasic(req, res),
     }).send(res);
   }
 
-  static async provideInfoProductById(req, res) {
+  static async updateProductMainInfo(req, res) {
+    new OK({
+      message: "Update Product Main Info Successfully",
+      metadata: await ProductService.updateProductMainInfo(req, res),
+    }).send(res);
+  }
+
+  static async provideInfoProduct(req, res) {
     new OK({
       message: "Provide Info Product By Id Successfully",
-      metadata: await ProductService.provideInfoProductById(req, res),
+      metadata: await ProductService.provideInfoProduct(req, res),
     }).send(res);
   }
 
@@ -61,6 +75,13 @@ class ProductController {
     new OK({
       message: "Delete Product By Id Successfully",
       metadata: await ProductService.deleteProductById(req, res),
+    }).send(res);
+  }
+
+  static async deleteProductMainInfo(req, res) {
+    new OK({
+      message: "Delete Product Main Info Successfully",
+      metadata: await ProductService.deleteProductMainInfo(req, res),
     }).send(res);
   }
 }

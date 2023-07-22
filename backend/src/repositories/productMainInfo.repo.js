@@ -1,5 +1,27 @@
 const { ProductMainInfoModel } = require("../models");
+const { convertToMongoObjectId } = require("../utils");
 class ProductMainInfoRepo {
+  static async getProductMainInfoById(productMainInfoId) {
+    return await ProductMainInfoModel.findById(
+      convertToMongoObjectId(productMainInfoId)
+    ).exec();
+  }
+
+  static async getAllProductsWithFilter({
+    filter,
+    page = 1,
+    limit = 10,
+    select,
+    unselect,
+    sort,
+  }) {
+    const products = await ProductMainInfoModel.find(filter)
+      .select("product_productId")
+      .lean()
+      .exec();
+    return products;
+  }
+
   static async getProductMainInfoByProductId({ productId }) {
     return await ProductMainInfoModel.find({ product_productId: productId })
       .select({ __v: -1 })
@@ -7,18 +29,9 @@ class ProductMainInfoRepo {
       .exec();
   }
 
-  static async updateProductMainInfo({
-    productId,
-    product_rom,
-    product_ram,
-    payload,
-  }) {
-    return await ProductMainInfoModel.findOneAndUpdate(
-      {
-        product_rom,
-        product_ram,
-        product_productId: productId,
-      },
+  static async updateProductMainInfo({ productMainInfoId, payload }) {
+    return await ProductMainInfoModel.findByIdAndUpdate(
+      productMainInfoId,
       payload,
       { new: true }
     )
@@ -30,12 +43,8 @@ class ProductMainInfoRepo {
     await ProductMainInfoModel.deleteMany({ product_productId: productId });
   }
 
-  static async deleteProductMainInfo({ productId, product_ram, product_rom }) {
-    return await ProductMainInfoModel.findOneAndDelete({
-      product_productId: productId,
-      product_ram,
-      product_rom,
-    })
+  static async deleteProductMainInfo(productMainInfoId) {
+    return await ProductMainInfoModel.findByIdAndDelete(productMainInfoId)
       .lean()
       .exec();
   }

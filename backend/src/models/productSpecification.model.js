@@ -8,25 +8,22 @@ const ProductSpecificationScheme = new Schema({
     index: true,
   },
   specification_processor: {
-    type: [String],
+    type: String,
   },
   specification_graphic: {
     type: String,
   },
-  specification_ram: {
-    type: [String],
-  },
   specification_communication: {
-    type: [String],
+    type: String,
   },
   specification_rearCamera: {
-    type: [String],
+    type: String,
   },
   specification_frontCamera: {
-    type: [String],
+    type: String,
   },
   specification_design: {
-    type: [String],
+    type: String,
   },
   specification_weight: {
     type: String,
@@ -35,13 +32,13 @@ const ProductSpecificationScheme = new Schema({
     type: Date,
   },
   specification_chargingTechnology: {
-    type: [String],
+    type: String,
   },
   specification_otherParameter: {
-    type: [String],
+    type: String,
   },
   specification_otherUtilities: {
-    type: [String],
+    type: String,
   },
 });
 

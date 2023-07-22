@@ -5,6 +5,14 @@ const { cloudinary } = require("../configs");
 // Lodash
 const getInfoData = (object = {}, field = []) => lodash.pick(object, field);
 
+function checkStringType(inputString) {
+  if (/^\d+$/.test(inputString)) {
+    return "number";
+  } else {
+    return "string";
+  }
+}
+
 // Token
 const verifyToken = ({ token, key }) => JWT.verify(token, key);
 
@@ -32,7 +40,7 @@ const getSelectData = (select = []) =>
 const getUnSelectData = (select = []) =>
   Object.fromEntries(select.map((el) => [el, 0]));
 
-const skipPage = ({ page, limit }) => (page - 1) * limit;
+const skipPage = ({ page, limit }) => (+page - 1) * +limit;
 
 // [_id, -1] => {_id:-1}
 const convertSortBy = (sort) =>
@@ -47,9 +55,10 @@ const convertSortBy = (sort) =>
 
 const excludeFields = () => ["sort", "limit", "page", "filter"];
 
-const getOptionOperator = (option = []) => option;
+const getOptionsOperator = (options = []) => options;
 
-const convertOperatorObject = ({ option = [], numericFilters = "" }) => {
+// Not Nested
+const convertOperatorObject = ({ options = [], numericFilters = "" }) => {
   const queryObject = {};
 
   const operatorMap = {
@@ -59,17 +68,49 @@ const convertOperatorObject = ({ option = [], numericFilters = "" }) => {
     "[lte]": "$lte",
     "[eq]": "$eq",
   };
+  // product_price[gt]1000 => product_price-&gt-1000
   const regEx = /\b(\[gt\]|\[gte\]|\[lt\]|\[lte\]|\[eq\])\b/g;
   let filterOperator = numericFilters.replace(
     regEx,
     (match) => `-${operatorMap[`${match}`]}-`
   );
+
   filterOperator.split(",").forEach((item) => {
+    // [product_price , $gt , 1000]
     const [field, operator, value] = item.split("-");
-    if (option.includes(field)) queryObject[field] = { [operator]: +value };
+    if (options.includes(field)) queryObject[field] = { [operator]: +value };
   });
   return queryObject;
 };
+// Have Nested
+// const convertOperatorObject = ({ options = [], numericFilters = "" }) => {
+//   const queryObject = {};
+
+//   const operatorMap = {
+//     "[gt]": "$gt",
+//     "[gte]": "$gte",
+//     "[lt]": "$lt",
+//     "[lte]": "$lte",
+//     "[eq]": "$eq",
+//   };
+//   // product_price[gt]1000 => product_price-&gt-1000
+//   const regEx = /\b(\[gt\]|\[gte\]|\[lt\]|\[lte\]|\[eq\])\b/g;
+//   let filterOperator = numericFilters.replace(
+//     regEx,
+//     (match) => `-${operatorMap[`${match}`]}-`
+//   );
+
+//   if (filterOperator)
+//     filterOperator.split(",").forEach((item) => {
+//       // [product_price , $gt , 1000]
+//       const [field, operator, value] = item.split("-");
+//       const fieldExecute = options.find((option) => option.includes(field));
+//       console.log(fieldExecute);
+//       if (fieldExecute) queryObject[fieldExecute] = { [operator]: +value };
+//     });
+//   console.log("queryObject::::", queryObject);
+//   return queryObject;
+// };
 
 const uploadOneImage = (fieldName) => cloudinary.single(fieldName);
 const uploadMultiImages = (fieldName, maxCount) =>
@@ -77,15 +118,18 @@ const uploadMultiImages = (fieldName, maxCount) =>
 const uploadMultiFieldsImages = (fields) => cloudinary.fields(fields);
 
 const getImagesPath = (images) => images.map((img) => img.path);
-const getFieldsPath = (fieldsImage) => {
+
+const getFieldsPath = (fieldsImage = []) => {
   let fieldsPath = {};
   for (const [keys, value] of Object.entries(fieldsImage)) {
     fieldsPath[keys] = value.map((v) => v.path);
   }
+  // [{key:value}, {key:value}]
   return fieldsPath;
 };
 
 module.exports = {
+  checkStringType,
   skipPage,
   convertSortBy,
   getInfoData,
@@ -95,7 +139,7 @@ module.exports = {
   saveTokenCookie,
   deleteTokenCookie,
   excludeFields,
-  getOptionOperator,
+  getOptionsOperator,
   convertOperatorObject,
   convertToMongoObjectId,
   convertFieldsToArray,

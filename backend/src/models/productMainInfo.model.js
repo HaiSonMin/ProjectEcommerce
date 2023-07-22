@@ -38,7 +38,11 @@ const ProductMainInfoSchema = new Schema({
     default: 0,
   },
   product_imageColor: {
-    type: [String],
+    type: String,
+    required: true,
+  },
+  product_colorCode: {
+    type: String,
     required: true,
   },
   product_priceAppliedDiscount: {
