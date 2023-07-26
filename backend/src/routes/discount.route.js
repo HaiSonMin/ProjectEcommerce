@@ -3,7 +3,7 @@ const router = express.Router();
 const { DiscountController } = require("../controllers");
 const { checkAuthIsAdmin } = require("../middleware/checkAuth.middleware");
 
-router.use(checkAuthIsAdmin)
+// router.use(checkAuthIsAdmin)
 router.route("/create").post(DiscountController.createDiscount);
 
 router.route("/getAll").get(DiscountController.getAllDiscounts);
@@ -13,6 +13,8 @@ router.route("/getAllAvailable").get(DiscountController.getDiscountsAvailable);
 router.route("/getAllUnavailable").get(DiscountController.getDiscountsUnavailable);
 router.route("/getAllPercentage").get(DiscountController.getAllDiscountsPercentage);
 router.route("/getAllFixedAmount").get(DiscountController.getAllDiscountsFixedAmount);
+
+// Belong to product
 router.route("/getAllProductsWithDiscount/:discountId").get(DiscountController.getAllProductsWithDiscount);
 router.route("/getAllProductsWithoutDiscount/:discountId").get(DiscountController.getAllProductsWithoutDiscount);
 

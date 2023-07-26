@@ -12,35 +12,79 @@ class DiscountRepo {
     sort,
     page = 1,
     limit = 10,
+    status,
     filter,
     select,
     unSelect,
   }) {
-    return await DiscountModel.find(filter)
-      .select(getSelectData(select))
-      .select(getUnSelectData(unSelect))
-      .skip(skipPage({ limit, page }))
-      .sort(convertSortBy(sort))
-      .limit(limit)
-      .lean()
-      .exec();
+    console.log(filter);
+    let statusGet = {};
+    if (status === "expired")
+      statusGet = { discount_endDate: { $lt: Date.now() } };
+    if (status === "available")
+      statusGet = { discount_endDate: { $gte: Date.now() } };
+    const [discounts, totalDiscounts] = await Promise.all([
+      DiscountModel.find({ ...filter, ...statusGet })
+        .select(getSelectData(select))
+        .select(getUnSelectData(unSelect))
+        .skip(skipPage({ limit, page }))
+        .sort(convertSortBy(sort))
+        .limit(limit)
+        .lean()
+        .exec(),
+      DiscountModel.countDocuments({ ...filter, ...statusGet }),
+    ]);
+    return { discounts, totalDiscounts };
   }
-
 
   static async getDiscountById({ discountId }) {
     return await DiscountModel.findById(discountId).exec();
   }
 
-  static async getDiscountsAvailable() {
-    return await DiscountModel.find({
-      discount_endDate: { $gte: Date.now() },
-    });
+  static async getDiscountsAvailable({
+    sort,
+    page = 1,
+    limit = 10,
+    select,
+    unSelect,
+  }) {
+    const [discounts, totalDiscounts] = await Promise.all([
+      DiscountModel.find({
+        discount_endDate: { $gte: Date.now() },
+      })
+        .select(getSelectData(select))
+        .select(getUnSelectData(unSelect))
+        .skip(skipPage({ limit, page }))
+        .sort(convertSortBy(sort))
+        .limit(limit)
+        .lean()
+        .exec(),
+      DiscountModel.count(),
+    ]);
+    return { discounts, totalDiscounts };
   }
 
-  static async getDiscountsUnavailable() {
-    return await DiscountModel.find({
-      discount_endDate: { $lt: Date.now() },
-    });
+  static async getDiscountsUnavailable({
+    sort = "ctime",
+    page = 1,
+    limit = 10,
+    select,
+    unSelect,
+  }) {
+    const [discounts, totalDiscounts] = await Promise.all([
+      DiscountModel.find({
+        discount_endDate: { $lt: Date.now() },
+      })
+        .select(getSelectData(select))
+        .select(getUnSelectData(unSelect))
+        .skip(skipPage({ limit, page }))
+        .sort(convertSortBy(sort))
+        .limit(limit)
+        .lean()
+        .exec(),
+      DiscountModel.count(),
+    ]);
+    return { discounts, totalDiscounts };
   }
 
   static async searchDiscount({
@@ -52,18 +96,22 @@ class DiscountRepo {
     keySearch,
   }) {
     const regexSearch = new RegExp(keySearch, "i");
-    return await DiscountModel.find({
-      $text: {
-        $search: regexSearch,
-      },
-    })
-      .select(getSelectData(select))
-      .select(getUnSelectData(unSelect))
-      .skip(skipPage({ limit, page }))
-      .sort(convertSortBy(sort))
-      .limit(limit)
-      .lean()
-      .exec();
+    const [discounts, totalDiscounts] = await Promise.all([
+      DiscountModel.find({
+        $text: {
+          $search: regexSearch,
+        },
+      })
+        .select(getSelectData(select))
+        .select(getUnSelectData(unSelect))
+        .skip(skipPage({ limit, page }))
+        .sort(convertSortBy(sort))
+        .limit(limit)
+        .lean()
+        .exec(),
+      DiscountModel.count(),
+    ]);
+    return { discounts, totalDiscounts };
   }
 
   static async updateDiscount({ discountId, payload }) {

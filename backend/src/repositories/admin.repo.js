@@ -1,16 +1,22 @@
-const { convertObjectIdMongo } = require("../utils");
+const { convertObjectIdMongo, skipPage, convertSortBy } = require("../utils");
 const { UserModel } = require("../models");
 const { getSelectData, getUnSelectData } = require("../utils/index");
 
 class AdminRepository {
-  static async getAllUsers({ filter, page = 1, limit = 10, select }) {
-    const skip = (page - 1) * limit;
-    return await UserModel.find(filter)
-      .select(getSelectData(select))
-      .skip(skip)
-      .limit(limit)
-      .lean()
-      .exec();
+  static async getAllUsers({ sort, page = 1, limit = 10, status, keySearch }) {
+    let statusGet = {};
+    if (status === "blocking") statusGet = { user_isBlocking: true };
+    if (status === "unBlocking") statusGet = { user_isBlocking: false };
+    const [users, totalUsers] = await Promise.all([
+      UserModel.find({ ...statusGet })
+        .skip(skipPage({ limit, page }))
+        .sort(convertSortBy(sort))
+        .limit(limit)
+        .lean()
+        .exec(),
+      UserModel.countDocuments({ ...statusGet }),
+    ]);
+    return { users, totalUsers };
   }
 
   static async getUserById({ userId, select }) {
@@ -20,29 +26,26 @@ class AdminRepository {
       .exec();
   }
 
-  static async getUsersByEmailOrUserName({
-    keySearch,
-    page = 1,
-    limit = 10,
-    select,
-  }) {
-    const skip = (page - 1) * limit;
+  static async searchUser({ keySearch, page = 1, limit = 10, sort }) {
     const regexSearch = new RegExp(keySearch, "i");
 
-    return await UserModel.find(
-      {
-        user_role: "USER",
+    const [users, totalUsers] = await Promise.all([
+      UserModel.find({
         $text: { $search: regexSearch },
-      },
-      { score: { $meta: "textScore" } }
-    )
-      .sort({ score: { $meta: "textScore" } })
-      .select(getSelectData(select))
-      .select(getUnSelectData(["score"]))
-      .skip(skip)
-      .limit(limit)
-      .lean()
-      .exec();
+      })
+        .sort({ score: { $meta: "textScore" }, ...convertSortBy(sort) })
+        .skip(skipPage({ page, limit }))
+        .limit(limit)
+        .lean()
+        .exec(),
+      UserModel.countDocuments({ $text: { $search: regexSearch } }),
+    ]);
+
+    return { users, totalUsers };
+  }
+
+  static async updateUserById({ userId, payload }) {
+    return await UserModel.findByIdAndUpdate(userId, payload, { new: true }).exec();
   }
 
   static async blockUserById({ userId }) {
@@ -74,9 +77,7 @@ class AdminRepository {
   }
 
   static async deleteUserById({ userId }) {
-    return await UserModel.findByIdAndDelete(convertObjectIdMongo(userId))
-      .lean()
-      .exec();
+    return await UserModel.findByIdAndDelete(userId).lean().exec();
   }
 }
 

@@ -28,42 +28,33 @@ const UserSchema = new Schema(
         ,
         "Please provide valid email",
       ],
-      unique: true,
+      unique: [true, "Email has exist"],
       required: [true, "Please provide email"],
       maxlength: 50,
     },
     user_password: {
       type: String,
       required: [true, "Please provide user password"],
+      select: false,
     },
     user_role: {
       type: String,
-      enum: ["USER", "ADMIN"],
+      enum: ["USER", "WRITER", "READER", "ADMIN"],
       default: "USER",
     },
     user_phoneNumber: {
       type: String,
-      // unique: [true, "Phone number has exist"],
-      maxlength: 20,
+      unique: [true, "Phone number has exist"],
+      required: true,
+      maxlength: 13,
     },
     user_address: {
-      type: [Schema.Types.ObjectId],
+      type: Schema.Types.ObjectId,
       ref: "Address",
-    },
-    user_wishList: {
-      type: [Schema.Types.ObjectId],
-      ref: "WistList",
     },
     user_isBlocking: {
       type: Boolean,
       default: false,
-    },
-    user_ratingPoint: {
-      type: Number,
-      default: 4,
-      min: [1, "Rating must be getter than 1"],
-      max: [5, "Rating must be less then 5"],
-      set: (val) => Math.round((val * 10) / 10),
     },
     user_passwordResetSecretKey: {
       type: String,
@@ -79,7 +70,10 @@ const UserSchema = new Schema(
   }
 );
 
-UserSchema.index({ user_email: "text", user_userName: "text" });
+UserSchema.index({
+  user_email: "text",
+  user_userName: "text",
+});
 
 UserSchema.pre("save", async function (next) {
   this.user_password = await bcrypt.hash(this.user_password, 10);

@@ -42,9 +42,8 @@ const getUnSelectData = (select = []) =>
 
 const skipPage = ({ page, limit }) => (+page - 1) * +limit;
 
-// [_id, -1] => {_id:-1}
-const convertSortBy = (sort) =>
-  sort &&
+// [_id, asc] => {_id:1}, [name, asc] => {name:1},
+const convertSortBy = (sort = "ctime") =>
   Object.fromEntries(
     sort.split(",").map((el) => {
       if (el === "ctime") return ["_id", -1];

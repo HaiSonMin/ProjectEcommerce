@@ -14,45 +14,30 @@ const { createTokenPair, createKeys } = require("../utils/token.utils");
 
 class AuthService {
   static async register(req, res) {
-    const {
-      user_firstName,
-      user_lastName,
-      user_userName,
-      user_email,
-      user_password,
-      reconfirmPassword,
-    } = req.body;
-    console.log(req.body);
-    if (user_password !== reconfirmPassword)
+    const payload = req.body;
+    if (payload.user_password !== payload.reconfirmPassword)
       throw new BadRequestError("Password and reconfirmPassword don't match");
 
-    const findUserByEmail = await UserModel.findOne({ user_email })
-      .lean()
-      .exec();
+    // const findUserByEmail = await UserModel.findOne({ user_email })
+    //   .lean()
+    //   .exec();
 
-    if (findUserByEmail) throw new BadRequestError("Email has exist");
+    // if (findUserByEmail) throw new BadRequestError("Email has exist");
 
-    const findUserByUserName = await UserModel.findOne({ user_userName })
-      .lean()
-      .exec();
-    if (findUserByUserName) throw new BadRequestError("User Name has exit");
+    // const findUserByUserName = await UserModel.findOne({ user_userName })
+    //   .lean()
+    //   .exec();
+    // if (findUserByUserName) throw new BadRequestError("User Name has exit");
 
-    const newUser = await UserModel.create({
-      user_firstName,
-      user_lastName,
-      user_userName,
-      user_email,
-      user_password,
-    });
+    const newUser = await UserModel.create(payload);
     // if (!newUser) throw new BadRequestError("Register User Error");
-    return {
-      newUser: getInfoData(newUser, [
-        "user_firstName",
-        "user_lastName",
-        "user_userName",
-        "user_email",
-      ]),
-    };
+    return getInfoData(newUser, [
+      "user_firstName",
+      "user_lastName",
+      "user_userName",
+      "user_email",
+      "user_phoneNumber",
+    ]);
   }
 
   static async login(req, res) {

@@ -12,11 +12,13 @@ class DiscountService {
   }
 
   static async getAllDiscounts(req, res) {
-    const { sort, limit, page, fields, unFields, numericFilters } = req.query;
-    const discounts = await DiscountRepo.getAllDiscounts({
+    const { sort, limit, page, status, fields, unFields, numericFilters } =
+      req.query;
+    const { discounts, totalDiscounts } = await DiscountRepo.getAllDiscounts({
       sort,
       page,
       limit,
+      status,
       filter: {
         ...convertOperatorObject({
           numericFilters,
@@ -26,9 +28,9 @@ class DiscountService {
       select: convertFieldsToArray(fields),
       unSelect: convertFieldsToArray(unFields),
     });
-    if (!discounts.length) throw new NotFoundError("Discount haven't exists");
     return {
-      numberDiscount: discounts.length,
+      totalDiscounts,
+      discountPerPage: discounts.length,
       discounts,
     };
   }
@@ -87,29 +89,33 @@ class DiscountService {
   }
 
   static async searchDiscount(req, res) {
-    const { keySearch } = req.body;
-    const discounts = await DiscountRepo.searchDiscount({ keySearch });
-    if (!discounts.length) throw new NotFoundError("Discount haven't exists");
+    const { keySearch } = req.query;
+    const { discounts, totalDiscounts } = await DiscountRepo.searchDiscount({
+      keySearch,
+    });
     return {
-      numberDiscount: discounts.length,
+      totalDiscounts,
+      discountPerPage: discounts.length,
       discounts,
     };
   }
 
   static async getDiscountsAvailable(req, res) {
-    const discounts = await DiscountRepo.getDiscountsAvailable();
-    if (!discounts.length) throw new NotFoundError("Discount haven't exist");
+    const { discounts, totalDiscounts } =
+      await DiscountRepo.getDiscountsAvailable();
     return {
-      numberDiscount: discounts.length,
+      totalDiscounts,
+      discountPerPage: discounts.length,
       discounts,
     };
   }
 
   static async getDiscountsUnavailable(req, res) {
-    const discounts = await DiscountRepo.getDiscountsUnavailable();
-    if (!discounts.length) throw new NotFoundError("Discount haven't exist");
+    const { discounts, totalDiscounts } =
+      await DiscountRepo.getDiscountsUnavailable();
     return {
-      numberDiscount: discounts.length,
+      totalDiscounts,
+      discountPerPage: discounts.length,
       discounts,
     };
   }
@@ -255,8 +261,6 @@ class DiscountService {
     );
     return discountDeleted;
   }
-
-  static async updateProductPriceWhenDiscountExpired(req, res) {}
 
   static async deleteAllDiscountsUnAvailable(req, res) {
     await DiscountRepo.deleteAllDiscountsUnAvailable();

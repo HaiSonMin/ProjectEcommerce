@@ -6,6 +6,7 @@ const DiscountSchema = new Schema(
     discount_name: {
       type: String,
       required: true,
+      unique: true,
     },
     discount_code: {
       type: String,
@@ -50,9 +51,9 @@ DiscountSchema.pre("save", function (next) {
     throw new BadRequestError(
       "Value not correct with type discount, value must be (1 <= value <= 100), please try again"
     );
-  if (this.discount_type === "fixed_amount" && this.discount_value < 5)
+  if (this.discount_type === "fixed_amount" && this.discount_value < 1)
     throw new BadRequestError(
-      "Value not correct with type discount, value must be (value >= 5), please try again"
+      "Value not correct with type discount, value must be (value >= 1), please try again"
     );
   next();
 });
