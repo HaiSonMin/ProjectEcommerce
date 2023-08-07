@@ -4,8 +4,7 @@ import { UseMutateFunction } from "@tanstack/react-query";
 import {
   IProductCreate,
   IProductMainInfo,
-  IProductUpdateBasic,
-} from "@/interfaces/product.interface";
+} from "@/interfaces/product/product.interface";
 
 /**
  *  ------- available -------
@@ -43,6 +42,11 @@ export interface IProductGetAllResultApi extends IApi {
     | undefined;
 }
 
+export interface IProductSearchResultApi
+  extends Omit<IProductGetAllResultApi, "isGettingProducts"> {
+  isSearchingProducts: boolean;
+}
+
 export interface IProductCreateResultApi extends IApi {
   isCreatingProduct: boolean;
   metadata: IProduct | undefined;
@@ -58,7 +62,7 @@ export interface IProductProvideMainInfoResultApi extends IApi {
 export interface IProductUpdateBasicResultApi extends IApi {
   isUpdatingProduct: boolean;
   metadata: IProduct | undefined;
-  updateProductBasic: UseMutateFunction<IApi, any, IProductUpdateBasic>;
+  updateProductBasic: UseMutateFunction<IApi, any, Partial<IProduct>>;
 }
 
 export interface IProductMainInfoUpdateResultApi extends IApi {

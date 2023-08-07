@@ -58,14 +58,14 @@ const CloseButton = styled.button`
 `;
 
 type TypeContext = {
-  open: React.Dispatch<React.SetStateAction<string>>;
+  open: any;
   close: () => void;
   openName: string;
 };
 
 const initialize: TypeContext = {
-  open: null,
-  close: null,
+  open: "",
+  close: () => {},
   openName: "",
 };
 

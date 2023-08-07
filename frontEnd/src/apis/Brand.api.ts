@@ -1,25 +1,22 @@
+import { CONSTANT, http, getErrorMessage, resultAppendFormData } from "@/utils";
+import IArgsQuery from "@/helpers/IArgsQuery";
+import { IBrand } from "@/interfaces";
 import {
-  CONSTANT,
-  getErrorMessage,
-  http,
-  resultAppendFormData,
-} from "../utils";
-import { TypeArgsQuery } from "../helpers/TypeArgsQuery";
-import { BrandType } from "../featureTypes";
-import {
-  ITypeBrandResultCreate,
-  ITypeBrandResultGetAll,
-} from "apiTypes/IBrandResultApi";
+  IBrandCreateResultApi,
+  IBrandDeleteResultApi,
+  IBrandGetAllResultApi,
+  IBrandUpdateResultApi,
+} from "@/api-types/IBrandResultApi";
 
 class BrandApi {
-  async createBrand(args: Omit<BrandType, "_id">) {
+  async createBrand(args: Omit<IBrand, "_id">) {
     try {
       const response = await http.postForm(
         `${CONSTANT.PATH_V1_API.brand}/create`,
         resultAppendFormData(args)
       );
       const result: Omit<
-        ITypeBrandResultCreate,
+        IBrandCreateResultApi,
         "isCreatingBrand" | "createBrand"
       > = response.data;
       return result;
@@ -28,21 +25,9 @@ class BrandApi {
     }
   }
 
-  async getBrand(arg: Pick<BrandType, "_id">) {
-    const response = await http.get(
-      `${CONSTANT.PATH_V1_API.brand}/getById/${arg._id}`
-    );
-    const result: Omit<ITypeBrandResultCreate, "isGettingBrand"> =
-      response.data;
-
-    return result;
-  }
-
-  async getAllBrands(
-    fieldsQuery: Omit<TypeArgsQuery, "unFields" | "numericFilters">
-  ) {
+  async getAllBrands(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get("v1/brand/getAll", {
+      const response = await http.get(`${CONSTANT.PATH_V1_API.brand}/getAll`, {
         params: {
           sort: fieldsQuery.sort,
           page: fieldsQuery.page,
@@ -50,8 +35,7 @@ class BrandApi {
           fields: fieldsQuery.fields,
         },
       });
-      console.log(response);
-      const result: Omit<ITypeBrandResultGetAll, "isGettingBrand"> =
+      const result: Omit<IBrandGetAllResultApi, "isGettingBrand"> =
         response.data;
       return result;
     } catch (error: any) {
@@ -59,25 +43,25 @@ class BrandApi {
     }
   }
 
-  async updateBrand(args: BrandType) {
+  async updateBrand(args: IBrand) {
     const response = await http.patchForm(
       `${CONSTANT.PATH_V1_API.brand}/update/${args._id}`,
       resultAppendFormData(args)
     );
     const result: Omit<
-      ITypeBrandResultCreate,
+      IBrandUpdateResultApi,
       "isUpdatingBrand" | "updateBrand"
     > = response.data;
     return result;
   }
 
-  async deleteBrand(arg: Pick<BrandType, "_id">) {
+  async deleteBrand(arg: Pick<IBrand, "_id">) {
     try {
       const response = await http.delete(
         `${CONSTANT.PATH_V1_API.brand}/delete/${arg._id}`
       );
       const result: Omit<
-        ITypeBrandResultCreate,
+        IBrandDeleteResultApi,
         "isDeletingBrand" | "deleteBrand"
       > = response.data;
       return result;

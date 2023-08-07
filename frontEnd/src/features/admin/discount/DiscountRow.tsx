@@ -6,7 +6,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { BsEye } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-import { formatCurrency, formatDistanceFromNow } from "@/utils";
+import { formatCurrencyVND, formatDistanceFromNow } from "@/utils";
 import { format, isToday } from "date-fns";
 import Tag from "@/components/Tag";
 import { MdAddLink } from "react-icons/md";
@@ -67,7 +67,7 @@ export default function DiscountRow(props: IProps) {
       <DiscountValue>
         {props.discount.discount_type === "percentage"
           ? props.discount.discount_value + "%"
-          : formatCurrency(props.discount.discount_value)}
+          : formatCurrencyVND(props.discount.discount_value)}
       </DiscountValue>
       <Stacked>
         <span>
@@ -91,7 +91,7 @@ export default function DiscountRow(props: IProps) {
             </Menus.Button>
             <Menus.Button
               icon={<CiEdit />}
-              onClick={() => navigate(`editDiscount/${props.discount._id}`)}
+              onClick={() => navigate(`update/${props.discount._id}`)}
             >
               Edit discount
             </Menus.Button>

@@ -8,10 +8,11 @@ import { AiOutlineHome } from "react-icons/ai";
 import { RiCoupon2Line } from "react-icons/ri";
 import { FiShoppingCart, FiSettings } from "react-icons/fi";
 import { FaRegGrinStars } from "react-icons/fa";
-import { BsPatchQuestion } from "react-icons/bs";
+import { BsPatchQuestion,BsFillPostcardHeartFill } from "react-icons/bs";
 import { PiUsersFourDuotone } from "react-icons/pi";
 import { HiMiniDevicePhoneMobile } from "react-icons/hi2";
 import { BiCategory, BiSolidDiscount } from "react-icons/bi";
+
 
 const MainNavList = styled.ul`
   display: flex;
@@ -60,7 +61,6 @@ const NavLinkStyled = styled(NavLink)`
     color: var(--color-indigo-700);
     font-weight: 600;
   }
-
 `;
 
 const MainNavAdmin = () => {
@@ -87,12 +87,18 @@ const MainNavAdmin = () => {
       </li>
 
       <li>
+        <NavLinkStyled to={CONSTANT.PATH_ADMIN.demand}>
+          <BsFillPostcardHeartFill />
+          <span>Demand</span>
+        </NavLinkStyled>
+      </li>
+
+      <li>
         <NavLinkStyled to={CONSTANT.PATH_ADMIN.product}>
           <HiMiniDevicePhoneMobile />
           <span>Product</span>
         </NavLinkStyled>
       </li>
-
       <li>
         <NavLinkStyled to={CONSTANT.PATH_ADMIN.discount}>
           <BiSolidDiscount />
@@ -121,7 +127,7 @@ const MainNavAdmin = () => {
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.dashboard}>
+        <NavLinkStyled to={CONSTANT.PATH_ADMIN.order}>
           <FiShoppingCart />
           <span>Order</span>
         </NavLinkStyled>

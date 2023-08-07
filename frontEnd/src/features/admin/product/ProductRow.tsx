@@ -3,9 +3,9 @@ import { BsEye } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { styled } from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { formatCurrency } from "../../../utils";
-import { IProductType } from "../../../featureTypes";
-import { ConfirmDelete, Menus, Modal, Table } from "../../../components";
+import { formatCurrencyVND } from "@/utils";
+import { IProduct } from "@/interfaces";
+import { ConfirmDelete, Menus, Modal, Table } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { AiFillFileAdd } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
@@ -43,7 +43,7 @@ const ProductPrice = styled.div`
 
 interface IProps {
   key: React.Key;
-  product: IProductType;
+  product: IProduct;
 }
 
 export default function ProductRow(props: IProps) {
@@ -53,17 +53,17 @@ export default function ProductRow(props: IProps) {
     <Table.Row>
       <Img src={props.product.product_thumb} alt={props.product.product_name} />
       <ProductName>{props.product.product_name}</ProductName>
-      <ProductBrand>{props.product.brand[0]?.brand_name}</ProductBrand>
+      <ProductBrand>{props?.product.brand?.[0]?.brand_name}</ProductBrand>
       <ProductCategory>
-        {props.product.category[0]?.productCategory_name}
+        {props?.product.category?.[0]?.productCategory_name}
       </ProductCategory>
       <ProductPrice>
-        {formatCurrency(+props.product.product_price)}
+        {formatCurrencyVND(+props.product.product_price)}
       </ProductPrice>
       <Modal>
         <Menus.Menu>
-          <Menus.ToggleButton id={props.product._id} />
-          <Menus.List id={props.product._id}>
+          <Menus.ToggleButton id={props.product._id || ""} />
+          <Menus.List id={props.product._id || ""}>
             <Menus.Button
               icon={<BsEye />}
               onClick={() => navigate(`detail/${props.product._id}`)}
@@ -78,13 +78,13 @@ export default function ProductRow(props: IProps) {
             </Menus.Button>
             <Menus.Button
               icon={<CiEdit />}
-              onClick={() => navigate(`editBasic/${props.product._id}`)}
+              onClick={() => navigate(`updateBasic/${props.product._id}`)}
             >
               Edit Product Basic
             </Menus.Button>
             <Menus.Button
               icon={<BiEdit />}
-              onClick={() => navigate(`editMainInfo/${props.product._id}`)}
+              onClick={() => navigate(`updateMainInfo/${props.product._id}`)}
             >
               Edit Product MainInfo
             </Menus.Button>

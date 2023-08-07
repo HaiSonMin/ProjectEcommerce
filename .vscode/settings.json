@@ -1,11 +1,19 @@
 {
     "cSpell.words": [
+        "antd",
         "cloudinary",
+        "datepicker",
         "Ecommerce",
+        "imgs",
+        "jodit",
         "keytoken",
         "maxlength",
+        "productcategories",
+        "productmaininfos",
+        "reduxjs",
         "tanstack",
         "tivi",
         "virtuals"
-    ]
+    ],
+    "DockerRun.DisableDockerrc": true
 }

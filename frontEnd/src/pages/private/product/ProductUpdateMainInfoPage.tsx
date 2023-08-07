@@ -1,11 +1,8 @@
-import { IProductMainInfoType } from "featureTypes/IProductType";
-import { Heading, Spinner } from "../../../components";
-import {
-  ProductMainInfo,
-  ProductMainInfoForm,
-} from "../../../features/admin/product";
-import UseProductApi from "../../../features/admin/product/UseProductApi";
 import { styled } from "styled-components";
+import { Heading, Spinner } from "@/components";
+import { ProductMainInfo } from "@/features/admin/product";
+import { IProductMainInfo } from "@/interfaces/product/product.interface";
+import UseProductApi from "@/features/admin/product/UseProductApi";
 
 const StyledGroupProductCard = styled.div`
   display: flex;
@@ -14,8 +11,8 @@ const StyledGroupProductCard = styled.div`
 
 export default function ProductUpdateMainInfoPage() {
   const { isGettingProduct, metadata } = UseProductApi.getProductById();
-  const productMainInfos: Array<IProductMainInfoType> =
-    metadata?.product_mainInfo;
+  const productMainInfos: Array<IProductMainInfo> =
+    metadata?.product_mainInfo || [];
   console.log(productMainInfos);
   if (isGettingProduct) return <Spinner />;
   return (

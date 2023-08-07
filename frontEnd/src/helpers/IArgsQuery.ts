@@ -3,7 +3,7 @@ export default interface IArgsQuery {
   page: number;
   limit: number;
   status: string;
-  fields: string| undefined;
+  fields: string | undefined;
   unFields: string | undefined;
   keySearch: string | undefined;
   numericFilters: string | undefined;

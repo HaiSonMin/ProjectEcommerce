@@ -20,8 +20,8 @@ const GlobalStyles = createGlobalStyle`
   --color-blue-700: #0369a1;
   --color-green-100: #dcfce7;
   --color-green-700: #15803d;
-  --color-yellow-100: #fef9c3;
-  --color-yellow-700: #a16207;
+  --color-yellow-100: #383624;
+  --color-yellow-700: #f0ff2b;
   --color-silver-100: #e5e7eb;
   --color-silver-700: #374151;
   --color-indigo-100: #e0e7ff;
@@ -30,12 +30,19 @@ const GlobalStyles = createGlobalStyle`
   --color-red-100: #fee2e2;
   --color-red-700: #b91c1c;
   --color-red-800: #991b1b;
+  --color-primary: #d70018;
+  --color-primary-light: #e4a3a38f;
+  --color-secondary: #e9e9e9;
+  --color-text: #777;
+
 
   --backdrop-color: rgba(255, 255, 255, 0.1);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
+  --shadow-arrow: 0 1px 2px 0 rgba(60, 64, 67, 0.1), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+    
 
     --image-grayscale: 0;
     --image-opacity: 100%;
@@ -66,6 +73,7 @@ const GlobalStyles = createGlobalStyle`
     --color-indigo-700: #e0e7ff;
 
     --color-red-100: #fee2e2;
+    --color-red-500: #f14668;
     --color-red-700: #b91c1c;
     --color-red-800: #991b1b;
 
@@ -113,7 +121,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family:  sans-serif;
   color: var(--color-grey-700);
 
   transition: color 0.3s, background-color 0.3s;

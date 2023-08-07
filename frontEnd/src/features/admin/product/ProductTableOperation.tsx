@@ -1,22 +1,30 @@
-import { Filter, SortBy, TableOperation } from "../../../components";
+import { Filter, SortBy, TableOperation } from "@/components";
+import Search from "antd/es/input/Search";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductTableOperation() {
+  const navigate = useNavigate();
+  const handlerSearchProduct = (value: string) => {
+    if (value.length > 0) navigate(`/admin/product/search?keySearch=${value}`);
+    else navigate(`/admin/user`);
+  };
+
   return (
     <TableOperation>
       <Filter
-        filterField={"numericFilters"}
+        filterField={"status"}
         options={[
           {
-            value: "product_quantity[gte]0",
-            label: "Get All Product",
+            value: "all",
+            label: "All",
           },
           {
-            value: "product_quantity[gt]0",
-            label: "Get Product Available",
+            value: "available",
+            label: "Available",
           },
           {
-            value: "product_quantity[eq]0",
-            label: "Get Product Unavailable",
+            value: "unavailable",
+            label: "Unavailable",
           },
         ]}
       />
@@ -56,6 +64,14 @@ export default function ProductTableOperation() {
           },
         ]}
       />
+      <div>
+        <Search
+          placeholder="Search product"
+          style={{ maxWidth: "30rem" }}
+          onSearch={handlerSearchProduct}
+        />
+      </div>
+      ;
     </TableOperation>
   );
 }

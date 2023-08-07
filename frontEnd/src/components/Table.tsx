@@ -7,7 +7,6 @@ const StyledTable = styled.div`
   border-radius: 7px;
   border: 1px solid var(--color-grey-200);
   background-color: var(--color-grey-0);
-  overflow: hidden;
 `;
 
 const CommonRow = styled.div<{ $columns?: string }>`
@@ -68,16 +67,16 @@ type TableContextType = {
   columns: string;
 };
 
-interface Props {
-  children?: ReactNode;
-  columns?: string;
-  data?: any;
-  render?: any;
+interface IProps {
+  children: ReactNode;
+  columns: string;
+  data: any;
+  render: any;
 }
 
 const TableContext = createContext({} as TableContextType);
 
-const Table = (props: Props) => {
+const Table = (props: Pick<IProps, "children" | "columns">) => {
   return (
     <TableContext.Provider value={{ columns: props.columns }}>
       <StyledTable role="table">{props.children}</StyledTable>
@@ -85,7 +84,7 @@ const Table = (props: Props) => {
   );
 };
 
-const Header = (props: Props) => {
+const Header = (props: Pick<IProps, "children">) => {
   const { columns } = useContext(TableContext);
   return (
     <StyledHeader role="row" $columns={columns}>
@@ -94,13 +93,13 @@ const Header = (props: Props) => {
   );
 };
 
-function Body(props: Props) {
-  if (!props.data.length) return <Empty>No data to show at the moment</Empty>;
+function Body(props: Pick<IProps, "data" | "render">) {
+  if (!props?.data?.length) return <Empty>No data to show at the moment</Empty>;
   // props.render = (brand: BrandType) => <BrandRow brand={brand} />
   return <StyledBody>{props.data.map(props.render)}</StyledBody>;
 }
 
-function Row(props: Props) {
+function Row(props: Pick<IProps, "children">) {
   const { columns } = useContext(TableContext);
   return (
     <StyledRow role="row" $columns={columns}>

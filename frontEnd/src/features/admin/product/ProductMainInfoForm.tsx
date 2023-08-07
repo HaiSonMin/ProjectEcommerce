@@ -9,27 +9,23 @@ import {
   Image,
   Button,
   FormRowContent,
-} from "../../../components";
+} from "@/components";
 import Select, { SingleValue } from "react-select";
 import { useForm } from "react-hook-form";
-import { CONSTANT } from "../../../utils";
+import { CONSTANT } from "@/utils";
 import IProductType, {
-  IProductMainInfoType,
-} from "../../../featureTypes/IProductType";
-import { useMoveBack } from "../../../hooks";
+  IProductMainInfo,
+  IProductMainInfoCreate,
+} from "@/interfaces/product/product.interface";
+import { useMoveBack } from "@/hooks";
 import UseProductApi from "./UseProductApi";
 import JoditEditor from "jodit-react";
+import IOptionSelect from "@/helpers/ISelectOption";
 
 interface IProps {
-  product: IProductType;
-  product_mainInfo?: IProductMainInfoType;
+  product?: IProductType;
+  product_mainInfo?: IProductMainInfo;
 }
-
-type OptionSelectType = {
-  value: string;
-  label: string;
-};
-
 
 export default function ProductMainInfoForm(props: IProps) {
   const moveBack = useMoveBack();
@@ -37,32 +33,46 @@ export default function ProductMainInfoForm(props: IProps) {
     props.product_mainInfo?.product_description || ""
   );
 
-  const optionsRam: Array<OptionSelectType> = Object.keys(CONSTANT.RAM).map(
+  const optionsRam: Array<IOptionSelect> = Object.keys(CONSTANT.RAM).map(
     (item: string) => {
       return { value: item, label: item };
     }
   );
-  const optionsRom: Array<OptionSelectType> = Object.keys(CONSTANT.ROM).map(
+  const optionsRom: Array<IOptionSelect> = Object.keys(CONSTANT.ROM).map(
     (item: string) => {
       return { value: item, label: item };
     }
   );
 
-  const ram: Pick<OptionSelectType, "value"> = {
+  const ram: Pick<IOptionSelect, "value"> = {
     value: props.product_mainInfo?.product_ram || "",
   };
-  const rom: Pick<OptionSelectType, "value"> = {
+  const rom: Pick<IOptionSelect, "value"> = {
     value: props.product_mainInfo?.product_rom || "",
   };
 
   const [selectRam, setSelectRam] =
-    useState<Pick<OptionSelectType, "value">>(ram);
+    useState<SingleValue<Pick<IOptionSelect, "value">>>(ram);
   const [selectRom, setSelectRom] =
-    useState<Pick<OptionSelectType, "value">>(rom);
+    useState<SingleValue<Pick<IOptionSelect, "value">>>(rom);
+
+  const defaultValuesDataForm: IProductMainInfoCreate = {
+    _id: props.product_mainInfo?._id || "",
+    product: props.product_mainInfo?.product || "",
+    product_ram: props.product_mainInfo?.product_ram || "",
+    product_rom: props.product_mainInfo?.product_rom || "",
+    product_color: props.product_mainInfo?.product_color || "",
+    product_price: props.product_mainInfo?.product_price || 0,
+    product_quantity: props.product_mainInfo?.product_quantity || 0,
+    product_colorCode: props.product_mainInfo?.product_colorCode || "",
+    product_imageColor: props.product_mainInfo?.product_imageColor || "",
+    product_description: props.product_mainInfo?.product_description || "",
+  };
 
   const { register, formState, handleSubmit } = useForm({
-    defaultValues: props.product_mainInfo || {},
+    defaultValues: defaultValuesDataForm || {},
   });
+
   const { errors: errorsForm } = formState;
 
   const { isUpdatingProduct, updateProductMainInfo } =
@@ -72,22 +82,22 @@ export default function ProductMainInfoForm(props: IProps) {
     UseProductApi.provideProductMainInfo();
 
   const handlerSelectRam = (
-    option: SingleValue<Pick<OptionSelectType, "value">>
+    option: SingleValue<Pick<IOptionSelect, "value">>
   ) => {
     setSelectRam(option);
   };
   const handlerSelectRom = (
-    option: SingleValue<Pick<OptionSelectType, "value">>
+    option: SingleValue<Pick<IOptionSelect, "value">>
   ) => {
     setSelectRom(option);
   };
 
   const onSubmit = (dataForm: any) => {
-    const dataSubmit: IProductMainInfoType = {
-      product_productId: props.product._id,
-      _id: props.product_mainInfo?._id,
-      product_rom: selectRom.value,
-      product_ram: selectRam.value,
+    const dataSubmit: IProductMainInfoCreate = {
+      _id: props.product_mainInfo?._id || "",
+      product: props.product?._id || "",
+      product_rom: selectRom?.value || "",
+      product_ram: selectRam?.value || "",
       product_color: dataForm["product_color"],
       product_price: dataForm["product_price"],
       product_quantity: dataForm["product_quantity"],
@@ -99,7 +109,7 @@ export default function ProductMainInfoForm(props: IProps) {
     if (props.product_mainInfo)
       updateProductMainInfo(dataSubmit, { onSuccess: () => moveBack() });
     else {
-      delete dataSubmit._id;
+      // delete dataSubmit._id;
       provideProductMainInfo(dataSubmit, { onSuccess: () => moveBack() });
     }
   };
@@ -107,7 +117,7 @@ export default function ProductMainInfoForm(props: IProps) {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Heading $as="h2">
-        {props.product.product_name}:{" "}
+        {props.product?.product_name}:{" "}
         {props.product_mainInfo ? (
           <>
             {props.product_mainInfo.product_ram} -{" "}
@@ -115,7 +125,7 @@ export default function ProductMainInfoForm(props: IProps) {
             {props.product_mainInfo.product_color}
           </>
         ) : (
-          `Provide new ${props.product.product_name}`
+          `Provide new ${props.product?.product_name}`
         )}
       </Heading>
       <FormRow label="Chose Ram(GB)" error={errorsForm.product_ram}>
@@ -142,7 +152,6 @@ export default function ProductMainInfoForm(props: IProps) {
         <Input
           id="productPrice"
           type="number"
-          name="product_price"
           {...register("product_price", {
             required: "Please provide product price",
             min: {
@@ -152,17 +161,15 @@ export default function ProductMainInfoForm(props: IProps) {
           })}
         />
       </FormRow>
-      {props.product_mainInfo && (
+      {/* {props.product_mainInfo && (
         <FormRow label="Product Price AppliedDiscount(USD)">
           <Input
             disabled
             id="productPrice"
             type="number"
-            name="product_price"
-            {...register("product_priceAppliedDiscount")}
           />
         </FormRow>
-      )}
+      )} */}
       <FormRow
         label="Product Quantity(Unit)"
         error={errorsForm.product_quantity}
@@ -170,7 +177,6 @@ export default function ProductMainInfoForm(props: IProps) {
         <Input
           id="productQuantity"
           type="number"
-          name="product_quantity"
           {...register("product_quantity", {
             required: "Please provide product quantity",
             min: {
@@ -180,33 +186,26 @@ export default function ProductMainInfoForm(props: IProps) {
           })}
         />
       </FormRow>
-      {props.product_mainInfo && (
+      {/* {props.product_mainInfo && (
         <FormRow label="Product Sold(Unit)">
           <Input
             disabled
             type="number"
-            name="product_sold"
-            {...register("product_sold")}
           />
         </FormRow>
-      )}
+      )} */}
 
       <FormRow label="Product Color" error={errorsForm.product_color}>
         <Input
           id="productColor"
           type="string"
-          name="product_color"
           {...register("product_color", {
             required: "Please provide color product",
           })}
         />
       </FormRow>
       <FormRow label="Product Color Code">
-        <InputColor
-          id="productColorCode"
-          name="product_colorCode"
-          {...register("product_colorCode")}
-        />
+        <InputColor id="productColorCode" {...register("product_colorCode")} />
       </FormRow>
       <FormRow
         error={!props.product_mainInfo && errorsForm.product_imageColor}
@@ -223,13 +222,11 @@ export default function ProductMainInfoForm(props: IProps) {
         {props.product_mainInfo ? (
           <InputFile
             id="productColorImage"
-            name="product_color"
             {...register("product_imageColor")}
           />
         ) : (
           <InputFile
             id="productColorImage"
-            name="product_color"
             {...register("product_imageColor", {
               required: "Please provide image color product",
             })}

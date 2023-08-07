@@ -21,7 +21,7 @@ const StyleImage = styled.div`
 `;
 
 interface IProps {
-  image: string;
+  image?: string;
   altTitle: string;
 }
 export default function Image(props: IProps) {

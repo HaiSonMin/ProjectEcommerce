@@ -55,6 +55,7 @@ const Button = styled.button<{ $size?: string ; $variation?: string }>`
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-md);
   transition: all 0.3s;
+  font-weight: 500;
 
   ${(props: any) => sizes[props.$size]}
   ${(props: any) => variations[props.$variation]}

@@ -1,6 +1,13 @@
 import { Filter, SortBy, TableOperation } from "@/components";
+import Search from "antd/es/input/Search";
+import { useNavigate } from "react-router-dom";
 
 export default function DiscountTableOperation() {
+  const navigate = useNavigate();
+  const handlerSearchUser = (value: string) => {
+    if (value.length > 0) navigate(`/admin/coupon/search?keySearch=${value}`);
+    else navigate(`/admin/coupon`);
+  };
   return (
     <TableOperation>
       <Filter
@@ -8,30 +15,53 @@ export default function DiscountTableOperation() {
         options={[
           {
             value: "all",
-            label: "All Discount",
+            label: "All",
           },
           {
             value: "available",
-            label: "Discount Available",
+            label: "Available",
           },
           {
             value: "expired",
-            label: "Discount Expired",
+            label: "Expired",
           },
         ]}
       />
       <SortBy
         options={[
           {
-            value: "discount_value-asc",
-            label: "Sort by discount value (A-Z)",
+            value: "coupon_value-asc",
+            label: "Sort by value (A-Z)",
           },
           {
-            value: "discount_value-desc",
-            label: "Sort by discount value (A-Z)",
+            value: "coupon_value-desc",
+            label: "Sort by value (A-Z)",
+          },
+          {
+            value: "coupon_minimumOrderValue-asc",
+            label: "Sort by minimum order value (A-Z)",
+          },
+          {
+            value: "coupon_minimumOrderValue-desc",
+            label: "Sort by minimum order value (Z-A)",
+          },
+          {
+            value: "coupon_numberOfApplication-asc",
+            label: "Sort by number of application (A-Z)",
+          },
+          {
+            value: "coupon_numberOfApplication-desc",
+            label: "Sort by number of application (Z-A)",
           },
         ]}
       />
+      <div>
+        <Search
+          placeholder="Search coupon"
+          style={{ maxWidth: "20rem" }}
+          onSearch={handlerSearchUser}
+        />
+      </div>
     </TableOperation>
   );
 }

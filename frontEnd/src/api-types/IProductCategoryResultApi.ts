@@ -19,7 +19,7 @@ import { UseMutateFunction } from "@tanstack/react-query";
  */
 
 export interface IProductCategoryGetAllResultApi extends IApi {
-  isGettingProductCategory: boolean;
+  isGettingProductCategories: boolean;
   metadata:
     | {
         totalProductCategories: number;
@@ -27,6 +27,16 @@ export interface IProductCategoryGetAllResultApi extends IApi {
         productCategories: Array<IProductCategory>;
       }
     | undefined;
+}
+
+export interface IProductCategoryGetByIdResultApi extends IApi {
+  isGettingProductCategory: boolean;
+  metadata: IProductCategory | undefined;
+}
+
+export interface IProductCategoriesGetByIdsResultApi extends IApi {
+  isGettingProductCategories: boolean;
+  metadata: Array<IProductCategory> | undefined;
 }
 
 export interface IProductCategoryCreateResultApi extends IApi {

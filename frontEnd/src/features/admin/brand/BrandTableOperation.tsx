@@ -1,4 +1,4 @@
-import { SortBy, TableOperation } from "../../../components";
+import { SortBy, TableOperation } from "@/components";
 
 export default function BrandTableOperation() {
   return (

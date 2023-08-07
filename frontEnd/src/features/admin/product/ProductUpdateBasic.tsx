@@ -2,11 +2,8 @@ import UseProductApi from "./UseProductApi";
 import Select, { GroupBase, SingleValue } from "react-select";
 import { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { CONSTANT } from "../../../utils";
-import { useMoveBack } from "../../../hooks";
-import IProductType, {
-  IProductUpdateBasicType,
-} from "featureTypes/IProductType";
+import { CONSTANT } from "@/utils";
+import { useMoveBack } from "@/hooks";
 import {
   Button,
   Form,
@@ -16,19 +13,16 @@ import {
   ImagesGroup,
   Input,
   InputFile,
-} from "../../../components";
+} from "@/components";
 import { UseBrandApi } from "../brand";
 import UseProductCategoryApi from "../productCategory/UseProductCategoryApi";
 import { toast } from "react-hot-toast";
+import IOptionSelect from "@/helpers/ISelectOption";
+import IProduct from "@/interfaces/product/product.interface";
 
 interface IProps {
-  product: IProductType;
+  product?: IProduct;
 }
-
-type OptionSelectType = {
-  value: string;
-  label: string;
-};
 
 export default function ProductUpdateBasic(props: IProps) {
   const moveBack = useMoveBack();
@@ -36,24 +30,33 @@ export default function ProductUpdateBasic(props: IProps) {
   const { isUpdatingProduct, updateProductBasic } =
     UseProductApi.updateProductBasic();
 
-  const brandId: Pick<OptionSelectType, "value"> = {
-    value: props.product.product_brand?.["_id"],
+  const brandId: Pick<IOptionSelect, "value"> = {
+    value: props.product?.product_brand["_id"],
   };
-  const categoryId: Pick<OptionSelectType, "value"> = {
-    value: props.product.product_category?.["_id"],
+  const categoryId: Pick<IOptionSelect, "value"> = {
+    value: props.product?.product_category["_id"],
   };
 
   const [selectBrandId, setSelectBrandId] =
-    useState<Pick<OptionSelectType, "value">>(brandId);
+    useState<SingleValue<Pick<IOptionSelect, "value">>>(brandId);
   const [selectProductCategoryId, setSelectProductCategoryId] =
-    useState<Pick<OptionSelectType, "value">>(categoryId);
+    useState<SingleValue<Pick<IOptionSelect, "value">>>(categoryId);
 
   const [imagesProduct, setImagesProduct] = useState<Array<string>>(
-    props?.product.product_images || []
+    props?.product?.product_imagesProduct || []
+  );
+  const originalNumberImage = useMemo<number>(() => imagesProduct.length, []);
+
+  const [imagesInfoProduct, setImagesInfoProduct] = useState<Array<string>>(
+    props?.product?.product_imagesAttribute || []
+  );
+  const originalNumberImageInfo = useMemo<number>(
+    () => imagesInfoProduct.length,
+    []
   );
 
   const { metadata: brandInfo } = UseBrandApi.getAllBrand();
-  const optionsBrands: Array<OptionSelectType> = brandInfo?.brands.map(
+  const optionsBrands: Array<IOptionSelect> | undefined = brandInfo?.brands.map(
     (brand) => {
       return {
         value: brand._id,
@@ -61,8 +64,8 @@ export default function ProductUpdateBasic(props: IProps) {
       };
     }
   );
-  const { metadata: categoryInfo } = UseProductCategoryApi.useGetAllCategory();
-  const optionsCategory: Array<OptionSelectType> =
+  const { metadata: categoryInfo } = UseProductCategoryApi.getAllCategories();
+  const optionsCategory: Array<IOptionSelect> | undefined =
     categoryInfo?.productCategories.map((cate) => {
       return {
         value: cate._id,
@@ -76,8 +79,6 @@ export default function ProductUpdateBasic(props: IProps) {
 
   const { errors: errorsForm } = formState;
 
-  const originalNumberImage = useMemo<number>(() => imagesProduct.length, []);
-
   const handlerAddImagesDelete = (imgDelete: string) => {
     if (imagesProduct.length > 1)
       setImagesProduct((imgs) =>
@@ -86,32 +87,44 @@ export default function ProductUpdateBasic(props: IProps) {
     else toast.error("Images not empty");
   };
 
+  const handlerAddImagesInfoDelete = (imgDelete: string) => {
+    if (imagesInfoProduct.length > 1)
+      setImagesInfoProduct((imgs) =>
+        imgs.filter((img: string) => img !== imgDelete)
+      );
+    else toast.error("Images not empty");
+  };
+
   const onSubmit = (dataFormUpdate: any) => {
     // console.log(dataImages["product_images"]);
-    const isImgsProductDelete =
+    const isImgsDelete =
       originalNumberImage !== imagesProduct.length ? true : false;
-    const productUpdate: IProductUpdateBasicType = {
+    const isImgsInfoDelete =
+      originalNumberImageInfo !== imagesInfoProduct.length ? true : false;
+    const productUpdate: Partial<IProduct> = {
       _id: props.product?._id,
       product_name: dataFormUpdate["product_name"],
-      product_brand: selectBrandId.value, // Brand Id
-      product_category: selectProductCategoryId.value, // Category Id
+      product_brand: selectBrandId?.value || "", // Brand Id
+      product_category: selectProductCategoryId?.value || "", // Category Id
       product_thumb: dataFormUpdate["product_thumb"],
-      product_images: isImgsProductDelete
+      product_imagesProduct: isImgsDelete
         ? imagesProduct
         : dataFormUpdate["product_images"],
+      product_imagesAttribute: isImgsInfoDelete
+        ? imagesInfoProduct
+        : dataFormUpdate["product_imagesInfo"],
     };
-    console.log("productUpdateL:::", productUpdate);
     updateProductBasic(productUpdate, { onSuccess: () => moveBack() });
   };
 
   const handleChangeBrand = (
-    option: SingleValue<Pick<OptionSelectType, "value">>
+    option: SingleValue<Pick<IOptionSelect, "value">>
   ) => {
     setSelectBrandId(option);
   };
 
   const handlerChangeCategory = (
-    option: SingleValue<Pick<OptionSelectType, "value">>
+    option: SingleValue<Pick<IOptionSelect, "value">>
   ) => {
     setSelectProductCategoryId(option);
   };
@@ -157,7 +170,6 @@ export default function ProductUpdateBasic(props: IProps) {
         <InputFile
           id="productThumb"
           accept="image/*"
-          name="product_thumb"
           {...register("product_thumb")}
         />
       </FormRow>
@@ -176,9 +188,27 @@ export default function ProductUpdateBasic(props: IProps) {
           multiple
           maxLength={CONSTANT.MAX_UPLOAD_IMAGE}
           accept="image/*"
-          name="product_images"
           id="productImages"
-          {...register("product_images")}
+          {...register("product_imagesProduct")}
+        />
+      </FormRow>
+      <FormRow
+        label="Chose add images info"
+        images={
+          <ImagesGroup
+            onClick={handlerAddImagesInfoDelete}
+            images={imagesInfoProduct}
+            altTitle={`Product ${props.product?.product_name}`}
+          />
+        }
+      >
+        <InputFile
+          disabled={originalNumberImageInfo !== imagesInfoProduct.length}
+          multiple
+          maxLength={CONSTANT.MAX_UPLOAD_IMAGE}
+          accept="image/*"
+          id="productImagesInfo"
+          {...register("product_imagesAttribute")}
         />
       </FormRow>
 

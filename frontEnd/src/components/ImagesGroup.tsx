@@ -63,7 +63,7 @@ export default function ImagesGroup(props: IProps) {
     <StyledImagesGroup>
       {typeof props.images === "object" ? (
         props.images.map((img: string, i: number) => (
-          <div key={img} onClick={() => props.onClick(img)}>
+          <div key={img} onClick={() => props.onClick?.(img)}>
             <img src={img} alt={`${props.altTitle} ${i}`} />
           </div>
         ))

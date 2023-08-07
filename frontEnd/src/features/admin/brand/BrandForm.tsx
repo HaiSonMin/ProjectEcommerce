@@ -1,26 +1,25 @@
 import UseBrand from "./UseBrandApi";
 import { useForm } from "react-hook-form";
-import { BrandType } from "../../../featureTypes";
-import { Button, FileInput, Form, FormRow, Input } from "../../../components";
+import { IBrand } from "@/interfaces";
+import { Button, Form, FormRow, Input, InputFile } from "@/components";
 
 interface IProps {
-  brandToEdit?: BrandType;
+  brandEdit?: IBrand;
   onCloseModal?: () => void;
 }
 
-const initializeFormBrand: BrandType = {
-  _id: null,
-  brand_image: null,
-  brand_name: null,
-  brand_origin: null,
+const initializeFormBrand: IBrand = {
+  _id: "",
+  brand_image: "",
+  brand_name: "",
+  brand_origin: "",
 };
 
 export function BrandForm(props: IProps) {
-  const { createBrand, isCreatingBrand } = UseBrand.useCreateBrand();
-  const { updateBrand, isUpdatingBrand } = UseBrand.useUpdateBrand();
+  const { createBrand, isCreatingBrand } = UseBrand.createBrand();
+  const { updateBrand, isUpdatingBrand } = UseBrand.updateBrand();
 
-  const { _id: editId, ...editValue } =
-    props.brandToEdit || initializeFormBrand;
+  const { _id: editId, ...editValue } = props.brandEdit || initializeFormBrand;
 
   const isEditSession = Boolean(editId);
 
@@ -32,15 +31,17 @@ export function BrandForm(props: IProps) {
 
   const isWorking = isCreatingBrand || isUpdatingBrand;
 
-  const onSubmit = (dataFormBrand: BrandType) => {
+  const onSubmit = (
+    dataFormBrand: Pick<IBrand, "brand_image" | "brand_name" | "brand_origin">
+  ) => {
     // Create Brand
     if (!isEditSession) {
       return createBrand(
-        { ...dataFormBrand, brand_image: dataFormBrand["brand_image"][0] },
+        { ...dataFormBrand, brand_image: dataFormBrand["brand_image"] },
         {
           onSuccess: (newBrand) => {
             console.log("newBrand::", newBrand);
-            props.onCloseModal();
+            props.onCloseModal?.();
           },
         }
       );
@@ -48,13 +49,13 @@ export function BrandForm(props: IProps) {
       return updateBrand(
         {
           ...dataFormBrand,
-          brand_image: dataFormBrand["brand_image"][0],
+          brand_image: dataFormBrand["brand_image"],
           _id: editId,
         },
         {
           onSuccess: (brandUpdated) => {
             console.log("brandUpdated::", brandUpdated);
-            props.onCloseModal();
+            props.onCloseModal?.();
           },
         }
       );
@@ -89,9 +90,8 @@ export function BrandForm(props: IProps) {
         />
       </FormRow>
       <FormRow label="Brand Image" error={errorsForm.brand_image}>
-        <FileInput
+        <InputFile
           id="imageBrand"
-          name="brand_image"
           accept="image/*"
           {...register("brand_image", {
             required: "Please provide brand image",

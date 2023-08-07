@@ -1,13 +1,13 @@
 import BrandRow from "./BrandRow";
 import UseBrand from "./UseBrandApi";
-import { sortObject } from "../../../utils";
-import { BrandType } from "../../../featureTypes";
+import { sortObject } from "@/utils";
+import { IBrand } from "@/interfaces";
 import { useSearchParams } from "react-router-dom";
-import { Menus, Spinner, Table, Pagination } from "../../../components";
+import { Menus, Spinner, Table, Pagination } from "@/components";
 
 export default function BrandTable() {
   const [searchParams] = useSearchParams();
-  const { isGettingBrand, metadata } = UseBrand.useGetAllBrand();
+  const { isGettingBrands, metadata } = UseBrand.getAllBrand();
 
   // Sort
   const sortByValue = searchParams.get("sort") || "created_at-asc";
@@ -17,7 +17,7 @@ export default function BrandTable() {
     sortValue: sortByValue,
   });
 
-  if (isGettingBrand) return <Spinner />;
+  if (isGettingBrands) return <Spinner />;
 
   return (
     <Menus>
@@ -26,16 +26,14 @@ export default function BrandTable() {
           <div>Logo</div>
           <div>Brand Name</div>
           <div>Brand Origin</div>
-          <div></div>
+          <div>Options</div>
         </Table.Header>
         <Table.Body
           data={sortedCabins}
-          render={(brand: BrandType) => (
-            <BrandRow brand={brand} key={brand._id} />
-          )}
+          render={(brand: IBrand) => <BrandRow brand={brand} key={brand._id} />}
         />
         <Table.Footer>
-          <Pagination countItems={metadata.totalBrands} />
+          <Pagination countItems={metadata?.totalBrands} />
         </Table.Footer>
       </Table>
     </Menus>

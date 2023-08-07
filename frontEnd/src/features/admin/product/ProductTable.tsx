@@ -1,12 +1,27 @@
 import { ProductRow } from "./";
 import UseProductApi from "./UseProductApi";
-import { Menus, Pagination, Spinner, Table } from "../../../components";
-import { IProductType } from "featureTypes";
+import { Menus, Pagination, Spinner, Table } from "@/components";
+import { IProduct } from "@/interfaces";
 
-export default function ProductTable() {
-  const { isGettingProducts, metadata } = UseProductApi.getAllProducts();
+interface Iprops {
+  isSearch?: boolean;
+}
 
-  if (isGettingProducts) return <Spinner />;
+export default function ProductTable(props: Iprops) {
+  let data: any, isGetting: boolean;
+  if (!props?.isSearch) {
+    const { isGettingProducts, metadata } = UseProductApi.getAllProducts();
+    data = metadata;
+    isGetting = isGettingProducts;
+  } else {
+    const { isSearchingProducts, metadata } = UseProductApi.searchProducts();
+    data = metadata;
+    isGetting = isSearchingProducts;
+  }
+
+  console.log(data, props.isSearch);
+
+  if (isGetting) return <Spinner />;
 
   return (
     <Menus>
@@ -17,12 +32,15 @@ export default function ProductTable() {
           <div>Brand</div>
           <div>Category</div>
           <div>Price</div>
-          <div></div>
+          <div>Options</div>
         </Table.Header>
         <Table.Body
-          data={metadata?.products}
-          render={(product: IProductType) => (
-            <ProductRow key={product._id} product={product} />
+          data={data?.products}
+          render={(product: IProduct) => (
+            <ProductRow
+              key={product._id || Math.random() * 100000}
+              product={product}
+            />
           )}
         />
         <Table.Footer>

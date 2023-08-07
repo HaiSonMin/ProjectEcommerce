@@ -1,23 +1,23 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { BrandApi } from "../../../apis";
+import { BrandApi } from "@/apis";
 import {
-  ITypeBrandResultCreate,
-  ITypeBrandResultUpdate,
-  ITypeBrandResultDelete,
-  ITypeBrandResultGetOne,
-  ITypeBrandResultGetAll,
-} from "../../../apiTypes/IBrandResultApi";
+  IBrandCreateResultApi,
+  IBrandGetAllResultApi,
+  IBrandUpdateResultApi,
+  IBrandDeleteResultApi,
+} from "@/api-types/IBrandResultApi";
 import { toast } from "react-hot-toast";
-import { CONSTANT } from "../../../utils";
+import { CONSTANT, getQueriesString } from "@/utils";
 import { useSearchParams } from "react-router-dom";
+import { useQueriesString } from "@/hooks";
 ``;
 
-class UseBrand {
-  static useCreateBrand(): ITypeBrandResultCreate {
+class UseBrandApi {
+  static createBrand(): IBrandCreateResultApi {
     const queryClient = useQueryClient();
     const { data, mutate, isLoading } = useMutation({
       mutationFn: BrandApi.createBrand,
-      onSuccess: (data) => {
+      onSuccess: (data: any) => {
         toast.success(data.message);
         queryClient.invalidateQueries({ queryKey: ["brands"] });
       },
@@ -36,69 +36,51 @@ class UseBrand {
     };
   }
 
-  static useGetAllBrand(): ITypeBrandResultGetAll {
+  static getAllBrand(): IBrandGetAllResultApi {
     const queryClient = useQueryClient();
-    const [searchParams] = useSearchParams();
-    const currentPage = Number(searchParams.get("page")) || 1;
+    const {
+      sort,
+      page: currentPage,
+      limit,
+    } = getQueriesString(useQueriesString());
     const { data, isLoading } = useQuery({
-      queryKey: ["brands", currentPage],
+      queryKey: ["brands", currentPage, sort],
       queryFn: () =>
         BrandApi.getAllBrands({
-          sort: CONSTANT.SORT_DEFAULT,
+          sort,
           page: currentPage,
-          limit: CONSTANT.LIMIT_PAGE,
-          fields: "brand_name,brand_origin,brand_image",
+          limit,
         }),
     });
-    const numberPage = Math.ceil(
-      data?.metadata?.totalBrands / CONSTANT.LIMIT_PAGE
-    );
-
+    let numberPage: number = 1;
+    if (data?.metadata?.totalBrands)
+      numberPage = Math.ceil(data?.metadata?.totalBrands / limit);
     // Get Data Next Page
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
-        queryKey: ["brands", currentPage + 1],
+        queryKey: ["brands", currentPage + 1, sort],
         queryFn: () =>
           BrandApi.getAllBrands({
-            sort: CONSTANT.SORT_DEFAULT,
+            sort,
             page: currentPage + 1,
-            limit: CONSTANT.LIMIT_PAGE,
-            fields: "brand_name,brand_origin,brand_image",
+            limit,
           }),
       });
 
     // Get Data Next Page
     if (currentPage > 1)
       queryClient.prefetchQuery({
-        queryKey: ["brands", currentPage - 1],
+        queryKey: ["brands", currentPage - 1, sort],
         queryFn: () =>
           BrandApi.getAllBrands({
-            sort: CONSTANT.SORT_DEFAULT,
+            sort,
             page: currentPage - 1,
-            limit: CONSTANT.LIMIT_PAGE,
-            fields: "brand_name,brand_origin,brand_image",
+            limit,
           }),
       });
 
     return {
-      isGettingBrand: isLoading,
-      message: data?.message,
-      metadata: data?.metadata,
-      statusCode: data?.statusCode,
-      reasonStatusCode: data?.reasonStatusCode,
-    };
-  }
-  static useGetBrand(): ITypeBrandResultGetOne {
-    // const { brandId } = useParams();
-    const brandId = "64ad0152705b05f63cdc9bfa";
-
-    const { data, isLoading } = useQuery({
-      queryKey: ["brand"],
-      queryFn: () => BrandApi.getBrand({ _id: brandId }),
-    });
-
-    return {
-      isGettingBrand: isLoading,
+      isGettingBrands: isLoading,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,
@@ -106,12 +88,12 @@ class UseBrand {
     };
   }
 
-  static useUpdateBrand(): ITypeBrandResultUpdate {
+  static updateBrand(): IBrandUpdateResultApi {
     const queryClient = useQueryClient();
     const { mutate, isLoading, data } = useMutation({
       mutationFn: BrandApi.updateBrand,
       onSuccess: (data) => {
-        toast.success(data.message);
+        toast.success(data.message || "Update brand successfully");
         queryClient.invalidateQueries({
           queryKey: ["brands"],
         });
@@ -128,7 +110,7 @@ class UseBrand {
     };
   }
 
-  static useDeleteBrand(): ITypeBrandResultDelete {
+  static deleteBrand(): IBrandDeleteResultApi {
     const queryClient = useQueryClient();
     const { mutate, isLoading, data } = useMutation({
       mutationFn: BrandApi.deleteBrand,
@@ -154,4 +136,4 @@ class UseBrand {
   }
 }
 
-export default UseBrand;
+export default UseBrandApi;

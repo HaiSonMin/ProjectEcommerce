@@ -28,7 +28,6 @@ const StyledFormRow = styled.div`
     gap: 1.2rem;
   }
 `;
-
 const Label = styled.label`
   font-weight: 500;
   cursor: pointer;
@@ -43,6 +42,7 @@ interface Props {
   label?: string;
   error?: any;
   children: React.ReactElement | any;
+  images?: any;
 }
 
 const FormRow = (props: Props) => {
@@ -51,7 +51,12 @@ const FormRow = (props: Props) => {
     <StyledFormRow>
       <Label htmlFor={props.children?.props?.id}>{props.label}</Label>
       {props.children}
-      {props.error?.message && <Error>{props.error.message}</Error>}
+      {props.error?.message ? (
+        <Error>{props.error.message}</Error>
+      ) : (
+        <></>
+      )}
+      {props.images}
     </StyledFormRow>
   );
 };

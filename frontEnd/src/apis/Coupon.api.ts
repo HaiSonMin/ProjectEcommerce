@@ -2,9 +2,12 @@ import {
   ICouponCreateResultApi,
   ICouponGetAllResultApi,
   ICouponSearchResultApi,
-} from "@/api-types/ICouponApi";
-import IArgsQuery from "@/helpers/IArgsQuery";
+  ICouponGetOneResultApi,
+  ICouponUpdateResultApi,
+  ICouponDeleteResultApi,
+} from "@/api-types/ICouponResultApi";
 import { ICoupon } from "@/interfaces";
+import IArgsQuery from "@/helpers/IArgsQuery";
 import { CONSTANT, getErrorMessage, http } from "@/utils";
 
 class CouponApi {
@@ -17,7 +20,7 @@ class CouponApi {
       const result: Omit<
         ICouponCreateResultApi,
         "isCreatingCoupon" | "createCoupon"
-      > = response.data();
+      > = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
@@ -36,7 +39,7 @@ class CouponApi {
         },
       });
       const result: Omit<ICouponGetAllResultApi, "isGettingCoupons"> =
-        response.data();
+        response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
@@ -48,8 +51,8 @@ class CouponApi {
       const response = await http.get(
         `${CONSTANT.PATH_V1_API.coupon}/getById/${arg._id}`
       );
-      const result: Omit<ICouponCreateResultApi, "isGettingCoupon"> =
-        response.data();
+      const result: Omit<ICouponGetOneResultApi, "isGettingCoupon"> =
+        response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
@@ -66,8 +69,8 @@ class CouponApi {
           limit: fieldsQuery.limit,
         },
       });
-      const result: Omit<ICouponSearchResultApi, "isSearchingCoupon"> =
-        response.data();
+      const result: Omit<ICouponSearchResultApi, "isSearchingCoupons"> =
+        response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
@@ -82,24 +85,24 @@ class CouponApi {
         dataUpdate
       );
       const result: Omit<
-        ICouponCreateResultApi,
+        ICouponUpdateResultApi,
         "isUpdatingCoupon" | "updateCoupon"
-      > = response.data();
+      > = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
-  
+
   async deleteCoupon(arg: Pick<ICoupon, "_id">) {
     try {
       const response = await http.delete(
-        `${CONSTANT.PATH_V1_API.coupon}/create/${arg._id}`
+        `${CONSTANT.PATH_V1_API.coupon}/delete/${arg._id}`
       );
       const result: Omit<
-        ICouponCreateResultApi,
+        ICouponDeleteResultApi,
         "isDeletingCoupon" | "deleteCoupon"
-      > = response.data();
+      > = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));

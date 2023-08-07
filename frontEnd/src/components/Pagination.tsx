@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { useSearchParams } from "react-router-dom";
 import { CONSTANT } from "../utils";
+import { useQueriesString } from "@/hooks";
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -61,15 +62,18 @@ const PaginationButton = styled.button<{ $active?: boolean }>`
 `;
 
 interface Props {
-  countItems: number;
+  countItems?: number;
 }
 
 const Pagination = (props: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const queriesString = useQueriesString();
+  const limitPerPage = queriesString?.limit || CONSTANT.LIMIT_PAGE;
 
-  const currentPage: number = Number(searchParams.get("page")) || 1;
-  const numberPage: number = Number(Math.ceil(props.countItems / CONSTANT.LIMIT_PAGE));
-  console.log("numberPage:::", props.countItems);
+  const currentPage: number = Number(queriesString?.page) || 1;
+  let numberPage: number = 1;
+  if (props.countItems)
+    numberPage = Math.ceil(Number(props?.countItems) / CONSTANT.LIMIT_PAGE);
 
   function handlerNextPage() {
     const next: number =

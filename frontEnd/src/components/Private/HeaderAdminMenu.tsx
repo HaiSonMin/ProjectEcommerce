@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { HiOutlineUser } from "react-icons/hi2";
 import ButtonIcon from "../ButtonIcon";
 import DarkModeToggle from "./DarkModeToggle";
-import { Logout } from "../";
+import { Logout } from "..";
 
 const HeaderAdminMenuStyled = styled.ul`
   display: flex;

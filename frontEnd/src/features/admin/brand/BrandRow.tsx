@@ -1,9 +1,9 @@
 import UseBrand from "./UseBrandApi";
 import { CiEdit } from "react-icons/ci";
-import { BrandType } from "../../../featureTypes";
+import { IBrand } from "@/interfaces";
 import { styled } from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { ConfirmDelete, Menus, Modal, Table } from "../../../components";
+import { ConfirmDelete, Menus, Modal, Table } from "@/components";
 import { BrandForm } from "./BrandForm";
 
 const Img = styled.img`
@@ -31,11 +31,11 @@ const BrandOrigin = styled.div`
 
 interface IProps {
   key: React.Key;
-  brand: BrandType;
+  brand: IBrand;
 }
 
 const BrandRow = (props: IProps) => {
-  const { deleteBrand, isDeletingBrand } = UseBrand.useDeleteBrand();
+  const { deleteBrand, isDeletingBrand } = UseBrand.deleteBrand();
 
   return (
     <Table.Row>
@@ -57,7 +57,7 @@ const BrandRow = (props: IProps) => {
         </Menus.Menu>
 
         <Modal.Window windowName="editBrand">
-          <BrandForm brandToEdit={props.brand} />
+          <BrandForm brandEdit={props.brand} />
         </Modal.Window>
         <Modal.Window windowName="deleteBrand">
           <ConfirmDelete

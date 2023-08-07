@@ -31,6 +31,7 @@ export default function SelectDate(props: IProps) {
             onChange={(date) => {
               field.onChange(date?.valueOf() || null);
             }}
+            className="py-3 border-gray-500 text-zinc-500 font-medium"
           />
         );
       }}

@@ -8,17 +8,10 @@ interface Props {
 
 export default function SortBy(props: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentSortBy: string = searchParams.get("sort") || "ctime";
-  const handlerChangeOption = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlerChangeOption = (e: any) => {
     searchParams.set("sort", e.target.value);
     setSearchParams(searchParams);
   };
 
-  return (
-    <Select
-      onChange={handlerChangeOption}
-      options={props.options}
-      value={currentSortBy}
-    />
-  );
+  return <Select onChange={handlerChangeOption} options={props.options} />;
 }

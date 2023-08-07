@@ -1,7 +1,7 @@
 import { AdminApi } from "@/apis";
 import { CONSTANT } from "@/utils";
 import { toast } from "react-hot-toast";
-import { useQueryString } from "@/hooks";
+import { useQueriesString } from "@/hooks";
 import { useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -59,7 +59,7 @@ export default class UseAdminApi {
   }
 
   static getAllUser(): IUserGetAllResultApi {
-    const queriesString = useQueryString();
+    const queriesString = useQueriesString();
 
     const { isLoading, data } = useQuery({
       queryKey: ["users", queriesString],
@@ -86,7 +86,7 @@ export default class UseAdminApi {
   }
 
   static searchUsers(): IUserSearchResultApi {
-    const queriesString = useQueryString();
+    const queriesString = useQueriesString();
     console.log(queriesString);
 
     const { isLoading, data } = useQuery({

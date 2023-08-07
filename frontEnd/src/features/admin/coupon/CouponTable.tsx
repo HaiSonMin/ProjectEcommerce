@@ -3,26 +3,39 @@ import UseCouponApi from "./UseCouponApi";
 import { ICoupon } from "@/interfaces";
 import { Menus, Spinner, Table, Pagination } from "@/components";
 
-export default function CouponTable() {
-  const { isGettingCoupons, metadata } = UseCouponApi.getAllCoupons();
+interface IProps {
+  isSearch?: boolean;
+}
 
-  console.log(metadata);
+export default function CouponTable(props: IProps) {
+  let data: any, isGetting: boolean;
+  if (!props?.isSearch) {
+    const { isGettingCoupons, metadata } = UseCouponApi.getAllCoupons();
+    data = metadata;
+    isGetting = isGettingCoupons;
+  } else {
+    const { isSearchingCoupons, metadata } = UseCouponApi.searchCoupons();
+    data = metadata;
+    isGetting = isSearchingCoupons;
+  }
 
-  if (isGettingCoupons) return <Spinner />;
+  if (isGetting) return <Spinner />;
 
   return (
     <Menus>
-      <Table columns="1.2fr 0.9fr 0.6fr 1.2fr 1fr 0.6fr">
+      <Table columns="1fr 0.5fr 0.9fr 1fr 1fr 1.5fr 1fr 0.6fr">
         <Table.Header>
           <div>Name</div>
           <div>Type</div>
           <div>Value</div>
+          <div>Minimum Order</div>
+          <div>Number Coupon</div>
           <div>Dates</div>
           <div>Status</div>
           <div>Options</div>
         </Table.Header>
         <Table.Body
-          data={metadata?.coupons}
+          data={data?.coupons}
           render={(coupon: ICoupon) => (
             <CouponRow
               coupon={coupon}
@@ -31,7 +44,7 @@ export default function CouponTable() {
           )}
         />
         <Table.Footer>
-          <Pagination countItems={metadata?.totalCoupons} />
+          <Pagination countItems={data?.totalCoupons} />
         </Table.Footer>
       </Table>
     </Menus>

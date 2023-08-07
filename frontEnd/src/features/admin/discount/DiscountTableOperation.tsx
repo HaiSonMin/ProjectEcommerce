@@ -8,15 +8,15 @@ export default function DiscountTableOperation() {
         options={[
           {
             value: "all",
-            label: "All Discount",
+            label: "All",
           },
           {
             value: "available",
-            label: "Discount Available",
+            label: "Available",
           },
           {
             value: "expired",
-            label: "Discount Expired",
+            label: "Expired",
           },
         ]}
       />

@@ -1,5 +1,6 @@
 import UserPage from "./UserPage";
 import UserCreatePage from "./UserCreatePage";
-import UserPageSearch from "./UserPageSearch";
+import UserSearchPage from "./UserSearchPage";
+import UserDisplayPage from "./UserTablePage";
 
-export { UserPage, UserCreatePage, UserPageSearch };
+export { UserPage, UserCreatePage, UserSearchPage, UserDisplayPage };

@@ -5,7 +5,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { BsEye } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-import { formatCurrency } from "@/utils";
+import { formatCurrencyVND } from "@/utils";
 import { format } from "date-fns";
 import Tag from "@/components/Tag";
 import { MdAddLink } from "react-icons/md";
@@ -62,11 +62,19 @@ export default function DiscountRow(props: IProps) {
   return (
     <Table.Row>
       <DiscountName>{props.coupon.coupon_name}</DiscountName>
-      <DiscountType>{props.coupon.coupon_type}</DiscountType>
+      <DiscountType>
+        {props.coupon.coupon_type === "percentage" ? "%" : "USD"}
+      </DiscountType>
       <DiscountValue>
         {props.coupon.coupon_type === "percentage"
           ? props.coupon.coupon_value + "%"
-          : formatCurrency(props.coupon.coupon_value)}
+          : formatCurrencyVND(props.coupon.coupon_value)}
+      </DiscountValue>
+      <DiscountValue>
+        {formatCurrencyVND(props.coupon.coupon_minimumOrderValue)}
+      </DiscountValue>
+      <DiscountValue>
+        {props.coupon.coupon_numberOfApplication + " Coupon"}
       </DiscountValue>
       <Stacked>
         <span>
@@ -90,7 +98,7 @@ export default function DiscountRow(props: IProps) {
             </Menus.Button>
             <Menus.Button
               icon={<CiEdit />}
-              onClick={() => navigate(`editDiscount/${props.coupon._id}`)}
+              onClick={() => navigate(`update/${props.coupon._id}`)}
             >
               Edit coupon
             </Menus.Button>

@@ -1,4 +1,5 @@
+import { CouponForm } from "@/features/admin/coupon";
+
 export default function CouponCreatePage() {
-    return <CouponCreatePage/>;
-  }
-  
+  return <CouponForm />;
+}

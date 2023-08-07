@@ -1,16 +1,10 @@
-import BrandRow from "./DiscountRow";
-import { useSearchParams } from "react-router-dom";
 import { Menus, Spinner, Table, Pagination } from "@/components";
 import UseDiscountApi from "./UseDiscountApi";
-import DatePicker from "react-datepicker";
 import { IDiscount } from "@/interfaces";
 import DiscountRow from "./DiscountRow";
 
 export default function DiscountTable() {
-
   const { isGettingDiscounts, metadata } = UseDiscountApi.getAllDiscount();
-
-  console.log(metadata);
 
   if (isGettingDiscounts) return <Spinner />;
 

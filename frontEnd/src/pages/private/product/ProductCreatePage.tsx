@@ -1,4 +1,4 @@
-import { ProductCreate } from "../../../features/admin/product";
+import { ProductCreate } from "@/features/admin/product";
 
 export default function ProductCreatePage() {
   return <ProductCreate />;

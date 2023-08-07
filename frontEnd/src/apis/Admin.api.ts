@@ -1,6 +1,3 @@
-import { CONSTANT, http, getErrorMessage, resultAppendFormData } from "@/utils";
-import IArgsQuery from "@/helpers/IArgsQuery";
-import { IUser } from "@/interfaces";
 import {
   IUserCreateResultApi,
   IUserDeleteResultApi,
@@ -9,6 +6,9 @@ import {
   IUserSearchResultApi,
   IUserUpdateResultApi,
 } from "@/api-types/IUserResultApi";
+import { IUser } from "@/interfaces";
+import IArgsQuery from "@/helpers/IArgsQuery";
+import { CONSTANT, http, getErrorMessage } from "@/utils";
 import { IUserCreate } from "@/interfaces/user.interface";
 
 class AdminApi {

@@ -1,5 +1,3 @@
-import { IDiscount } from "@/interfaces";
-import { CONSTANT, getErrorMessage, http } from "@/utils";
 import {
   IDiscountCreateResultApi,
   IDiscountGetOneResultApi,
@@ -8,7 +6,9 @@ import {
   IDiscountUpdateResultApi,
   IDiscountDeleteResultApi,
 } from "@/api-types/IDiscountResultApi";
+import { IDiscount } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
+import { CONSTANT, getErrorMessage, http } from "@/utils";
 
 class DiscountApi {
   async createDiscount(args: Omit<IDiscount, "_id" | "discount_productIds">) {

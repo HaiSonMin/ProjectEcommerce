@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import MainNavAdmin from "./MainNavAdmin";
-import { Logo } from "../../components";
+import { Logo } from "..";
 const SideBarAdminStyled = styled.div`
   background-color: var(--color-grey-0);
   border-right: 1px solid var(--color-grey-300);

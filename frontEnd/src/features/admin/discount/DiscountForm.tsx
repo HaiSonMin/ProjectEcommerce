@@ -161,7 +161,7 @@ export default function DiscountFrom(props: IProps) {
           />
         </FormRow>
         <FormRow>
-          <Button $variation="secondary" type="reset">
+          <Button $variation="secondary" type="reset" onClick={() => moveBack()}>
             Cancel
           </Button>
           {!isEditSession ? (

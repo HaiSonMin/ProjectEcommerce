@@ -17,15 +17,21 @@ const StyledSelect = styled.select<{ $type?: string }>`
 `;
 
 interface Props {
+  id?: string;
+  value?: string;
+  defaultValue?: string;
   options: Array<{ value: string; label: string }>;
-  value: string;
-  onChange: (e: React.ChangeEvent) => void;
+  onChange?: (e: React.ChangeEvent) => void;
 }
 
 const Select = (props: Props) => {
   return (
-    <StyledSelect value={props.value} onChange={props.onChange}>
-      {props.options.map((option) => (
+    <StyledSelect
+      defaultValue={props.defaultValue}
+      id={props.id}
+      onChange={props?.onChange}
+    >
+      {props.options?.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
         </option>

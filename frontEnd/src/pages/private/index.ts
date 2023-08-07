@@ -1,36 +1,86 @@
 import AdminLayout from "./AdminLayout";
-
-import UserPage from "./UserPage";
-import OrderPage from "./OrderPage";
+import { UserPage, UserCreatePage, UserSearchPage } from "./user";
+import { OrderPage, OrderUpdatePage, OrderDetailPage } from "./order";
 import BrandPage from "./BrandPage";
 import RatingPage from "./RatingPage";
-import CouponPage from "./CouponPage";
 import PaymentPage from "./PaymentPage";
 import SettingPage from "./SettingPage";
-import ProductPage from "./ProductPage";
-import CustomerPage from "./CustomerPage";
-import DiscountPage from "./DiscountPage";
+import CustomerPage from "./customer/CustomerPage";
 import QuestionPage from "./QuestionPage";
 import WishlistPage from "./WishlistPage";
 import InventoryPage from "./InventoryPage";
-import DashboardPage from "./DashboardPage";
-import ProductCategoryPage from "./ProductCategory";
+import DashboardPage from "./home/DashboardPage";
+import {
+  DiscountPage,
+  DiscountEditPage,
+  DiscountTablePage,
+  DiscountCreatePage,
+  DiscountAddProductsPage,
+} from "./discount";
+import {
+  CouponPage,
+  CouponEditPage,
+  CouponTablePage,
+  CouponCreatePage,
+  CouponSearchPage,
+  CouponAddProductsPage,
+} from "./coupon";
+import {
+  ProductPage,
+  ProductTablePage,
+  ProductCreatePage,
+  ProductSearchPage,
+  ProductProvidePage,
+  ProductUpdateBasicPage,
+  ProductUpdateMainInfoPage,
+  ProductUpdateMainInfoDetail,
+} from "./product";
+
+import {
+  ProductCategoryPage,
+  ProductCategoryTablePage,
+  ProductCategoryCreatePage,
+  ProductCategoryUpdatePage,
+} from "./productCategory";
 
 export {
   AdminLayout,
   UserPage,
+  UserSearchPage,
+  UserCreatePage,
   OrderPage,
+  OrderUpdatePage,
+  OrderDetailPage,
   BrandPage,
   RatingPage,
-  CouponPage,
   PaymentPage,
   SettingPage,
-  ProductPage,
   CustomerPage,
-  DiscountPage,
   QuestionPage,
   WishlistPage,
   InventoryPage,
   DashboardPage,
+  DiscountPage,
+  DiscountEditPage,
+  DiscountTablePage,
+  DiscountCreatePage,
+  DiscountAddProductsPage,
+  CouponPage,
+  CouponEditPage,
+  CouponTablePage,
+  CouponCreatePage,
+  CouponSearchPage,
+  CouponAddProductsPage,
   ProductCategoryPage,
+  ProductCategoryTablePage,
+  ProductCategoryCreatePage,
+  ProductCategoryUpdatePage,
+  ProductPage,
+  ProductTablePage,
+  ProductCreatePage,
+  ProductSearchPage,
+  ProductProvidePage,
+  ProductUpdateBasicPage,
+  ProductUpdateMainInfoPage,
+  ProductUpdateMainInfoDetail,
 };

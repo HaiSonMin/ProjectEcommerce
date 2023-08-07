@@ -1,22 +1,34 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "strict": true,
+    "rootDir": "src",
     "noEmit": true,
+    "allowJs": true,
     "jsx": "react-jsx",
-    "baseUrl": "src",
-    "noImplicitAny": false
+    "target": "ES2015",
+    "module": "esnext",
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["dom", "dom.iterable", "esnext", "ES2015"],
+    "plugins": [
+      { "transform": "transformer-module" },
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      // "@sliceReducer/*": ["src/sliceReducer/*"]
+    }
   },
-  "include": ["src", "**/*.cy.ts"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

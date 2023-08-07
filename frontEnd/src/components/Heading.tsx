@@ -12,8 +12,9 @@ const Heading = styled.header<{ $as: string }>`
   ${(props) =>
     props.$as === "h2" &&
     css`
-      font-size: 2rem;
+      font-size: 2.4rem;
       font-weight: 600;
+      text-transform: uppercase;
     `}
     
     ${(props) =>
@@ -29,6 +30,13 @@ const Heading = styled.header<{ $as: string }>`
       font-size: 3rem;
       font-weight: 600;
       text-align: center;
+    `}
+
+      ${(props) =>
+    props.$as === "h5" &&
+    css`
+      font-size: 2.4rem;
+      font-weight: 500;
     `}
     
   line-height: 1.4;

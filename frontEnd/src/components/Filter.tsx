@@ -36,21 +36,27 @@ const FilterButton = styled.button<{ $active?: boolean }>`
   }
 `;
 
-const Filter = ({ filterField, options = [] }) => {
+interface IProps {
+  filterField: string;
+  options: Array<{ value: string; label: string }>;
+}
+
+const Filter = (props: IProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const currentParams = searchParams.get(filterField) || options?.at(0).value;
+  const currentParams =
+    searchParams.get(props.filterField) || props.options.at(0)?.value;
   // Click to handler
   function handlerClick(value: any) {
     // Set Page === 1 when click filter
     if (searchParams.get("page")) searchParams.set("page", "1");
-    searchParams.set(filterField, value);
+    searchParams.set(props.filterField, value);
     setSearchParams(searchParams);
   }
 
   return (
     <StyledFilter>
-      {options.map((option: any) => (
+      {props.options.map((option: any) => (
         <FilterButton
           key={option.value}
           onClick={() => handlerClick(option.value)}

@@ -1,37 +1,35 @@
+import { CONSTANT } from "@/utils";
 import { useSearchParams } from "react-router-dom";
-import UseProductCategoryApi from "./UseProductCategoryApi";
-import { sortObject } from "../../../utils";
-import { Menus, Modal, Pagination, Spinner, Table } from "../../../components";
+import { IProductCategory } from "@/interfaces";
 import ProductCategoryRow from "./ProductCategoryRow";
-import { ProductCategoryType } from "featureTypes";
+import UseProductCategoryApi from "./UseProductCategoryApi";
+import { Menus, Pagination, Spinner, Table } from "@/components";
+import { useEffect } from "react";
 
 export default function ProductCategoryTable() {
-  const [searchParams] = useSearchParams();
-  const { isGettingProductCategory, metadata } =
-    UseProductCategoryApi.useGetAllCategory();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { isGettingProductCategories, metadata } =
+    UseProductCategoryApi.getAllCategories();
 
-  // Sort
-  const sortByValue = searchParams.get("sort") || "created_at-asc";
+  useEffect(() => {
+    searchParams.set("limit", String(CONSTANT.LIMIT_PAGE));
+    setSearchParams(searchParams);
+  }, []);
 
-  const sortedProductCategories = sortObject({
-    data: metadata?.productCategories,
-    sortValue: sortByValue,
-  });
-
-  if (isGettingProductCategory) return <Spinner />;
-  console.log("sortedProductCategories::::", metadata);
+  if (isGettingProductCategories) return <Spinner />;
 
   return (
     <Menus>
-      <Table columns="1fr 1.2fr 0.2fr">
+      <Table columns="1fr 2fr 1.5fr 0.4fr">
         <Table.Header>
-          <div>Avatar Category</div>
+          <div>Avatar</div>
           <div>Category Name</div>
-          <div></div>
+          <div>Category Type</div>
+          <div>Options</div>
         </Table.Header>
         <Table.Body
-          data={sortedProductCategories}
-          render={(productCategory: ProductCategoryType) => (
+          data={metadata?.productCategories}
+          render={(productCategory: IProductCategory) => (
             <ProductCategoryRow
               key={productCategory._id}
               productCategory={productCategory}
@@ -39,7 +37,7 @@ export default function ProductCategoryTable() {
           )}
         />
         <Table.Footer>
-          <Pagination countItems={metadata.totalProductCategories} />
+          <Pagination countItems={metadata?.totalProductCategories} />
         </Table.Footer>
       </Table>
     </Menus>

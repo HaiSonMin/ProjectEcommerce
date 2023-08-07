@@ -17,15 +17,15 @@ export default function UserTableOperation() {
         options={[
           {
             value: "all",
-            label: "All User",
+            label: "All",
           },
           {
             value: "blocking",
-            label: "User Blocking",
+            label: "Blocking",
           },
           {
             value: "unBlocking",
-            label: "User UnBlocking",
+            label: "UnBlocking",
           },
         ]}
       />

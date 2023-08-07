@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Form,
   Input,
@@ -8,103 +8,100 @@ import {
   InputFile,
   InputColor,
   FormRowContent,
-} from "../../../components";
-import Select from "react-select";
+} from "@/components";
+import Select, { SingleValue } from "react-select";
 import JoditEditor from "jodit-react";
 import { UseBrandApi } from "../brand";
-import { CONSTANT } from "../../../utils";
+import { CONSTANT } from "@/utils";
 import { useForm } from "react-hook-form";
 import UseProductApi from "./UseProductApi";
-import { useMoveBack } from "../../../hooks";
-import { IProductCreateType } from "../../../featureTypes/IProductType";
+import { useMoveBack } from "@/hooks";
+import { IProductCreate } from "@/interfaces/product/product.interface";
 import UseProductCategoryApi from "../productCategory/UseProductCategoryApi";
-import { SingleValue } from "react-select";
+import IOptionSelect from "@/helpers/ISelectOption";
 
-interface IProps {}
-
-type OptionSelectType = {
-  value: string;
-  label: string;
-};
-
-interface IInitializeType {}
-
-export default function ProductCreate(props: IProps) {
+export default function ProductCreate() {
   const moveBack = useMoveBack();
-  const [contentDescription, setContentDescription] = useState<string>(null);
+
+  const [contentDescription, setContentDescription] = useState<string>("");
   const [selectBrand, setSelectBrand] =
-    useState<Pick<OptionSelectType, "value">>(null);
+    useState<SingleValue<Pick<IOptionSelect, "value">>>(null);
   const [selectCategory, setSelectCategory] =
-    useState<Pick<OptionSelectType, "value">>(null);
+    useState<SingleValue<Pick<IOptionSelect, "value">>>(null);
   const [selectRom, setSelectRom] =
-    useState<Pick<OptionSelectType, "value">>(null);
+    useState<SingleValue<Pick<IOptionSelect, "value">>>(null);
   const [selectRam, setSelectRam] =
-    useState<Pick<OptionSelectType, "value">>(null);
+    useState<SingleValue<Pick<IOptionSelect, "value">>>(null);
 
   // if(!selectBrand) errorBrand.
 
   const { isCreatingProduct, createProduct } = UseProductApi.createProduct();
-  const { handleSubmit, reset, formState, register } = useForm();
+  const { handleSubmit, formState, register } = useForm();
   const { errors: errorsForm } = formState;
   const { metadata: brandInfo } = UseBrandApi.getAllBrand();
-  const { metadata: categoryInfo } = UseProductCategoryApi.useGetAllCategory();
+  const { metadata: categoryInfo } = UseProductCategoryApi.getAllCategories();
 
-  const optionsBrands: Array<OptionSelectType> = brandInfo?.brands.map(
-    (brand) => {
+  const optionsBrands: Array<IOptionSelect> | undefined = useMemo(() => {
+    return brandInfo?.brands.map((brand) => {
       return {
         value: brand._id,
         label: brand.brand_name,
       };
-    }
-  );
-  const optionsCategory: Array<OptionSelectType> =
-    categoryInfo?.productCategories.map((cate) => {
+    });
+  }, []);
+
+  const optionsCategory: Array<IOptionSelect> | undefined = useMemo(() => {
+    return categoryInfo?.productCategories.map((cate) => {
       return {
         value: cate._id,
         label: cate.productCategory_name,
       };
     });
-  const optionsRam: Array<OptionSelectType> = Object.keys(CONSTANT.RAM).map(
-    (item) => {
+  }, []);
+
+  const optionsRam: Array<IOptionSelect> = useMemo(() => {
+    return Object.keys(CONSTANT.RAM).map((item) => {
       return { value: item, label: item };
-    }
-  );
-  const optionsRom: Array<OptionSelectType> = Object.keys(CONSTANT.ROM).map(
-    (item) => {
+    });
+  }, []);
+
+  const optionsRom: Array<IOptionSelect> = useMemo(() => {
+    return Object.keys(CONSTANT.ROM).map((item) => {
       return { value: item, label: item };
-    }
-  );
+    });
+  }, []);
 
   const handlerSelectBrand = (
-    option: SingleValue<Pick<OptionSelectType, "value">>
+    option: SingleValue<Pick<IOptionSelect, "value">>
   ) => {
     setSelectBrand(option);
   };
   const handlerSelectCategory = (
-    option: SingleValue<Pick<OptionSelectType, "value">>
+    option: SingleValue<Pick<IOptionSelect, "value">>
   ) => {
     setSelectCategory(option);
   };
   const handlerSelectRam = (
-    option: SingleValue<Pick<OptionSelectType, "value">>
+    option: SingleValue<Pick<IOptionSelect, "value">>
   ) => {
     setSelectRam(option);
   };
   const handlerSelectRom = (
-    option: SingleValue<Pick<OptionSelectType, "value">>
+    option: SingleValue<Pick<IOptionSelect, "value">>
   ) => {
     setSelectRom(option);
   };
 
   const onSubmit = (dataForm: any) => {
-    const dataCreate: IProductCreateType = {
+    const dataCreate: IProductCreate = {
       product_name: dataForm["product_name"],
-      product_brand: selectBrand.value,
-      product_category: selectCategory.value,
+      product_brand: selectBrand?.value || "",
+      product_category: selectCategory?.value || "",
       product_thumb: dataForm["product_thumb"],
       product_images: dataForm["product_images"],
-      product_ram: selectRam.value,
-      product_rom: selectRom.value,
+      product_imagesInfo: dataForm["product_imagesInfo"],
+      product_ram: selectRam?.value || "",
+      product_rom: selectRom?.value || "",
       product_price: +dataForm["product_price"],
       product_quantity: +dataForm["product_quantity"],
       product_color: dataForm["product_color"],
@@ -153,7 +150,6 @@ export default function ProductCreate(props: IProps) {
         <InputFile
           accept="image/*"
           id="productThumb"
-          name="product_thumb"
           {...register("product_thumb", {
             required: "Please provide product thumb",
           })}
@@ -167,13 +163,25 @@ export default function ProductCreate(props: IProps) {
           multiple
           accept="image/*"
           id="productImages"
-          name="product_images"
           {...register("product_images", {
             required: "Please provide product images",
           })}
         />
       </FormRow>
-
+      <FormRow
+        label="Product ImagesInfo(Multi Image)"
+        error={errorsForm.product_imagesInfo}
+      >
+        <InputFile
+          multiple
+          accept="image/*"
+          id="productImagesInfo"
+          {...register("product_imagesInfo", {
+            required: "Please provide product images information",
+          })}
+        />
+      </FormRow>
+      {/* /////////////////////////////////////////////////// */}
       <Heading $as="h1">Main Info</Heading>
       <FormRow label="Product RAM" error={errorsForm.product_mainInfo}>
         <Select
@@ -214,7 +222,6 @@ export default function ProductCreate(props: IProps) {
       <FormRow label="Product Color" error={errorsForm.product_color}>
         <Input
           type="text"
-          name="product_color"
           id="productColor"
           {...register("product_color", {
             required: "Please provide color for product",
@@ -224,7 +231,6 @@ export default function ProductCreate(props: IProps) {
       <FormRow label="Product Color Code" error={errorsForm.product_colorCode}>
         <InputColor
           id="productColorCode"
-          name="product_colorCode"
           {...register("product_colorCode", {
             required: "Please provide color for product",
           })}
@@ -237,7 +243,6 @@ export default function ProductCreate(props: IProps) {
         <InputFile
           id="productImageColor"
           accept="image/*"
-          name="product_imageColor"
           {...register("product_imageColor", {
             required: "Please provide image for color of product",
           })}
@@ -246,85 +251,6 @@ export default function ProductCreate(props: IProps) {
       <FormRowContent label="Product Description">
         <JoditEditor
           value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <Heading $as="h1">Specification product</Heading>
-      <FormRowContent label="Product Specification Processor">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Graphic">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Communication">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Rear Camera">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Front Camera">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Design">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Weight">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Release Time">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Charging Technology">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Other Parameter">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
-          onChange={(newContext) => setContentDescription(newContext)}
-        />
-      </FormRowContent>
-      <FormRowContent label="Product Specification Other Utilities">
-        <JoditEditor
-          value={contentDescription}
-          onBlur={(newContent) => setContentDescription(newContent)}
           onChange={(newContext) => setContentDescription(newContext)}
         />
       </FormRowContent>
@@ -333,7 +259,7 @@ export default function ProductCreate(props: IProps) {
           Back
         </Button>
         <Button disabled={isCreatingProduct}>
-          {isCreatingProduct ? "Creating...." : "Create"}
+          {isCreatingProduct ? "Creating...." : "Create New Product"}
         </Button>
       </FormRow>
     </Form>

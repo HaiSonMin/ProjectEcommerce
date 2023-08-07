@@ -1,4 +1,4 @@
-import { Button, Modal } from "../../../components";
+import { Button, Modal } from "@/components";
 import { BrandForm } from "./BrandForm";
 
 export default function AddBrand() {

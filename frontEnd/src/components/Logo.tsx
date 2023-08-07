@@ -16,7 +16,7 @@ const Img = styled.img`
 const Logo = () => {
   return (
     <LogoStyled to={"/admin/dashboard"}>
-      <Img src="../logo_light.png" alt="Logo Web Site" />
+      <Img src="../../logo_light.png" alt="Logo Web Site" />
     </LogoStyled>
   );
 };

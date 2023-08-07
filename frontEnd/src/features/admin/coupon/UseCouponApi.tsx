@@ -7,11 +7,11 @@ import {
   ICouponGetOneResultApi,
   ICouponSearchResultApi,
   ICouponUpdateResultApi,
-} from "@/api-types/ICouponApi";
+} from "@/api-types/ICouponResultApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { useQueryString } from "@/hooks";
-import { CONSTANT, getToastMessageError } from "@/utils";
+import { useQueriesString } from "@/hooks";
+import { CONSTANT, getQueriesString, getToastMessageError } from "@/utils";
 
 export default class UseCouponApi {
   static createCoupon(): ICouponCreateResultApi {
@@ -53,21 +53,73 @@ export default class UseCouponApi {
   }
 
   static getAllCoupons(): ICouponGetAllResultApi {
-    const queriesString = useQueryString();
+    const queryClient = useQueryClient();
+    const {
+      sort,
+      page: currentPage,
+      limit,
+      status,
+      numericFilters,
+    } = getQueriesString(useQueriesString());
 
     const { isLoading, data } = useQuery({
-      queryKey: ["coupons", queriesString],
+      queryKey: ["coupons", sort, currentPage, limit, status, numericFilters],
       queryFn: () =>
         CouponApi.getAllCoupons({
-          sort: queriesString.sort || "ctime",
-          page: Number(queriesString.page) || 1,
-          limit: Number(queriesString.limit) || CONSTANT.LIMIT_PAGE,
-          status: queriesString.status || "all",
-          numericFilters: queriesString?.numericFilters,
+          sort,
+          page: currentPage,
+          limit,
+          status,
+          numericFilters,
         }),
     });
 
+    let numberPage: number = 1;
+    if (data?.metadata?.totalCoupons)
+      numberPage = Math.ceil(data?.metadata?.totalCoupons / limit);
+
     // Load pre next page
+    if (currentPage < numberPage)
+      queryClient.prefetchQuery({
+        queryKey: [
+          "coupons",
+          sort,
+          currentPage + 1,
+          limit,
+          status,
+          numericFilters,
+        ],
+        queryFn: () => {
+          CouponApi.getAllCoupons({
+            sort,
+            page: currentPage + 1,
+            limit,
+            status,
+            numericFilters,
+          });
+        },
+      });
+
+    if (currentPage > 1)
+      queryClient.prefetchQuery({
+        queryKey: [
+          "coupons",
+          sort,
+          currentPage - 1,
+          limit,
+          status,
+          numericFilters,
+        ],
+        queryFn: () => {
+          CouponApi.getAllCoupons({
+            sort,
+            page: currentPage - 1,
+            limit,
+            status,
+            numericFilters,
+          });
+        },
+      });
 
     return {
       isGettingCoupons: isLoading,
@@ -79,7 +131,7 @@ export default class UseCouponApi {
   }
 
   static searchCoupons(): ICouponSearchResultApi {
-    const queriesString = useQueryString();
+    const queriesString = useQueriesString();
 
     const { isLoading, data } = useQuery({
       queryKey: ["coupons", queriesString],
