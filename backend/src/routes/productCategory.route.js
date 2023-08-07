@@ -15,6 +15,12 @@ router
   );
 
 router.route("/getAll").get(ProductCategoryController.getAllProductCategories);
+router
+  .route("/getById/:productCategoryId")
+  .get(ProductCategoryController.getProductCategoryById);
+router
+  .route("/getByIds")
+  .get(ProductCategoryController.getProductCategoriesByIds);
 
 router
   .route("/update/:productCategoryId")

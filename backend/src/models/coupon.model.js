@@ -1,5 +1,4 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const { CouponModel } = require(".");
 const COLLECTION_NAME = "Coupon";
 const CouponSchema = new Schema(
   {

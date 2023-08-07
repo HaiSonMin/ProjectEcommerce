@@ -2,8 +2,12 @@ const { UserModel } = require("../models");
 const { getUnSelectData } = require("../utils");
 
 class UserRepository {
-  static async findUserByEmail({ user_email }) {
-    return await UserModel.findOne({ user_email });
+  static async getUserById({ userId }) {
+    return await UserModel.findById(userId).exec();
+  }
+
+  static async getUserByEmail({ user_email }) {
+    return await UserModel.findOne({ user_email }).exec();
   }
 
   static async updateUserById({ userId, dataUpdate }) {
@@ -18,6 +22,6 @@ class UserRepository {
       user_passwordResetExpires: { $gt: Date.now() },
     });
   }
-}   
+}
 
 module.exports = UserRepository;

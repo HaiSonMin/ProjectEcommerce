@@ -6,11 +6,11 @@ const { convertFieldsToArray } = require("../utils");
 class ProductCategoryService {
   static async createProductCategory(req, res) {
     const payload = req.body;
-    const { path: pathImage } = req?.file || {};
-    console.log("pathImage:::");
+    const { path } = req?.file || {};
+    console.log(path);
     const newProductCategory = await ProductCategoryModel.create({
       ...payload,
-      productCategory_image: pathImage,
+      productCategory_image: path,
     });
     if (!newProductCategory) throw new BadRequestError("Create Category Error");
     return newProductCategory;
@@ -34,19 +34,38 @@ class ProductCategoryService {
     };
   }
 
+  static async getProductCategoryById(req, res) {
+    const { productCategoryId } = req.params;
+    const productCategory = await ProductCategoryRepo.getProductCategoryById({
+      productCategoryId,
+    });
+
+    if (!productCategory) throw new NotFoundError("Product category not found");
+    return productCategory;
+  }
+
+  static async getProductCategoriesByIds(req, res) {
+    const { productCategoriesIds } = req.query;
+    const productCategories =
+      await ProductCategoryRepo.getProductCategoriesByIds({
+        productCategoriesIds,
+      });
+    return productCategories;
+  }
+
   static async updateProductCategory(req, res) {
     const { productCategoryId } = req.params;
     const payload = req.body;
 
-    console.log("productCategoryId:::", productCategoryId);
     const { path: pathImage } = req?.file || {};
-
-    console.log("pathImage:::", pathImage);
 
     const productCategoryUpdated =
       await ProductCategoryRepo.updateProductCategoryById({
         productCategoryId,
-        payload: { ...payload, productCategory_image: pathImage },
+        payload: {
+          ...payload,
+          productCategory_image: pathImage ?? payload.productCategory_image,
+        },
       });
     if (!productCategoryUpdated)
       throw new BadRequestError("Updated Category Error");

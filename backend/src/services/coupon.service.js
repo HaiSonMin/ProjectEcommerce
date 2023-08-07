@@ -82,7 +82,6 @@ class CouponService {
 
   static async getAllCoupons(req, res) {
     const { sort, limit, page, status, numericFilters } = req.query;
-    console.log(req.query);
     const { coupons, totalCoupons } = await CouponRepo.getAllCoupons({
       sort,
       page,
@@ -91,7 +90,11 @@ class CouponService {
       filter: {
         ...convertOperatorObject({
           numericFilters,
-          option: ["coupon_value", "coupon_minimumOrderValue"],
+          option: [
+            "coupon_value",
+            "coupon_minimumOrderValue",
+            "coupon_numberOfApplication",
+          ],
         }),
       },
     });
@@ -219,14 +222,14 @@ class CouponService {
       couponId,
       payload,
     });
-    
+
     if (!couponUpdated)
       throw new BadRequestError(`Update coupon with id:${couponId} error`);
 
     return couponUpdated;
   }
 
-  static async addCoupinToProducts(req, res) {
+  static async addCouponToProducts(req, res) {
     const { discountId } = req.params;
     const { productIds } = req.body;
 

@@ -15,6 +15,20 @@ class ProductCategoryController {
     }).send(res);
   }
 
+  static async getProductCategoryById(req, res) {
+    new OK({
+      message: "Get Product Categories By Id Successfully",
+      metadata: await ProductCategoryService.getProductCategoryById(req, res),
+    }).send(res);
+  }
+
+  static async getProductCategoriesByIds(req, res) {
+    new OK({
+      message: "Get Product Categories By Ids Successfully",
+      metadata: await ProductCategoryService.getProductCategoriesByIds(req, res),
+    }).send(res);
+  }
+
   static async updateProductCategory(req, res) {
     new OK({
       message: "Update Product Category Successfully",

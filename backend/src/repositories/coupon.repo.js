@@ -5,9 +5,13 @@ class CouponRepo {
   static async getAllCoupons({ sort, limit = 10, page = 1, status, filter }) {
     let statusGet = {};
     if (status === "expired")
-      statusGet = { discount_endDate: { $lt: Date.now() } };
+      statusGet = { coupon_endDate: { $lt: Date.now() } };
     if (status === "available")
-      statusGet = { discount_endDate: { $gte: Date.now() } };
+      statusGet = { coupon_endDate: { $gte: Date.now() } };
+
+    console.log("statusGet:::", statusGet);
+    console.log("filter:::", filter);
+    console.log("sort:::", convertSortBy(sort));
 
     const [coupons, totalCoupons] = await Promise.all([
       CouponModel.find({ ...statusGet, ...filter })

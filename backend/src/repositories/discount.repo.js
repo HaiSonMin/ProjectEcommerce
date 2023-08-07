@@ -8,15 +8,7 @@ const {
 } = require("../utils");
 
 class DiscountRepo {
-  static async getAllDiscounts({
-    sort,
-    page = 1,
-    limit = 10,
-    status,
-    filter,
-    select,
-    unSelect,
-  }) {
+  static async getAllDiscounts({ sort, page = 1, limit = 10, status, filter }) {
     console.log(filter);
     let statusGet = {};
     if (status === "expired")
@@ -25,8 +17,6 @@ class DiscountRepo {
       statusGet = { discount_endDate: { $gte: Date.now() } };
     const [discounts, totalDiscounts] = await Promise.all([
       DiscountModel.find({ ...filter, ...statusGet })
-        .select(getSelectData(select))
-        .select(getUnSelectData(unSelect))
         .skip(skipPage({ limit, page }))
         .sort(convertSortBy(sort))
         .limit(limit)
@@ -41,58 +31,10 @@ class DiscountRepo {
     return await DiscountModel.findById(discountId).exec();
   }
 
-  static async getDiscountsAvailable({
-    sort,
-    page = 1,
-    limit = 10,
-    select,
-    unSelect,
-  }) {
-    const [discounts, totalDiscounts] = await Promise.all([
-      DiscountModel.find({
-        discount_endDate: { $gte: Date.now() },
-      })
-        .select(getSelectData(select))
-        .select(getUnSelectData(unSelect))
-        .skip(skipPage({ limit, page }))
-        .sort(convertSortBy(sort))
-        .limit(limit)
-        .lean()
-        .exec(),
-      DiscountModel.count(),
-    ]);
-    return { discounts, totalDiscounts };
-  }
-
-  static async getDiscountsUnavailable({
-    sort = "ctime",
-    page = 1,
-    limit = 10,
-    select,
-    unSelect,
-  }) {
-    const [discounts, totalDiscounts] = await Promise.all([
-      DiscountModel.find({
-        discount_endDate: { $lt: Date.now() },
-      })
-        .select(getSelectData(select))
-        .select(getUnSelectData(unSelect))
-        .skip(skipPage({ limit, page }))
-        .sort(convertSortBy(sort))
-        .limit(limit)
-        .lean()
-        .exec(),
-      DiscountModel.count(),
-    ]);
-    return { discounts, totalDiscounts };
-  }
-
   static async searchDiscount({
     sort,
     page,
     limit,
-    select,
-    unSelect,
     keySearch,
   }) {
     const regexSearch = new RegExp(keySearch, "i");
@@ -102,8 +44,6 @@ class DiscountRepo {
           $search: regexSearch,
         },
       })
-        .select(getSelectData(select))
-        .select(getUnSelectData(unSelect))
         .skip(skipPage({ limit, page }))
         .sort(convertSortBy(sort))
         .limit(limit)

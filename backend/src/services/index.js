@@ -1,3 +1,4 @@
+const ProductServiceV2 = require("./product.serviceV2");
 const AuthService = require("./auth.service");
 const UserService = require("./user.service");
 const BlogService = require("./blog.service");
@@ -5,6 +6,7 @@ const CartService = require("./cart.service");
 const OrderService = require("./order.service");
 const AdminService = require("./admin.service");
 const BrandService = require("./brand.service");
+const DemandService = require("./demand.service");
 const RatingService = require("./rating.service");
 const CouponService = require("./coupon.service");
 const ProductService = require("./product.service");
@@ -18,6 +20,7 @@ const SpecificationService = require("./specification.service");
 const ProductCategoryService = require("./productCategory.service");
 
 module.exports = {
+  ProductServiceV2,
   AuthService,
   UserService,
   BlogService,
@@ -25,6 +28,7 @@ module.exports = {
   OrderService,
   AdminService,
   BrandService,
+  DemandService,
   RatingService,
   CouponService,
   ProductService,

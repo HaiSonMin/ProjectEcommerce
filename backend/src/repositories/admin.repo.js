@@ -45,7 +45,9 @@ class AdminRepository {
   }
 
   static async updateUserById({ userId, payload }) {
-    return await UserModel.findByIdAndUpdate(userId, payload, { new: true }).exec();
+    return await UserModel.findByIdAndUpdate(userId, payload, {
+      new: true,
+    }).exec();
   }
 
   static async blockUserById({ userId }) {

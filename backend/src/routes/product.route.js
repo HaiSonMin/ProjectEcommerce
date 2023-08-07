@@ -1,13 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Constant = require("../utils/constant");
-const { ProductController } = require("../controllers");
+const { ProductController, ProductControllerV2 } = require("../controllers");
 const { checkAuthIsAdmin } = require("../middleware/checkAuth.middleware");
-const {
-  uploadMultiFieldsImages,
-  uploadMultiImages,
-  uploadOneImage,
-} = require("../utils");
+const { uploadMultiFieldsImages, uploadOneImage } = require("../utils");
 
 const fieldsUpload = [
   {
@@ -15,7 +11,11 @@ const fieldsUpload = [
     maxCount: 1,
   },
   {
-    name: "product_images",
+    name: "product_imagesProduct",
+    maxCount: Constant.MAX_UPLOAD_IMAGES,
+  },
+  {
+    name: "product_imagesAttribute",
     maxCount: Constant.MAX_UPLOAD_IMAGES,
   },
   {
@@ -24,46 +24,44 @@ const fieldsUpload = [
   },
 ];
 // Only Admin have permission create product
-router.route("/getAll").get(ProductController.getAllProducts);
-
-router.route("/getAllAvailable").get(ProductController.getAllProductsAvailable);
-
-router
-  .route("/getAllUnavailable")
-  .get(ProductController.getAllProductsUnavailable);
-router.route("/getById/:productId").get(ProductController.getProductById);
-router.route("/getMainInfoById/:productMainInfoId").get(ProductController.getProductMainInfoById);
+router.route("/getAll").get(ProductControllerV2.getAllProducts);
 // router.use(checkAuthIsAdmin);
 
 router
   .route("/create")
-  .post(uploadMultiFieldsImages(fieldsUpload), ProductController.createProduct);
-router.route("/search").get(ProductController.getProductByNameOrDescription);
+  .post(
+    uploadMultiFieldsImages(fieldsUpload),
+    ProductControllerV2.createProduct
+  );
+router.route("/search").get(ProductControllerV2.getProductByNameOrDescription);
 
 router
   .route("/update/:productId")
   .patch(
     uploadMultiFieldsImages(fieldsUpload),
-    ProductController.updateProductBasic
+    ProductControllerV2.updateProductBasic
   );
 
 router
-  .route("/updateMainInfo/:productId")
+  .route("/updateAttribute/:productId")
   .patch(
     uploadOneImage("product_imageColor"),
-    ProductController.updateProductMainInfo
+    ProductControllerV2.updateProductAttribute
   );
 
 router
-  .route("/provideInfo/:productId")
+  .route("/provideAttribute/:productId")
   .patch(
     uploadOneImage("product_imageColor"),
-    ProductController.provideInfoProduct
+    ProductControllerV2.provideAttributeProduct
   );
 
-router.route("/delete/:productId").delete(ProductController.deleteProductById);
 router
-  .route("/deleteMainInfo/:productId")
-  .delete(ProductController.deleteProductMainInfo);
+  .route("/deleteAttribute/:productId")
+  .delete(ProductControllerV2.deleteProductAttribute);
+
+router
+  .route("/delete/:productId")
+  .delete(ProductControllerV2.deleteProductById);
 
 module.exports = router;

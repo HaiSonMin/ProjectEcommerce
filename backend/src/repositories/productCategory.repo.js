@@ -11,7 +11,7 @@ class ProductCategoryRepo {
   static async getAllProductCategories({
     filter,
     sort = "ctime",
-    limit = 20,
+    limit,
     page = 1,
     select,
     unselect,
@@ -32,6 +32,12 @@ class ProductCategoryRepo {
 
   static async getProductCategoryById({ productCategoryId }) {
     return await ProductCategoryModel.findById(productCategoryId).lean().exec();
+  }
+
+  static async getProductCategoriesByIds({ productCategoriesIds }) {
+    return await ProductCategoryModel.find({ _id: productCategoriesIds })
+      .lean()
+      .exec();
   }
 
   static async updateProductCategoryById({ productCategoryId, payload }) {

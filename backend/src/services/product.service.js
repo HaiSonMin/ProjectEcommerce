@@ -45,14 +45,12 @@ class ProductService {
     if (!Object.keys(fieldsImage).length)
       throw new BadRequestError("Please provide images for product");
 
-    console.log("getFieldsPath(fieldsImage)::", getFieldsPath(fieldsImage));
-    console.log("Payload::::", payload);
-
     // 3. Create product
     const dataCreate = {
       ...payload,
       product_thumb: getFieldsPath(fieldsImage)["product_thumb"][0],
       product_images: getFieldsPath(fieldsImage)["product_images"],
+      product_imagesInfo: getFieldsPath(fieldsImage)["product_imagesInfo"],
     };
     const newProduct = await ProductModel.create(dataCreate);
 
@@ -60,7 +58,7 @@ class ProductService {
     try {
       const newMainInfoProduct = await ProductMainInfoModel.create({
         ...payload,
-        product_productId: newProduct._id,
+        product: newProduct._id,
         product_imageColor: getFieldsPath(fieldsImage)["product_imageColor"][0],
       });
 
@@ -90,7 +88,7 @@ class ProductService {
   }
 
   static async getAllProducts(req, res) {
-    const { sort, limit, page, fields, unFields, numericFilters } = req.query;
+    const { sort, limit, page, status, numericFilters } = req.query;
     const { lookups, matches } = mongoQueryAggregate({
       optionFilters: convertKeyForQueryAggregate([
         "brands.product_brand.brand",
@@ -100,12 +98,13 @@ class ProductService {
       numericFilters,
     });
 
+    console.log(lookups, matches);
+
     const { products, totalProducts } = await ProductRepo.getAllProducts({
       sort,
-      limit,
       page,
-      select: convertFieldsToArray(fields),
-      unselect: convertFieldsToArray(unFields),
+      limit,
+      status,
       lookups,
       matches,
     });
@@ -175,31 +174,52 @@ class ProductService {
       throw new BadRequestError("Missing Payload Update");
 
     let dataUpdate;
-    console.log("product.product_images:::", product.product_images);
-    console.log(
-      "fieldsImage:::",
-      getFieldsPath(fieldsImage)?.["product_images"]
-    );
-    if (fieldsImage && getFieldsPath(fieldsImage)["product_images"]) {
+    // If file images have chose
+    if (
+      fieldsImage &&
+      getFieldsPath(fieldsImage)?.["product_images"] &&
+      getFieldsPath(fieldsImage)?.["product_imagesInfo"]
+    ) {
       dataUpdate = {
-        product_thumb: getFieldsPath(fieldsImage)["product_thumb"]?.[0],
+        product_thumb: getFieldsPath(fieldsImage)?.["product_thumb"]?.[0],
         product_images: [
           ...product.product_images,
-          ...getFieldsPath(fieldsImage)["product_images"],
+          ...getFieldsPath(fieldsImage)?.["product_images"],
+        ],
+        product_imagesInfo: [
+          ...product.product_imagesInfo,
+          ...getFieldsPath(fieldsImage)?.["product_imagesInfo"],
         ],
         ...payload,
       };
-    } else if (fieldsImage) {
-      console.log("UpdateThumb");
+    } else if (fieldsImage && getFieldsPath(fieldsImage)?.["product_images"]) {
       dataUpdate = {
-        product_thumb: getFieldsPath(fieldsImage)["product_thumb"]?.[0],
+        product_thumb: getFieldsPath(fieldsImage)?.["product_thumb"]?.[0],
+        product_images: [
+          ...product.product_images,
+          ...getFieldsPath(fieldsImage)?.["product_images"],
+        ],
+        ...payload,
+      };
+    } else if (
+      fieldsImage &&
+      getFieldsPath(fieldsImage)?.["product_imagesInfo"]
+    ) {
+      dataUpdate = {
+        product_thumb: getFieldsPath(fieldsImage)?.["product_thumb"]?.[0],
+        product_imagesInfo: [
+          ...product.product_imagesInfo,
+          ...getFieldsPath(fieldsImage)?.["product_imagesInfo"],
+        ],
         ...payload,
       };
     } else {
       dataUpdate = {
+        product_thumb: getFieldsPath(fieldsImage)["product_thumb"]?.[0],
         ...payload,
       };
     }
+
     const productUpdated = await ProductRepo.updateProductById({
       productId,
       payload: dataUpdate,

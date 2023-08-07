@@ -16,16 +16,15 @@ class ProductRepository {
     sort,
     page = 1,
     limit = 10,
+    filter,
     status = "all",
-    lookups,
-    matches,
   }) {
-    // console.log("skipPage({ limit, page }):::", skipPage({ limit, page }));
-    // console.log(lookups);
-    // console.log(matches);
+    let fieldSearchStatus;
+    if (status === "all") fieldSearchStatus = "";
+    if (status === "available") fieldSearchStatus = "";
+    if (status === "unavailable") fieldSearchStatus = "";
+    console.log(convertSortBy(sort));
     const result = await ProductModel.aggregate([
-      ...lookups,
-      matches,
       {
         $facet: {
           products: [
@@ -34,10 +33,7 @@ class ProductRepository {
               $limit: +limit, // Replace 10 with the desired number of documents to limit
             },
             {
-              $sort: convertSortByAggregate({
-                fieldLocal: "productMainInfo",
-                sort,
-              }),
+              $sort: convertSortBy(sort),
             },
           ],
           totalProducts: [
@@ -64,16 +60,19 @@ class ProductRepository {
       ])
       .exec();
   }
+
   static async getProductByIds({ productIds }) {
     return await ProductModel.find({ _id: { $in: productIds } })
       .lean()
       .exec();
   }
+
   static async getProductNotByIds({ productIds }) {
     return await ProductModel.find({ _id: { $nin: productIds } })
       .lean()
       .exec();
   }
+
   static async getProductByNameOrDescription({
     keySearch,
     page = 1,
@@ -100,6 +99,7 @@ class ProductRepository {
       .lean()
       .exec();
   }
+
   static async deleteProductById({ productId }) {
     return await ProductModel.findByIdAndDelete(productId).lean().exec();
   }

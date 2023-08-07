@@ -12,7 +12,7 @@ class DiscountService {
   }
 
   static async getAllDiscounts(req, res) {
-    const { sort, limit, page, status, fields, unFields, numericFilters } =
+    const { sort, limit, page, status,numericFilters } =
       req.query;
     const { discounts, totalDiscounts } = await DiscountRepo.getAllDiscounts({
       sort,
@@ -25,8 +25,6 @@ class DiscountService {
           option: ["discount_value"],
         }),
       },
-      select: convertFieldsToArray(fields),
-      unSelect: convertFieldsToArray(unFields),
     });
     return {
       totalDiscounts,
