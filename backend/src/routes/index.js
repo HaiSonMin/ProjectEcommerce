@@ -18,6 +18,7 @@ const inventoryRouter = require("./inventory.route");
 const blogCategoryRouter = require("./blogCategory.route");
 const SpecificationRouter = require("./specification.route");
 const productCategoryRouter = require("./productCategory.route");
+const productCategoryGroupRouter = require("./productCategoryGroup.route");
 
 router.use("/api/v1/auth", authRouter);
 router.use("/api/v1/user", userRouter);
@@ -36,5 +37,6 @@ router.use("/api/v1/inventory", inventoryRouter);
 router.use("/api/v1/blogCategory", blogCategoryRouter);
 router.use("/api/v1/specification", SpecificationRouter);
 router.use("/api/v1/productCategory", productCategoryRouter);
+router.use("/api/v1/productCategoryGroup", productCategoryGroupRouter);
 
 module.exports = router;

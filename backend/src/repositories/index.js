@@ -17,6 +17,7 @@ const InventoryRepo = require("./inventory.repo");
 const BlogCategoryRepo = require("./blogCategory.repo");
 const SpecificationRepo = require("./specification.repo");
 const ProductCategoryRepo = require("./productCategory.repo");
+const ProductCategoryGroupRepo = require("./productCategoryGroup.repo");
 
 module.exports = {
   CartRepo,
@@ -38,4 +39,5 @@ module.exports = {
   BlogCategoryRepo,
   SpecificationRepo,
   ProductCategoryRepo,
+  ProductCategoryGroupRepo
 };

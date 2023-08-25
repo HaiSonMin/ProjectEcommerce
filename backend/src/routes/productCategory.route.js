@@ -21,6 +21,10 @@ router
 router
   .route("/getByIds")
   .get(ProductCategoryController.getProductCategoriesByIds);
+router
+  .route("/getByGroupId/:productCategoryGroupId")
+  .get(ProductCategoryController.getProductCategoriesByGroupId);
+router.route("/search").get(ProductCategoryController.searchProductCategories);
 
 router
   .route("/update/:productCategoryId")
@@ -32,6 +36,8 @@ router
 router
   .route("/delete/:productCategoryId")
   .delete(ProductCategoryController.deleteProductCategory);
+
+router.route("/change").patch(ProductCategoryController.change);
 
 // Only Admin have permission create product
 

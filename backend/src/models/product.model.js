@@ -22,9 +22,9 @@ const ProductSchema = new Schema(
       type: Number,
       required: [true, "Please provide product price"],
     },
+    // (Filter default)
     product_priceAppliedDiscount: {
       type: Number,
-      default: 0,
     },
     product_slugify: String,
     product_available: {
@@ -38,11 +38,11 @@ const ProductSchema = new Schema(
     //   product_key
     //   product_imageColor
     //   product_price
-    //   product_specs
+    //   product_specs (product_fieldsFilter => Filter right there)
     //   product_desc
     // }
     product_attributes: {
-      type: [Schema.Types.Mixed],
+      type: Schema.Types.Mixed,
       required: true,
     },
     product_brand: {
@@ -64,6 +64,17 @@ const ProductSchema = new Schema(
       ref: "Rating",
       default: [],
     },
+    /*
+      {
+        tinh_nang_sac: [],
+        tinh_nang_dac_biet: [],
+        RAM: [],
+        ROM: [],
+      }
+    */
+    product_fieldsFilter: {
+      type: Schema.Types.Mixed,
+    },
   },
   {
     timestamps: true,
@@ -74,6 +85,7 @@ ProductSchema.index({ product_name: "text", product_description: "text" });
 
 ProductSchema.pre("save", function (next) {
   this.product_slugify = slugify(this.product_name, { lower: true });
+  this.product_priceAppliedDiscount = this.product_price;
   next();
 });
 

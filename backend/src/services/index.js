@@ -18,6 +18,7 @@ const InventoryService = require("./inventory.service");
 const BlogCategoryService = require("./blogCategory.service");
 const SpecificationService = require("./specification.service");
 const ProductCategoryService = require("./productCategory.service");
+const ProductCategoryGroupService = require("./productCategoryGroup.service");
 
 module.exports = {
   ProductServiceV2,
@@ -40,4 +41,5 @@ module.exports = {
   BlogCategoryService,
   SpecificationService,
   ProductCategoryService,
+  ProductCategoryGroupService,
 };

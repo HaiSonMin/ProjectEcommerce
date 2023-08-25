@@ -5,7 +5,6 @@ const DemandSchema = new Schema(
     demand_name: {
       type: String,
       required: true,
-      unique: true,
     },
     demand_image: {
       type: String,
@@ -15,7 +14,6 @@ const DemandSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "ProductCategory",
       required: true,
-      index: true,
     },
   },
   {

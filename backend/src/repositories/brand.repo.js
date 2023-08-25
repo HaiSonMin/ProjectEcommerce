@@ -5,6 +5,7 @@ class BrandRepo {
   static async getBrandById({ brandId }) {
     return await BrandModel.findById(brandId).lean().exec();
   }
+
   static async getBrandByName({ brandName }) {
     const nameReg = new RegExp(brandName, "i");
     return await BrandModel.findOne({
@@ -24,6 +25,30 @@ class BrandRepo {
         .lean()
         .exec(),
       BrandModel.count(),
+    ]);
+
+    return { brands, totalBrands };
+  }
+
+  static async searchBrands({ keySearch, page, limit }) {
+    const searchRegex = new RegExp(keySearch, "i");
+    const [brands, totalBrands] = await Promise.all([
+      BrandModel.find({
+        $or: [
+          { brand_name: { $regex: searchRegex } },
+          { brand_origin: { $regex: searchRegex } },
+        ],
+      })
+        .skip(skipPage({ page, limit }))
+        .limit(limit)
+        .lean()
+        .exec(),
+      BrandModel.countDocuments({
+        $or: [
+          { brand_name: { $regex: searchRegex } },
+          { brand_origin: { $regex: searchRegex } },
+        ],
+      }),
     ]);
 
     return { brands, totalBrands };

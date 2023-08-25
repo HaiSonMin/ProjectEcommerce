@@ -7,13 +7,13 @@ const errorHandlerMiddleware = function (err, req, res, next) {
     message: err.message || "Some thing went wrong, please try again",
     reasonStatusCode: err.reasonStatusCode || "Error",
   };
-  // if (err instanceof CustomErrorApi) return res.status(err.statusCode).json({ message: err.message });
 
-  // // Duplicate Erro
-  // if (err.code || err.code === 11000) {
-  //   customError.message = `Duplicate item, Please try again`;
-  //   customError.statusCode = StatusCodes.BAD_REQUEST;
-  // }
+  console.log(err);
+  // // Duplicate Error
+  if (err.code || err.code === 11000) {
+    customError.message = `Duplicate item, Please try again`;
+    customError.statusCode = StatusCodes.BAD_REQUEST;
+  }
 
   // Enter miss name, email, password
   if (err.name === "ValidationError") {

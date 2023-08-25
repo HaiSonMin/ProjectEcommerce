@@ -32,15 +32,28 @@ class BrandService {
   }
 
   static async getAllBrand(req, res) {
-    const { sort, limit, page, fields } = req.query;
+    const { sort, limit, page } = req.query;
     const { brands, totalBrands } = await BrandRepo.getAllBrands({
       sort,
       limit,
       page,
-      select: convertFieldsToArray(fields),
     });
     // console.log("brands::::", brands);
     // if (!brands.length) throw new NotFoundError("Brands don't exists");
+    return {
+      totalBrands,
+      brandsPerPage: brands.length,
+      brands,
+    };
+  }
+
+  static async searchBrands(req, res) {
+    const { keySearch, limit, page } = req.query;
+    const { brands, totalBrands } = await BrandRepo.searchBrands({
+      keySearch,
+      limit,
+      page,
+    });
     return {
       totalBrands,
       brandsPerPage: brands.length,

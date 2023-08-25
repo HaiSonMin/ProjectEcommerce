@@ -20,6 +20,11 @@ class DemandService {
       demand_image: path,
     });
     if (!newDemand) throw new BadRequestError("Create Demand Error");
+
+    await productCategory.updateOne({
+      $addToSet: { productCategory_demands: newDemand._id },
+    });
+
     return newDemand;
   }
 
@@ -72,7 +77,8 @@ class DemandService {
 
   static async updateDemand(req, res) {
     const { demandId } = req.params;
-    const { demand_name, demand_productCategory, demand_image } = req.body || {};
+    const { demand_name, demand_productCategory, demand_image } =
+      req.body || {};
     const { path: pathImage } = req?.file || {};
 
     // 1. Check product category has exist

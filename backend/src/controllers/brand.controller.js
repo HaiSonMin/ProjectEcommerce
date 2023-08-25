@@ -15,6 +15,13 @@ class BrandController {
     }).send(res);
   }
 
+  static async getBrandByIds(req, res) {
+    new OK({
+      message: "Get Brands Successfully",
+      metadata: await BrandService.getBrandByIds(req, res),
+    }).send(res);
+  }
+
   static async getBrandByName(req, res) {
     new OK({
       message: "Get Brand Successfully",
@@ -26,6 +33,13 @@ class BrandController {
     new OK({
       message: "Get All Brands Successfully",
       metadata: await BrandService.getAllBrand(req, res),
+    }).send(res);
+  }
+
+  static async searchBrands(req, res) {
+    new OK({
+      message: "Search Brands Successfully",
+      metadata: await BrandService.searchBrands(req, res),
     }).send(res);
   }
 

@@ -2,27 +2,41 @@ const { model, Schema } = require("mongoose"); // Erase if already required
 const COLLECTION_NAME = "ProductCategory";
 const ProductCategorySchema = new Schema(
   {
-    productCategory_type: {
-      type: String,
-      required: [true, "Please provide product category name"],
-    },
     productCategory_name: {
       type: String,
       required: [true, "Please provide product category name"],
-      unique: true,
+    },
+    productCategory_type: {
+      type: String,
+      required: [true, "Please provide product category type"],
     },
     productCategory_image: {
       type: String,
       required: [true, "Please provide product category image"],
     },
-    productCategory_demand: {
+    productCategory_demands: {
       type: [Schema.Types.ObjectId],
       ref: "Demand",
+    },
+    productCategory_brands: {
+      type: [Schema.Types.ObjectId],
+      ref: "Brand",
+    },
+    productCategory_group: {
+      type: Schema.Types.ObjectId,
+      ref: "ProductCategoryGroup",
+      require: [true, "Please provide product category group"],
     },
   },
   {
     timestamps: true,
   }
 );
+
+ProductCategorySchema.index(
+  { productCategory_name: 1 },
+  { productCategory_type: 1 }
+);
+
 //Export the model
 module.exports = model(COLLECTION_NAME, ProductCategorySchema);

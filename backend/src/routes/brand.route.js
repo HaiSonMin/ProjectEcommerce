@@ -7,7 +7,9 @@ router
   .route("/create")
   .post(uploadOneImage("brand_image"), BrandController.createBrand);
 router.route("/getById/:brandId").get(BrandController.getBrandById);
+router.route("/getByIds").get(BrandController.getBrandByIds);
 router.route("/getAll").get(BrandController.getAllBrands);
+router.route("/search").get(BrandController.searchBrands);
 router
   .route("/update/:brandId")
   .patch(uploadOneImage("brand_image"), BrandController.updateBrandById);
@@ -15,3 +17,4 @@ router.route("/delete/:brandId").delete(BrandController.deleteBrandById);
 // router.route("/uploadFile/:brandId").post(uploader.single("imageBrand"),BrandController.uploadImage);
 
 module.exports = router;
+

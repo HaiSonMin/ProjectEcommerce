@@ -15,6 +15,7 @@ const WishlistModel = require("./wishlist.model");
 const InventoryModel = require("./inventory.model");
 const BlogCategoryModel = require("./blogCategory.model");
 const ProductCategoryModel = require("./productCategory.model");
+const ProductCategoryGroupModel = require("./productCategoryGroup.model");
 module.exports = {
   CartModel,
   BlogModel,
@@ -33,4 +34,5 @@ module.exports = {
   InventoryModel,
   BlogCategoryModel,
   ProductCategoryModel,
+  ProductCategoryGroupModel,
 };

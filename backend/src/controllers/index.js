@@ -17,6 +17,7 @@ const InventoryController = require("./inventory.controller");
 const BlogCategoryController = require("./blogCategory.controller");
 const SpecificationController = require("./specification.controller");
 const ProductCategoryController = require("./productCategory.controller");
+const ProductCategoryGroupController = require("./productCategoryGroup.controller");
 
 module.exports = {
   AuthController,
@@ -38,4 +39,5 @@ module.exports = {
   BlogCategoryController,
   SpecificationController,
   ProductCategoryController,
+  ProductCategoryGroupController
 };

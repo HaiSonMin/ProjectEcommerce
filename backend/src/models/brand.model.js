@@ -19,5 +19,7 @@ const BrandSchema = new Schema(
     timestamps: true,
   }
 );
+
+BrandSchema.index({ brand_name: 1, brand_origin: 1 });
 //Export the model
 module.exports = model(COLLECTION_NAME, BrandSchema);
