@@ -1,7 +1,6 @@
 import { formatDistance, parseISO } from "date-fns";
 import http from "./http";
-import CONSTANT from "./constant";
-import { useQueriesString } from "@/hooks";
+import { VALUE_CONSTANT } from "@/constant";
 
 const getErrorMessage = (err: any): string => err.response.data.message;
 
@@ -62,7 +61,8 @@ const getToastMessageError = (errMessage: string) => {
 };
 
 const getQueriesString = (queriesString: any) => {
-  const sort: string = String(queriesString.sort) || CONSTANT.SORT_DEFAULT;
+  const sort: string =
+    String(queriesString.sort) || VALUE_CONSTANT.SORT_DEFAULT;
   const page: number = Number(queriesString.page) || 1;
   const limit: number = queriesString.limit;
   const status: string = String(queriesString.status) || "all";
@@ -71,9 +71,16 @@ const getQueriesString = (queriesString: any) => {
   return { sort, page, limit, status, keySearch, numericFilters };
 };
 
+const removeSpaceString = (str: string) => str.split(" ").join("");
+
+function capitalizeFirstLetter(inputString: string) {
+  return inputString
+    .toLowerCase()
+    .replace(/^(.)|\s+(.)/g, (match) => match.toUpperCase());
+}
+
 export {
   http,
-  CONSTANT,
   sortObject,
   formatCurrencyVND,
   formatCurrencyUSD,
@@ -82,4 +89,6 @@ export {
   getToastMessageError,
   resultAppendFormData,
   formatDistanceFromNow,
+  removeSpaceString,
+  capitalizeFirstLetter,
 };

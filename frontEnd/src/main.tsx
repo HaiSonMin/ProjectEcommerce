@@ -1,10 +1,10 @@
 import "./index.css";
 import App from "./App";
 import React from "react";
-import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import store from "@/storeReducer/store";
 import GlobalStyles from "./styles/GlobalStyle";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { DarkModeProvider, ToasterDisplay } from "./components";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

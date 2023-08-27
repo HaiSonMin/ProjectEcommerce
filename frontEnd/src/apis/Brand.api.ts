@@ -1,4 +1,4 @@
-import { CONSTANT, http, getErrorMessage, resultAppendFormData } from "@/utils";
+import { http, getErrorMessage, resultAppendFormData } from "@/utils";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { IBrand } from "@/interfaces";
 import {
@@ -7,12 +7,13 @@ import {
   IBrandGetAllResultApi,
   IBrandUpdateResultApi,
 } from "@/api-types/IBrandResultApi";
+import { PATH_API_V1 } from "@/constant";
 
 class BrandApi {
   async createBrand(args: Omit<IBrand, "_id">) {
     try {
       const response = await http.postForm(
-        `${CONSTANT.PATH_V1_API.brand}/create`,
+        `${PATH_API_V1.brand}/create`,
         resultAppendFormData(args)
       );
       const result: Omit<
@@ -27,7 +28,7 @@ class BrandApi {
 
   async getAllBrands(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get(`${CONSTANT.PATH_V1_API.brand}/getAll`, {
+      const response = await http.get(`${PATH_API_V1.brand}/getAll`, {
         params: {
           sort: fieldsQuery.sort,
           page: fieldsQuery.page,
@@ -35,7 +36,24 @@ class BrandApi {
           fields: fieldsQuery.fields,
         },
       });
-      const result: Omit<IBrandGetAllResultApi, "isGettingBrand"> =
+      const result: Omit<IBrandGetAllResultApi, "isGettingBrands"> =
+        response.data;
+      return result;
+    } catch (error: any) {
+      throw new Error(getErrorMessage(error));
+    }
+  }
+
+  async searchBrands(fieldsQuery: Partial<IArgsQuery>) {
+    try {
+      const response = await http.get(`${PATH_API_V1.brand}/search`, {
+        params: {
+          keySearch: fieldsQuery.keySearch,
+          page: fieldsQuery.page,
+          limit: fieldsQuery.limit,
+        },
+      });
+      const result: Omit<IBrandGetAllResultApi, "isGettingBrands"> =
         response.data;
       return result;
     } catch (error: any) {
@@ -45,7 +63,7 @@ class BrandApi {
 
   async updateBrand(args: IBrand) {
     const response = await http.patchForm(
-      `${CONSTANT.PATH_V1_API.brand}/update/${args._id}`,
+      `${PATH_API_V1.brand}/update/${args._id}`,
       resultAppendFormData(args)
     );
     const result: Omit<
@@ -58,7 +76,7 @@ class BrandApi {
   async deleteBrand(arg: Pick<IBrand, "_id">) {
     try {
       const response = await http.delete(
-        `${CONSTANT.PATH_V1_API.brand}/delete/${arg._id}`
+        `${PATH_API_V1.brand}/delete/${arg._id}`
       );
       const result: Omit<
         IBrandDeleteResultApi,

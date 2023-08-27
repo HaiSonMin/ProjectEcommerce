@@ -12,7 +12,6 @@ import {
 import Select, { SingleValue } from "react-select";
 import JoditEditor from "jodit-react";
 import { UseBrandApi } from "../brand";
-import { CONSTANT } from "@/utils";
 import { useForm } from "react-hook-form";
 import UseProductApi from "./UseProductApi";
 import { useMoveBack } from "@/hooks";

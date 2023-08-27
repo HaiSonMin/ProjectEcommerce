@@ -58,8 +58,7 @@ export default function CouponFrom(props: IProps) {
 
   const { errors: errorsForm } = formState;
 
-  const { metadata: categoryInfo } =
-    UseProductCategoryApi.getAllCategories();
+  const { metadata: categoryInfo } = UseProductCategoryApi.getAllCategories();
   const optionsCategory: Array<IOptionSelect> | undefined = useMemo(() => {
     return categoryInfo?.productCategories.map((cate) => {
       return {
@@ -238,6 +237,7 @@ export default function CouponFrom(props: IProps) {
             disabled={selectAppliesAll?.value || false}
             options={optionsCategory || []}
             onChange={handlerSelectCategories}
+            placeholder="Select categories"
             defaultValues={
               props.couponEdit?.coupon_applicableProductCategories || []
             }

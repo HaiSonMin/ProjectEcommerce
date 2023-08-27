@@ -8,7 +8,6 @@ const FooterLayoutStyled = styled.footer`
     0 2px 6px 2px rgba(60, 64, 67, 0.15);
   overflow-x: hidden;
   width: 100%;
-  margin-top: 2rem;
 `;
 
 export default function FooterLayout() {

@@ -8,15 +8,13 @@ import {
 } from "@/api-types/ICouponResultApi";
 import { ICoupon } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
-import { CONSTANT, getErrorMessage, http } from "@/utils";
+import { getErrorMessage, http } from "@/utils";
+import { PATH_API_V1 } from "@/constant";
 
 class CouponApi {
   async createCoupon(args: Partial<ICoupon>) {
     try {
-      const response = await http.post(
-        `${CONSTANT.PATH_V1_API.coupon}/create`,
-        args
-      );
+      const response = await http.post(`${PATH_API_V1.coupon}/create`, args);
       const result: Omit<
         ICouponCreateResultApi,
         "isCreatingCoupon" | "createCoupon"
@@ -29,7 +27,7 @@ class CouponApi {
 
   async getAllCoupons(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get(`${CONSTANT.PATH_V1_API.coupon}/getAll`, {
+      const response = await http.get(`${PATH_API_V1.coupon}/getAll`, {
         params: {
           sort: fieldsQuery.sort,
           page: fieldsQuery.page,
@@ -49,7 +47,7 @@ class CouponApi {
   async getOneCoupon(arg: Pick<ICoupon, "_id">) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.coupon}/getById/${arg._id}`
+        `${PATH_API_V1.coupon}/getById/${arg._id}`
       );
       const result: Omit<ICouponGetOneResultApi, "isGettingCoupon"> =
         response.data;
@@ -61,7 +59,7 @@ class CouponApi {
 
   async searchCoupons(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get(`${CONSTANT.PATH_V1_API.coupon}/search`, {
+      const response = await http.get(`${PATH_API_V1.coupon}/search`, {
         params: {
           keySearch: fieldsQuery.keySearch,
           sort: fieldsQuery.sort,
@@ -81,7 +79,7 @@ class CouponApi {
     const { _id: couponId, ...dataUpdate } = args;
     try {
       const response = await http.patch(
-        `${CONSTANT.PATH_V1_API.coupon}/update/${couponId}`,
+        `${PATH_API_V1.coupon}/update/${couponId}`,
         dataUpdate
       );
       const result: Omit<
@@ -97,7 +95,7 @@ class CouponApi {
   async deleteCoupon(arg: Pick<ICoupon, "_id">) {
     try {
       const response = await http.delete(
-        `${CONSTANT.PATH_V1_API.coupon}/delete/${arg._id}`
+        `${PATH_API_V1.coupon}/delete/${arg._id}`
       );
       const result: Omit<
         ICouponDeleteResultApi,

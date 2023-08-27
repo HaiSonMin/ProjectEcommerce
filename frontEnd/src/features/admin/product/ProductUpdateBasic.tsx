@@ -2,7 +2,6 @@ import UseProductApi from "./UseProductApi";
 import Select, { GroupBase, SingleValue } from "react-select";
 import { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { CONSTANT } from "@/utils";
 import { useMoveBack } from "@/hooks";
 import {
   Button,

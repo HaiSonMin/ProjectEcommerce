@@ -1,5 +1,5 @@
 import { ConfirmDelete, Menus, Modal, Table } from "@/components";
-import { IDemand } from "@/interfaces";
+import { IDemand, IProductCategoryGroup } from "@/interfaces";
 import { styled } from "styled-components";
 import UseDemandApi from "./UseDemandApi";
 import { CiEdit } from "react-icons/ci";
@@ -17,10 +17,22 @@ const Img = styled.img`
   border-radius: 4px;
 `;
 
-const DemandType = styled.div`
+const CategoryType = styled.div`
   font-size: 1.4rem;
+  font-weight: 500;
   color: var(--color-grey-600);
   font-family: "Sono";
+`;
+
+const CategoryName = styled.div`
+  font-size: 1.4rem;
+  color: var(--color-grey-600);
+`;
+
+const CategoryGroup = styled.div`
+  font-size: 1.4rem;
+  color: var(--color-grey-600);
+  font-weight: 600;
 `;
 
 const DemandName = styled.div`
@@ -41,11 +53,24 @@ export default function DemandRow(props: IProps) {
     <Table.Row>
       <Img src={props.demand.demand_image} alt={props.demand._id} />
       <DemandName>{props.demand.demand_name}</DemandName>
-      <DemandType>
+      <CategoryName>
         {typeof props.demand.demand_productCategory === "string"
           ? props.demand.demand_productCategory
-          : props.demand.demand_productCategory.productCategory_name}
-      </DemandType>
+          : props.demand.demand_productCategory?.productCategory_name}
+      </CategoryName>
+      <CategoryType>
+        {typeof props.demand.demand_productCategory === "string"
+          ? props.demand.demand_productCategory
+          : props.demand.demand_productCategory?.productCategory_type}
+      </CategoryType>
+      <CategoryGroup>
+        {typeof props.demand.demand_productCategory === "string"
+          ? props.demand.demand_productCategory
+          : (
+              props.demand.demand_productCategory
+                ?.productCategory_group as IProductCategoryGroup
+            )?.productCategoryGroup_name}
+      </CategoryGroup>
       <Modal>
         <Menus.Menu>
           <Menus.ToggleButton id={props.demand._id} />

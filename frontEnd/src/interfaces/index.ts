@@ -7,6 +7,7 @@ import IDemand from "./demand.interface";
 import IProduct from "./product/product.interface";
 import IDiscount from "./discount.interface";
 import IProductCategory from "./productCategory.interface";
+import IProductCategoryGroup from "./productCategoryGroup.interface";
 
 export type {
   IUser,
@@ -18,4 +19,5 @@ export type {
   IProduct,
   IDiscount,
   IProductCategory,
+  IProductCategoryGroup,
 };

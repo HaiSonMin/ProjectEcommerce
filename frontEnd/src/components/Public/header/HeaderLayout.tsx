@@ -4,8 +4,9 @@ import HeaderBanner from "./header-banner/HeaderBanner";
 import HeaderMenu from "./header-menu/HeaderMenu";
 
 const HeaderLayoutStyled = styled.header`
-  position: sticky;
+  position: fixed;
   top: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   z-index: 999;

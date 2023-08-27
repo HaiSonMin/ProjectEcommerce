@@ -8,15 +8,16 @@ import {
 } from "@/api-types/IUserResultApi";
 import { IUser } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
-import { CONSTANT, http, getErrorMessage } from "@/utils";
+import { http, getErrorMessage } from "@/utils";
 import { IUserCreate } from "@/interfaces/user.interface";
+import { PATH_API_V1 } from "@/constant";
 
 class AdminApi {
   async createUser(args: Omit<IUserCreate, "_id" | "user_isBlocking">) {
     console.log(args);
     try {
       const response = await http.post(
-        `${CONSTANT.PATH_V1_API.admin}/createEmployees`,
+        `${PATH_API_V1.admin}/createEmployees`,
         args
       );
       const result: Omit<
@@ -32,7 +33,7 @@ class AdminApi {
   async getAllUsers(fieldsQuery: Partial<IArgsQuery>) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.admin}/getAllUsers`,
+        `${PATH_API_V1.admin}/getAllUsers`,
         {
           params: {
             sort: fieldsQuery.sort,
@@ -55,7 +56,7 @@ class AdminApi {
   async getOneUser(arg: Pick<IUser, "_id">) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.admin}/getOneUser/${arg._id}`
+        `${PATH_API_V1.admin}/getOneUser/${arg._id}`
       );
       const result: Omit<IUserGetOneResultApi, "isGettingUser"> = response.data;
       return result;
@@ -66,7 +67,7 @@ class AdminApi {
 
   async searchUsers(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get(`${CONSTANT.PATH_V1_API.admin}/search`, {
+      const response = await http.get(`${PATH_API_V1.admin}/search`, {
         params: {
           keySearch: fieldsQuery.keySearch,
           sort: fieldsQuery.sort,
@@ -84,7 +85,7 @@ class AdminApi {
 
   async updateUser(args: Partial<IUser>) {
     const response = await http.patch(
-      `${CONSTANT.PATH_V1_API.admin}/update/${args._id}`,
+      `${PATH_API_V1.admin}/update/${args._id}`,
       args
     );
     const result: Omit<IUserUpdateResultApi, "isUpdatingUser" | "updateUser"> =
@@ -95,7 +96,7 @@ class AdminApi {
   async deleteUser(arg: Pick<IUser, "_id">) {
     try {
       const response = await http.delete(
-        `${CONSTANT.PATH_V1_API.admin}/delete/${arg._id}`
+        `${PATH_API_V1.admin}/delete/${arg._id}`
       );
       const result: Omit<
         IUserDeleteResultApi,

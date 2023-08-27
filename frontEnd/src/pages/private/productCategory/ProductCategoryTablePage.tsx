@@ -1,9 +1,10 @@
 import { Heading, Row, Button } from "@/components";
+import { KEY_QUERY } from "@/constant";
 import {
   ProductCategoryTable,
   ProductCategoryTableOperation,
 } from "@/features/admin/productCategory";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 enum Type {
   horizontal = "horizontal",
@@ -11,6 +12,8 @@ enum Type {
 }
 const ProductCategoryTablePage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isSearching = !!searchParams.get(KEY_QUERY.KEY_SEARCH);
   return (
     <>
       <Row $type={Type.horizontal}>
@@ -19,9 +22,11 @@ const ProductCategoryTablePage = () => {
       </Row>
       <Row>
         <ProductCategoryTable />
-        <Button onClick={() => navigate("create")}>
-          Add new product category
-        </Button>
+        {!isSearching && (
+          <Button onClick={() => navigate("create")}>
+            Add new product category
+          </Button>
+        )}
       </Row>
     </>
   );

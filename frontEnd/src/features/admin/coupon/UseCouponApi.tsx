@@ -11,7 +11,8 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useQueriesString } from "@/hooks";
-import { CONSTANT, getQueriesString, getToastMessageError } from "@/utils";
+import {  getQueriesString, getToastMessageError } from "@/utils";
+import { VALUE_CONSTANT } from "@/constant";
 
 export default class UseCouponApi {
   static createCoupon(): ICouponCreateResultApi {
@@ -140,7 +141,7 @@ export default class UseCouponApi {
           keySearch: queriesString.keySearch,
           sort: "ctime",
           page: queriesString.page || 1,
-          limit: queriesString.limit || CONSTANT.LIMIT_PAGE,
+          limit: queriesString.limit || VALUE_CONSTANT.LIMIT_PAGE,
         }),
     });
 

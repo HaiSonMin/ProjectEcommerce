@@ -5,7 +5,6 @@ import { Button, InputFile, Form, FormRow, Input, Heading } from "@/components";
 import { useState } from "react";
 import Select, { SingleValue } from "react-select";
 import IOptionSelect from "@/helpers/ISelectOption";
-import { CONSTANT } from "@/utils";
 import { useMoveBack } from "@/hooks";
 import UseProductCategoryApi from "../productCategory/UseProductCategoryApi";
 interface IProps {
@@ -38,7 +37,7 @@ export default function DemandForm(props: IProps) {
 
   const { metadata: categories } = UseProductCategoryApi.getAllCategories(100);
   const optionSelectProductCategories: Array<IOptionSelect> | undefined =
-    categories?.productCategories.map((category) => {
+    categories?.productCategories?.map((category) => {
       return {
         label: category.productCategory_name,
         value: category._id,
@@ -76,7 +75,7 @@ export default function DemandForm(props: IProps) {
         {
           onSuccess: (newData) => {
             console.log(newData);
-            moveBack();
+            // moveBack();
           },
         }
       );

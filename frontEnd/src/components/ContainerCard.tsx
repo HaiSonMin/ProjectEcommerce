@@ -18,10 +18,12 @@ const ContainerCards = styled.div<{
   width: ${(props) => {
     if (props.$products.length > 10)
       return css`
+        /* lengthCards + lengthGaps */
         ${(props.$withCard * props.$products.length) / 2 +
         props.$gap * (props.$products.length / 2)}rem
       `;
     return css`
+      /* lengthCards + lengthGaps */
       ${props.$withCard * props.$products.length +
       props.$gap * props.$products.length}rem
     `;
@@ -32,14 +34,14 @@ interface IProps {
   products: Array<any>;
   gapValue: number;
   withCard: number;
-  numberProductDisplay: number;
+  numberProductDisplayOnScreen: number;
 }
 
 export default function ContainerCard({
   products,
   gapValue,
   withCard,
-  numberProductDisplay,
+  numberProductDisplayOnScreen,
 }: IProps) {
   const numberProductInRow =
     products.length > 10 ? products.length / 2 : products.length;
@@ -48,7 +50,7 @@ export default function ContainerCard({
       <Carousel
         gapValue={gapValue}
         widthItem={withCard}
-        numberProductDisplay={numberProductDisplay}
+        numberProductDisplayOnScreen={numberProductDisplayOnScreen}
         numberProductInRow={numberProductInRow}
       >
         <ContainerCards $withCard={withCard} $gap={1} $products={products}>

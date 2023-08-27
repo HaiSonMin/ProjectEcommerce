@@ -21,9 +21,11 @@ export function BrandForm(props: IProps) {
 
   const { _id: editId, ...editValue } = props.brandEdit || initializeFormBrand;
 
+  console.log(editValue);
+
   const isEditSession = Boolean(editId);
 
-  const { handleSubmit, register, formState, reset, getValues } = useForm({
+  const { handleSubmit, register, formState } = useForm({
     defaultValues: isEditSession ? editValue : {},
   });
 
@@ -49,7 +51,7 @@ export function BrandForm(props: IProps) {
       return updateBrand(
         {
           ...dataFormBrand,
-          brand_image: dataFormBrand["brand_image"],
+          brand_image: dataFormBrand["brand_image"] || editValue.brand_image,
           _id: editId,
         },
         {
@@ -89,15 +91,25 @@ export function BrandForm(props: IProps) {
           })}
         />
       </FormRow>
-      <FormRow label="Brand Image" error={errorsForm.brand_image}>
-        <InputFile
-          id="imageBrand"
-          accept="image/*"
-          {...register("brand_image", {
-            required: "Please provide brand image",
-          })}
-        />
-      </FormRow>
+      {!isEditSession ? (
+        <FormRow label="Brand Image" error={errorsForm.brand_image}>
+          <InputFile
+            id="imageBrand"
+            accept="image/*"
+            {...register("brand_image", {
+              required: "Please provide brand origin",
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRow label="Brand Image">
+          <InputFile
+            id="imageBrand"
+            accept="image/*"
+            {...register("brand_image")}
+          />
+        </FormRow>
+      )}
       <FormRow>
         <Button
           $variation="secondary"

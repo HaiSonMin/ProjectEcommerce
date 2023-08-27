@@ -1,10 +1,10 @@
-import { CONSTANT, sortObject } from "@/utils";
 import { useSearchParams } from "react-router-dom";
 import { IDemand } from "@/interfaces";
 import DemandRow from "./DemandRow";
 import UseDemandApi from "./UseDemandApi";
 import { Menus, Pagination, Spinner, Table } from "@/components";
 import { useEffect } from "react";
+import { VALUE_CONSTANT } from "@/constant";
 
 export default function DemandTable() {
   const { isGettingDemands, metadata } = UseDemandApi.getAllDemands();
@@ -12,7 +12,8 @@ export default function DemandTable() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    searchParams.set("limit", String(CONSTANT.LIMIT_PAGE));
+    searchParams.set("limit", String(VALUE_CONSTANT.LIMIT_PAGE));
+    searchParams.set("sort", "ctime");
     setSearchParams(searchParams);
   }, []);
 
@@ -20,11 +21,13 @@ export default function DemandTable() {
 
   return (
     <Menus>
-      <Table columns="1fr 1.5fr 1.5fr 0.4fr">
+      <Table columns="1fr 1.5fr 1.5fr 1.5fr 1.5fr 0.4fr">
         <Table.Header>
           <div>Avatar</div>
           <div>Demand Name</div>
-          <div>Demand Category</div>
+          <div>Category Name</div>
+          <div>Category Type</div>
+          <div>Category Group</div>
           <div>Options</div>
         </Table.Header>
         <Table.Body

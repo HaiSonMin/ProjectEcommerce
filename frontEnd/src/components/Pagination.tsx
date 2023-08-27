@@ -2,8 +2,8 @@
 import styled from "styled-components";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { useSearchParams } from "react-router-dom";
-import { CONSTANT } from "../utils";
 import { useQueriesString } from "@/hooks";
+import { VALUE_CONSTANT } from "@/constant";
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -68,12 +68,12 @@ interface Props {
 const Pagination = (props: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queriesString = useQueriesString();
-  const limitPerPage = queriesString?.limit || CONSTANT.LIMIT_PAGE;
+  const limitPerPage = queriesString?.limit || VALUE_CONSTANT.LIMIT_PAGE;
 
   const currentPage: number = Number(queriesString?.page) || 1;
   let numberPage: number = 1;
   if (props.countItems)
-    numberPage = Math.ceil(Number(props?.countItems) / CONSTANT.LIMIT_PAGE);
+    numberPage = Math.ceil(Number(props?.countItems) / VALUE_CONSTANT.LIMIT_PAGE);
 
   function handlerNextPage() {
     const next: number =
@@ -88,11 +88,11 @@ const Pagination = (props: Props) => {
     setSearchParams(searchParams);
   }
 
-  const pageForm = (currentPage - 1) * CONSTANT.LIMIT_PAGE + 1;
+  const pageForm = (currentPage - 1) * VALUE_CONSTANT.LIMIT_PAGE + 1;
   const pageTo =
     currentPage === numberPage
       ? props.countItems
-      : currentPage * CONSTANT.LIMIT_PAGE;
+      : currentPage * VALUE_CONSTANT.LIMIT_PAGE;
 
   if (numberPage === 1) return null;
   return (

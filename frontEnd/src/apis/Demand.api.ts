@@ -8,13 +8,14 @@ import {
 } from "@/api-types/IDemandResultApi";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { IDemand, IProductCategory } from "@/interfaces";
-import { CONSTANT, getErrorMessage, http, resultAppendFormData } from "@/utils";
+import { getErrorMessage, http, resultAppendFormData } from "@/utils";
+import { PATH_API_V1 } from "@/constant";
 
 class IDemandApi {
   async createDemand(args: Omit<IDemand, "_id">) {
     try {
       const response = await http.postForm(
-        `${CONSTANT.PATH_V1_API.demand}/create`,
+        `${PATH_API_V1.demand}/create`,
         resultAppendFormData(args)
       );
       const result: Omit<IDemandCreateResultApi, "isCreatingDemand"> =
@@ -27,7 +28,7 @@ class IDemandApi {
 
   async getAllDemands(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get(`${CONSTANT.PATH_V1_API.demand}/getAll`, {
+      const response = await http.get(`${PATH_API_V1.demand}/getAll`, {
         params: {
           sort: fieldsQuery.sort,
           page: fieldsQuery.page,
@@ -36,6 +37,7 @@ class IDemandApi {
       });
       const result: Omit<IDemandGetAllResultApi, "isGettingDemands"> =
         response.data;
+      console.log(result);
       return result;
     } catch (error: any) {
       throw new Error(error.message);
@@ -45,7 +47,7 @@ class IDemandApi {
   async getDemandById({ _id: demandId }: Pick<IDemand, "_id">) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.demand}/getById/${demandId}`
+        `${PATH_API_V1.demand}/getById/${demandId}`
       );
       const result: Omit<IDemandGetByIdResultApi, "isGettingDemand"> =
         response.data;
@@ -60,7 +62,7 @@ class IDemandApi {
   }: Pick<IProductCategory, "_id">) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.demand}/getByProductCategoryId/${productCategoryId}`
+        `${PATH_API_V1.demand}/getByProductCategoryId/${productCategoryId}`
       );
       const result: Omit<
         IDemandGetByProductCategoryIdResultApi,
@@ -75,7 +77,7 @@ class IDemandApi {
   async updateDemand(args: Partial<IDemand>) {
     try {
       const response = await http.patchForm(
-        `${CONSTANT.PATH_V1_API.demand}/update/${args._id}`,
+        `${PATH_API_V1.demand}/update/${args._id}`,
         resultAppendFormData(args)
       );
       const result: Omit<IDemandUpdateResultApi, "isUpdatingDemand"> =
@@ -89,7 +91,7 @@ class IDemandApi {
   async deleteDemand(arg: Pick<IDemand, "_id">) {
     try {
       const response = await http.delete(
-        `${CONSTANT.PATH_V1_API.demand}/delete/${arg._id}`
+        `${PATH_API_V1.demand}/delete/${arg._id}`
       );
       const result: Omit<IDemandDeleteResultApi, "isDeletingDemand"> =
         response.data;

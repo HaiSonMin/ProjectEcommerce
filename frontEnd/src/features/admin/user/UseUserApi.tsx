@@ -1,5 +1,4 @@
 import { AdminApi } from "@/apis";
-import { CONSTANT } from "@/utils";
 import { toast } from "react-hot-toast";
 import { useQueriesString } from "@/hooks";
 import { useParams } from "react-router-dom";
@@ -12,6 +11,7 @@ import {
   IUserSearchResultApi,
   IUserUpdateResultApi,
 } from "@/api-types/IUserResultApi";
+import { VALUE_CONSTANT } from "@/constant";
 
 export default class UseAdminApi {
   static createUser(): IUserCreateResultApi {
@@ -67,7 +67,7 @@ export default class UseAdminApi {
         AdminApi.getAllUsers({
           sort: queriesString.sort || "ctime",
           page: Number(queriesString.page) || 1,
-          limit: Number(queriesString.limit) || CONSTANT.LIMIT_PAGE,
+          limit: Number(queriesString.limit) || VALUE_CONSTANT.LIMIT_PAGE,
           status: queriesString.status || "all",
           keySearch: queriesString.keySearch,
           numericFilters: queriesString?.numericFilters,
@@ -96,7 +96,7 @@ export default class UseAdminApi {
           keySearch: queriesString.keySearch,
           sort: "ctime",
           page: queriesString.page || 1,
-          limit: queriesString.limit || CONSTANT.LIMIT_PAGE,
+          limit: queriesString.limit || VALUE_CONSTANT.LIMIT_PAGE,
         }),
     });
 

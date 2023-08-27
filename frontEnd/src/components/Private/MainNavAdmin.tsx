@@ -1,4 +1,3 @@
-import { CONSTANT } from "../../utils";
 import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 import { MdPayment } from "react-icons/md";
@@ -8,11 +7,11 @@ import { AiOutlineHome } from "react-icons/ai";
 import { RiCoupon2Line } from "react-icons/ri";
 import { FiShoppingCart, FiSettings } from "react-icons/fi";
 import { FaRegGrinStars } from "react-icons/fa";
-import { BsPatchQuestion,BsFillPostcardHeartFill } from "react-icons/bs";
+import { BsPatchQuestion, BsFillPostcardHeartFill } from "react-icons/bs";
 import { PiUsersFourDuotone } from "react-icons/pi";
 import { HiMiniDevicePhoneMobile } from "react-icons/hi2";
 import { BiCategory, BiSolidDiscount } from "react-icons/bi";
-
+import { PATH_ADMIN } from "@/constant";
 
 const MainNavList = styled.ul`
   display: flex;
@@ -28,7 +27,7 @@ const NavLinkStyled = styled(NavLink)`
     gap: 1rem;
 
     color: var(--color-grey-600);
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 500;
     padding: 1.2rem 2.4rem;
     transition: all 0.3s;
@@ -67,95 +66,102 @@ const MainNavAdmin = () => {
   return (
     <MainNavList>
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.dashboard}>
+        <NavLinkStyled to={PATH_ADMIN.dashboard}>
           <AiOutlineHome /> <span>Home</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.brand}>
+        <NavLinkStyled to={PATH_ADMIN.brand}>
           <TbBrandApple />
           <span>Brand</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.productCategory}>
+        <NavLinkStyled to={PATH_ADMIN.productCategoryGroup}>
+          <BiCategory />
+          <span>Category Group</span>
+        </NavLinkStyled>
+      </li>
+
+      <li>
+        <NavLinkStyled to={PATH_ADMIN.productCategory}>
           <BiCategory />
           <span>Category</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.demand}>
+        <NavLinkStyled to={PATH_ADMIN.demand}>
           <BsFillPostcardHeartFill />
           <span>Demand</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.product}>
+        <NavLinkStyled to={PATH_ADMIN.product}>
           <HiMiniDevicePhoneMobile />
           <span>Product</span>
         </NavLinkStyled>
       </li>
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.discount}>
+        <NavLinkStyled to={PATH_ADMIN.discount}>
           <BiSolidDiscount />
           <span>Discount</span>
         </NavLinkStyled>
       </li>
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.coupon}>
+        <NavLinkStyled to={PATH_ADMIN.coupon}>
           <RiCoupon2Line />
           <span>Coupon</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.user}>
+        <NavLinkStyled to={PATH_ADMIN.user}>
           <FaRegUser />
           <span>User</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.customer}>
+        <NavLinkStyled to={PATH_ADMIN.customer}>
           <PiUsersFourDuotone />
           <span>Customer</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.order}>
+        <NavLinkStyled to={PATH_ADMIN.order}>
           <FiShoppingCart />
           <span>Order</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.payment}>
+        <NavLinkStyled to={PATH_ADMIN.payment}>
           <MdPayment />
           <span>Payment</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.rating}>
+        <NavLinkStyled to={PATH_ADMIN.rating}>
           <FaRegGrinStars />
           <span>Rating</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.question}>
+        <NavLinkStyled to={PATH_ADMIN.question}>
           <BsPatchQuestion />
           <span>Question</span>
         </NavLinkStyled>
       </li>
 
       <li>
-        <NavLinkStyled to={CONSTANT.PATH_ADMIN.setting}>
+        <NavLinkStyled to={PATH_ADMIN.setting}>
           <FiSettings />
           <span>Setting</span>
         </NavLinkStyled>

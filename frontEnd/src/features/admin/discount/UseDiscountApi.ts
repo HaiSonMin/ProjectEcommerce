@@ -11,7 +11,8 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useQueriesString } from "@/hooks";
-import { CONSTANT, getQueriesString } from "@/utils";
+import { getQueriesString } from "@/utils";
+import { VALUE_CONSTANT } from "@/constant";
 
 export default class UseDiscountApi {
   static createDiscount(): IDiscountCreateResultApi {
@@ -72,7 +73,7 @@ export default class UseDiscountApi {
         DiscountApi.getAllDiscounts({
           sort: sort || "ctime",
           page: Number(currentPage) || 1,
-          limit: Number(limit) || CONSTANT.LIMIT_PAGE,
+          limit: Number(limit) || VALUE_CONSTANT.LIMIT_PAGE,
           status: status || "all",
           numericFilters,
         }),

@@ -13,13 +13,14 @@ import {
 import { IProduct } from "@/interfaces";
 import { useParams } from "react-router-dom";
 import IArgsQuery from "@/helpers/IArgsQuery";
-import { http, CONSTANT, getErrorMessage, resultAppendFormData } from "@/utils";
+import { http, getErrorMessage, resultAppendFormData } from "@/utils";
+import { PATH_API_V1 } from "@/constant";
 
 class ProductApi {
-  async createProduct(args: IProductCreate) {
+  async createProduct(args: IProductCreateResultApi) {
     try {
       const response = await http.postForm(
-        `${CONSTANT.PATH_V1_API.product}/create`,
+        `${PATH_API_V1.product}/create`,
         resultAppendFormData(args)
       );
       console.log(response);
@@ -38,7 +39,7 @@ class ProductApi {
     const { _id, ...dataCreate } = args;
     try {
       const response = await http.patchForm(
-        `${CONSTANT.PATH_V1_API.product}/provideInfo/${args.product}`,
+        `${PATH_API_V1.product}/provideInfo/${args.product}`,
         resultAppendFormData(dataCreate)
       );
       console.log(response);
@@ -55,7 +56,7 @@ class ProductApi {
   async getProductById(arg: Pick<IProduct, "_id">) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.product}/getById/${arg._id}`
+        `${PATH_API_V1.product}/getById/${arg._id}`
       );
 
       const result: Omit<IProductGetOneResultApi, "isGettingProduct"> =
@@ -70,7 +71,7 @@ class ProductApi {
   async getProductMainInfoById(arg: Pick<IProductMainInfo, "_id">) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.product}/getMainInfoById/${arg._id}`
+        `${PATH_API_V1.product}/getMainInfoById/${arg._id}`
       );
 
       const result: Omit<IProductMainInfoGetOneResultApi, "isGettingProduct"> =
@@ -84,18 +85,15 @@ class ProductApi {
 
   async getAllProducts(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get(
-        `${CONSTANT.PATH_V1_API.product}/getAll`,
-        {
-          params: {
-            sort: fieldsQuery.sort,
-            page: fieldsQuery.page,
-            limit: fieldsQuery.limit,
-            status: fieldsQuery.status,
-            numericFilters: fieldsQuery.numericFilters,
-          },
-        }
-      );
+      const response = await http.get(`${PATH_API_V1.product}/getAll`, {
+        params: {
+          sort: fieldsQuery.sort,
+          page: fieldsQuery.page,
+          limit: fieldsQuery.limit,
+          status: fieldsQuery.status,
+          numericFilters: fieldsQuery.numericFilters,
+        },
+      });
 
       //   console.log("response::::", response);
       const result: Omit<IProductGetAllResultApi, "isGettingProducts"> =
@@ -108,18 +106,15 @@ class ProductApi {
 
   async searchProducts(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get(
-        `${CONSTANT.PATH_V1_API.product}/search`,
-        {
-          params: {
-            sort: fieldsQuery.sort,
-            page: fieldsQuery.page,
-            limit: fieldsQuery.limit,
-            keySearch: fieldsQuery.keySearch,
-            numericFilters: fieldsQuery.numericFilters,
-          },
-        }
-      );
+      const response = await http.get(`${PATH_API_V1.product}/search`, {
+        params: {
+          sort: fieldsQuery.sort,
+          page: fieldsQuery.page,
+          limit: fieldsQuery.limit,
+          keySearch: fieldsQuery.keySearch,
+          numericFilters: fieldsQuery.numericFilters,
+        },
+      });
 
       //   console.log("response::::", response);
       const result: Omit<IProductSearchResultApi, "isSearchingProducts"> =
@@ -131,10 +126,10 @@ class ProductApi {
   }
 
   async updateProductBasic(args: Partial<IProduct>) {
-    console.log(args)
+    console.log(args);
     try {
       const response = await http.patchForm(
-        `${CONSTANT.PATH_V1_API.product}/update/${args._id}`,
+        `${PATH_API_V1.product}/update/${args._id}`,
         resultAppendFormData(args)
       );
       const result: Omit<
@@ -150,7 +145,7 @@ class ProductApi {
   async updateProductMainInfo(args: IProductMainInfo) {
     try {
       const response = await http.patchForm(
-        `${CONSTANT.PATH_V1_API.product}/updateMainInfo/${args.product}`,
+        `${PATH_API_V1.product}/updateMainInfo/${args.product}`,
         resultAppendFormData(args)
       );
       const result: Omit<
@@ -167,7 +162,7 @@ class ProductApi {
     const { productId } = useParams();
     try {
       const response = await http.delete(
-        `${CONSTANT.PATH_V1_API.product}/deleteMainInfo/${productId}`,
+        `${PATH_API_V1.product}/deleteMainInfo/${productId}`,
         { data: { _id: arg._id } }
       );
       const result: Omit<
@@ -183,7 +178,7 @@ class ProductApi {
   async deleteProduct(arg: Pick<IProduct, "_id">) {
     try {
       const response = await http.delete(
-        `${CONSTANT.PATH_V1_API.product}/delete/${arg._id}`
+        `${PATH_API_V1.product}/delete/${arg._id}`
       );
       const result: Omit<
         IProductDeleteResultApi,

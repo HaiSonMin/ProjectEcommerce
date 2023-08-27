@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import { styled } from "styled-components";
-import { HeaderAdmin, SideBarAdmin } from "../../components/Private";
+import { HeaderAdmin, SideBarAdmin } from "../../components/private";
 
 const AdminLayoutSide = styled.div`
   display: grid;

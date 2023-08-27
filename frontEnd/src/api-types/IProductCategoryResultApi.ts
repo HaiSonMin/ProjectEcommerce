@@ -29,12 +29,17 @@ export interface IProductCategoryGetAllResultApi extends IApi {
     | undefined;
 }
 
+export interface IProductCategorySearchResultApi
+  extends Omit<IProductCategoryGetAllResultApi, "isGettingProductCategories"> {
+  isSearchingProductCategories: boolean;
+}
+
 export interface IProductCategoryGetByIdResultApi extends IApi {
   isGettingProductCategory: boolean;
   metadata: IProductCategory | undefined;
 }
 
-export interface IProductCategoriesGetByIdsResultApi extends IApi {
+export interface IProductCategoriesGetMulti extends IApi {
   isGettingProductCategories: boolean;
   metadata: Array<IProductCategory> | undefined;
 }

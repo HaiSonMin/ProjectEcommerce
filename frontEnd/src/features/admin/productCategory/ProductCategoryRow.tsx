@@ -18,15 +18,27 @@ const Img = styled.img`
 `;
 
 const ProductCategoryType = styled.div`
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: var(--color-grey-600);
   font-family: "Sono";
+  font-weight: 600;
+
+  & span {
+    color: var(--color-primary);
+  }
 `;
 
 const ProductCategoryName = styled.div`
   font-size: 1.4rem;
   color: var(--color-grey-600);
   letter-spacing: 1px;
+`;
+
+const ProductCategoryGroup = styled.div`
+  font-size: 1.4rem;
+  color: var(--color-grey-600);
+  letter-spacing: 1px;
+  font-weight: 600;
 `;
 
 interface IProps {
@@ -49,8 +61,14 @@ export default function ProductCategoryRow(props: IProps) {
         {props.productCategory.productCategory_name}
       </ProductCategoryName>
       <ProductCategoryType>
-        {props.productCategory.productCategory_type}
+        {props.productCategory.productCategory_type || <span>Unknown</span>}
       </ProductCategoryType>
+      <ProductCategoryGroup>
+        {typeof props.productCategory.productCategory_group === "object"
+          ? props.productCategory.productCategory_group
+              .productCategoryGroup_name
+          : props.productCategory.productCategory_group}
+      </ProductCategoryGroup>
       <Modal>
         <Menus.Menu>
           <Menus.ToggleButton id={props.productCategory._id} />

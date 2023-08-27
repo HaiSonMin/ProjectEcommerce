@@ -8,13 +8,14 @@ import {
 } from "@/api-types/IDiscountResultApi";
 import { IDiscount } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
-import { CONSTANT, getErrorMessage, http } from "@/utils";
+import { getErrorMessage, http } from "@/utils";
+import { PATH_API_V1 } from "@/constant";
 
 class DiscountApi {
   async createDiscount(args: Omit<IDiscount, "_id" | "discount_productIds">) {
     try {
       const response = await http.post(
-        `${CONSTANT.PATH_V1_API.discount}/create`,
+        `${PATH_API_V1.discount}/create`,
         args
       );
       const result: Omit<IDiscountCreateResultApi, "isCreatingDiscount"> =
@@ -28,7 +29,7 @@ class DiscountApi {
   async getOneDiscount(args: Pick<IDiscount, "_id">) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.discount}/getById/${args._id}`
+        `${PATH_API_V1.discount}/getById/${args._id}`
       );
       const result: Omit<IDiscountGetOneResultApi, "isGettingDiscount"> =
         response.data;
@@ -40,7 +41,7 @@ class DiscountApi {
   async getAllDiscounts(fieldsQuery: Partial<IArgsQuery>) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.discount}/getAll`,
+        `${PATH_API_V1.discount}/getAll`,
         {
           params: {
             sort: fieldsQuery.sort,
@@ -63,7 +64,7 @@ class DiscountApi {
   ) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.discount}/create`,
+        `${PATH_API_V1.discount}/create`,
         {
           params: {
             keySearch: fieldsQuery.keySearch,
@@ -85,7 +86,7 @@ class DiscountApi {
     const { _id, ...dataUpdate } = args;
     try {
       const response = await http.patch(
-        `${CONSTANT.PATH_V1_API.discount}/update/${_id}`,
+        `${PATH_API_V1.discount}/update/${_id}`,
         dataUpdate
       );
       const result: Omit<IDiscountUpdateResultApi, "isUpdatingDiscount"> =
@@ -99,7 +100,7 @@ class DiscountApi {
   async deleteDiscount(args: Pick<IDiscount, "_id">) {
     try {
       const response = await http.delete(
-        `${CONSTANT.PATH_V1_API.discount}/delete/${args._id}`
+        `${PATH_API_V1.discount}/delete/${args._id}`
       );
       const result: Omit<IDiscountDeleteResultApi, "isDeletingDiscount"> =
         response.data;

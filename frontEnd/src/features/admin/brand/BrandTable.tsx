@@ -1,23 +1,43 @@
 import BrandRow from "./BrandRow";
 import UseBrand from "./UseBrandApi";
-import { sortObject } from "@/utils";
+import { useEffect } from "react";
 import { IBrand } from "@/interfaces";
 import { useSearchParams } from "react-router-dom";
 import { Menus, Spinner, Table, Pagination } from "@/components";
+import { KEY_QUERY, VALUE_CONSTANT } from "@/constant";
 
-export default function BrandTable() {
-  const [searchParams] = useSearchParams();
-  const { isGettingBrands, metadata } = UseBrand.getAllBrand();
+interface IProps {
+  isSearch?: boolean;
+}
 
-  // Sort
-  const sortByValue = searchParams.get("sort") || "created_at-asc";
+export default function BrandTable(props: IProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  useEffect(() => {
+    searchParams.set("limit", String(VALUE_CONSTANT.LIMIT_PAGE));
+    setSearchParams(searchParams);
+  }, []);
 
-  const sortedCabins = sortObject({
-    data: metadata?.brands,
-    sortValue: sortByValue,
-  });
+  let data:
+      | {
+          totalBrands: number;
+          brandsPerPage: number;
+          brands: Array<IBrand>;
+        }
+      | undefined,
+    isGetting: boolean;
+  if (!searchParams.get(KEY_QUERY.KEY_SEARCH)) {
+    console.log("Get");
+    const { isGettingBrands, metadata } = UseBrand.getAllBrand();
+    data = metadata;
+    isGetting = isGettingBrands;
+  } else {
+    console.log("Search");
+    const { isSearchingBrands, metadata } = UseBrand.searchBrands();
+    data = metadata;
+    isGetting = isSearchingBrands;
+  }
 
-  if (isGettingBrands) return <Spinner />;
+  if (isGetting) return <Spinner />;
 
   return (
     <Menus>
@@ -29,11 +49,11 @@ export default function BrandTable() {
           <div>Options</div>
         </Table.Header>
         <Table.Body
-          data={sortedCabins}
+          data={data?.brands}
           render={(brand: IBrand) => <BrandRow brand={brand} key={brand._id} />}
         />
         <Table.Footer>
-          <Pagination countItems={metadata?.totalBrands} />
+          <Pagination countItems={data?.totalBrands} />
         </Table.Footer>
       </Table>
     </Menus>

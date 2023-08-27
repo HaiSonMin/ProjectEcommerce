@@ -26,19 +26,23 @@ import TextEditor from "./TextEditor";
 import InputColor from "./InputColor";
 import ButtonIcon from "./ButtonIcon";
 import Pagination from "./Pagination";
-import CarouselBig from "./CarouselBig";
 import SelectMulti from "./SelectMulti";
 import ButtonGroup from "./ButtonGroup";
 import SpinnerMini from "./SpinnerMini";
 import ImagesGroup from "./ImagesGroup";
+import CarouselImage from "./CarouselImage";
+import SelectMultiV2 from "./SelectMultiV2";
 import ContainerCard from "./ContainerCard";
 import ConfirmUpdate from "./ConfirmUpdate";
 import ConfirmDelete from "./ConfirmDelete";
 import FormRowContent from "./FormRowContent";
 import ToasterDisplay from "./ToasterDisplay";
 import TableOperation from "./TableOperation";
+import CarouselTopHome from "./CarouselTopHome";
 import ContainerImgLink from "./ContainerImgLink";
-import DarkModeProvider from "./Private/DarkModeProvider";
+import InputRangeTwoValue from "./InputRangeTwoValue";
+import InputRangeTwoValueV2 from "./InputRangeTwoValueV2";
+import DarkModeProvider from "./private/DarkModeProvider";
 
 export {
   Row,
@@ -69,17 +73,21 @@ export {
   InputColor,
   ButtonIcon,
   Pagination,
-  CarouselBig,
   SelectMulti,
   ButtonGroup,
   SpinnerMini,
   ImagesGroup,
+  CarouselImage,
+  SelectMultiV2,
   ContainerCard,
   ConfirmDelete,
   ConfirmUpdate,
   FormRowContent,
   TableOperation,
   ToasterDisplay,
+  CarouselTopHome,
   ContainerImgLink,
   DarkModeProvider,
+  InputRangeTwoValue,
+  InputRangeTwoValueV2,
 };

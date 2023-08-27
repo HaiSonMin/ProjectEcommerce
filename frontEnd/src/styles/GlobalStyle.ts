@@ -17,7 +17,7 @@ const GlobalStyles = createGlobalStyle`
   --color-grey-900: #111827;
 
   --color-blue-100: #e0f2fe;
-  --color-blue-700: #0369a1;
+  --color-blue-300: #0369a1;
   --color-green-100: #dcfce7;
   --color-green-700: #15803d;
   --color-yellow-100: #383624;
@@ -27,13 +27,18 @@ const GlobalStyles = createGlobalStyle`
   --color-indigo-100: #e0e7ff;
   --color-indigo-700: #4338ca;
 
-  --color-red-100: #fee2e2;
+  --color-orange-700: #ff5000;
+
+  --color-red-100: #fff0f0;
+  --color-red-200: #fee2e2;
+  --color-red-500: #f14668;
+  --color-red-600: #f14a4a;
   --color-red-700: #b91c1c;
   --color-red-800: #991b1b;
   --color-primary: #d70018;
   --color-primary-light: #e4a3a38f;
-  --color-secondary: #e9e9e9;
-  --color-text: #777;
+  --color-secondary: #dbdbdb;
+  --color-text: #4a4a4a;
 
 
   --backdrop-color: rgba(255, 255, 255, 0.1);
@@ -41,8 +46,8 @@ const GlobalStyles = createGlobalStyle`
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
-  --shadow-arrow: 0 1px 2px 0 rgba(60, 64, 67, 0.1), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
-    
+  --shadow-around: 0 1px 2px 0 rgba(60, 64, 67, 0.1), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+  --shadow-around-dark: 0 2px 20px rgba(0,0,0,0.5);
 
     --image-grayscale: 0;
     --image-opacity: 100%;
@@ -113,7 +118,6 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
 
   /* Creating animations for dark mode */
-  transition: background-color 0.3s, border 0.3s;
 }
 
 html {

@@ -1,10 +1,10 @@
-import { CONSTANT } from "../../utils";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { HiOutlineUser } from "react-icons/hi2";
 import ButtonIcon from "../ButtonIcon";
 import DarkModeToggle from "./DarkModeToggle";
 import { Logout } from "..";
+import { PATH_ADMIN } from "@/constant";
 
 const HeaderAdminMenuStyled = styled.ul`
   display: flex;
@@ -17,7 +17,7 @@ const HeaderAdminMenu = () => {
   return (
     <HeaderAdminMenuStyled>
       <li>
-        <ButtonIcon onClick={() => navigate(CONSTANT.PATH_ADMIN.account)}>
+        <ButtonIcon onClick={() => navigate(PATH_ADMIN.account)}>
           <HiOutlineUser />
         </ButtonIcon>
       </li>

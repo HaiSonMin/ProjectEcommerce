@@ -73,7 +73,7 @@ interface IProps {
   gapValue: number;
   widthItem: number;
   numberProductInRow: number;
-  numberProductDisplay: number;
+  numberProductDisplayOnScreen: number;
 }
 
 export default function Carousel({
@@ -81,15 +81,18 @@ export default function Carousel({
   gapValue,
   widthItem,
   numberProductInRow,
-  numberProductDisplay,
+  numberProductDisplayOnScreen,
 }: IProps) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   useEffect(() => {
     const timerScroll = setInterval(() => {
-      if (numberProductInRow > numberProductDisplay)
+      // Số sản phẩm có trên 1 hàng phải lớn hơn số sản phẩm được hiển thị trên 1 hàng(5)
+      const resultCurrentSlide =
+        numberProductInRow - numberProductDisplayOnScreen;
+      if (numberProductInRow > numberProductDisplayOnScreen)
         setCurrentSlide((cur: number) =>
-          cur === numberProductInRow - numberProductDisplay ? 0 : cur + 1
+          cur === resultCurrentSlide ? 0 : cur + 1
         );
     }, 5000);
 
@@ -97,15 +100,18 @@ export default function Carousel({
   }, [currentSlide]);
 
   const handleNextSlide = () => {
-    const resultCurrentSlide = numberProductInRow - numberProductDisplay;
+    const resultCurrentSlide =
+      numberProductInRow - numberProductDisplayOnScreen;
     setCurrentSlide((cur: number) =>
       cur === resultCurrentSlide ? 0 : cur + 1
     );
   };
 
   const handlePrevSlide = () => {
+    const resultCurrentSlide =
+      numberProductInRow - numberProductDisplayOnScreen;
     setCurrentSlide((cur: number) =>
-      cur === 0 ? numberProductInRow - numberProductDisplay : cur - 1
+      cur === 0 ? resultCurrentSlide : cur - 1
     );
   };
 
@@ -116,7 +122,7 @@ export default function Carousel({
       <ContainerChildren $valueTransform={transformValue * currentSlide}>
         {children}
       </ContainerChildren>
-      {numberProductInRow > numberProductDisplay && (
+      {numberProductInRow > numberProductDisplayOnScreen && (
         <>
           <ButtonPre className="btn-pre" onClick={handlePrevSlide}>
             <GoChevronLeft />

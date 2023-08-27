@@ -6,6 +6,7 @@ import DemandApi from "./Demand.api";
 import ProductApi from "./Product.api";
 import DiscountApi from "./Discount.api";
 import ProductCategoryApi from "./ProductCategory.api";
+import ProductCategoryGroupApi from "./ProductCategoryGroup.api";
 
 export {
   AdminApi,
@@ -16,4 +17,5 @@ export {
   ProductApi,
   DiscountApi,
   ProductCategoryApi,
+  ProductCategoryGroupApi,
 };

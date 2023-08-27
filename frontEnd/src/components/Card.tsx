@@ -183,7 +183,7 @@ export default function Cart({ width, item }: IProps) {
       </CardEndow>
       <CardWishlist>
         <span>Add to wishlist</span>
-        {true ? <AiFillHeart /> : <AiOutlineHeart />}
+        {false ? <AiFillHeart /> : <AiOutlineHeart />}
       </CardWishlist>
     </CartStyled>
   );

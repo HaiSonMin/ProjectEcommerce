@@ -8,13 +8,14 @@ import {
 } from "@/api-types/IOrderResultApi";
 import { IOrder } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
-import { CONSTANT, getErrorMessage, http } from "@/utils";
+import {  getErrorMessage, http } from "@/utils";
+import { PATH_API_V1 } from "@/constant";
 
 class OrderApi {
   async createOrder(args: Partial<IOrder>) {
     try {
       const response = await http.post(
-        `${CONSTANT.PATH_V1_API.order}/create`,
+        `${PATH_API_V1.order}/create`,
         args
       );
       const result: Omit<
@@ -29,7 +30,7 @@ class OrderApi {
   async getOneOrder(arg: Pick<IOrder, "_id">) {
     try {
       const response = await http.get(
-        `${CONSTANT.PATH_V1_API.order}/getById/${arg._id}`
+        `${PATH_API_V1.order}/getById/${arg._id}`
       );
       const result: Omit<IOrderGetOneResultApi, "isGettingOrder"> =
         response.data;
@@ -40,7 +41,7 @@ class OrderApi {
   }
   async getAllOrders(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get(`${CONSTANT.PATH_V1_API.order}/getAll`, {
+      const response = await http.get(`${PATH_API_V1.order}/getAll`, {
         params: {
           sort: fieldsQuery.sort,
           page: fieldsQuery.page,
@@ -58,7 +59,7 @@ class OrderApi {
   }
   async searchOrders(fieldsQuery: Partial<IArgsQuery>) {
     try {
-      const response = await http.get(`${CONSTANT.PATH_V1_API.order}/search`, {
+      const response = await http.get(`${PATH_API_V1.order}/search`, {
         params: {
           sort: fieldsQuery.sort,
           page: fieldsQuery.page,
@@ -78,7 +79,7 @@ class OrderApi {
   async updateOrder(args: Partial<IOrder>) {
     try {
       const response = await http.patch(
-        `${CONSTANT.PATH_V1_API.order}/update/${args._id}`
+        `${PATH_API_V1.order}/update/${args._id}`
       );
       const result: Omit<
         IOrderUpdateResultApi,
@@ -92,7 +93,7 @@ class OrderApi {
   async deleteOrder(arg: Pick<IOrder, "_id">) {
     try {
       const response = await http.delete(
-        `${CONSTANT.PATH_V1_API.order}/delete/${arg._id}`
+        `${PATH_API_V1.order}/delete/${arg._id}`
       );
       const result: Omit<
         IOrderDeleteResultApi,

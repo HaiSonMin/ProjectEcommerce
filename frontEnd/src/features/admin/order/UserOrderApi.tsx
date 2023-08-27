@@ -11,7 +11,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useQueriesString } from "@/hooks";
-import { CONSTANT } from "@/utils";
+import CONSTANT from "@/constant/value-constant";
 
 export default class UseOrderApi {
   static createOrder(): IOrderCreateResultApi {

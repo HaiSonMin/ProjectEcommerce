@@ -1,11 +1,10 @@
-import { CONSTANT } from "@/utils";
+import { PATH_ADMIN, PATH_USER } from "@/constant";
 import { PublicLayOut } from "@/pages/public";
 import { Navigate, Route, Routes } from "react-router";
 import {
   AdminLayout,
   UserPage,
   OrderPage,
-  BrandPage,
   RatingPage,
   CouponPage,
   PaymentPage,
@@ -54,6 +53,11 @@ const DiscountAddProductsPage = lazy(
   () => import("@/pages/private/discount/DiscountAddProductsPage")
 );
 
+const BrandPage = lazy(() => import("@/pages/private/brand/BrandPage"));
+const BrandTablePage = lazy(
+  () => import("@/pages/private/brand/BrandTablePage")
+);
+
 const ProductTablePage = lazy(
   () => import("@/pages/private/product/ProductTablePage")
 );
@@ -93,11 +97,32 @@ const ProductCategoryPage = lazy(
 const ProductCategoryTablePage = lazy(
   () => import("@/pages/private/productCategory/ProductCategoryTablePage")
 );
+
 const ProductCategoryCreatePage = lazy(
   () => import("@/pages/private/productCategory/ProductCategoryCreatePage")
 );
 const ProductCategoryUpdatePage = lazy(
   () => import("@/pages/private/productCategory/ProductCategoryUpdatePage")
+);
+
+const ProductCategoryGroupPage = lazy(
+  () => import("@/pages/private/productCategoryGroup/ProductCategoryGroupPage")
+);
+const ProductCategoryGroupTablePage = lazy(
+  () =>
+    import("@/pages/private/productCategoryGroup/ProductCategoryGroupTablePage")
+);
+const ProductCategoryGroupCreatePage = lazy(
+  () =>
+    import(
+      "@/pages/private/productCategoryGroup/ProductCategoryGroupCreatePage"
+    )
+);
+const ProductCategoryGroupUpdatePage = lazy(
+  () =>
+    import(
+      "@/pages/private/productCategoryGroup/ProductCategoryGroupUpdatePage"
+    )
 );
 
 const OrderTablePage = lazy(
@@ -107,6 +132,9 @@ const OrderTablePage = lazy(
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 
 const HomePage = lazy(() => import("@/pages/public/home/Homepage"));
+const ProductCategoryPageUser = lazy(
+  () => import("@/pages/public/product/product-category/ProductCategoryPage")
+);
 
 export default function App() {
   return (
@@ -115,16 +143,34 @@ export default function App() {
         {/* Layout of public */}
         <Route element={<Navigate replace to={"/"} />} />
         <Route path={"/"} element={<PublicLayOut />}>
-          <Route path={CONSTANT.PATH_PUBLIC.home} element={<HomePage />} />
+          <Route path={PATH_USER.home} element={<HomePage />} />
+          <Route path={PATH_USER.product} element={<ProductCategoryPageUser />} />
         </Route>
 
         {/* <Route element={<Navigate replace to={"/admin"} />} /> */}
         {/* Layout of private */}
-        <Route path={CONSTANT.PATH_ADMIN.admin} element={<AdminLayout />}>
-          <Route path={CONSTANT.PATH_ADMIN.brand} element={<BrandPage />} />
+        <Route path={PATH_ADMIN.admin} element={<AdminLayout />}>
+          <Route path={PATH_ADMIN.brand} element={<BrandPage />}>
+            <Route path="" element={<BrandTablePage />} />
+          </Route>
 
           <Route
-            path={CONSTANT.PATH_ADMIN.productCategory}
+            path={PATH_ADMIN.productCategoryGroup}
+            element={<ProductCategoryGroupPage />}
+          >
+            <Route path="" element={<ProductCategoryGroupTablePage />} />
+            <Route
+              path={"create"}
+              element={<ProductCategoryGroupCreatePage />}
+            />
+            <Route
+              path={"update/:productCategoryGroupId"}
+              element={<ProductCategoryGroupUpdatePage />}
+            />
+          </Route>
+
+          <Route
+            path={PATH_ADMIN.productCategory}
             element={<ProductCategoryPage />}
           >
             <Route path="" element={<ProductCategoryTablePage />} />
@@ -133,33 +179,32 @@ export default function App() {
               path={"update/:productCategoryId"}
               element={<ProductCategoryUpdatePage />}
             />
-            S
           </Route>
 
-          <Route path={CONSTANT.PATH_ADMIN.demand} element={<DemandPage />}>
+          <Route path={PATH_ADMIN.demand} element={<DemandPage />}>
             <Route path="" element={<DemandTablePage />} />
             <Route path={"create"} element={<DemandCreatePage />} />
             <Route path={"update/:demandId"} element={<DemandUpdatePage />} />
           </Route>
 
-          <Route path={CONSTANT.PATH_ADMIN.user} element={<UserPage />}>
+          <Route path={PATH_ADMIN.user} element={<UserPage />}>
             <Route path="" element={<UserTablePage />} />
             <Route path={`search`} element={<UserSearchPage />} />
             <Route path={`createEmployees`} element={<UserCreatePage />} />
           </Route>
 
-          <Route path={CONSTANT.PATH_ADMIN.order} element={<OrderPage />}>
+          <Route path={PATH_ADMIN.order} element={<OrderPage />}>
             <Route path={""} element={<OrderTablePage />} />
           </Route>
 
-          <Route path={CONSTANT.PATH_ADMIN.coupon} element={<CouponPage />}>
+          <Route path={PATH_ADMIN.coupon} element={<CouponPage />}>
             <Route path="" element={<CouponTablePage />} />
             <Route path={`search`} element={<CouponSearchPage />} />
             <Route path={`create`} element={<CouponCreatePage />} />
             <Route path={`update/:couponId`} element={<CouponEditPage />} />
           </Route>
 
-          <Route path={CONSTANT.PATH_ADMIN.discount} element={<DiscountPage />}>
+          <Route path={PATH_ADMIN.discount} element={<DiscountPage />}>
             <Route path={``} element={<DiscountTablePage />} />
             <Route path={`create`} element={<DiscountCreatePage />} />
             <Route path={`update/:discountId`} element={<DiscountEditPage />} />
@@ -169,10 +214,10 @@ export default function App() {
             />
           </Route>
 
-          <Route path={CONSTANT.PATH_ADMIN.rating} element={<RatingPage />} />
-          <Route path={CONSTANT.PATH_ADMIN.setting} element={<SettingPage />} />
-          <Route path={CONSTANT.PATH_ADMIN.payment} element={<PaymentPage />} />
-          <Route path={CONSTANT.PATH_ADMIN.product} element={<ProductPage />}>
+          <Route path={PATH_ADMIN.rating} element={<RatingPage />} />
+          <Route path={PATH_ADMIN.setting} element={<SettingPage />} />
+          <Route path={PATH_ADMIN.payment} element={<PaymentPage />} />
+          <Route path={PATH_ADMIN.product} element={<ProductPage />}>
             <Route path={``} element={<ProductTablePage />} />
             <Route path={`search`} element={<ProductSearchPage />} />
             <Route path={`create`} element={<ProductCreatePage />} />
@@ -194,27 +239,12 @@ export default function App() {
             />
           </Route>
 
-          <Route
-            path={CONSTANT.PATH_ADMIN.customer}
-            element={<CustomerPage />}
-          />
-          <Route
-            path={CONSTANT.PATH_ADMIN.question}
-            element={<QuestionPage />}
-          />
-          <Route
-            path={CONSTANT.PATH_ADMIN.wishlist}
-            element={<WishlistPage />}
-          />
+          <Route path={PATH_ADMIN.customer} element={<CustomerPage />} />
+          <Route path={PATH_ADMIN.question} element={<QuestionPage />} />
+          <Route path={PATH_ADMIN.wishlist} element={<WishlistPage />} />
 
-          <Route
-            path={CONSTANT.PATH_ADMIN.dashboard}
-            element={<DashboardPage />}
-          />
-          <Route
-            path={CONSTANT.PATH_ADMIN.inventory}
-            element={<InventoryPage />}
-          />
+          <Route path={PATH_ADMIN.dashboard} element={<DashboardPage />} />
+          <Route path={PATH_ADMIN.inventory} element={<InventoryPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

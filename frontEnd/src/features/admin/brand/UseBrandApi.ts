@@ -1,16 +1,15 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { BrandApi } from "@/apis";
 import {
   IBrandCreateResultApi,
   IBrandGetAllResultApi,
   IBrandUpdateResultApi,
   IBrandDeleteResultApi,
+  IBrandSearchResultApi,
 } from "@/api-types/IBrandResultApi";
+import { BrandApi } from "@/apis";
 import { toast } from "react-hot-toast";
-import { CONSTANT, getQueriesString } from "@/utils";
-import { useSearchParams } from "react-router-dom";
+import { getQueriesString } from "@/utils";
 import { useQueriesString } from "@/hooks";
-``;
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 class UseBrandApi {
   static createBrand(): IBrandCreateResultApi {
@@ -44,7 +43,7 @@ class UseBrandApi {
       limit,
     } = getQueriesString(useQueriesString());
     const { data, isLoading } = useQuery({
-      queryKey: ["brands", currentPage, sort],
+      queryKey: ["brands", currentPage, sort, limit],
       queryFn: () =>
         BrandApi.getAllBrands({
           sort,
@@ -58,7 +57,7 @@ class UseBrandApi {
     // Get Data Next Page
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
-        queryKey: ["brands", currentPage + 1, sort],
+        queryKey: ["brands", currentPage + 1, sort, limit],
         queryFn: () =>
           BrandApi.getAllBrands({
             sort,
@@ -70,7 +69,7 @@ class UseBrandApi {
     // Get Data Next Page
     if (currentPage > 1)
       queryClient.prefetchQuery({
-        queryKey: ["brands", currentPage - 1, sort],
+        queryKey: ["brands", currentPage - 1, sort, limit],
         queryFn: () =>
           BrandApi.getAllBrands({
             sort,
@@ -81,6 +80,58 @@ class UseBrandApi {
 
     return {
       isGettingBrands: isLoading,
+      message: data?.message,
+      metadata: data?.metadata,
+      statusCode: data?.statusCode,
+      reasonStatusCode: data?.reasonStatusCode,
+    };
+  }
+
+  static searchBrands(): IBrandSearchResultApi {
+    const queryClient = useQueryClient();
+    const {
+      limit,
+      keySearch,
+      page: currentPage,
+    } = getQueriesString(useQueriesString());
+    const { data, isLoading } = useQuery({
+      queryKey: ["brands", currentPage, keySearch],
+      queryFn: () =>
+        BrandApi.searchBrands({
+          keySearch,
+          page: currentPage,
+          limit,
+        }),
+    });
+    let numberPage: number = 1;
+    if (data?.metadata?.totalBrands)
+      numberPage = Math.ceil(data?.metadata?.totalBrands / limit);
+    // Get Data Next Page
+    if (currentPage < numberPage)
+      queryClient.prefetchQuery({
+        queryKey: ["brands", currentPage + 1, keySearch],
+        queryFn: () =>
+          BrandApi.searchBrands({
+            keySearch,
+            page: currentPage + 1,
+            limit,
+          }),
+      });
+
+    // Get Data Next Page
+    if (currentPage > 1)
+      queryClient.prefetchQuery({
+        queryKey: ["brands", currentPage - 1, keySearch],
+        queryFn: () =>
+          BrandApi.searchBrands({
+            keySearch,
+            page: currentPage - 1,
+            limit,
+          }),
+      });
+
+    return {
+      isSearchingBrands: isLoading,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,

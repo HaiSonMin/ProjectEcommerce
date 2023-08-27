@@ -1,7 +1,7 @@
 import AdminLayout from "./AdminLayout";
 import { UserPage, UserCreatePage, UserSearchPage } from "./user";
 import { OrderPage, OrderUpdatePage, OrderDetailPage } from "./order";
-import BrandPage from "./BrandPage";
+import BrandPage from "./brand/BrandPage";
 import RatingPage from "./RatingPage";
 import PaymentPage from "./PaymentPage";
 import SettingPage from "./SettingPage";

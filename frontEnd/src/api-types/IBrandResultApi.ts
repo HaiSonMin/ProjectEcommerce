@@ -29,6 +29,11 @@ export interface IBrandGetAllResultApi extends IApi {
     | undefined;
 }
 
+export interface IBrandSearchResultApi
+  extends Omit<IBrandGetAllResultApi, "isGettingBrands"> {
+  isSearchingBrands: boolean;
+}
+
 export interface IBrandCreateResultApi extends IApi {
   isCreatingBrand: boolean;
   metadata: IBrand | undefined;

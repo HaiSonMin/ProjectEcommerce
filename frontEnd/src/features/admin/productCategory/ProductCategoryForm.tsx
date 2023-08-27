@@ -1,12 +1,24 @@
 import { useForm } from "react-hook-form";
-import { IProductCategory } from "@/interfaces";
+import { IBrand, IProductCategory } from "@/interfaces";
 import UseProductCategoryApi from "./UseProductCategoryApi";
-import { Button, InputFile, Form, FormRow, Input, Heading } from "@/components";
-import { useState } from "react";
+import {
+  Button,
+  InputFile,
+  Form,
+  FormRow,
+  Input,
+  Heading,
+  SelectMulti,
+  SelectMultiV2,
+} from "@/components";
+import { useState, useRef } from "react";
 import Select, { SingleValue } from "react-select";
 import IOptionSelect from "@/helpers/ISelectOption";
-import { CONSTANT } from "@/utils";
 import { useMoveBack } from "@/hooks";
+import UseProductCategoryGroupApi from "../productCategoryGroup/UseProductCategoryGroupApi";
+import { PRODUCT_CATEGORY_TYPE } from "@/constant";
+import { UseBrandApi } from "../brand";
+import { DefaultOptionType } from "antd/es/select";
 interface IProps {
   productCategoryEdit?: IProductCategory;
   onCloseModal?: () => void;
@@ -14,6 +26,7 @@ interface IProps {
 
 const initializeFormProductCategory: IProductCategory = {
   _id: "",
+  productCategory_group: "",
   productCategory_type: "",
   productCategory_name: "",
   productCategory_image: "",
@@ -21,22 +34,73 @@ const initializeFormProductCategory: IProductCategory = {
 
 export default function ProductCategoryForm(props: IProps) {
   const moveBack = useMoveBack();
+  const categoryGroup: Pick<IOptionSelect, "value"> = {
+    value: props.productCategoryEdit?.productCategory_group + "" || null,
+  };
+  const [selectCategoryGroup, setSelectCategoryGroup] =
+    useState<SingleValue<Pick<IOptionSelect, "value">>>(categoryGroup);
+
   const categoryType: Pick<IOptionSelect, "value"> = {
-    value: props.productCategoryEdit?.productCategory_type || null,
+    value: props.productCategoryEdit?.productCategory_type + "",
   };
   const [selectCategoryType, setSelectCategoryType] =
     useState<SingleValue<Pick<IOptionSelect, "value">>>(categoryType);
+
+  let brandIds: Array<string> | undefined;
+  let brandNames: Array<string> | undefined;
+  if (props.productCategoryEdit) {
+    brandIds = (
+      props.productCategoryEdit?.productCategory_brands as Array<IBrand>
+    )?.map((brand) => brand._id);
+    brandNames = (
+      props.productCategoryEdit?.productCategory_brands as Array<IBrand>
+    )?.map((brand: IBrand) => brand.brand_name);
+  }
+
+  const [selectBrands, setSelectBrands] = useState<Array<string>>(
+    brandIds || []
+  );
 
   const { isCreatingProductCategory, createProductCategory } =
     UseProductCategoryApi.createCategory();
   const { isUpdatingProductCategory, updateProductCategory } =
     UseProductCategoryApi.updateCategory();
-  const isWorking = isCreatingProductCategory || isUpdatingProductCategory;
+  const { isGettingProductCategoriesGroup, metadata: dataCategoriesGroup } =
+    UseProductCategoryGroupApi.getAllCategoriesGroup();
+  const { isGettingBrands, metadata: dataBrands } = UseBrandApi.getAllBrand();
+
+  const isWorking =
+    isGettingBrands ||
+    isCreatingProductCategory ||
+    isUpdatingProductCategory ||
+    isGettingProductCategoriesGroup;
+
+  const optionSelectCategoryGroup: Array<IOptionSelect> | undefined =
+    dataCategoriesGroup?.productCategoriesGroup?.map?.((categoryGroup) => {
+      return {
+        label: categoryGroup.productCategoryGroup_name,
+        value: categoryGroup._id,
+      };
+    });
+  const optionSelectBrands: Array<DefaultOptionType> | undefined =
+    dataBrands?.brands?.map?.((brand) => {
+      return {
+        label: brand.brand_name,
+        value: brand.brand_name,
+        image: brand.brand_image,
+      };
+    });
+
   const optionSelectCategoryType: Array<IOptionSelect> = Object.values(
-    CONSTANT.TYPE_PRODUCT_CATEGORY
-  ).map((value) => {
-    return { label: value, value: value };
-  });
+    PRODUCT_CATEGORY_TYPE
+  )
+    .sort()
+    .map((value) => {
+      return {
+        label: value,
+        value: value,
+      };
+    });
 
   // Value for edit
   const { _id: editId, ...editValues } =
@@ -44,11 +108,17 @@ export default function ProductCategoryForm(props: IProps) {
 
   const isEditSession = Boolean(editId);
 
-  const { handleSubmit, register, formState } = useForm({
+  const { handleSubmit, register, formState, getValues } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
 
   const { errors: errorsForm } = formState;
+
+  const handlerSelectCategoryGroup = (
+    option: SingleValue<Pick<IOptionSelect, "value">>
+  ) => {
+    setSelectCategoryGroup(option);
+  };
 
   const handlerSelectCategoryType = (
     option: SingleValue<Pick<IOptionSelect, "value">>
@@ -56,25 +126,37 @@ export default function ProductCategoryForm(props: IProps) {
     setSelectCategoryType(option);
   };
 
+  const handlerSelectMultiBrands = (brands: Array<string>) => {
+    const brandsSelected =
+      dataBrands?.brands
+        .filter((brand) => brands.includes(brand.brand_name))
+        .map((brand) => brand._id) || [];
+    console.log("brandsSelected::::", brandsSelected);
+    setSelectBrands(brandsSelected);
+  };
+
   const onSubmit = (dataFormProductCategory: any) => {
     if (!isEditSession) {
       return createProductCategory(
         {
           ...dataFormProductCategory,
+          productCategory_group: selectCategoryGroup?.value || "",
           productCategory_type: selectCategoryType?.value || "",
+          productCategory_brands: selectBrands,
           productCategory_image:
             dataFormProductCategory["productCategory_image"],
         },
         {
-          onSuccess: (newData) => moveBack(),
+          // onSuccess: (newData) => moveBack(),
         }
       );
     } else {
-      console.log(dataFormProductCategory["productCategory_image"]);
       return updateProductCategory(
         {
           ...dataFormProductCategory,
-          productCategory_type: selectCategoryType?.value || "",
+          productCategory_group: selectCategoryGroup?.value || "",
+          productCategory_type: selectCategoryType?.value,
+          productCategory_brands: selectBrands,
           productCategory_image:
             dataFormProductCategory["productCategory_image"] ??
             editValues.productCategory_image,
@@ -93,6 +175,15 @@ export default function ProductCategoryForm(props: IProps) {
         {isEditSession ? "Edit Category" : "Add new category"}
       </Heading>
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormRow label="Product Category Group" error={errorsForm}>
+          <Select
+            id="productCategoryGroup"
+            placeholder={"Select an group"}
+            value={selectCategoryGroup}
+            onChange={handlerSelectCategoryGroup}
+            options={optionSelectCategoryGroup}
+          />
+        </FormRow>
         <FormRow label="Product Category Type" error={errorsForm}>
           <Select
             id="productCategoryType"
@@ -112,6 +203,15 @@ export default function ProductCategoryForm(props: IProps) {
             {...register("productCategory_name", {
               required: "Please provide product category name",
             })}
+          />
+        </FormRow>
+        <FormRow label="Product Brands">
+          <SelectMultiV2
+            options={optionSelectBrands}
+            onChange={handlerSelectMultiBrands}
+            defaultValues={brandNames}
+            placeholder="Select brands"
+            id="productCategory_brand"
           />
         </FormRow>
         {!isEditSession ? (
@@ -142,11 +242,11 @@ export default function ProductCategoryForm(props: IProps) {
           </Button>
           {!isEditSession ? (
             <Button disabled={isWorking}>
-              {isWorking ? "Creating ...." : "Create category"}
+              {isWorking ? "Creating...." : "Create category"}
             </Button>
           ) : (
             <Button disabled={isWorking}>
-              {isWorking ? "Editing ...." : "Edit category"}
+              {isWorking ? "Editing...." : "Edit category"}
             </Button>
           )}
         </FormRow>

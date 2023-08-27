@@ -12,7 +12,6 @@ import {
 } from "@/components";
 import Select, { SingleValue } from "react-select";
 import { useForm } from "react-hook-form";
-import { CONSTANT } from "@/utils";
 import IProductType, {
   IProductMainInfo,
   IProductMainInfoCreate,

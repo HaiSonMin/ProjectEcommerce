@@ -62,7 +62,7 @@ export default function ContainerImgLink({
       <Carousel
         gapValue={gapValue}
         widthItem={withImg}
-        numberProductDisplay={numberProductDisplay}
+        numberProductDisplayOnScreen={numberProductDisplay}
         numberProductInRow={numberProductInRow}
       >
         <ContainerImgLinks

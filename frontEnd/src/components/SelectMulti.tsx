@@ -1,5 +1,5 @@
 import React from "react";
-import { Select, Space, Tag } from "antd";
+import { Select, Tag, Space } from "antd";
 import type { CustomTagProps } from "rc-select/lib/BaseSelect";
 import IOptionSelect from "@/helpers/ISelectOption";
 
@@ -23,24 +23,26 @@ const tagRender = (props: CustomTagProps) => {
 
 interface IProps {
   id: string;
-  options: Array<IOptionSelect>;
+  options: Array<IOptionSelect> | undefined;
   onChange: any;
   disabled?: boolean;
-  defaultValues: Array<string>;
+  placeholder: string;
+  defaultValues: Array<string> | undefined;
 }
 
 export default function SelectMulti(props: IProps) {
   return (
-    <Select
-      mode="multiple"
-      disabled={props.disabled}
-      showArrow
-      tagRender={tagRender}
-      className="w-full font-medium "
-      options={props.options}
-      onChange={props.onChange} 
-      placeholder="Select categories"
-      defaultValue={props.defaultValues}
-    />
+    <Space direction="vertical">
+      <Select
+        mode="multiple"
+        disabled={props.disabled}
+        // tagRender={tagRender}
+        className="w-full font-medium "
+        options={props.options}
+        onChange={props.onChange}
+        placeholder={props.placeholder}
+        defaultValue={props.defaultValues}
+      />
+    </Space>
   );
 }
