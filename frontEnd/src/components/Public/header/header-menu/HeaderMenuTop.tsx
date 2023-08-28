@@ -4,11 +4,7 @@ import { styled } from "styled-components";
 import { FiPhone } from "react-icons/fi";
 import { LuPackageSearch } from "react-icons/lu";
 import { TbShoppingBag } from "react-icons/tb";
-import {
-  MdAccountCircle,
-  MdNoAccounts,
-  MdOutlineDiscount,
-} from "react-icons/md";
+import { MdNoAccounts, MdOutlineDiscount } from "react-icons/md";
 import HeaderSearch from "./HeaderSearch";
 
 const HeaderMenuTopStyled = styled.div`
@@ -16,7 +12,7 @@ const HeaderMenuTopStyled = styled.div`
   background-color: var(--color-primary);
 `;
 
-const Container = styled.div`
+const Navs = styled.div`
   margin: 0 auto;
   max-width: 120rem;
   display: flex;
@@ -52,7 +48,11 @@ const LogoPage = styled(Link)`
 `;
 
 const NavTelItem = styled.a``;
-const NavLinkItem = styled(Link)``;
+const NavLinkItem = styled(Link)`
+  & p {
+    font-size: 1.4rem;
+  }
+`;
 
 const CartBlock = styled.div`
   position: relative;
@@ -74,7 +74,7 @@ const CountBuy = styled.div`
 export default function HeaderMenuTop() {
   return (
     <HeaderMenuTopStyled>
-      <Container>
+      <Navs>
         <LogoPage to={"/"}>
           <img src={logoPage} alt="Logo Page" />
         </LogoPage>
@@ -82,7 +82,7 @@ export default function HeaderMenuTop() {
         <NavTelItem className="nav-styled" href={"tel: 0345299087"}>
           <FiPhone />
           <p>
-            Call to buy
+            Gọi mua hàng
             <br />
             0345.299.087
           </p>
@@ -90,17 +90,17 @@ export default function HeaderMenuTop() {
         <NavLinkItem className="nav-styled" to={"/#"}>
           <MdOutlineDiscount />
           <p>
-            Product
+            Xem mã
             <br />
-            Promotion
+            giảm giá
           </p>
         </NavLinkItem>
         <NavLinkItem className="nav-styled" to={"/#"}>
           <LuPackageSearch />
           <p>
-            Order
+            Tra cứu
             <br />
-            lookup
+            Đơn hàng
           </p>
         </NavLinkItem>
         <NavLinkItem className="nav-styled" to={"/#"}>
@@ -109,20 +109,20 @@ export default function HeaderMenuTop() {
             <CountBuy>2</CountBuy>
           </CartBlock>
           <p>
-            Shopping
+            Giỏ
             <br />
-            Cart
+            hàng
           </p>
         </NavLinkItem>
         <NavLinkItem className="nav-styled" to={"/#"}>
           <MdNoAccounts />
           <p>
-            Login
+            Đăng
             <br />
-            Account
+            nhập
           </p>
         </NavLinkItem>
-      </Container>
+      </Navs>
     </HeaderMenuTopStyled>
   );
 }

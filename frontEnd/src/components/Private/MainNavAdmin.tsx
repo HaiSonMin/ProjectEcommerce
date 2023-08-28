@@ -57,7 +57,7 @@ const NavLinkStyled = styled(NavLink)`
   &:active span,
   &.active:link span,
   &.active:visited span {
-    color: var(--color-indigo-700);
+    color: var(--color-primary);
     font-weight: 600;
   }
 `;

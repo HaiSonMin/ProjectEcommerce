@@ -17,9 +17,12 @@ import SortBy from "./SortBy";
 import FormRow from "./FormRow";
 import Heading from "./Heading";
 import Spinner from "./Spinner";
+import TextArea from "./TextArea";
 import Carousel from "./Carousel";
 import CountDown from "./CountDown";
 import InputFile from "./InputFile";
+import RatingStar from "./RatingStar";
+import RatingStarAction from "./RatingStarAction";
 import SelectDate from "./SelectDate";
 import StarReview from "./StarReview";
 import TextEditor from "./TextEditor";
@@ -64,6 +67,7 @@ export {
   FormRow,
   Heading,
   Spinner,
+  TextArea,
   Carousel,
   CountDown,
   InputFile,
@@ -90,4 +94,6 @@ export {
   DarkModeProvider,
   InputRangeTwoValue,
   InputRangeTwoValueV2,
+  RatingStar,
+  RatingStarAction,
 };

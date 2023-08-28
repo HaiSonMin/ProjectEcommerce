@@ -25,11 +25,7 @@ const sizes: object = {
 const variations: any = {
   primary: css`
     color: var(--color-brand-50);
-    background-color: var(--color-brand-600);
-
-    &:hover {
-      background-color: var(--color-brand-700);
-    }
+    background-color: var(--color-primary);
   `,
   secondary: css`
     color: var(--color-grey-600);
@@ -50,9 +46,9 @@ const variations: any = {
   `,
 };
 
-const Button = styled.button<{ $size?: string ; $variation?: string }>`
+const Button = styled.button<{ $size?: string; $variation?: string }>`
   text-align: center;
-  border-radius: var(--border-radius-sm);
+  border-radius: 1rem;
   box-shadow: var(--shadow-md);
   transition: all 0.3s;
   font-weight: 500;

@@ -12,8 +12,9 @@ export default interface IProduct {
   product_available?: String;
   product_imagesProduct: Array<string>;
   product_imagesAttribute: Array<string>;
+  product_promotion?: any;
   product_brand: IBrand | string; // BrandId
-  product_category: IProductCategory | string; // CategoryId
+  product_category: IProductCategory | string; 
   product_ratings?: Array<IRating> | Array<string>; //Array<RatingId>
   product_attributes: Array<{
     product_key: string; // Color, Size, DiskSpace

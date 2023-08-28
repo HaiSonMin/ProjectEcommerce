@@ -25,6 +25,7 @@ const BoxButton = styled.div`
   bottom: 0;
   width: 100%;
   padding-top: 4rem;
+  font-size: 1.4rem;
   background: linear-gradient(
     180deg,
     rgb(255 255 255 / 50%),
@@ -41,7 +42,7 @@ const ButtonShowMore = styled.div`
   gap: 8px;
   background-color: #fff;
   padding: 5px 3rem;
-  max-width: 30rem;
+  width: 30rem;
   box-shadow: var(--shadow-around);
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;

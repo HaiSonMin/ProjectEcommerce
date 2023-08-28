@@ -32,7 +32,7 @@ const Overlay = styled.div`
   background-color: var(--backdrop-color);
   backdrop-filter: blur(4px);
   transition: all 0.3s;
-  z-index: 10;
+  z-index: 999;
 `;
 
 const CloseButton = styled.button`
@@ -107,7 +107,7 @@ const Window = (props: Omit<IProps, "openWindowName">) => {
 
   const ref = useOutSideClick(close, true);
 
-  if (openName !== props.windowName) return null; // Close
+  if (openName !== props.windowName) return null;
 
   return createPortal(
     <Overlay>

@@ -64,9 +64,6 @@ const ProductTablePage = lazy(
 const ProductCreatePage = lazy(
   () => import("@/pages/private/product/ProductCreatePage")
 );
-const ProductSearchPage = lazy(
-  () => import("@/pages/private/product/ProductSearchPage")
-);
 const ProductProvidePage = lazy(
   () => import("@/pages/private/product/ProductProvidePage")
 );
@@ -144,7 +141,10 @@ export default function App() {
         <Route element={<Navigate replace to={"/"} />} />
         <Route path={"/"} element={<PublicLayOut />}>
           <Route path={PATH_USER.home} element={<HomePage />} />
-          <Route path={PATH_USER.product} element={<ProductCategoryPageUser />} />
+          <Route
+            path={PATH_USER.product}
+            element={<ProductCategoryPageUser />}
+          />
         </Route>
 
         {/* <Route element={<Navigate replace to={"/admin"} />} /> */}
@@ -217,9 +217,9 @@ export default function App() {
           <Route path={PATH_ADMIN.rating} element={<RatingPage />} />
           <Route path={PATH_ADMIN.setting} element={<SettingPage />} />
           <Route path={PATH_ADMIN.payment} element={<PaymentPage />} />
+
           <Route path={PATH_ADMIN.product} element={<ProductPage />}>
             <Route path={``} element={<ProductTablePage />} />
-            <Route path={`search`} element={<ProductSearchPage />} />
             <Route path={`create`} element={<ProductCreatePage />} />
             <Route
               path={`provideInfo/:productId`}

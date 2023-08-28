@@ -1,38 +1,40 @@
-import { Heading } from "@/components";
 import { styled } from "styled-components";
-import { TbSend } from "react-icons/tb";
+import { MdOutlineQuestionAnswer } from "react-icons/md";
+import Heading from "@/components/Heading";
+import Question from "./question/Question";
+import AnswerQuestion from "./question-answer";
 
 const QuestionsAnswersLayoutStyled = styled.div`
   padding: 2rem 1rem;
   border-radius: 1rem;
-  border: 1px solid var(--color-grey-300);
+  border: 1px solid var(--color-grey-200);
+  background-color: var(--color-grey-100);
   box-shadow: var(--shadow-around);
-  width: 70%;
 `;
 
-const QuestionFrom = styled.form`
+const TitleQAA = styled.div`
   display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2rem;
+
+  & svg {
+    width: 2.8rem;
+    height: 2.4rem;
+    margin-bottom: 2px;
+    color: var(--color-primary);
+  }
 `;
 
-const QuestionBox = styled.div`
-  position: relative;
-`;
-
-const BtnSendQuestion = styled.button``;
-
-export default function QuestionsAnswers() {
+export default function QuestionsAnswersLayout() {
   return (
     <QuestionsAnswersLayoutStyled>
-      <Heading $as="h3">Hỏi và đáp</Heading>
-      <QuestionFrom>
-        <QuestionBox>
-          <img />
-          <textarea />
-        </QuestionBox>
-        <BtnSendQuestion>
-          <TbSend /> Gửi
-        </BtnSendQuestion>
-      </QuestionFrom>
+      <TitleQAA>
+        <MdOutlineQuestionAnswer />
+        <Heading $as="h4">Hỏi và đáp</Heading>
+      </TitleQAA>
+      <Question />
+      <AnswerQuestion />
     </QuestionsAnswersLayoutStyled>
   );
 }

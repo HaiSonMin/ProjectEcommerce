@@ -4,10 +4,12 @@ class Constant {
   MAX_UPLOAD_IMAGE: number;
   RAM: object;
   ROM: object;
+  TIME_ONE_DAY: number;
   constructor() {
     this.LIMIT_PAGE = 10;
     this.MAX_UPLOAD_IMAGE = 10;
     this.SORT_DEFAULT = "ctime";
+    this.TIME_ONE_DAY = 24 * 60 * 60 * 1000;
     this.ROM = {
       "32GB": "32GB",
       "64GB": "64GB",

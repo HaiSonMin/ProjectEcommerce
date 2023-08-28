@@ -11,13 +11,13 @@ import {
 } from "@/components";
 import Select, { SingleValue } from "react-select";
 import JoditEditor from "jodit-react";
+import { useMoveBack } from "@/hooks";
 import { UseBrandApi } from "../brand";
 import { useForm } from "react-hook-form";
 import UseProductApi from "./UseProductApi";
-import { useMoveBack } from "@/hooks";
-import { IProductCreate } from "@/interfaces/product/product.interface";
-import UseProductCategoryApi from "../productCategory/UseProductCategoryApi";
+import CONSTANT from "@/constant/value-constant";
 import IOptionSelect from "@/helpers/ISelectOption";
+import UseProductCategoryApi from "../productCategory/UseProductCategoryApi";
 
 export default function ProductCreate() {
   const moveBack = useMoveBack();
@@ -92,7 +92,7 @@ export default function ProductCreate() {
   };
 
   const onSubmit = (dataForm: any) => {
-    const dataCreate: IProductCreate = {
+    const dataCreate = {
       product_name: dataForm["product_name"],
       product_brand: selectBrand?.value || "",
       product_category: selectCategory?.value || "",
