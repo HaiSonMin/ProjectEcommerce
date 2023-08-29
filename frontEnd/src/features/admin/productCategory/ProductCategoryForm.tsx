@@ -17,8 +17,8 @@ import IOptionSelect from "@/helpers/ISelectOption";
 import { useMoveBack } from "@/hooks";
 import UseProductCategoryGroupApi from "../productCategoryGroup/UseProductCategoryGroupApi";
 import { PRODUCT_CATEGORY_TYPE } from "@/constant";
-import { UseBrandApi } from "../brand";
 import { DefaultOptionType } from "antd/es/select";
+import UseBrandApi from "../brand/UseBrandApi";
 interface IProps {
   productCategoryEdit?: IProductCategory;
   onCloseModal?: () => void;

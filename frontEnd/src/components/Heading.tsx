@@ -15,7 +15,6 @@ const Heading = styled.header<{ $as: string }>`
     css`
       font-size: 2.8rem;
       font-weight: 600;
-      text-transform: uppercase;
     `}
     
     ${(props) =>

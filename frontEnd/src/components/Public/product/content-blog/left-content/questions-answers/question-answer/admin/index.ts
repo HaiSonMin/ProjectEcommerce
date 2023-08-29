@@ -1,3 +1,3 @@
 import AnswerAdmin from "./AnswerAdmin";
 
-export default AnswerAdmin
+export default AnswerAdmin;

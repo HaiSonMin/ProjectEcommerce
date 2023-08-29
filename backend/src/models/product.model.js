@@ -6,13 +6,9 @@ const ProductSchema = new Schema(
     product_name: {
       type: String,
       required: [true, "Please provide product name"],
-      maxlength: 50,
+      maxlength: 100,
       unique: true,
       trim: true,
-    },
-    product_origin: {
-      type: String,
-      required: [true, "Please provide origin of product"],
     },
     product_thumb: {
       type: String,
@@ -32,15 +28,17 @@ const ProductSchema = new Schema(
       enum: ["AVAILABLE", "UNAVAILABLE", "COMING_SOON"],
       default: "AVAILABLE",
     },
+    product_promotion: [String],
     product_imagesProduct: [String],
     product_imagesAttribute: [String],
+    // [
     // {
-    //   product_key
-    //   product_imageColor
-    //   product_price
-    //   product_specs (product_fieldsFilter => Filter right there)
-    //   product_desc
+    //   product_key (phone: diskSpace, laptop:disSpace )
+    //   product_price:Number;
+    //   product_color: [{product_priceDifference: Number,product_color: String,product_imagesColor:[String]}]
+    //   product_description: String(html)
     // }
+    // ]
     product_attributes: {
       type: Schema.Types.Mixed,
       required: true,
@@ -64,16 +62,9 @@ const ProductSchema = new Schema(
       ref: "Rating",
       default: [],
     },
-    /*
-      {
-        tinh_nang_sac: [],
-        tinh_nang_dac_biet: [],
-        RAM: [],
-        ROM: [],
-      }
-    */
-    product_fieldsFilter: {
+    product_specification: {
       type: Schema.Types.Mixed,
+      required: true,
     },
   },
   {

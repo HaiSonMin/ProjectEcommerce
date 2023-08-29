@@ -141,13 +141,15 @@ export default class UseProductCategoryApi {
     };
   }
 
-  static getCategoryById(): IProductCategoryGetByIdResultApi {
+  static getCategoryById(
+    categoryId?: string
+  ): IProductCategoryGetByIdResultApi {
     const { productCategoryId } = useParams();
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategory", productCategoryId],
+      queryKey: ["productCategory", productCategoryId, categoryId],
       queryFn: () =>
         ProductCategoryApi.getProductCategoryById({
-          _id: String(productCategoryId),
+          _id: String(productCategoryId || categoryId),
         }),
     });
 

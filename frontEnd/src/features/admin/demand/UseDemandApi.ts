@@ -9,6 +9,7 @@ import {
   IDemandGetByProductCategoryIdResultApi,
   IDemandUpdateResultApi,
   IDemandDeleteResultApi,
+  IDemandsSearchResultApi,
 } from "@/api-types/IDemandResultApi";
 import { useQueriesString } from "@/hooks";
 import { useParams } from "react-router-dom";
@@ -115,6 +116,58 @@ export default class UseDemandApi {
 
     return {
       isGettingDemands: isLoading,
+      message: data?.message,
+      metadata: data?.metadata,
+      statusCode: data?.statusCode,
+      reasonStatusCode: data?.reasonStatusCode,
+    };
+  }
+
+  static searchDemands(): IDemandsSearchResultApi {
+    const queryClient = useQueryClient();
+    const {
+      limit,
+      keySearch,
+      page: currentPage,
+    } = getQueriesString(useQueriesString());
+    const { data, isLoading } = useQuery({
+      queryKey: ["demands", currentPage, keySearch],
+      queryFn: () =>
+        DemandApi.searchDemands({
+          keySearch,
+          page: currentPage,
+          limit,
+        }),
+    });
+    let numberPage: number = 1;
+    if (data?.metadata?.totalDemands)
+      numberPage = Math.ceil(data?.metadata?.totalDemands / limit);
+    // Get Data Next Page
+    if (currentPage < numberPage)
+      queryClient.prefetchQuery({
+        queryKey: ["demands", currentPage + 1, keySearch],
+        queryFn: () =>
+          DemandApi.searchDemands({
+            keySearch,
+            page: currentPage + 1,
+            limit,
+          }),
+      });
+
+    // Get Data Next Page
+    if (currentPage > 1)
+      queryClient.prefetchQuery({
+        queryKey: ["demands", currentPage - 1, keySearch],
+        queryFn: () =>
+          DemandApi.searchDemands({
+            keySearch,
+            page: currentPage - 1,
+            limit,
+          }),
+      });
+
+    return {
+      isSearchingDemands: isLoading,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,

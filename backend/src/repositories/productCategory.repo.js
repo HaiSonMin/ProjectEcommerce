@@ -103,6 +103,7 @@ class ProductCategoryRepo {
   static async getProductCategoryById({ productCategoryId }) {
     return await ProductCategoryModel.findById(productCategoryId)
       .populate("productCategory_brands", ["brand_name"])
+      .populate("productCategory_demands", ["demand_name"])
       .exec();
   }
 

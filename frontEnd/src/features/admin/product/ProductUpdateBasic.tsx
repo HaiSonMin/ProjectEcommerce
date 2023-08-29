@@ -13,11 +13,12 @@ import {
   Input,
   InputFile,
 } from "@/components";
-import { UseBrandApi } from "../brand";
 import UseProductCategoryApi from "../productCategory/UseProductCategoryApi";
 import { toast } from "react-hot-toast";
 import IOptionSelect from "@/helpers/ISelectOption";
 import IProduct from "@/interfaces/product/product.interface";
+import CONSTANT from "@/constant/value-constant";
+import UseBrandApi from "../brand/UseBrandApi";
 
 interface IProps {
   product?: IProduct;

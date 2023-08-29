@@ -72,14 +72,13 @@ class DemandRepo {
         },
       },
     ]);
-    console.log("Total demand:::", result[0].totalDemands[0]);
     const demands = result[0]?.demands;
     const totalDemands = result[0]?.totalDemands[0]?.count;
     return { demands, totalDemands };
   }
 
   static async getDemandById({ demandId }) {
-    return await DemandModel.findById(demandId).lean().exec();
+    return await DemandModel.findById(demandId).exec();
   }
 
   static async getDemandsByIds({ demandIds }) {
@@ -90,6 +89,79 @@ class DemandRepo {
     return await DemandModel.find({ demand_productCategory: productCategoryId })
       .lean()
       .exec();
+  }
+
+  static async searchDemands({ keySearch, page, limit }) {
+    const searchRegex = new RegExp(keySearch, "i");
+    const result = await DemandModel.aggregate([
+      {
+        $facet: {
+          demands: [
+            {
+              $lookup: {
+                from: "productcategories", // from db name
+                localField: "demand_productCategory",
+                foreignField: "_id",
+                as: "demand_productCategory",
+              },
+            },
+            {
+              $unwind: {
+                path: "$demand_productCategory",
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+            {
+              $lookup: {
+                from: "productcategorygroups",
+                localField: "demand_productCategory.productCategory_group",
+                foreignField: "_id",
+                as: "demand_productCategory.productCategory_group",
+              },
+            },
+            {
+              $unwind: {
+                path: "$demand_productCategory.productCategory_group",
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+            {
+              $project: {
+                __v: 0,
+                demand_productCategory: {
+                  __v: 0,
+                  createdAt: 0,
+                  updatedAt: 0,
+                  productCategory_image: 0,
+                  productCategory_demands: 0,
+                  productCategory_group: {
+                    __v: 0,
+                    updatedAt: 0,
+                    createdAt: 0,
+                    productCategoryGroup_image: 0,
+                  },
+                },
+              },
+            },
+            {
+              // Must be put it in the first
+              $skip: +skipPage({ limit, page }),
+            },
+            {
+              $limit: Number(limit),
+            },
+            {
+              $match: { demand_name: { $regex: searchRegex } },
+            },
+          ],
+          totalDemands: [{ $count: "count" }],
+        },
+      },
+    ]);
+    console.log("Total demand:::", result[0].totalDemands[0]);
+    const demands = result[0]?.demands;
+    const totalDemands = result[0]?.totalDemands[0]?.count;
+    return { demands, totalDemands };
   }
 
   static async updateDemandById({ demandId, payload }) {

@@ -75,11 +75,31 @@ class DemandService {
     return demands;
   }
 
+  static async searchDemands(req, res) {
+    const { keySearch, limit, page } = req.query;
+    const { demands, totalDemands } = await DemandRepo.searchDemands({
+      keySearch,
+      limit,
+      page,
+    });
+    return {
+      totalDemands,
+      demandsPerPage: demands.length,
+      demands,
+    };
+  }
+
   static async updateDemand(req, res) {
     const { demandId } = req.params;
     const { demand_name, demand_productCategory, demand_image } =
       req.body || {};
     const { path: pathImage } = req?.file || {};
+
+    // const dataUpdate = {
+    //   demand_name,
+    //   demand_productCategory,
+    //   demand_image: pathImage ?? demand_image,
+    // };
 
     // 1. Check product category has exist
     const productCategory = await ProductCategoryRepo.getProductCategoryById({
@@ -88,16 +108,34 @@ class DemandService {
 
     if (!productCategory) throw new NotFoundError("Product category not found");
 
-    const demandUpdated = await DemandRepo.updateDemandById({
+    // 2. Update product category
+    const demand = await DemandRepo.getDemandById({
       demandId,
-      payload: {
+    });
+    if (
+      productCategory._id.toString() !==
+      demand.demand_productCategory.toString()
+    ) {
+      const productCategoryOfDemand =
+        await ProductCategoryRepo.getProductCategoryById({
+          productCategoryId: demand.demand_productCategory,
+        });
+      await productCategoryOfDemand.updateOne({
+        $pull: { productCategory_demands: demand._id },
+      });
+    }
+    await demand.updateOne({
+      $set: {
         demand_name,
         demand_productCategory,
         demand_image: pathImage ?? demand_image,
       },
     });
-    if (!demandUpdated) throw new BadRequestError("Updated Demand Error");
-    return demandUpdated;
+
+    await productCategory.updateOne({
+      $addToSet: { productCategory_demands: demandId },
+    });
+    return null;
   }
 
   static async deleteDemand(req, res) {

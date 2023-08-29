@@ -17,12 +17,12 @@ import SortBy from "./SortBy";
 import FormRow from "./FormRow";
 import Heading from "./Heading";
 import Spinner from "./Spinner";
+import FromBox from "./FromBox";
 import TextArea from "./TextArea";
 import Carousel from "./Carousel";
 import CountDown from "./CountDown";
 import InputFile from "./InputFile";
 import RatingStar from "./RatingStar";
-import RatingStarAction from "./RatingStarAction";
 import SelectDate from "./SelectDate";
 import StarReview from "./StarReview";
 import TextEditor from "./TextEditor";
@@ -33,6 +33,7 @@ import SelectMulti from "./SelectMulti";
 import ButtonGroup from "./ButtonGroup";
 import SpinnerMini from "./SpinnerMini";
 import ImagesGroup from "./ImagesGroup";
+import FromHeading from "./FromHeading";
 import CarouselImage from "./CarouselImage";
 import SelectMultiV2 from "./SelectMultiV2";
 import ContainerCard from "./ContainerCard";
@@ -42,6 +43,7 @@ import FormRowContent from "./FormRowContent";
 import ToasterDisplay from "./ToasterDisplay";
 import TableOperation from "./TableOperation";
 import CarouselTopHome from "./CarouselTopHome";
+import RatingStarAction from "./RatingStarAction";
 import ContainerImgLink from "./ContainerImgLink";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import InputRangeTwoValueV2 from "./InputRangeTwoValueV2";
@@ -64,6 +66,7 @@ export {
   Switch,
   Select,
   Filter,
+  FromBox,
   FormRow,
   Heading,
   Spinner,
@@ -78,6 +81,7 @@ export {
   ButtonIcon,
   Pagination,
   SelectMulti,
+  FromHeading,
   ButtonGroup,
   SpinnerMini,
   ImagesGroup,

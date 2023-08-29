@@ -5,6 +5,7 @@ import {
   IDemandUpdateResultApi,
   IDemandDeleteResultApi,
   IDemandGetByProductCategoryIdResultApi,
+  IDemandsSearchResultApi,
 } from "@/api-types/IDemandResultApi";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { IDemand, IProductCategory } from "@/interfaces";
@@ -71,6 +72,23 @@ class IDemandApi {
       return result;
     } catch (error: any) {
       throw new Error(error.message);
+    }
+  }
+
+  async searchDemands(fieldsQuery: Partial<IArgsQuery>) {
+    try {
+      const response = await http.get(`${PATH_API_V1.demand}/search`, {
+        params: {
+          keySearch: fieldsQuery.keySearch,
+          page: fieldsQuery.page,
+          limit: fieldsQuery.limit,
+        },
+      });
+      const result: Omit<IDemandsSearchResultApi, "isSearchingDemands"> =
+        response.data;
+      return result;
+    } catch (error: any) {
+      throw new Error(getErrorMessage(error));
     }
   }
 

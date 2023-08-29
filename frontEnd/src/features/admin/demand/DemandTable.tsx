@@ -4,20 +4,36 @@ import DemandRow from "./DemandRow";
 import UseDemandApi from "./UseDemandApi";
 import { Menus, Pagination, Spinner, Table } from "@/components";
 import { useEffect } from "react";
-import { VALUE_CONSTANT } from "@/constant";
+import { KEY_QUERY, VALUE_CONSTANT } from "@/constant";
 
 export default function DemandTable() {
-  const { isGettingDemands, metadata } = UseDemandApi.getAllDemands();
-
   const [searchParams, setSearchParams] = useSearchParams();
-
   useEffect(() => {
     searchParams.set("limit", String(VALUE_CONSTANT.LIMIT_PAGE));
-    searchParams.set("sort", "ctime");
     setSearchParams(searchParams);
   }, []);
 
-  if (isGettingDemands) return <Spinner />;
+  let data:
+      | {
+          totalDemands: number;
+          demandsPerPage: number;
+          demands: Array<IDemand>;
+        }
+      | undefined,
+    isGetting: boolean;
+  if (!searchParams.get(KEY_QUERY.KEY_SEARCH)) {
+    console.log("Get");
+    const { isGettingDemands, metadata } = UseDemandApi.getAllDemands();
+    data = metadata;
+    isGetting = isGettingDemands;
+  } else {
+    console.log("Search");
+    const { isSearchingDemands, metadata } = UseDemandApi.searchDemands();
+    data = metadata;
+    isGetting = isSearchingDemands;
+  }
+
+  if (isGetting) return <Spinner />;
 
   return (
     <Menus>
@@ -31,13 +47,13 @@ export default function DemandTable() {
           <div>Options</div>
         </Table.Header>
         <Table.Body
-          data={metadata?.demands}
+          data={data?.demands}
           render={(Demand: IDemand) => (
             <DemandRow key={Demand._id} demand={Demand} />
           )}
         />
         <Table.Footer>
-          <Pagination countItems={metadata?.totalDemands} />
+          <Pagination countItems={data?.totalDemands} />
         </Table.Footer>
       </Table>
     </Menus>

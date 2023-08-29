@@ -29,6 +29,13 @@ class DemandController {
     }).send(res);
   }
 
+  static async searchDemands(req, res) {
+    new OK({
+      message: "Search By Ids Successfully",
+      metadata: await DemandService.searchDemands(req, res),
+    }).send(res);
+  }
+
   static async getDemandsByProductCategoryId(req, res) {
     new OK({
       message: "Get Demands By Product Category Id Successfully",

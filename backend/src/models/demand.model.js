@@ -21,4 +21,6 @@ const DemandSchema = new Schema(
   }
 );
 
+DemandSchema.index("demand_name", 1);
+
 module.exports = model(COLLECTION_NAME, DemandSchema);

@@ -11,6 +11,7 @@ router
 router.route("/getAll").get(DemandController.getAllDemands);
 router.route("/getById/:demandId").get(DemandController.getDemandById);
 router.route("/getByIds").get(DemandController.getDemandsByIds);
+router.route("/search").get(DemandController.searchDemands);
 
 router
   .route("/getByProductCategoryId/:productCategoryId")

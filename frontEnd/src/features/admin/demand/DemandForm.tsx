@@ -34,7 +34,6 @@ export default function DemandForm(props: IProps) {
   const { isCreatingDemand, createDemand } = UseDemandApi.createDemand();
   const { isUpdatingDemand, updateDemand } = UseDemandApi.updateDemand();
   const isWorking = isCreatingDemand || isUpdatingDemand;
-
   const { metadata: categories } = UseProductCategoryApi.getAllCategories(100);
   const optionSelectProductCategories: Array<IOptionSelect> | undefined =
     categories?.productCategories?.map((category) => {

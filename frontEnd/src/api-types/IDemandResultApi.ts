@@ -39,6 +39,17 @@ export interface IDemandGetByProductCategoryIdResultApi extends IApi {
   metadata: Array<IDemand> | undefined;
 }
 
+export interface IDemandsSearchResultApi extends IApi {
+  isSearchingDemands: boolean;
+  metadata:
+    | {
+        totalDemands: number;
+        demandsPerPage: number;
+        demands: Array<IDemand>;
+      }
+    | undefined;
+}
+
 export interface IDemandCreateResultApi extends IApi {
   isCreatingDemand: boolean;
   metadata: IDemand | undefined;

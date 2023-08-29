@@ -11,23 +11,6 @@ export default function ProductTableOperation() {
 
   return (
     <TableOperation>
-      <Filter
-        filterField={"status"}
-        options={[
-          {
-            value: "all",
-            label: "All",
-          },
-          {
-            value: "available",
-            label: "Available",
-          },
-          {
-            value: "unavailable",
-            label: "Unavailable",
-          },
-        ]}
-      />
       <SortBy
         options={[
           {
