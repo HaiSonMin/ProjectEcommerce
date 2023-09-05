@@ -43,7 +43,7 @@ export interface IBrandCreateResultApi extends IApi {
 export interface IBrandUpdateResultApi extends IApi {
   isUpdatingBrand: boolean;
   metadata: IBrand | undefined;
-  updateBrand: UseMutateFunction<IApi, any, IBrand>;
+  updateBrand: UseMutateFunction<IApi, any, Partial<IBrand>>;
 }
 
 export interface IBrandDeleteResultApi extends IApi {

@@ -17,7 +17,7 @@ import SortBy from "./SortBy";
 import FormRow from "./FormRow";
 import Heading from "./Heading";
 import Spinner from "./Spinner";
-import FromBox from "./FromBox";
+import FormBox from "./FormBox";
 import TextArea from "./TextArea";
 import Carousel from "./Carousel";
 import CountDown from "./CountDown";
@@ -33,12 +33,14 @@ import SelectMulti from "./SelectMulti";
 import ButtonGroup from "./ButtonGroup";
 import SpinnerMini from "./SpinnerMini";
 import ImagesGroup from "./ImagesGroup";
-import FromHeading from "./FromHeading";
+import FromHeading from "./FormHeading";
 import CarouselImage from "./CarouselImage";
+import ButtonConfirm from "./ButtonConfirm";
 import SelectMultiV2 from "./SelectMultiV2";
 import ContainerCard from "./ContainerCard";
 import ConfirmUpdate from "./ConfirmUpdate";
 import ConfirmDelete from "./ConfirmDelete";
+import ProductOptions from "./ProductOptions";
 import FormRowContent from "./FormRowContent";
 import ToasterDisplay from "./ToasterDisplay";
 import TableOperation from "./TableOperation";
@@ -48,6 +50,7 @@ import ContainerImgLink from "./ContainerImgLink";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import InputRangeTwoValueV2 from "./InputRangeTwoValueV2";
 import DarkModeProvider from "./private/DarkModeProvider";
+import ProductFilterOptionSelect from "./ProductFilterOptionSelect";
 
 export {
   Row,
@@ -66,7 +69,7 @@ export {
   Switch,
   Select,
   Filter,
-  FromBox,
+  FormBox,
   FormRow,
   Heading,
   Spinner,
@@ -86,10 +89,12 @@ export {
   SpinnerMini,
   ImagesGroup,
   CarouselImage,
+  ButtonConfirm,
   SelectMultiV2,
   ContainerCard,
   ConfirmDelete,
   ConfirmUpdate,
+  ProductOptions,
   FormRowContent,
   TableOperation,
   ToasterDisplay,
@@ -100,4 +105,5 @@ export {
   InputRangeTwoValueV2,
   RatingStar,
   RatingStarAction,
+  ProductFilterOptionSelect,
 };

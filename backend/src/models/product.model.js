@@ -30,18 +30,18 @@ const ProductSchema = new Schema(
     },
     product_promotion: [String],
     product_imagesProduct: [String],
-    product_imagesAttribute: [String],
+    product_imagesHighlights: [String],
     // [
     // {
-    //   product_key (phone: diskSpace, laptop:disSpace )
-    //   product_price:Number;
-    //   product_color: [{product_priceDifference: Number,product_color: String,product_imagesColor:[String]}]
+    //   product_optionName: String
+    //   product_priceDifference: Number;
+    //   product_serials: [{product_priceDifference: Number,product_serialName: String,product_serialImage: String}]
     //   product_description: String(html)
+    //   product_specification: String(html)
     // }
     // ]
-    product_attributes: {
+    product_options: {
       type: Schema.Types.Mixed,
-      required: true,
     },
     product_brand: {
       type: Schema.Types.ObjectId,
@@ -53,8 +53,8 @@ const ProductSchema = new Schema(
       ref: "ProductCategory",
       required: true,
     },
-    product_demand: {
-      type: Schema.Types.ObjectId,
+    product_demands: {
+      type: [Schema.Types.ObjectId],
       ref: "Demand",
     },
     product_ratings: {
@@ -62,7 +62,14 @@ const ProductSchema = new Schema(
       ref: "Rating",
       default: [],
     },
-    product_specification: {
+
+    // [
+          // {
+              // filterOptionId: "123123",
+              // filterItems: ["123123"],
+          // }
+    // ]
+    productCategory_filtersOptions: {
       type: Schema.Types.Mixed,
       required: true,
     },

@@ -44,7 +44,6 @@ interface Props {
 }
 
 const FormRowContent = (props: Props) => {
-  // console.log("children?.props::",children?.props);
   return (
     <StyledFormRow>
       <Label htmlFor={props.children?.props?.id}>{props.label}</Label>

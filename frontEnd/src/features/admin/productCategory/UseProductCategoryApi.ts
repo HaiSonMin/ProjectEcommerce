@@ -203,9 +203,7 @@ export default class UseProductCategoryApi {
     const queryClient = useQueryClient();
     const { isLoading, mutate, data } = useMutation({
       mutationFn: ProductCategoryApi.updateProductCategory,
-      onSuccess: (
-        data: Omit<IProductCategoryUpdateResultApi, "isUpdatingProductCategory">
-      ) => {
+      onSuccess: (data: IProductCategoryUpdateResultApi) => {
         toast.success(
           `Update category ${data.metadata?.productCategory_name} successfully`
         );
@@ -216,7 +214,10 @@ export default class UseProductCategoryApi {
           queryKey: ["productCategory", productCategoryId],
         });
       },
-      onError: (error: any) => toast.error(error.message),
+      onError: (error: any) => {
+        console.log(error);
+        toast.error(error.message);
+      },
     });
 
     return {
@@ -228,6 +229,7 @@ export default class UseProductCategoryApi {
       reasonStatusCode: data?.reasonStatusCode,
     };
   }
+
   static deleteCategory(): IProductCategoryDeleteResultApi {
     const queryClient = useQueryClient();
     const { isLoading, mutate, data } = useMutation({

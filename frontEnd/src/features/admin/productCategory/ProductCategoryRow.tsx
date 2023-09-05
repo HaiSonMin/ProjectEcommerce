@@ -4,7 +4,6 @@ import { styled } from "styled-components";
 import UseProductCategoryApi from "./UseProductCategoryApi";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBinLine } from "react-icons/ri";
-import ProductCategoryForm from "./ProductCategoryForm";
 import { useNavigate } from "react-router-dom";
 
 const Img = styled.img`
@@ -46,36 +45,36 @@ interface IProps {
   productCategory: IProductCategory;
 }
 
-export default function ProductCategoryRow(props: IProps) {
+export default function ProductCategoryRow({ productCategory }: IProps) {
   const navigate = useNavigate();
   const { isDeletingProductCategory, deleteProductCategory } =
     UseProductCategoryApi.deleteCategory();
-
+  const { isUpdatingProductCategory, updateProductCategory } =
+    UseProductCategoryApi.updateCategory();
   return (
     <Table.Row>
       <Img
-        src={props.productCategory.productCategory_image}
-        alt={props.productCategory._id}
+        src={productCategory.productCategory_image}
+        alt={productCategory._id}
       />
       <ProductCategoryName>
-        {props.productCategory.productCategory_name}
+        {productCategory.productCategory_name}
       </ProductCategoryName>
       <ProductCategoryType>
-        {props.productCategory.productCategory_type || <span>Unknown</span>}
+        {productCategory.productCategory_type || <span>Unknown</span>}
       </ProductCategoryType>
       <ProductCategoryGroup>
-        {typeof props.productCategory.productCategory_group === "object"
-          ? props.productCategory.productCategory_group
-              .productCategoryGroup_name
-          : props.productCategory.productCategory_group}
+        {typeof productCategory.productCategory_group === "object"
+          ? productCategory.productCategory_group.productCategoryGroup_name
+          : productCategory.productCategory_group}
       </ProductCategoryGroup>
       <Modal>
         <Menus.Menu>
-          <Menus.ToggleButton id={props.productCategory._id} />
-          <Menus.List id={props.productCategory._id}>
+          <Menus.ToggleButton id={productCategory._id} />
+          <Menus.List id={productCategory._id}>
             <Menus.Button
               icon={<CiEdit />}
-              onClick={() => navigate(`update/${props.productCategory._id}`)}
+              onClick={() => navigate(`update/${productCategory._id}`)}
             >
               Edit
             </Menus.Button>
@@ -84,13 +83,12 @@ export default function ProductCategoryRow(props: IProps) {
             </Modal.Open>
           </Menus.List>
         </Menus.Menu>
-
         <Modal.Window windowName="deleteProductCategory">
           <ConfirmDelete
             disabled={isDeletingProductCategory}
-            resourceName={props.productCategory.productCategory_name}
+            resourceName={productCategory.productCategory_name}
             onConfirm={() =>
-              deleteProductCategory({ _id: props.productCategory._id })
+              deleteProductCategory({ _id: productCategory._id })
             }
           />
         </Modal.Window>

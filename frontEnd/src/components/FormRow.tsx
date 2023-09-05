@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
 
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const StyledFormRow = styled.div`
+const StyledFormRow = styled.div<{ $width?: string }>`
   display: grid;
   align-items: center;
   grid-template-columns: 24rem 1fr 1.2fr;
   gap: 2.4rem;
   padding: 1.2rem 0;
+  width: ${(props) => props.$width || "100%"};
 
   &:first-child {
     padding-top: 0;
@@ -42,21 +43,22 @@ interface Props {
   label?: string;
   error?: any;
   children: React.ReactElement | any;
-  images?: any;
+  width?: string;
 }
 
 const FormRow = (props: Props) => {
   // console.log("children?.props::",children?.props);
   return (
-    <StyledFormRow>
+    <StyledFormRow $width={props.width}>
       <Label htmlFor={props.children?.props?.id}>{props.label}</Label>
       {props.children}
-      {props.error?.message ? (
-        <Error>{props.error.message}</Error>
-      ) : (
+      {!props.error ? (
         <></>
+      ) : typeof props.error === "string" ? (
+        <Error>{props.error}</Error>
+      ) : (
+        <Error>{props.error.message}</Error>
       )}
-      {props.images}
     </StyledFormRow>
   );
 };

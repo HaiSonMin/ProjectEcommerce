@@ -21,10 +21,6 @@ const Form = styled.form<{ $type?: string }>`
   flex-direction: column;
   overflow: hidden;
   font-size: 1.4rem;
-
-  & div:last-child {
-    margin-top: auto;
-  }
 `;
 
 Form.defaultProps = {

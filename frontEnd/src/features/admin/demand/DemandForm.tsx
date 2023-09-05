@@ -34,7 +34,7 @@ export default function DemandForm(props: IProps) {
   const { isCreatingDemand, createDemand } = UseDemandApi.createDemand();
   const { isUpdatingDemand, updateDemand } = UseDemandApi.updateDemand();
   const isWorking = isCreatingDemand || isUpdatingDemand;
-  const { metadata: categories } = UseProductCategoryApi.getAllCategories(100);
+  const { metadata: categories } = UseProductCategoryApi.getAllCategories(10e9);
   const optionSelectProductCategories: Array<IOptionSelect> | undefined =
     categories?.productCategories?.map((category) => {
       return {
@@ -79,7 +79,12 @@ export default function DemandForm(props: IProps) {
         }
       );
     } else {
-      console.log(dataFormDemand["demand_image"]);
+      console.log({
+        ...dataFormDemand,
+        demand_productCategory: selectCategoryType?.value || "",
+        demand_image: dataFormDemand["demand_image"] ?? editValues.demand_image,
+        _id: editId,
+      });
       return updateDemand(
         {
           ...dataFormDemand,

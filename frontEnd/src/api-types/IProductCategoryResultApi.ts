@@ -57,7 +57,11 @@ export interface IProductCategoryCreateResultApi extends IApi {
 export interface IProductCategoryUpdateResultApi extends IApi {
   isUpdatingProductCategory: boolean;
   metadata: IProductCategory | undefined;
-  updateProductCategory: UseMutateFunction<IApi, any, IProductCategory>;
+  updateProductCategory: UseMutateFunction<
+    IApi,
+    any,
+    Partial<IProductCategory>
+  >;
 }
 
 export interface IProductCategoryDeleteResultApi extends IApi {

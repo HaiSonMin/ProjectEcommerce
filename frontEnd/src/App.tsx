@@ -30,9 +30,6 @@ const UserCreatePage = lazy(
 const CouponTablePage = lazy(
   () => import("@/pages/private/coupon/CouponTablePage")
 );
-const CouponSearchPage = lazy(
-  () => import("@/pages/private/coupon/CouponSearchPage")
-);
 const CouponCreatePage = lazy(
   () => import("@/pages/private/coupon/CouponCreatePage")
 );
@@ -199,7 +196,6 @@ export default function App() {
 
           <Route path={PATH_ADMIN.coupon} element={<CouponPage />}>
             <Route path="" element={<CouponTablePage />} />
-            <Route path={`search`} element={<CouponSearchPage />} />
             <Route path={`create`} element={<CouponCreatePage />} />
             <Route path={`update/:couponId`} element={<CouponEditPage />} />
           </Route>

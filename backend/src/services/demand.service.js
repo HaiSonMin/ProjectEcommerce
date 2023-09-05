@@ -95,12 +95,6 @@ class DemandService {
       req.body || {};
     const { path: pathImage } = req?.file || {};
 
-    // const dataUpdate = {
-    //   demand_name,
-    //   demand_productCategory,
-    //   demand_image: pathImage ?? demand_image,
-    // };
-
     // 1. Check product category has exist
     const productCategory = await ProductCategoryRepo.getProductCategoryById({
       productCategoryId: demand_productCategory,
@@ -120,9 +114,10 @@ class DemandService {
         await ProductCategoryRepo.getProductCategoryById({
           productCategoryId: demand.demand_productCategory,
         });
-      await productCategoryOfDemand.updateOne({
-        $pull: { productCategory_demands: demand._id },
-      });
+      if (productCategoryOfDemand)
+        await productCategoryOfDemand.updateOne({
+          $pull: { productCategory_demands: demand._id },
+        });
     }
     await demand.updateOne({
       $set: {

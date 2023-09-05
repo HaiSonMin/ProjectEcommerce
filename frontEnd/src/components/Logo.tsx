@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
-
+import logo from "../assets/logos/logo_light.png";
 const LogoStyled = styled(Link)`
   text-align: center;
 `;
@@ -16,7 +16,7 @@ const Img = styled.img`
 const Logo = () => {
   return (
     <LogoStyled to={"/admin/dashboard"}>
-      <Img src="../../logo_light.png" alt="Logo Web Site" />
+      <Img src={logo} alt="Logo Web Site" />
     </LogoStyled>
   );
 };

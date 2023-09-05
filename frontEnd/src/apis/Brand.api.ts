@@ -61,15 +61,12 @@ class BrandApi {
     }
   }
 
-  async updateBrand(args: IBrand) {
+  async updateBrand(args: Partial<IBrand>) {
     const response = await http.patchForm(
       `${PATH_API_V1.brand}/update/${args._id}`,
       resultAppendFormData(args)
     );
-    const result: Omit<
-      IBrandUpdateResultApi,
-      "isUpdatingBrand" | "updateBrand"
-    > = response.data;
+    const result: IBrandUpdateResultApi = response.data;
     return result;
   }
 

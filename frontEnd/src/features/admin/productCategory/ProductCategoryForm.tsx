@@ -8,10 +8,10 @@ import {
   FormRow,
   Input,
   Heading,
-  SelectMulti,
   SelectMultiV2,
+  FormBox,
 } from "@/components";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Select, { SingleValue } from "react-select";
 import IOptionSelect from "@/helpers/ISelectOption";
 import { useMoveBack } from "@/hooks";
@@ -19,24 +19,39 @@ import UseProductCategoryGroupApi from "../productCategoryGroup/UseProductCatego
 import { PRODUCT_CATEGORY_TYPE } from "@/constant";
 import { DefaultOptionType } from "antd/es/select";
 import UseBrandApi from "../brand/UseBrandApi";
-interface IProps {
-  productCategoryEdit?: IProductCategory;
-  onCloseModal?: () => void;
-}
+import ProductFilterOption from "@/components/ProductFilterOption";
+import FormHeading from "@/components/FormHeading";
+import { randomKey } from "@/utils";
+import IFilterOption from "@/helpers/IFilterOption";
 
-const initializeFormProductCategory: IProductCategory = {
+const initializeOptionsFilters: Array<IFilterOption> = [
+  {
+    id: randomKey(),
+    filterOption: "",
+    filterOptionInfo: "", //Optional
+    filterItems: [{ id: randomKey(), itemName: "", itemInfo: "" }],
+  },
+];
+const initializeFormProductCategory: Partial<IProductCategory> = {
   _id: "",
   productCategory_group: "",
   productCategory_type: "",
   productCategory_name: "",
   productCategory_image: "",
+  productCategory_filtersOptions: [],
 };
+
+interface IProps {
+  productCategoryEdit?: IProductCategory;
+  onCloseModal?: () => void;
+}
 
 export default function ProductCategoryForm(props: IProps) {
   const moveBack = useMoveBack();
   const categoryGroup: Pick<IOptionSelect, "value"> = {
     value: props.productCategoryEdit?.productCategory_group + "" || null,
   };
+
   const [selectCategoryGroup, setSelectCategoryGroup] =
     useState<SingleValue<Pick<IOptionSelect, "value">>>(categoryGroup);
 
@@ -45,6 +60,11 @@ export default function ProductCategoryForm(props: IProps) {
   };
   const [selectCategoryType, setSelectCategoryType] =
     useState<SingleValue<Pick<IOptionSelect, "value">>>(categoryType);
+  const [filtersOptions, setFiltersOptions] = useState<Array<IFilterOption>>(
+    (props?.productCategoryEdit?.productCategory_filtersOptions &&
+      JSON.parse(props?.productCategoryEdit?.productCategory_filtersOptions)) ||
+      initializeOptionsFilters
+  );
 
   let brandIds: Array<string> | undefined;
   let brandNames: Array<string> | undefined;
@@ -102,15 +122,15 @@ export default function ProductCategoryForm(props: IProps) {
       };
     });
 
-  // Value for edit
   const { _id: editId, ...editValues } =
     props.productCategoryEdit ?? initializeFormProductCategory;
 
   const isEditSession = Boolean(editId);
 
-  const { handleSubmit, register, formState, getValues } = useForm({
-    defaultValues: isEditSession ? editValues : {},
-  });
+  const { handleSubmit, register, formState, getValues } =
+    useForm<IProductCategory>({
+      defaultValues: isEditSession ? editValues : {},
+    });
 
   const { errors: errorsForm } = formState;
 
@@ -131,7 +151,6 @@ export default function ProductCategoryForm(props: IProps) {
       dataBrands?.brands
         .filter((brand) => brands.includes(brand.brand_name))
         .map((brand) => brand._id) || [];
-    console.log("brandsSelected::::", brandsSelected);
     setSelectBrands(brandsSelected);
   };
 
@@ -145,27 +164,28 @@ export default function ProductCategoryForm(props: IProps) {
           productCategory_brands: selectBrands,
           productCategory_image:
             dataFormProductCategory["productCategory_image"],
+          productCategory_filtersOptions: JSON.stringify(filtersOptions),
         },
         {
-          // onSuccess: (newData) => moveBack(),
+          onSuccess: () => moveBack(),
         }
       );
     } else {
-      return updateProductCategory(
-        {
-          ...dataFormProductCategory,
-          productCategory_group: selectCategoryGroup?.value || "",
-          productCategory_type: selectCategoryType?.value,
-          productCategory_brands: selectBrands,
-          productCategory_image:
-            dataFormProductCategory["productCategory_image"] ??
-            editValues.productCategory_image,
-          _id: editId,
-        },
-        {
-          onSuccess: (newData) => moveBack(),
-        }
-      );
+      const dataUpdate: Partial<IProductCategory> = {
+        ...dataFormProductCategory,
+        productCategory_group: selectCategoryGroup?.value || "",
+        productCategory_type: selectCategoryType?.value,
+        productCategory_brands: selectBrands,
+        productCategory_image:
+          dataFormProductCategory["productCategory_image"] ??
+          editValues.productCategory_image,
+        _id: editId,
+        productCategory_filtersOptions: JSON.stringify(filtersOptions),
+      };
+      delete dataUpdate.productCategory_demands;
+      return updateProductCategory(dataUpdate, {
+        onSuccess: () => moveBack(),
+      });
     }
   };
 
@@ -236,6 +256,18 @@ export default function ProductCategoryForm(props: IProps) {
             />
           </FormRow>
         )}
+        <>
+          {" "}
+          <FormHeading>
+            <Heading $as="h4">Filters Options (Using for filter)</Heading>
+          </FormHeading>
+          <FormBox>
+            <ProductFilterOption
+              filtersOptions={filtersOptions}
+              setFiltersOptions={setFiltersOptions}
+            />
+          </FormBox>
+        </>
         <FormRow>
           <Button type="reset" $variation="secondary" onClick={moveBack}>
             Cancel

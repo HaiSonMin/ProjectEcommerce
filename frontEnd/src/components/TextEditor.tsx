@@ -1,6 +1,5 @@
 import JoditEditor from "jodit-react";
-import { useMemo, useRef, useState } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { useState } from "react";
 
 interface IProps {
   handlerChangeText?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;

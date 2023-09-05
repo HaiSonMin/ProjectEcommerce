@@ -22,7 +22,6 @@ import {
   CouponEditPage,
   CouponTablePage,
   CouponCreatePage,
-  CouponSearchPage,
   CouponAddProductsPage,
 } from "./coupon";
 import {
@@ -68,7 +67,6 @@ export {
   CouponEditPage,
   CouponTablePage,
   CouponCreatePage,
-  CouponSearchPage,
   CouponAddProductsPage,
   ProductCategoryPage,
   ProductCategoryTablePage,

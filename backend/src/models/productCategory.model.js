@@ -27,17 +27,7 @@ const ProductCategorySchema = new Schema(
       ref: "ProductCategoryGroup",
       require: [true, "Please provide product category group"],
     },
-    /*
-      {
-        tinh_nang_sac: [],
-        tinh_nang_dac_biet: [],
-        RAM: [],
-        ROM: [],
-      }
-    */
-    productCategory_fieldsFilter: {
-      type: Schema.Types.Mixed,
-    },
+    productCategory_filtersOptions: String,
   },
   {
     timestamps: true,

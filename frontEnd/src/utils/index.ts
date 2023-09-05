@@ -1,6 +1,7 @@
-import { formatDistance, parseISO } from "date-fns";
 import http from "./http";
+import { v4 as uuidv4 } from "uuid";
 import { VALUE_CONSTANT } from "@/constant";
+import { formatDistance, parseISO } from "date-fns";
 
 const getErrorMessage = (err: any): string => err.response.data.message;
 
@@ -79,16 +80,19 @@ function capitalizeFirstLetter(inputString: string) {
     .replace(/^(.)|\s+(.)/g, (match) => match.toUpperCase());
 }
 
+const randomKey = (): string => uuidv4();
+
 export {
   http,
+  randomKey,
   sortObject,
-  formatCurrencyVND,
-  formatCurrencyUSD,
   getErrorMessage,
   getQueriesString,
+  formatCurrencyVND,
+  formatCurrencyUSD,
+  removeSpaceString,
   getToastMessageError,
   resultAppendFormData,
   formatDistanceFromNow,
-  removeSpaceString,
   capitalizeFirstLetter,
 };

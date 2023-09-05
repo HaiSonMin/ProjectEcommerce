@@ -1,16 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {
-  brandReducer,
-  productReducer,
-  productCategoryReducer,
-} from "./private";
+import { productReducer as privateProductReducer } from "./private";
 
 const store = configureStore({
   reducer: {
     // private slices
-    privateBrand: brandReducer,
-    privateProduct: productReducer,
-    privateCategoryReducer: productCategoryReducer,
+    privateProduct: privateProductReducer,
     // public slices
   },
 });

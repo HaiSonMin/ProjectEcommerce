@@ -101,7 +101,6 @@ class ProductCategoryApi {
   }
 
   async getProductCategoriesByIds(categoriesIds: Array<string> | undefined) {
-    console.log("categoriesIds:::", categoriesIds);
     try {
       const response = await http.get(
         `${PATH_API_V1.productCategory}/getByIds`,
@@ -121,27 +120,24 @@ class ProductCategoryApi {
     }
   }
 
-  async updateProductCategory(args: IProductCategory) {
-    console.log(args);
+  async updateProductCategory(args: Partial<IProductCategory>) {
+    console.log("args::::", args);
     try {
       const response = await http.patchForm(
         `${PATH_API_V1.productCategory}/update/${args._id}`,
         resultAppendFormData(args)
       );
-      const result: Omit<
-        IProductCategoryUpdateResultApi,
-        "isUpdatingProductCategory"
-      > = response.data;
+      const result: IProductCategoryUpdateResultApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-  async deleteProductCategory(arg: Pick<IProductCategory, "_id">) {
+  async deleteProductCategory({ _id }: Pick<IProductCategory, "_id">) {
     try {
       const response = await http.delete(
-        `${PATH_API_V1.productCategory}/delete/${arg._id}`
+        `${PATH_API_V1.productCategory}/delete/${_id}`
       );
       const result: Omit<
         IProductCategoryDeleteResultApi,

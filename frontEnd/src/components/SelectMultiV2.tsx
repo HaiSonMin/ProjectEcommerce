@@ -64,7 +64,7 @@ export default function SelectMultiV2(props: IProps) {
           <Space>
             <LabelOption>
               <span aria-label={option.label as string}>{option.label}</span>
-              <img role="img" src={option.image} alt={`Icon ${option.label}`} />
+              <img role="img" src={option.image} alt={`${option.label}`} />
             </LabelOption>
           </Space>
         </Option>
