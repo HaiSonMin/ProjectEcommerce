@@ -1,11 +1,8 @@
 import { styled } from "styled-components";
-import { useState } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiDelete } from "react-icons/fi";
 // import { randomKey } from "@/utils";
-import { v4 as uuidKey } from "uuid";
 import { randomKey } from "@/utils";
-import { type } from "os";
 import IFilterOption from "@/helpers/IFilterOption";
 
 const ProductFilterOptionStyled = styled.div``;
