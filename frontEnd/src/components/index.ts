@@ -40,7 +40,6 @@ import SelectMultiV2 from "./SelectMultiV2";
 import ContainerCard from "./ContainerCard";
 import ConfirmUpdate from "./ConfirmUpdate";
 import ConfirmDelete from "./ConfirmDelete";
-import ProductOptions from "./ProductOptions";
 import FormRowContent from "./FormRowContent";
 import ToasterDisplay from "./ToasterDisplay";
 import TableOperation from "./TableOperation";
@@ -50,7 +49,6 @@ import ContainerImgLink from "./ContainerImgLink";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import InputRangeTwoValueV2 from "./InputRangeTwoValueV2";
 import DarkModeProvider from "./private/DarkModeProvider";
-import ProductFilterOptionSelect from "./ProductFilterOptionSelect";
 
 export {
   Row,
@@ -94,7 +92,6 @@ export {
   ContainerCard,
   ConfirmDelete,
   ConfirmUpdate,
-  ProductOptions,
   FormRowContent,
   TableOperation,
   ToasterDisplay,
@@ -105,5 +102,4 @@ export {
   InputRangeTwoValueV2,
   RatingStar,
   RatingStarAction,
-  ProductFilterOptionSelect,
 };

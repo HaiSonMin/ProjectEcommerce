@@ -7,51 +7,45 @@ import {
   FormBox,
   InputFile,
   FromHeading,
-  FormRowContent,
-  ProductFilterOptionSelect,
-  ProductOptions,
-  SelectMulti,
   SelectMultiV2,
 } from "@/components";
-import JoditEditor from "jodit-react";
-import UseProductApi from "./UseProductApi";
+import UseProductApi from "../UseProductApi";
 import FormHeading from "@/components/FormHeading";
 import Select, { SingleValue } from "react-select";
-import UseProductCategoryApi from "../productCategory/UseProductCategoryApi";
+import UseProductCategoryApi from "../../productCategory/UseProductCategoryApi";
 import IOptionSelect from "@/helpers/ISelectOption";
 import { useMoveBack } from "@/hooks";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { useMemo, useState } from "react";
-import { IBrand, IDemand, IProduct } from "@/interfaces";
-import { IFilterOption, IProductOption } from "@/helpers";
 import { randomKey } from "@/utils";
 import { DefaultOptionType } from "antd/es/select";
+import { useMemo, useState, useEffect } from "react";
+import { IBrand, IDemand, IProduct } from "@/interfaces";
+import { IFilterOption, IProductOption } from "@/helpers";
+import {
+  ProductOptions,
+  ProductFilterOptionSelect,
+} from "./element-product-form";
 
 const initializeProductOption: Array<IProductOption> = [
   {
     id: randomKey(),
     product_optionName: "",
-    product_serials: [
-      {
-        id: randomKey(),
-        product_serialName: "",
-        product_serialImage: "",
-        product_priceDifference: 0,
-      },
-    ],
     product_description: "",
     product_priceDifference: 0,
-    product_specification: "",
+    product_serials: [],
+    product_specificationMain: "",
+    product_specificationDetail: "",
   },
 ];
 
 interface IProps {
-  productEdit: Partial<IProduct>;
+  productEdit?: Partial<IProduct>;
 }
 
-export default function ProductCreate({ productEdit }: IProps) {
+export default function ProductForm({ productEdit }: IProps) {
   const moveBack = useMoveBack();
+  const [errorEnter, setErrorEnter] = useState<boolean>(true);
   const [productOptions, setProductOptions] = useState<Array<IProductOption>>(
     initializeProductOption
   );
@@ -74,16 +68,15 @@ export default function ProductCreate({ productEdit }: IProps) {
   const [selectCategory, setSelectCategory] =
     useState<SingleValue<Pick<IOptionSelect, "value">>>(null);
   const { isCreatingProduct, createProduct } = UseProductApi.createProduct();
-  const { handleSubmit, formState, register, getValues } = useForm<IProduct>();
+  const { handleSubmit, formState, register, getValues, watch } =
+    useForm<IProduct>();
   const { errors: errorsForm } = formState;
   const { metadata: categories, isGettingProductCategories } =
     UseProductCategoryApi.getAllCategories(10e9);
   const { metadata: category, isGettingProductCategory } =
     UseProductCategoryApi.getCategoryById(selectCategory?.value || "");
 
-  const [choseFilterOptions, setChoseFilterOptions] = useState<
-    Array<IFilterOption>
-  >([]);
+  const [choseFilterOptions, setChoseFilterOptions] = useState<Array<any>>([]);
   const [filtersOptions, setFiltersOptions] = useState<Array<IFilterOption>>(
     []
   );
@@ -98,6 +91,7 @@ export default function ProductCreate({ productEdit }: IProps) {
   }, [isGettingProductCategories]);
 
   const optionsBrands: Array<IOptionSelect> | undefined = useMemo(() => {
+    setChoseFilterOptions([]);
     const filtersOption =
       category?.productCategory_filtersOptions &&
       JSON.parse(category?.productCategory_filtersOptions);
@@ -142,10 +136,20 @@ export default function ProductCreate({ productEdit }: IProps) {
       .map((demand) => demand._id);
     setSelectDemands(demandsSelected);
   };
+  // useEffect(() => {}, [watch("product_price")]);
 
   const onSubmit = (dataForm: Partial<IProduct>) => {
-    if (!selectBrand?.value) return toast.error("Please provide brand");
-    if (!selectCategory?.value) return toast.error("Please provide category");
+    if (
+      !selectBrand?.value ||
+      !selectCategory?.value ||
+      productOptions.some((option) => !option.product_optionName) ||
+      productOptions.some(
+        (option) =>
+          option.product_serials?.some((serial) => !serial.product_serialName)
+      )
+    )
+      return toast.error("Vui lòng điền đầy đủ thông tin khi tạo sản phẩm");
+
     const dataCreate: Partial<IProduct> = {
       product_name: dataForm["product_name"],
       product_brand: selectBrand?.value || "",
@@ -166,76 +170,77 @@ export default function ProductCreate({ productEdit }: IProps) {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FromHeading>
-        <Heading $as="h2">Product Form</Heading>
+        <Heading $as="h2">Nhập thông tin sản phẩm</Heading>
       </FromHeading>
       <FormBox>
-        <FormRow label="Product Name" error={errorsForm["product_name"]}>
+        <FormRow label="Tên sản phẩm" error={errorsForm["product_name"]}>
           <Input
+            placeholder={"Nhập tên sản phẩm"}
             type="text"
             id="productName"
             {...register("product_name", {
-              required: "Please provide product name",
+              required: "Vui lòng bổ sung tên sản phẩm",
             })}
           />
         </FormRow>
         <FormRow
-          label="Product Category"
-          error={!selectCategory && "Please provide product category"}
+          label="Danh mục sản phẩm"
+          error={!selectCategory && "Vui lòng bổ sung danh mục sản phẩm"}
         >
           <Select
             id="productCategory"
-            placeholder={"Select an category"}
+            placeholder={"Vui lòng chọn danh mục"}
             value={selectCategory}
             onChange={handlerSelectCategory}
             options={optionsCategory}
           />
         </FormRow>
         <FormRow
-          label="Product Brand"
-          error={!selectBrand && "Please provide product brand"}
+          label="Thương hiệu"
+          error={!selectBrand && "Vui lòng bổ sung thương hiệu sản phẩm"}
         >
           <Select
             id="productBrand"
-            placeholder={"Select an brand"}
+            placeholder={"Vui lòng chọn thương hiệu"}
             value={selectBrand}
             onChange={handlerSelectBrand}
             options={optionsBrands}
           />
         </FormRow>
-        <FormRow label="Product Demand">
+        <FormRow label="Nhu cầu sử dụng">
           <SelectMultiV2
             id="productDemands"
-            placeholder="Select demands"
+            placeholder="Chọn nhu cầu sử dụng"
             options={optionsDemands}
             onChange={handlerSelectMultiDemands}
             defaultValues={demandNames}
           />
         </FormRow>
-        <FormRow label="Product Price" error={errorsForm["product_price"]}>
+        <FormRow label="Giá" error={errorsForm["product_price"]}>
           <Input
             type="number"
             id="productPrice"
-            placeholder={"Enter product price"}
+            placeholder={"Vui lòng nhập giá sản phẩm"}
             {...register("product_price", {
-              required: "Please provide product price",
+              required: "Vui lòng giá danh mục sản phẩm",
               min: {
-                message: "Please enter price getter than equal 10000",
+                message: "Vui lòng nhập giá lớn hơn 10000vnđ",
                 value: 10000,
               },
             })}
           />
         </FormRow>
-        <FormRow label="Product Thumb" error={errorsForm.product_thumb}>
+        <FormRow label="Hình ảnh đại diện" error={errorsForm.product_thumb}>
           <InputFile
             accept="image/*"
             id="productThumb"
             {...register("product_thumb", {
-              required: "Please provide product thumb",
+              required: "Vui lòng bổ sung hình ảnh đại diện sản phẩm",
             })}
           />
         </FormRow>
         <FormRow
-          label="Product Images"
+          label="Hình ảnh sản phẩm"
           error={errorsForm.product_imagesProduct}
         >
           <InputFile
@@ -243,12 +248,12 @@ export default function ProductCreate({ productEdit }: IProps) {
             accept="image/*"
             id="productImages"
             {...register("product_imagesProduct", {
-              required: "Please provide product images",
+              required: "Vui lòng bổ sung hình ảnh về sản phẩm",
             })}
           />
         </FormRow>
         <FormRow
-          label="Product ImagesHighLights"
+          label="Hình ảnh nổi bật"
           error={errorsForm.product_imagesHighlights}
         >
           <InputFile
@@ -256,31 +261,35 @@ export default function ProductCreate({ productEdit }: IProps) {
             accept="image/*"
             id="productImagesInfo"
             {...register("product_imagesHighlights", {
-              required: "Please provide product images information",
+              required: "Vui lòng bổ sung hình ảnh nổi bật về sản phẩm",
             })}
           />
         </FormRow>
-        <FormRowContent label="Product Promotion">
+        {/* <FormRowContent label="Product Promotion">
           <JoditEditor
             value={productPromotion}
             onChange={(promotion) => setProductPromotion(promotion)}
           />
-        </FormRowContent>
-        <div className="mb-5">
-          <FormHeading>
-            <Heading $as="h4">Filters Options (Using for filter)</Heading>
-          </FormHeading>
-          <FormBox>
-            <ProductFilterOptionSelect
-              filtersOptions={filtersOptions}
-              choseFilterOptions={choseFilterOptions}
-              setChoseFilterOptions={setChoseFilterOptions}
-            />
-          </FormBox>
-        </div>
+        </FormRowContent> */}
+        {filtersOptions?.length && (
+          <div className="mb-5">
+            <FormHeading>
+              <Heading $as="h4">
+                Bộ lọc tùy chọn (Sử dụng cho việc lọc sản phẩm)
+              </Heading>
+            </FormHeading>
+            <FormBox>
+              <ProductFilterOptionSelect
+                filtersOptions={filtersOptions}
+                choseFilterOptions={choseFilterOptions}
+                setChoseFilterOptions={setChoseFilterOptions}
+              />
+            </FormBox>
+          </div>
+        )}
         <>
           <FormHeading>
-            <Heading $as="h4">Product Options</Heading>
+            <Heading $as="h4">All options of product</Heading>
           </FormHeading>
           <FormBox>
             <ProductOptions

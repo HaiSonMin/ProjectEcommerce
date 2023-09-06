@@ -28,10 +28,7 @@ import {
   ProductPage,
   ProductTablePage,
   ProductCreatePage,
-  ProductProvidePage,
-  ProductUpdateBasicPage,
-  ProductUpdateMainInfoPage,
-  ProductUpdateMainInfoDetail,
+
 } from "./product";
 
 import {
@@ -75,8 +72,5 @@ export {
   ProductPage,
   ProductTablePage,
   ProductCreatePage,
-  ProductProvidePage,
-  ProductUpdateBasicPage,
-  ProductUpdateMainInfoPage,
-  ProductUpdateMainInfoDetail,
+
 };

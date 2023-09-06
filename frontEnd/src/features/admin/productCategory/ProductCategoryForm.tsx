@@ -19,10 +19,10 @@ import UseProductCategoryGroupApi from "../productCategoryGroup/UseProductCatego
 import { PRODUCT_CATEGORY_TYPE } from "@/constant";
 import { DefaultOptionType } from "antd/es/select";
 import UseBrandApi from "../brand/UseBrandApi";
-import ProductFilterOption from "@/components/ProductFilterOption";
+import ProductFilterOption from "@/features/admin/product/product-form/element-product-form/ProductFilterOption";
 import FormHeading from "@/components/FormHeading";
 import { randomKey } from "@/utils";
-import IFilterOption from "@/helpers/IFilterOption";
+import {IFilterOption} from "@/helpers";
 
 const initializeOptionsFilters: Array<IFilterOption> = [
   {

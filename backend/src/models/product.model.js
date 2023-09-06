@@ -37,9 +37,11 @@ const ProductSchema = new Schema(
     //   product_priceDifference: Number;
     //   product_serials: [{product_priceDifference: Number,product_serialName: String,product_serialImage: String}]
     //   product_description: String(html)
-    //   product_specification: String(html)
+    //   product_specification: JSON.stringify
+    //   product_specificationDetail: String(html)
     // }
     // ]
+
     product_options: {
       type: Schema.Types.Mixed,
     },
@@ -62,14 +64,10 @@ const ProductSchema = new Schema(
       ref: "Rating",
       default: [],
     },
-
     // [
-          // {
-              // filterOptionId: "123123",
-              // filterItems: ["123123"],
-          // }
+
     // ]
-    productCategory_filtersOptions: {
+    product_filtersOptions: {
       type: Schema.Types.Mixed,
       required: true,
     },

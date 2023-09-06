@@ -49,8 +49,6 @@ export default function ProductOption({
   productOptions,
   setProductOptions,
 }: IProps) {
-  console.log("productOptions:::", productOptions);
-
   const handlerChangeProductOptionName = (
     event: React.ChangeEvent<HTMLInputElement>,
     indexOption: number
@@ -75,10 +73,16 @@ export default function ProductOption({
     indexSerial: number
   ) => {
     const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_serials[
-      indexSerial
-    ].product_serialName = event.target.value;
-    setProductOptions(newProductOptions);
+
+    if (newProductOptions[indexOption]?.product_serials) {
+      const serial =
+        newProductOptions[indexOption].product_serials?.[indexSerial];
+
+      if (serial) {
+        serial.product_serialName = event.target.value;
+        setProductOptions(newProductOptions);
+      }
+    }
   };
   const handlerChangeProductSerialPrice = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -86,10 +90,15 @@ export default function ProductOption({
     indexSerial: number
   ) => {
     const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_serials[
-      indexSerial
-    ].product_priceDifference = Number(event.target.value);
-    setProductOptions(newProductOptions);
+    if (newProductOptions[indexOption]?.product_serials) {
+      const serial =
+        newProductOptions[indexOption].product_serials?.[indexSerial];
+
+      if (serial) {
+        serial.product_priceDifference = +event.target.value;
+        setProductOptions(newProductOptions);
+      }
+    }
   };
   const handlerChangeProductSerialImage = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -97,18 +106,32 @@ export default function ProductOption({
     indexSerial: number
   ) => {
     const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_serials[
-      indexSerial
-    ].product_serialImage = event.target.value;
-    setProductOptions(newProductOptions);
+    if (newProductOptions[indexOption]?.product_serials) {
+      const serial =
+        newProductOptions[indexOption].product_serials?.[indexSerial];
+
+      if (serial) {
+        serial.product_serialImage = event.target.files?.[0];
+        setProductOptions(newProductOptions);
+      }
+    }
   };
 
-  const handlerChangeProductOptionSpecification = (
+  const handlerChangeProductOptionSpecificationMain = (
     specification: string,
     indexOption: number
   ) => {
     const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_specification = specification;
+    newProductOptions[indexOption].product_specificationMain = specification;
+    setProductOptions(newProductOptions);
+  };
+
+  const handlerChangeProductOptionSpecificationDetail = (
+    specification: string,
+    indexOption: number
+  ) => {
+    const newProductOptions = [...productOptions];
+    newProductOptions[indexOption].product_specificationDetail = specification;
     setProductOptions(newProductOptions);
   };
   const handlerChangeProductOptionDescription = (
@@ -127,8 +150,9 @@ export default function ProductOption({
         id: randomKey(),
         product_optionName: "",
         product_description: "",
-        product_specification: "",
         product_priceDifference: 0,
+        product_specificationMain: {},
+        product_specificationDetail: "",
         product_serials: [
           {
             id: randomKey(),
@@ -144,8 +168,7 @@ export default function ProductOption({
 
   const handlerAddProductSerial = (indexOption: number) => {
     const newProductOptions = [...productOptions];
-    console.log("newProductOptions:::", newProductOptions);
-    newProductOptions[indexOption]?.product_serials.push({
+    newProductOptions[indexOption]?.product_serials?.push({
       id: randomKey(),
       product_serialName: "",
       product_serialImage: "",
@@ -168,9 +191,8 @@ export default function ProductOption({
     indexOption: number,
     indexSerial: number
   ) => {
-    if (productOptions[indexOption].product_serials.length <= 1) return;
     const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_serials.splice(indexSerial, 1);
+    newProductOptions[indexOption]?.product_serials?.splice(indexSerial, 1);
     setProductOptions(newProductOptions);
   };
   return (
@@ -186,7 +208,7 @@ export default function ProductOption({
               key: option.id,
               label: (
                 <div>
-                  Product Option {indexOption}:{" "}
+                  Option của sản phẩm {indexOption + 1}:{" "}
                   <span className="font-bold">
                     {productOptions[indexOption].product_optionName}
                   </span>
@@ -216,8 +238,11 @@ export default function ProductOption({
                   handlerChangeProductOptionDescription={
                     handlerChangeProductOptionDescription
                   }
-                  handlerChangeProductOptionSpecification={
-                    handlerChangeProductOptionSpecification
+                  handlerChangeProductOptionSpecificationMain={
+                    handlerChangeProductOptionSpecificationMain
+                  }
+                  handlerChangeProductOptionSpecificationDetail={
+                    handlerChangeProductOptionSpecificationDetail
                   }
                 />
               ),

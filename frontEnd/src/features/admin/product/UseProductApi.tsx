@@ -14,7 +14,7 @@ import {
 } from "@/api-types/IProductResultApi";
 import { toast } from "react-hot-toast";
 import { useParams, useSearchParams } from "react-router-dom";
-import { CONSTANT, getQueriesString } from "@/utils";
+import { getQueriesString } from "@/utils";
 import { useQueriesString } from "@/hooks";
 
 export default class UseProductApi {
@@ -122,7 +122,7 @@ export default class UseProductApi {
       queryKey: ["product", productId],
       queryFn: () =>
         ProductApi.getProductById({
-          _id: productId,
+          _id: productId || "",
         }),
     });
     return {

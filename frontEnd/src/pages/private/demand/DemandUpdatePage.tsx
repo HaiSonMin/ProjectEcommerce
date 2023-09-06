@@ -1,7 +1,6 @@
 import { Spinner } from "@/components";
-import { ProductCategoryForm } from "@/features/admin/productCategory";
-import UseDemandApi from "@/features/admin/demand/UseDemandApi";
 import { DemandForm } from "@/features/admin/demand";
+import UseDemandApi from "@/features/admin/demand/UseDemandApi";
 
 export default function ProductCategoryUpdatePage() {
   const { isGettingDemand, metadata: demand } = UseDemandApi.getDemandById();

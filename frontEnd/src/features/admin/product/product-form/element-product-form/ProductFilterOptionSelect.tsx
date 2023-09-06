@@ -1,6 +1,6 @@
-import Heading from "./Heading";
+
 import { css, styled } from "styled-components";
-import IFilterOption from "@/helpers/IFilterOption";
+import { IFilterItem, IFilterOption } from "@/helpers";
 import { useState } from "react";
 import { fi } from "date-fns/locale";
 
@@ -70,7 +70,6 @@ const FilterItem = styled.div<{ $active: boolean }>`
     `}
 `;
 
-// [{ filterName: "Màng hình", filterItem: ["Đục lỗ","Nốt ruồi","Dynamic Island"] }];
 interface IProps {
   filtersOptions: Array<IFilterOption> | undefined;
   choseFilterOptions: Array<IFilterOption>;
@@ -82,34 +81,51 @@ export default function ProductFilterOptionSelect({
   choseFilterOptions,
   setChoseFilterOptions,
 }: IProps) {
-  const [filtersActive, setFiltersActive] = useState<Array<string>>([]);
-
-  const handlerAddFilterOptions = (filterOptionId, filterItem) => {
-    if (!filtersActive.includes(filterItem.id)) {
-      const filters = [...filtersActive, filterItem.id];
-      setFiltersActive(filters);
-    } else {
-      const filters = filtersActive.filter(
-        (filter) => filter !== filterItem.id
-      );
-      setFiltersActive(filters);
-    }
-
-    console.log(
-      choseFilterOptions?.find(
-        (filterOption) => filterOption.id === filterOptionId
+  const handlerAddFilterOptions = (
+    filterOption: IFilterOption,
+    filterItem: IFilterItem
+  ) => {
+    const newChoseFilterOptions = [...choseFilterOptions];
+    if (!newChoseFilterOptions.length)
+      newChoseFilterOptions.push({
+        id: filterOption.id,
+        filterOption: filterOption.filterOption,
+        filterOptionInfo: filterOption.filterOptionInfo,
+        filterItems: [filterItem],
+      });
+    else {
+      if (
+        !newChoseFilterOptions.find((option) => option.id === filterOption.id)
       )
-    );
-    if (
-      choseFilterOptions?.find(
-        (filterOption) => filterOption.id === filterOptionId
-      ) &&
-      choseFilterOptions?.find(
-        (filterOption) => filterOption.filterItems.find(item => item.id === filterItem.id) 
-      )
-    ) {
-      return;
+        newChoseFilterOptions.push({
+          id: filterOption.id,
+          filterOption: filterOption.filterOption,
+          filterOptionInfo: filterOption.filterOptionInfo,
+          filterItems: [filterItem],
+        });
+      else {
+        const indexOption: number = newChoseFilterOptions.findIndex(
+          (option) => option.id === filterOption.id
+        );
+        if (
+          !newChoseFilterOptions[indexOption].filterItems.find(
+            (item) => item.id === filterItem.id
+          )
+        )
+          newChoseFilterOptions[indexOption].filterItems.push(filterItem);
+        else {
+          const indexItem: number = newChoseFilterOptions[
+            indexOption
+          ].filterItems.findIndex(
+            (item: IFilterItem) => item.id === filterItem.id
+          );
+          newChoseFilterOptions[indexOption].filterItems.splice(indexItem, 1);
+        }
+      }
     }
+    setChoseFilterOptions(newChoseFilterOptions);
+
+    console.log(newChoseFilterOptions);
   };
 
   return (
@@ -121,9 +137,11 @@ export default function ProductFilterOptionSelect({
             {filterOption.filterItems.map((filterItem) => (
               <FilterItem
                 key={filterItem.id}
-                $active={filtersActive.includes(filterItem.id)}
+                $active={choseFilterOptions.some((option) =>
+                  option.filterItems.find((item) => item.id === filterItem.id)
+                )}
                 onClick={() =>
-                  handlerAddFilterOptions(filterOption.id, filterItem)
+                  handlerAddFilterOptions(filterOption, filterItem)
                 }
               >
                 {filterItem.itemName}
