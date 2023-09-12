@@ -8,25 +8,23 @@ import {
   IBrandUpdateResultApi,
 } from "@/api-types/IBrandResultApi";
 import { PATH_API_V1 } from "@/constant";
+import { IApi } from "@/helpers";
 
 class BrandApi {
-  async createBrand(args: Omit<IBrand, "_id">) {
+  async createBrand(args: Omit<IBrand, "_id">): Promise<IApi> {
     try {
       const response = await http.postForm(
         `${PATH_API_V1.brand}/create`,
         resultAppendFormData(args)
       );
-      const result: Omit<
-        IBrandCreateResultApi,
-        "isCreatingBrand" | "createBrand"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async getAllBrands(fieldsQuery: Partial<IArgsQuery>) {
+  async getAllBrands(fieldsQuery: Partial<IArgsQuery>): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.brand}/getAll`, {
         params: {
@@ -36,15 +34,14 @@ class BrandApi {
           fields: fieldsQuery.fields,
         },
       });
-      const result: Omit<IBrandGetAllResultApi, "isGettingBrands"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async searchBrands(fieldsQuery: Partial<IArgsQuery>) {
+  async searchBrands(fieldsQuery: Partial<IArgsQuery>): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.brand}/search`, {
         params: {
@@ -53,32 +50,28 @@ class BrandApi {
           limit: fieldsQuery.limit,
         },
       });
-      const result: Omit<IBrandGetAllResultApi, "isGettingBrands"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async updateBrand(args: Partial<IBrand>) {
+  async updateBrand(args: Partial<IBrand>): Promise<IApi> {
     const response = await http.patchForm(
       `${PATH_API_V1.brand}/update/${args._id}`,
       resultAppendFormData(args)
     );
-    const result: IBrandUpdateResultApi = response.data;
+    const result: IApi = response.data;
     return result;
   }
 
-  async deleteBrand(arg: Pick<IBrand, "_id">) {
+  async deleteBrand(arg: Pick<IBrand, "_id">): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.brand}/delete/${arg._id}`
       );
-      const result: Omit<
-        IBrandDeleteResultApi,
-        "isDeletingBrand" | "deleteBrand"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(getErrorMessage(error));

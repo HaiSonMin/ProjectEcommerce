@@ -48,8 +48,8 @@ export interface IProductCategoryCreateResultApi extends IApi {
   isCreatingProductCategory: boolean;
   metadata: IProductCategory | undefined;
   createProductCategory: UseMutateFunction<
-    IApi,
     any,
+    unknown,
     Omit<IProductCategory, "_id">
   >;
 }
@@ -58,8 +58,8 @@ export interface IProductCategoryUpdateResultApi extends IApi {
   isUpdatingProductCategory: boolean;
   metadata: IProductCategory | undefined;
   updateProductCategory: UseMutateFunction<
-    IApi,
     any,
+    unknown,
     Partial<IProductCategory>
   >;
 }
@@ -68,8 +68,8 @@ export interface IProductCategoryDeleteResultApi extends IApi {
   isDeletingProductCategory: boolean;
   metadata: IProductCategory | undefined;
   deleteProductCategory: UseMutateFunction<
-    IApi,
     any,
+    unknown,
     Pick<IProductCategory, "_id">
   >;
 }

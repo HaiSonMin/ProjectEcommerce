@@ -59,11 +59,11 @@ export interface IUserSearchResultApi extends IApi {
 export interface IUserUpdateResultApi extends IApi {
   isUpdatingUser: boolean;
   metadata: IUser | undefined;
-  updateUser: UseMutateFunction<IApi, any, Partial<IUser>>;
+  updateUser: UseMutateFunction<any, unknown, Partial<IUser>>;
 }
 
 export interface IUserDeleteResultApi extends IApi {
   isDeletingUser: boolean;
   metadata: IUser | undefined;
-  deleteUser: UseMutateFunction<IApi, any, Pick<IUser, "_id">>;
+  deleteUser: UseMutateFunction<any, unknown, Pick<IUser, "_id">>;
 }

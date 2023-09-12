@@ -1,11 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { SingleValue } from "react-select";
 
-type InitialStateSelectOptions = {
-  value: string;
-  label: string;
-};
-
 type InitialStateType = {
   productRam: SingleValue<string>;
   productRom: SingleValue<string>;

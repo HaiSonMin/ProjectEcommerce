@@ -16,28 +16,68 @@ class ProductRepository {
     sort,
     page = 1,
     limit = 10,
+    filter,
     status = "all",
-    lookups,
-    matches,
   }) {
-    // console.log("skipPage({ limit, page }):::", skipPage({ limit, page }));
-    // console.log(lookups);
-    // console.log(matches);
+    let fieldSearchStatus;
+    if (status === "all") fieldSearchStatus = "";
+    if (status === "available") fieldSearchStatus = "";
+    if (status === "unavailable") fieldSearchStatus = "";
+    console.log(convertSortBy(sort));
     const result = await ProductModel.aggregate([
-      ...lookups,
-      matches,
       {
         $facet: {
           products: [
+            {
+              $lookup: {
+                from: "brands",
+                localField: "product_brand",
+                foreignField: "_id",
+                as: "product_brand",
+              },
+            },
+            {
+              $unwind: {
+                path: "$product_brand",
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+            {
+              $lookup: {
+                from: "productcategories",
+                localField: "product_category",
+                foreignField: "_id",
+                as: "product_category",
+              },
+            },
+            {
+              $unwind: {
+                path: "$product_category",
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+            {
+              $project: {
+                product_name: 1,
+                product_thumb: 1,
+                product_price: 1,
+                product_available: 1,
+                product_ratings: 1,
+                product_brand: {
+                  brand_name: 1,
+                  brand_origin: 1,
+                },
+                product_category: {
+                  productCategory_name: 1,
+                },
+              },
+            },
             { $skip: skipPage({ page, limit }) },
             {
               $limit: +limit, // Replace 10 with the desired number of documents to limit
             },
             {
-              $sort: convertSortByAggregate({
-                fieldLocal: "productMainInfo",
-                sort,
-              }),
+              $sort: convertSortBy(sort),
             },
           ],
           totalProducts: [
@@ -60,21 +100,26 @@ class ProductRepository {
       .populate([
         { path: "product_brand", select: ["brand_name", "brand_origin"] },
         { path: "product_category", select: "productCategory_name" },
+        { path: "product_demands", select: "demand_name" },
         { path: "product_ratings" },
       ])
+      .lean()
       .exec();
   }
+
   static async getProductByIds({ productIds }) {
     return await ProductModel.find({ _id: { $in: productIds } })
       .lean()
       .exec();
   }
+
   static async getProductNotByIds({ productIds }) {
     return await ProductModel.find({ _id: { $nin: productIds } })
       .lean()
       .exec();
   }
-  static async getProductByNameOrDescription({
+
+  static async searchProduct({
     keySearch,
     page = 1,
     limit = 4,
@@ -100,6 +145,7 @@ class ProductRepository {
       .lean()
       .exec();
   }
+
   static async deleteProductById({ productId }) {
     return await ProductModel.findByIdAndDelete(productId).lean().exec();
   }

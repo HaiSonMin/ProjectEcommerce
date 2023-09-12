@@ -22,6 +22,7 @@ import TextArea from "./TextArea";
 import Carousel from "./Carousel";
 import CountDown from "./CountDown";
 import InputFile from "./InputFile";
+import InputLabel from "./InputLabel";
 import RatingStar from "./RatingStar";
 import SelectDate from "./SelectDate";
 import StarReview from "./StarReview";
@@ -34,13 +35,14 @@ import ButtonGroup from "./ButtonGroup";
 import SpinnerMini from "./SpinnerMini";
 import ImagesGroup from "./ImagesGroup";
 import FromHeading from "./FormHeading";
+import TextAreaLabel from "./TextAreaLabel";
 import CarouselImage from "./CarouselImage";
 import ButtonConfirm from "./ButtonConfirm";
 import SelectMultiV2 from "./SelectMultiV2";
 import ContainerCard from "./ContainerCard";
 import ConfirmUpdate from "./ConfirmUpdate";
+import FormRowButton from "./FormRowButton";
 import ConfirmDelete from "./ConfirmDelete";
-import ProductOptions from "./ProductOptions";
 import FormRowContent from "./FormRowContent";
 import ToasterDisplay from "./ToasterDisplay";
 import TableOperation from "./TableOperation";
@@ -48,9 +50,7 @@ import CarouselTopHome from "./CarouselTopHome";
 import RatingStarAction from "./RatingStarAction";
 import ContainerImgLink from "./ContainerImgLink";
 import InputRangeTwoValue from "./InputRangeTwoValue";
-import InputRangeTwoValueV2 from "./InputRangeTwoValueV2";
 import DarkModeProvider from "./private/DarkModeProvider";
-import ProductFilterOptionSelect from "./ProductFilterOptionSelect";
 
 export {
   Row,
@@ -77,6 +77,7 @@ export {
   Carousel,
   CountDown,
   InputFile,
+  InputLabel,
   SelectDate,
   StarReview,
   TextEditor,
@@ -92,9 +93,9 @@ export {
   ButtonConfirm,
   SelectMultiV2,
   ContainerCard,
+  TextAreaLabel,
   ConfirmDelete,
   ConfirmUpdate,
-  ProductOptions,
   FormRowContent,
   TableOperation,
   ToasterDisplay,
@@ -102,8 +103,6 @@ export {
   ContainerImgLink,
   DarkModeProvider,
   InputRangeTwoValue,
-  InputRangeTwoValueV2,
   RatingStar,
   RatingStarAction,
-  ProductFilterOptionSelect,
 };

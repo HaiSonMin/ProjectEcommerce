@@ -98,7 +98,7 @@ export default function FilterProvider({ children }) {
 function useFilter() {
   const context = useContext(FilterContext);
   if (!context)
-    throw new Error("CitiesContext was used outside the CitiesProvider");
+    throw new Error("Filter context was used outside the FilterProvider");
   return context;
 }
 

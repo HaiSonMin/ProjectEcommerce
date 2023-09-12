@@ -106,7 +106,6 @@ const ToggleButton = (props: Pick<IProps, "id">) => {
   const { open, openId, close, setPosition } = useContext(MenuContext);
 
   function handlerClick(e: any) {
-    // console.log("ClickToggle");
 
     e.stopPropagation();
     const rect = e.target.closest("button").getBoundingClientRect();

@@ -1,10 +1,6 @@
 import { IProduct } from "@/interfaces";
 import IApi from "@/helpers/IApi";
 import { UseMutateFunction } from "@tanstack/react-query";
-import {
-  IProductCreate,
-  IProductMainInfo,
-} from "@/interfaces/product/product.interface";
 
 /**
  *  ------- available -------
@@ -21,14 +17,16 @@ import {
  *  update
  *  delete
  */
+
+export interface IProductCreateResultApi extends IApi {
+  isCreatingProduct: boolean;
+  metadata: IProduct | undefined;
+  createProduct: UseMutateFunction<any, unknown, Partial<IProduct>>;
+}
+
 export interface IProductGetOneResultApi extends IApi {
   isGettingProduct: boolean;
   metadata: IProduct | undefined;
-}
-
-export interface IProductMainInfoGetOneResultApi extends IApi {
-  isGettingProduct: boolean;
-  metadata: IProductMainInfo | undefined;
 }
 
 export interface IProductGetAllResultApi extends IApi {
@@ -47,42 +45,14 @@ export interface IProductSearchResultApi
   isSearchingProducts: boolean;
 }
 
-export interface IProductCreateResultApi extends IApi {
-  isCreatingProduct: boolean;
-  metadata: IProduct | undefined;
-  createProduct: UseMutateFunction<IApi, any, IProductCreate>;
-}
-
-export interface IProductProvideMainInfoResultApi extends IApi {
-  isAddingProduct: boolean;
-  metadata: IProductMainInfo | undefined;
-  provideProductMainInfo: UseMutateFunction<IApi, any, IProductMainInfo>;
-}
-
-export interface IProductUpdateBasicResultApi extends IApi {
+export interface IProductUpdateResultApi extends IApi {
   isUpdatingProduct: boolean;
-  metadata: IProduct | undefined;
-  updateProductBasic: UseMutateFunction<IApi, any, Partial<IProduct>>;
-}
-
-export interface IProductMainInfoUpdateResultApi extends IApi {
-  isUpdatingProduct: boolean;
-  metadata: IProductMainInfo | undefined;
-  updateProductMainInfo: UseMutateFunction<IApi, any, IProductMainInfo>;
-}
-
-export interface IProductMainInfoDeleteResultApi extends IApi {
-  isDeletingProduct: boolean;
-  metadata: IProductMainInfo | undefined;
-  deleteProductMainInfo: UseMutateFunction<
-    IApi,
-    any,
-    Pick<IProductMainInfo, "_id">
-  >;
+  metadata: IProduct;
+  updateProduct: UseMutateFunction<any, unknown, Partial<IProduct>>;
 }
 
 export interface IProductDeleteResultApi extends IApi {
   isDeletingProduct: boolean;
   metadata: IProduct | undefined;
-  deleteProduct: UseMutateFunction<IApi, any, Pick<IProduct, "_id">>;
+  deleteProduct: UseMutateFunction<any, unknown, Pick<IProduct, "_id">>;
 }

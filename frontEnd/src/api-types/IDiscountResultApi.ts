@@ -42,17 +42,17 @@ export interface IDiscountSearchResultApi extends IApi {
 export interface IDiscountUpdateResultApi extends IApi {
   isUpdatingDiscount: boolean;
   metadata: IDiscount | undefined;
-  updateDiscount: UseMutateFunction<IApi, any, Partial<IDiscount>>;
+  updateDiscount: UseMutateFunction<any, unknown, Partial<IDiscount>>;
 }
 
 export interface IDiscountAddProductResultApi extends IApi {
   isAddingProduct: boolean;
   metadata: IDiscount | undefined;
-  addDiscountToProduct: UseMutateFunction<IApi, any, Pick<IDiscount, "_id">>;
+  addDiscountToProduct: UseMutateFunction<any, unknown, Pick<IDiscount, "_id">>;
 }
 
 export interface IDiscountDeleteResultApi extends IApi {
   isDeletingDiscount: boolean;
   metadata: IDiscount | undefined;
-  deleteDiscount: UseMutateFunction<IApi, any, Pick<IDiscount, "_id">>;
+  deleteDiscount: UseMutateFunction<any, unknown, Pick<IDiscount, "_id">>;
 }

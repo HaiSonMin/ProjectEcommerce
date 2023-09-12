@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
 import styled, { css } from "styled-components";
 
 const sizes: object = {
@@ -22,7 +21,7 @@ const sizes: object = {
   `,
 };
 
-const variations: any = {
+const variations: object = {
   primary: css`
     color: var(--color-brand-50);
     background-color: var(--color-primary);
@@ -51,7 +50,7 @@ const Button = styled.button<{ $size?: string; $variation?: string }>`
   border-radius: 1rem;
   box-shadow: var(--shadow-md);
   transition: all 0.3s;
-  font-weight: 500;
+  font-weight: 600;
 
   ${(props: any) => sizes[props.$size]}
   ${(props: any) => variations[props.$variation]}
