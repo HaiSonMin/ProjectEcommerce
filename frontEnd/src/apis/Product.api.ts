@@ -1,33 +1,19 @@
-import {
-  IProductCreateResultApi,
-  IProductDeleteResultApi,
-  IProductGetAllResultApi,
-  IProductGetOneResultApi,
-  IProductUpdateBasicResultApi,
-  IProductMainInfoDeleteResultApi,
-  IProductMainInfoGetOneResultApi,
-  IProductMainInfoUpdateResultApi,
-  IProductProvideMainInfoResultApi,
-  IProductSearchResultApi,
-} from "@/api-types/IProductResultApi";
+import { IApi } from "@/helpers";
 import { IProduct } from "@/interfaces";
-import { useParams } from "react-router-dom";
-import IArgsQuery from "@/helpers/IArgsQuery";
-import { http, getErrorMessage, resultAppendFormData } from "@/utils";
 import { PATH_API_V1 } from "@/constant";
+import IArgsQuery from "@/helpers/IArgsQuery";
+import { http, getErrorMessage, resultAppendFormDataRecursive } from "@/utils";
 
 class ProductApi {
-  async createProduct(args: IProductCreateResultApi) {
+  async createProduct(args: Partial<IProduct>): Promise<IApi> {
+    console.log("args:::", args);
+    console.log("resultAppendFormDataRecursive:::", resultAppendFormDataRecursive(args));
     try {
       const response = await http.postForm(
         `${PATH_API_V1.product}/create`,
-        resultAppendFormData(args)
+        resultAppendFormDataRecursive(args)
       );
-      console.log(response);
-      const result: Omit<
-        IProductCreateResultApi,
-        "isCreatingProduct" | "createProduct"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       console.error(error);
@@ -35,32 +21,13 @@ class ProductApi {
     }
   }
 
-  async provideProductMainInfo(args: IProductMainInfoCreate) {
-    const { _id, ...dataCreate } = args;
-    try {
-      const response = await http.patchForm(
-        `${PATH_API_V1.product}/provideInfo/${args.product}`,
-        resultAppendFormData(dataCreate)
-      );
-      console.log(response);
-      const result: Omit<
-        IProductProvideMainInfoResultApi,
-        "isAddingProduct" | "provideProductMainInfo"
-      > = response.data;
-      return result;
-    } catch (error) {
-      throw new Error(getErrorMessage(error));
-    }
-  }
-
-  async getProductById(arg: Pick<IProduct, "_id">) {
+  async getProductById(arg: Pick<IProduct, "_id">): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.product}/getById/${arg._id}`
       );
 
-      const result: Omit<IProductGetOneResultApi, "isGettingProduct"> =
-        response.data;
+      const result: IApi = response.data;
 
       return result;
     } catch (error) {
@@ -68,22 +35,7 @@ class ProductApi {
     }
   }
 
-  async getProductMainInfoById(arg: Pick<IProductMainInfo, "_id">) {
-    try {
-      const response = await http.get(
-        `${PATH_API_V1.product}/getMainInfoById/${arg._id}`
-      );
-
-      const result: Omit<IProductMainInfoGetOneResultApi, "isGettingProduct"> =
-        response.data;
-
-      return result;
-    } catch (error) {
-      throw new Error(getErrorMessage(error));
-    }
-  }
-
-  async getAllProducts(fieldsQuery: Partial<IArgsQuery>) {
+  async getAllProducts(fieldsQuery: Partial<IArgsQuery>): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.product}/getAll`, {
         params: {
@@ -95,16 +47,14 @@ class ProductApi {
         },
       });
 
-      //   console.log("response::::", response);
-      const result: Omit<IProductGetAllResultApi, "isGettingProducts"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async searchProducts(fieldsQuery: Partial<IArgsQuery>) {
+  async searchProducts(fieldsQuery: Partial<IArgsQuery>): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.product}/search`, {
         params: {
@@ -116,74 +66,33 @@ class ProductApi {
         },
       });
 
-      //   console.log("response::::", response);
-      const result: Omit<IProductSearchResultApi, "isSearchingProducts"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async updateProductBasic(args: Partial<IProduct>) {
-    console.log(args);
+  async updateProduct(args: Partial<IProduct>): Promise<IApi> {
     try {
       const response = await http.patchForm(
         `${PATH_API_V1.product}/update/${args._id}`,
-        resultAppendFormData(args)
+        resultAppendFormDataRecursive(args)
       );
-      const result: Omit<
-        IProductUpdateBasicResultApi,
-        "isUpdatingProduct" | "updateProductBasic"
-      > = response.data;
+
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async updateProductMainInfo(args: IProductMainInfo) {
-    try {
-      const response = await http.patchForm(
-        `${PATH_API_V1.product}/updateMainInfo/${args.product}`,
-        resultAppendFormData(args)
-      );
-      const result: Omit<
-        IProductMainInfoUpdateResultApi,
-        "isUpdatingProduct" | "updateProductMainInfo"
-      > = response.data;
-      return result;
-    } catch (error) {
-      throw new Error(getErrorMessage(error));
-    }
-  }
-
-  async deleteProductMainInfo(arg: Pick<IProductMainInfo, "_id">) {
-    const { productId } = useParams();
-    try {
-      const response = await http.delete(
-        `${PATH_API_V1.product}/deleteMainInfo/${productId}`,
-        { data: { _id: arg._id } }
-      );
-      const result: Omit<
-        IProductMainInfoDeleteResultApi,
-        "isDeletingProduct" | "deleteProductMainInfo"
-      > = response.data;
-      return result;
-    } catch (error) {
-      throw new Error(getErrorMessage(error));
-    }
-  }
-
-  async deleteProduct(arg: Pick<IProduct, "_id">) {
+  async deleteProduct(arg: Pick<IProduct, "_id">): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.product}/delete/${arg._id}`
       );
-      const result: Omit<
-        IProductDeleteResultApi,
-        "isDeletingProduct" | "deleteProduct"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));

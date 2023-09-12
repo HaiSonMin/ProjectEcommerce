@@ -8,7 +8,6 @@ const DemandRepo = require("./demand.repo");
 const CouponRepo = require("./coupon.repo");
 const RatingRepo = require("./rating.repo");
 const ProductRepo = require("./product.repo");
-const ProductRepoV2 = require("./product.repoV2");
 const QuestionRepo = require("./question.repo");
 const WishlistRepo = require("./wishlist.repo");
 const KeyTokenRepo = require("./keyToken.repo");
@@ -30,7 +29,6 @@ module.exports = {
   CouponRepo,
   RatingRepo,
   ProductRepo,
-  ProductRepoV2,
   QuestionRepo,
   KeyTokenRepo,
   DiscountRepo,
@@ -39,5 +37,5 @@ module.exports = {
   BlogCategoryRepo,
   SpecificationRepo,
   ProductCategoryRepo,
-  ProductCategoryGroupRepo
+  ProductCategoryGroupRepo,
 };

@@ -1,6 +1,5 @@
-import { IProductOption } from "@/helpers";
+import { IFilterOption, IProductOption } from "@/helpers";
 import { IBrand, IDemand, IProductCategory, IRating } from "..";
-import ISpecification from "./specification";
 
 export default interface IProduct {
   _id: string;
@@ -18,5 +17,5 @@ export default interface IProduct {
   product_demands: Array<IDemand> | Array<string>;
   product_ratings: Array<IRating> | Array<string>;
   product_options: Array<IProductOption>;
-  product_optionFilters: any;
+  product_optionFilters: Array<IFilterOption>;
 }

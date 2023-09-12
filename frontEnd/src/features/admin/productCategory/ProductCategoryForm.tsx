@@ -22,7 +22,7 @@ import UseBrandApi from "../brand/UseBrandApi";
 import ProductFilterOption from "@/features/admin/product/product-form/element-product-form/ProductFilterOption";
 import FormHeading from "@/components/FormHeading";
 import { randomKey } from "@/utils";
-import {IFilterOption} from "@/helpers";
+import { IFilterOption } from "@/helpers";
 
 const initializeOptionsFilters: Array<IFilterOption> = [
   {
@@ -60,18 +60,19 @@ export default function ProductCategoryForm(props: IProps) {
   };
   const [selectCategoryType, setSelectCategoryType] =
     useState<SingleValue<Pick<IOptionSelect, "value">>>(categoryType);
+
   const [filtersOptions, setFiltersOptions] = useState<Array<IFilterOption>>(
     (props?.productCategoryEdit?.productCategory_filtersOptions &&
       JSON.parse(props?.productCategoryEdit?.productCategory_filtersOptions)) ||
       initializeOptionsFilters
   );
 
-  let brandIds: Array<string> | undefined;
-  let brandNames: Array<string> | undefined;
+  let brandIds: Array<string> | undefined,
+    brandNames: Array<string> | undefined;
   if (props.productCategoryEdit) {
     brandIds = (
       props.productCategoryEdit?.productCategory_brands as Array<IBrand>
-    )?.map((brand) => brand._id);
+    )?.map((brand: IBrand) => brand._id);
     brandNames = (
       props.productCategoryEdit?.productCategory_brands as Array<IBrand>
     )?.map((brand: IBrand) => brand.brand_name);
@@ -195,7 +196,7 @@ export default function ProductCategoryForm(props: IProps) {
         {isEditSession ? "Edit Category" : "Add new category"}
       </Heading>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormRow label="Product Category Group" error={errorsForm}>
+        <FormRow label="Nhóm danh mục sản phẩm" error={errorsForm}>
           <Select
             id="productCategoryGroup"
             placeholder={"Select an group"}
@@ -204,7 +205,7 @@ export default function ProductCategoryForm(props: IProps) {
             options={optionSelectCategoryGroup}
           />
         </FormRow>
-        <FormRow label="Product Category Type" error={errorsForm}>
+        <FormRow label="Kiểu danh mục sản phẩm" error={errorsForm}>
           <Select
             id="productCategoryType"
             placeholder={"Select an type"}
@@ -213,10 +214,7 @@ export default function ProductCategoryForm(props: IProps) {
             options={optionSelectCategoryType}
           />
         </FormRow>
-        <FormRow
-          label="Product Category Name"
-          error={errorsForm.productCategory_name}
-        >
+        <FormRow label="Tên danh mục" error={errorsForm.productCategory_name}>
           <Input
             type="text"
             id="productCategoryName"
@@ -225,7 +223,7 @@ export default function ProductCategoryForm(props: IProps) {
             })}
           />
         </FormRow>
-        <FormRow label="Product Brands">
+        <FormRow label="Các Thương hiệu">
           <SelectMultiV2
             options={optionSelectBrands}
             onChange={handlerSelectMultiBrands}
@@ -240,19 +238,17 @@ export default function ProductCategoryForm(props: IProps) {
             error={errorsForm.productCategory_image}
           >
             <InputFile
-              id="productCategoryImage"
-              accept="image/*"
-              {...register("productCategory_image", {
+              register={register("productCategory_image", {
                 required: "Please provide product category image",
               })}
+              id="productCategoryImage"
             />
           </FormRow>
         ) : (
           <FormRow label="Product Category Image">
             <InputFile
+              register={register("productCategory_image")}
               id="productCategoryImage"
-              accept="image/*"
-              {...register("productCategory_image")}
             />
           </FormRow>
         )}

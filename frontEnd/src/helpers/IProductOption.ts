@@ -4,16 +4,15 @@ export default interface IProductOption {
   product_priceDifference: number;
   product_serials?: Array<{
     id: string;
-    product_serialName: string;
-    product_serialImage: any;
-    product_priceDifference: Number;
+    serialName: string;
+    serialImage: any;
+    serialPriceDifference: Number;
   }>;
   product_description: string;
-  //   {
-  //      "key":"value"
-  //      "key":"value"
-  //      "key":"value"
-  //   }
-  product_specificationMain: any;
+  product_specificationMain: Array<{
+    id: string;
+    specKey: string;
+    specValue: string;
+  }>;
   product_specificationDetail: string;
 }

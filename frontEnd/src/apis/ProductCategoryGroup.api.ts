@@ -1,32 +1,27 @@
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { IProductCategoryGroup } from "@/interfaces";
 import { http, resultAppendFormData } from "@/utils";
-import {
-  IProductCategoryGroupCreateResultApi,
-  IProductCategoryGroupUpdateResultApi,
-  IProductCategoryGroupGetByIdResultApi,
-  IProductCategoryGroupGetAllResultApi,
-  IProductCategoryGroupDeleteResultApi,
-} from "@/api-types/IProductCategoryGroupResultApi";
 import { PATH_API_V1 } from "@/constant";
+import { IApi } from "@/helpers";
 
 class ProductCategoryGroupApi {
-  async createProductCategoryGroup(args: Omit<IProductCategoryGroup, "_id">) {
+  async createProductCategoryGroup(
+    args: Omit<IProductCategoryGroup, "_id">
+  ): Promise<IApi> {
     try {
       const response = await http.postForm(
         `${PATH_API_V1.productCategoryGroup}/create`,
         resultAppendFormData(args)
       );
-      const result: Omit<
-        IProductCategoryGroupCreateResultApi,
-        "isCreatingProductCategoryGroup"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
-  async getAllProductCategoriesGroup(fieldsQuery: Partial<IArgsQuery>) {
+  async getAllProductCategoriesGroup(
+    fieldsQuery: Partial<IArgsQuery>
+  ): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.productCategoryGroup}/getAll`,
@@ -38,10 +33,7 @@ class ProductCategoryGroupApi {
           },
         }
       );
-      const result: Omit<
-        IProductCategoryGroupGetAllResultApi,
-        "isGettingProductCategoriesGroup"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
@@ -50,47 +42,42 @@ class ProductCategoryGroupApi {
 
   async getProductCategoryGroupById({
     _id: categoryGroupId,
-  }: Pick<IProductCategoryGroup, "_id">) {
+  }: Pick<IProductCategoryGroup, "_id">): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.productCategoryGroup}/getById/${categoryGroupId}`
       );
-      const result: Omit<
-        IProductCategoryGroupGetByIdResultApi,
-        "isGettingProductCategoryGroup"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-  async updateProductCategoryGroup(args: IProductCategoryGroup) {
+  async updateProductCategoryGroup(
+    args: Partial<IProductCategoryGroup>
+  ): Promise<IApi> {
     console.log(args);
     try {
       const response = await http.patchForm(
         `${PATH_API_V1.productCategoryGroup}/update/${args._id}`,
         resultAppendFormData(args)
       );
-      const result: Omit<
-        IProductCategoryGroupUpdateResultApi,
-        "isUpdatingProductCategoryGroup"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-  async deleteProductCategoryGroup(arg: Pick<IProductCategoryGroup, "_id">) {
+  async deleteProductCategoryGroup(
+    arg: Pick<IProductCategoryGroup, "_id">
+  ): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.productCategoryGroup}/delete/${arg._id}`
       );
-      const result: Omit<
-        IProductCategoryGroupDeleteResultApi,
-        "isDeletingProductCategoryGroup"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error);

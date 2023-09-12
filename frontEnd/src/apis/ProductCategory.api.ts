@@ -1,33 +1,27 @@
-import {
-  IProductCategoriesGetMulti,
-  IProductCategoryCreateResultApi,
-  IProductCategoryUpdateResultApi,
-  IProductCategoryGetAllResultApi,
-  IProductCategoryGetByIdResultApi,
-  IProductCategoryDeleteResultApi,
-} from "@/api-types/IProductCategoryResultApi";
 import { IProductCategory } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { getErrorMessage, http, resultAppendFormData } from "@/utils";
 import { PATH_API_V1 } from "@/constant";
+import { IApi } from "@/helpers";
 
 class ProductCategoryApi {
-  async createProductCategory(args: Omit<IProductCategory, "_id">) {
+  async createProductCategory(
+    args: Omit<IProductCategory, "_id">
+  ): Promise<IApi> {
     try {
       const response = await http.postForm(
         `${PATH_API_V1.productCategory}/create`,
         resultAppendFormData(args)
       );
-      const result: Omit<
-        IProductCategoryCreateResultApi,
-        "isCreatingProductCategory"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(getErrorMessage(error));
     }
   }
-  async getAllProductCategories(fieldsQuery: Partial<IArgsQuery>) {
+  async getAllProductCategories(
+    fieldsQuery: Partial<IArgsQuery>
+  ): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.productCategory}/getAll`, {
         params: {
@@ -36,17 +30,14 @@ class ProductCategoryApi {
           limit: fieldsQuery.limit,
         },
       });
-      const result: Omit<
-        IProductCategoryGetAllResultApi,
-        "isGettingProductCategories"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-  async searchCategories(fieldsQuery: Partial<IArgsQuery>) {
+  async searchCategories(fieldsQuery: Partial<IArgsQuery>): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.productCategory}/search`, {
         params: {
@@ -55,10 +46,7 @@ class ProductCategoryApi {
           limit: fieldsQuery.limit,
         },
       });
-      const result: Omit<
-        IProductCategoryGetAllResultApi,
-        "isGettingProductCategories"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
@@ -67,15 +55,12 @@ class ProductCategoryApi {
 
   async getProductCategoryById({
     _id: categoryId,
-  }: Pick<IProductCategory, "_id">) {
+  }: Pick<IProductCategory, "_id">): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.productCategory}/getById/${categoryId}`
       );
-      const result: Omit<
-        IProductCategoryGetByIdResultApi,
-        "isGettingProductCategory"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
@@ -84,15 +69,12 @@ class ProductCategoryApi {
 
   async getProductCategoryByGroupId({
     productCategory_group: groupId,
-  }: Pick<IProductCategory, "productCategory_group">) {
+  }: Pick<IProductCategory, "productCategory_group">): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.productCategory}/getByGroupId/${groupId}`
       );
-      const result: Omit<
-        IProductCategoriesGetMulti,
-        "isGettingProductCategories"
-      > = response.data;
+      const result: IApi = response.data;
       console.log(result);
       return result;
     } catch (error: any) {
@@ -100,7 +82,9 @@ class ProductCategoryApi {
     }
   }
 
-  async getProductCategoriesByIds(categoriesIds: Array<string> | undefined) {
+  async getProductCategoriesByIds(
+    categoriesIds: Array<string> | undefined
+  ): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.productCategory}/getByIds`,
@@ -110,39 +94,34 @@ class ProductCategoryApi {
           },
         }
       );
-      const result: Omit<
-        IProductCategoriesGetMulti,
-        "isGettingProductCategories"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-  async updateProductCategory(args: Partial<IProductCategory>) {
-    console.log("args::::", args);
+  async updateProductCategory(args: Partial<IProductCategory>): Promise<IApi> {
     try {
       const response = await http.patchForm(
         `${PATH_API_V1.productCategory}/update/${args._id}`,
         resultAppendFormData(args)
       );
-      const result: IProductCategoryUpdateResultApi = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-  async deleteProductCategory({ _id }: Pick<IProductCategory, "_id">) {
+  async deleteProductCategory({
+    _id,
+  }: Pick<IProductCategory, "_id">): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.productCategory}/delete/${_id}`
       );
-      const result: Omit<
-        IProductCategoryDeleteResultApi,
-        "isDeletingProductCategory"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error);

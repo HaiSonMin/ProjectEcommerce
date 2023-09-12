@@ -24,12 +24,7 @@ import {
   CouponCreatePage,
   CouponAddProductsPage,
 } from "./coupon";
-import {
-  ProductPage,
-  ProductTablePage,
-  ProductCreatePage,
-
-} from "./product";
+import { ProductPage, ProductTablePage, ProductCreatePage } from "./product";
 
 import {
   ProductCategoryPage,
@@ -72,5 +67,4 @@ export {
   ProductPage,
   ProductTablePage,
   ProductCreatePage,
-
 };

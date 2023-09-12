@@ -1,8 +1,8 @@
+import { useCallback } from "react";
 import { styled } from "styled-components";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { IProductOption } from "@/helpers";
-import { FormRow, Heading, InputFile } from "@/components";
-import { Input } from "antd";
+import { FormRow, Heading, ImagesGroup, Input, InputFile } from "@/components";
+import { useProductOption } from "../context/ProductOptionProvider";
 
 const ProductSerialItemStyled = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -41,37 +41,21 @@ const ProductSerialItemStyled = styled.div`
 interface IProps {
   indexSerial: number;
   indexOption: number;
-  productOptions: Array<IProductOption>;
-  handlerDeleteProductSerial: (
-    indexOption: number,
-    indexSerial: number
-  ) => void;
-  handlerChangeProductSerialName: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number,
-    indexSerial: number
-  ) => void;
-  handlerChangeProductSerialPrice: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number,
-    indexSerial: number
-  ) => void;
-  handlerChangeProductSerialImage: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number,
-    indexSerial: number
-  ) => void;
 }
 
 export default function ProductSerialItem({
   indexSerial,
   indexOption,
-  productOptions,
-  handlerDeleteProductSerial,
-  handlerChangeProductSerialName,
-  handlerChangeProductSerialPrice,
-  handlerChangeProductSerialImage,
 }: IProps) {
+  const {
+    isEdit,
+    productOptions,
+    handlerDeleteProductSerial,
+    handlerChangeProductSerialName,
+    handlerChangeProductSerialPrice,
+    handlerChangeProductSerialImage,
+  } = useProductOption();
+
   return (
     <ProductSerialItemStyled>
       <div className="serial--item-header">
@@ -84,11 +68,15 @@ export default function ProductSerialItem({
         <FormRow
           label="Tên serial"
           error={
-            !productOptions[indexOption]?.product_serials?.[indexSerial]
-              .product_serialName && "Please provide product serial name"
+            !productOptions[indexOption].product_serials?.[indexSerial]
+              .serialName && "Please provide product serial name"
           }
         >
           <Input
+            value={
+              productOptions[indexOption]?.product_serials?.[indexSerial]
+                .serialName
+            }
             placeholder="Tên serial"
             id="serialName"
             onChange={(event) =>
@@ -108,13 +96,28 @@ export default function ProductSerialItem({
           />
         </FormRow>
         <FormRow label="Serial image">
-          <InputFile
+          {/* <InputFile
+            numberImage={0}
             id="serialImage"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              handlerChangeProductSerialImage(event, indexOption, indexSerial)
+            } */}
+          <Input
+            type="file"
             accept="image/*"
-            onChange={(event) =>
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               handlerChangeProductSerialImage(event, indexOption, indexSerial)
             }
           />
+          {isEdit && (
+            <ImagesGroup
+              images={[
+                productOptions?.[indexOption].product_serials?.[indexSerial]
+                  .serialImage,
+              ]}
+              altTitle={`Image iphone ${productOptions?.[indexOption].product_serials?.[indexSerial].serialName}`}
+            />
+          )}
         </FormRow>
       </div>
     </ProductSerialItemStyled>

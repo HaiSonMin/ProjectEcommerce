@@ -1,9 +1,8 @@
 import React from "react";
 import { Select, Tag, Space } from "antd";
-import type { CustomTagProps } from "rc-select/lib/BaseSelect";
-import IOptionSelect from "@/helpers/ISelectOption";
 import { styled } from "styled-components";
 import { DefaultOptionType } from "antd/es/select";
+import type { CustomTagProps } from "rc-select/lib/BaseSelect";
 
 const { Option } = Select;
 
@@ -64,7 +63,9 @@ export default function SelectMultiV2(props: IProps) {
           <Space>
             <LabelOption>
               <span aria-label={option.label as string}>{option.label}</span>
-              <img role="img" src={option.image} alt={`${option.label}`} />
+              {option.image && (
+                <img role="img" src={option.image} alt={`${option.label}`} />
+              )}
             </LabelOption>
           </Space>
         </Option>

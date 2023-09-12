@@ -53,17 +53,17 @@ export interface IDemandsSearchResultApi extends IApi {
 export interface IDemandCreateResultApi extends IApi {
   isCreatingDemand: boolean;
   metadata: IDemand | undefined;
-  createDemand: UseMutateFunction<IApi, any, Omit<IDemand, "_id">>;
+  createDemand: UseMutateFunction<any, unknown, Omit<IDemand, "_id">>;
 }
 
 export interface IDemandUpdateResultApi extends IApi {
   isUpdatingDemand: boolean;
   metadata: IDemand | undefined;
-  updateDemand: UseMutateFunction<IApi, any, Partial<IDemand>>;
+  updateDemand: UseMutateFunction<any, unknown, Partial<IDemand>>;
 }
 
 export interface IDemandDeleteResultApi extends IApi {
   isDeletingDemand: boolean;
   metadata: IDemand | undefined;
-  deleteDemand: UseMutateFunction<IApi, any, Pick<IDemand, "_id">>;
+  deleteDemand: UseMutateFunction<any, unknown, Pick<IDemand, "_id">>;
 }

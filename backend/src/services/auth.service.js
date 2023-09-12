@@ -28,7 +28,6 @@ class AuthService {
     //   .lean()
     //   .exec();
     // if (findUserByUserName) throw new BadRequestError("User Name has exit");
-
     const newUser = await UserModel.create(payload);
     // if (!newUser) throw new BadRequestError("Register User Error");
     return getInfoData(newUser, [

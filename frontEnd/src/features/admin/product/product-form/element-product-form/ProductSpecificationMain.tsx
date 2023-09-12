@@ -1,6 +1,14 @@
-import { Heading, Input, TextArea } from "@/components";
+import {
+  Heading,
+  Input,
+  InputLabel,
+  TextArea,
+  TextAreaLabel,
+} from "@/components";
 import { styled } from "styled-components";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useProductOption } from "../context/ProductOptionProvider";
+import { isInputElement } from "react-router-dom/dist/dom";
 
 const ProductSpecificationMainStyled = styled.div`
   margin-top: 1.5rem;
@@ -53,9 +61,6 @@ const SpecificationItem = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
-    & label {
-      white-space: nowrap;
-    }
 
     &:nth-child(1) {
       width: 30%;
@@ -68,26 +73,67 @@ const SpecificationItem = styled.div`
 `;
 
 interface IProps {
-  handlerAddSpecificationMain: any;
+  indexOption: number;
 }
 
-export default function ProductSpecificationMain({
-  handlerAddSpecificationMain,
-}: IProps) {
+export default function ProductSpecificationMain({ indexOption }: IProps) {
+  const {
+    productOptions,
+    handlerAddProductOptionSpecificationMain,
+    handlerChangeProductOptionSpecificationMainType,
+    handlerChangeProductOptionSpecificationMainValue,
+    handlerDeleteProductOptionSpecificationMain,
+  } = useProductOption();
   return (
     <ProductSpecificationMainStyled>
       <div className="header">
         <Heading $as="h4">Specification Main</Heading>
-        <BtnAddSpecification onClick={handlerAddSpecificationMain}>
+        <BtnAddSpecification
+          onClick={() => handlerAddProductOptionSpecificationMain(indexOption)}
+        >
           Add New Specification Main
         </BtnAddSpecification>
       </div>
       <SpecBox>
-        <SpecificationItem>
-          <Input type="text" placeholder="Thuộc tính" />
-          <TextArea placeholder="Thông số kỹ thuật" />
-          <RiDeleteBin5Line />
-        </SpecificationItem>
+        {productOptions[indexOption].product_specificationMain.map(
+          (spec, indexSpec) => {
+            return (
+              <SpecificationItem key={spec.id}>
+                <InputLabel
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handlerChangeProductOptionSpecificationMainType(
+                      e,
+                      indexOption,
+                      indexSpec
+                    )
+                  }
+                  type="text"
+                  placeHolder="Thuộc tính"
+                  value={spec.specKey}
+                />
+                <TextAreaLabel
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                    handlerChangeProductOptionSpecificationMainValue(
+                      e,
+                      indexOption,
+                      indexSpec
+                    )
+                  }
+                  placeHolder="Thông số kỹ thuật"
+                  value={spec.specValue}
+                />
+                <RiDeleteBin5Line
+                  onClick={() =>
+                    handlerDeleteProductOptionSpecificationMain(
+                      indexOption,
+                      indexSpec
+                    )
+                  }
+                />
+              </SpecificationItem>
+            );
+          }
+        )}
       </SpecBox>
     </ProductSpecificationMainStyled>
   );

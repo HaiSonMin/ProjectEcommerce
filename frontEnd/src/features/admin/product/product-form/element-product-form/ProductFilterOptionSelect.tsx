@@ -1,4 +1,3 @@
-
 import { css, styled } from "styled-components";
 import { IFilterItem, IFilterOption } from "@/helpers";
 import { useState } from "react";
@@ -72,20 +71,20 @@ const FilterItem = styled.div<{ $active: boolean }>`
 
 interface IProps {
   filtersOptions: Array<IFilterOption> | undefined;
-  choseFilterOptions: Array<IFilterOption>;
-  setChoseFilterOptions: React.Dispatch<React.SetStateAction<any>>;
+  selectedFilterOptions: Array<IFilterOption>;
+  setSelectedFilterOptions: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export default function ProductFilterOptionSelect({
   filtersOptions,
-  choseFilterOptions,
-  setChoseFilterOptions,
+  selectedFilterOptions,
+  setSelectedFilterOptions,
 }: IProps) {
   const handlerAddFilterOptions = (
     filterOption: IFilterOption,
     filterItem: IFilterItem
   ) => {
-    const newChoseFilterOptions = [...choseFilterOptions];
+    const newChoseFilterOptions = [...selectedFilterOptions];
     if (!newChoseFilterOptions.length)
       newChoseFilterOptions.push({
         id: filterOption.id,
@@ -123,9 +122,7 @@ export default function ProductFilterOptionSelect({
         }
       }
     }
-    setChoseFilterOptions(newChoseFilterOptions);
-
-    console.log(newChoseFilterOptions);
+    setSelectedFilterOptions(newChoseFilterOptions);
   };
 
   return (
@@ -137,7 +134,7 @@ export default function ProductFilterOptionSelect({
             {filterOption.filterItems.map((filterItem) => (
               <FilterItem
                 key={filterItem.id}
-                $active={choseFilterOptions.some((option) =>
+                $active={selectedFilterOptions.some((option) =>
                   option.filterItems.find((item) => item.id === filterItem.id)
                 )}
                 onClick={() =>

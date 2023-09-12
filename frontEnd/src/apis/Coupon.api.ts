@@ -10,22 +10,20 @@ import { ICoupon } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { getErrorMessage, http } from "@/utils";
 import { PATH_API_V1 } from "@/constant";
+import { IApi } from "@/helpers";
 
 class CouponApi {
-  async createCoupon(args: Partial<ICoupon>) {
+  async createCoupon(args: Partial<ICoupon>): Promise<IApi> {
     try {
       const response = await http.post(`${PATH_API_V1.coupon}/create`, args);
-      const result: Omit<
-        ICouponCreateResultApi,
-        "isCreatingCoupon" | "createCoupon"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async getAllCoupons(fieldsQuery: Partial<IArgsQuery>) {
+  async getAllCoupons(fieldsQuery: Partial<IArgsQuery>): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.coupon}/getAll`, {
         params: {
@@ -36,28 +34,26 @@ class CouponApi {
           numericFilters: fieldsQuery.numericFilters,
         },
       });
-      const result: Omit<ICouponGetAllResultApi, "isGettingCoupons"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async getOneCoupon(arg: Pick<ICoupon, "_id">) {
+  async getOneCoupon(arg: Pick<ICoupon, "_id">): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.coupon}/getById/${arg._id}`
       );
-      const result: Omit<ICouponGetOneResultApi, "isGettingCoupon"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async searchCoupons(fieldsQuery: Partial<IArgsQuery>) {
+  async searchCoupons(fieldsQuery: Partial<IArgsQuery>): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.coupon}/search`, {
         params: {
@@ -67,40 +63,33 @@ class CouponApi {
           limit: fieldsQuery.limit,
         },
       });
-      const result: Omit<ICouponSearchResultApi, "isSearchingCoupons"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async updateCoupon(args: Partial<ICoupon>) {
+  async updateCoupon(args: Partial<ICoupon>): Promise<IApi> {
     const { _id: couponId, ...dataUpdate } = args;
     try {
       const response = await http.patch(
         `${PATH_API_V1.coupon}/update/${couponId}`,
         dataUpdate
       );
-      const result: Omit<
-        ICouponUpdateResultApi,
-        "isUpdatingCoupon" | "updateCoupon"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async deleteCoupon(arg: Pick<ICoupon, "_id">) {
+  async deleteCoupon(arg: Pick<ICoupon, "_id">): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.coupon}/delete/${arg._id}`
       );
-      const result: Omit<
-        ICouponDeleteResultApi,
-        "isDeletingCoupon" | "deleteCoupon"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));

@@ -7,10 +7,7 @@ const createKeys = () => {
   return { privateKey, publicKey };
 };
 
-module.exports = createKeys;
-
 const createTokenPair = async ({ payload={}, privateKey, publicKey }) => {
-  console.log("payload::::", payload);
   const accessToken = JWT.sign(payload, publicKey, { expiresIn: "30m" });
   const refreshToken = JWT.sign(payload, privateKey, { expiresIn: "3d" });
 

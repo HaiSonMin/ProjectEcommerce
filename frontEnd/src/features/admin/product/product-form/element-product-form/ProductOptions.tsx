@@ -1,10 +1,15 @@
 import { styled } from "styled-components";
-import { useState } from "react";
-import { randomKey } from "@/utils";
+import { duplicateObject, randomKey } from "@/utils";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { IoDuplicateOutline } from "react-icons/io5";
 import { IProductOption } from "@/helpers";
 import { Collapse } from "antd";
 import ProductOptionComponent from "./ProductOptionComponent";
+import ProductOptionProvider from "../context";
+import { MouseEventHandler } from "react";
+import { InputLabel } from "@/components";
+import { IProduct } from "@/interfaces";
+import { UseFormRegister } from "react-hook-form";
 
 const ProductFilterOptionStyled = styled.div``;
 
@@ -40,109 +45,22 @@ const ProductOptionCollapse = styled(Collapse)`
   }
 `;
 
+const FeatureOption = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
 interface IProps {
-  productOptions: Array<IProductOption>;
+  isEdit: boolean;
+  productOptions: Array<IProductOption> | undefined;
   setProductOptions: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export default function ProductOption({
-  productOptions,
+  isEdit,
+  productOptions = [],
   setProductOptions,
 }: IProps) {
-  const handlerChangeProductOptionName = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number
-  ) => {
-    const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_optionName = event.target.value;
-    setProductOptions(newProductOptions);
-  };
-  const handlerChangeProductOptionPrice = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number
-  ) => {
-    const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_priceDifference = Number(
-      event.target.value
-    );
-    setProductOptions(newProductOptions);
-  };
-  const handlerChangeProductSerialName = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number,
-    indexSerial: number
-  ) => {
-    const newProductOptions = [...productOptions];
-
-    if (newProductOptions[indexOption]?.product_serials) {
-      const serial =
-        newProductOptions[indexOption].product_serials?.[indexSerial];
-
-      if (serial) {
-        serial.product_serialName = event.target.value;
-        setProductOptions(newProductOptions);
-      }
-    }
-  };
-  const handlerChangeProductSerialPrice = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number,
-    indexSerial: number
-  ) => {
-    const newProductOptions = [...productOptions];
-    if (newProductOptions[indexOption]?.product_serials) {
-      const serial =
-        newProductOptions[indexOption].product_serials?.[indexSerial];
-
-      if (serial) {
-        serial.product_priceDifference = +event.target.value;
-        setProductOptions(newProductOptions);
-      }
-    }
-  };
-  const handlerChangeProductSerialImage = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number,
-    indexSerial: number
-  ) => {
-    const newProductOptions = [...productOptions];
-    if (newProductOptions[indexOption]?.product_serials) {
-      const serial =
-        newProductOptions[indexOption].product_serials?.[indexSerial];
-
-      if (serial) {
-        serial.product_serialImage = event.target.files?.[0];
-        setProductOptions(newProductOptions);
-      }
-    }
-  };
-
-  const handlerChangeProductOptionSpecificationMain = (
-    specification: string,
-    indexOption: number
-  ) => {
-    const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_specificationMain = specification;
-    setProductOptions(newProductOptions);
-  };
-
-  const handlerChangeProductOptionSpecificationDetail = (
-    specification: string,
-    indexOption: number
-  ) => {
-    const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_specificationDetail = specification;
-    setProductOptions(newProductOptions);
-  };
-  const handlerChangeProductOptionDescription = (
-    description: string,
-    indexOption: number
-  ) => {
-    const newProductOptions = [...productOptions];
-    newProductOptions[indexOption].product_description = description;
-    setProductOptions(newProductOptions);
-  };
-
   const handlerAddProductOption = () => {
     const newProductOptions: Array<IProductOption> = [
       ...productOptions,
@@ -151,14 +69,14 @@ export default function ProductOption({
         product_optionName: "",
         product_description: "",
         product_priceDifference: 0,
-        product_specificationMain: {},
+        product_specificationMain: [],
         product_specificationDetail: "",
         product_serials: [
           {
             id: randomKey(),
-            product_serialName: "",
-            product_serialImage: "",
-            product_priceDifference: 0,
+            serialName: "",
+            serialImage: "",
+            serialPriceDifference: 0,
           },
         ],
       },
@@ -166,99 +84,76 @@ export default function ProductOption({
     setProductOptions(newProductOptions);
   };
 
-  const handlerAddProductSerial = (indexOption: number) => {
-    const newProductOptions = [...productOptions];
-    newProductOptions[indexOption]?.product_serials?.push({
-      id: randomKey(),
-      product_serialName: "",
-      product_serialImage: "",
-      product_priceDifference: 0,
-    });
-    setProductOptions(newProductOptions);
-  };
-
   const handlerDeleteProductOption = (
-    event: React.MouseEvent<SVGElement, MouseEvent>,
+    event: React.ChangeEvent<HTMLDivElement>,
     indexOption: number
   ) => {
+    event.stopPropagation();
     if (productOptions.length <= 1) return;
     const newProductOptions = [...productOptions];
     newProductOptions.splice(indexOption, 1);
     setProductOptions(newProductOptions);
   };
 
-  const handlerDeleteProductSerial = (
-    indexOption: number,
-    indexSerial: number
+  const handlerDuplicateProductOption = (
+    event: React.ChangeEvent<HTMLDivElement>,
+    indexOption: number
   ) => {
-    const newProductOptions = [...productOptions];
-    newProductOptions[indexOption]?.product_serials?.splice(indexSerial, 1);
+    event.stopPropagation();
+    const newOption: IProductOption = duplicateObject({
+      ...productOptions[indexOption],
+    });
+    const newProductOptions: Array<IProductOption> = [
+      ...productOptions,
+      newOption,
+    ];
     setProductOptions(newProductOptions);
   };
   return (
-    <ProductFilterOptionStyled>
-      <BtnAddFilterOption onClick={handlerAddProductOption}>
-        Add New Product Option
-      </BtnAddFilterOption>
-      <ProductOptionBox>
-        <ProductOptionCollapse
-          expandIconPosition={"start"}
-          items={productOptions.map((option: IProductOption, indexOption) => {
-            return {
-              key: option.id,
-              label: (
-                <div>
-                  Option của sản phẩm {indexOption + 1}:{" "}
-                  <span className="font-bold">
-                    {productOptions[indexOption].product_optionName}
-                  </span>
-                </div>
-              ),
-              children: (
-                <ProductOptionComponent
-                  productOptions={productOptions}
-                  indexOption={indexOption}
-                  handlerAddProductSerial={handlerAddProductSerial}
-                  handlerDeleteProductSerial={handlerDeleteProductSerial}
-                  handlerChangeProductOptionName={
-                    handlerChangeProductOptionName
-                  }
-                  handlerChangeProductOptionPrice={
-                    handlerChangeProductOptionPrice
-                  }
-                  handlerChangeProductSerialName={
-                    handlerChangeProductSerialName
-                  }
-                  handlerChangeProductSerialPrice={
-                    handlerChangeProductSerialPrice
-                  }
-                  handlerChangeProductSerialImage={
-                    handlerChangeProductSerialImage
-                  }
-                  handlerChangeProductOptionDescription={
-                    handlerChangeProductOptionDescription
-                  }
-                  handlerChangeProductOptionSpecificationMain={
-                    handlerChangeProductOptionSpecificationMain
-                  }
-                  handlerChangeProductOptionSpecificationDetail={
-                    handlerChangeProductOptionSpecificationDetail
-                  }
-                />
-              ),
+    <ProductOptionProvider
+      isEdit={isEdit}
+      productOptions={productOptions}
+      setProductOptions={setProductOptions}
+    >
+      <ProductFilterOptionStyled>
+        <BtnAddFilterOption onClick={handlerAddProductOption}>
+          Add New Product Option
+        </BtnAddFilterOption>
+        <ProductOptionBox>
+          <ProductOptionCollapse
+            expandIconPosition={"start"}
+            items={productOptions.map((option: IProductOption, indexOption) => {
+              return {
+                key: option.id,
+                label: (
+                  <div>
+                    Option của sản phẩm {indexOption + 1}:{" "}
+                    <span className="font-bold">
+                      {productOptions[indexOption].product_optionName}
+                    </span>
+                  </div>
+                ),
+                children: <ProductOptionComponent indexOption={indexOption} />,
 
-              extra: (
-                <RiDeleteBin5Line
-                  className="delete--option"
-                  onClick={(e: React.MouseEvent<SVGElement, MouseEvent>) =>
-                    handlerDeleteProductOption(e, indexOption)
-                  }
-                />
-              ),
-            };
-          })}
-        />
-      </ProductOptionBox>
-    </ProductFilterOptionStyled>
+                extra: (
+                  <FeatureOption>
+                    <IoDuplicateOutline
+                      onClick={(e: any) =>
+                        handlerDuplicateProductOption(e, indexOption)
+                      }
+                    />
+                    <RiDeleteBin5Line
+                      onClick={(e: any) =>
+                        handlerDeleteProductOption(e, indexOption)
+                      }
+                    />
+                  </FeatureOption>
+                ),
+              };
+            })}
+          />
+        </ProductOptionBox>
+      </ProductFilterOptionStyled>
+    </ProductOptionProvider>
   );
 }

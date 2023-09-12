@@ -4,6 +4,15 @@ const { Types } = require("mongoose");
 const { cloudinary } = require("../configs");
 // Lodash
 const getInfoData = (object = {}, field = []) => lodash.pick(object, field);
+const setDataNested = (data, obj = {}) => {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const targetKey = key.replace(/\[(\d+)\]/g, "[$1]");
+      lodash.set(data, targetKey, obj[key]);
+    }
+  }
+  return data;
+};
 
 function checkStringType(inputString) {
   if (/^\d+$/.test(inputString)) {
@@ -95,17 +104,18 @@ const capitalizeFirstLetter = (inputString) => {
 const uploadOneImage = (fieldName) => cloudinary.single(fieldName);
 const uploadMultiImages = (fieldName, maxCount) =>
   cloudinary.array(fieldName, maxCount);
-const uploadMultiFieldsImages = (fields) => cloudinary.fields(fields);
+const uploadMultiFieldsImages = (fields) => cloudinary.any(fields);
+const uploadMultiFieldsImagesDynamic = () => cloudinary.any();
 
 const getImagesPath = (images) => images.map((img) => img.path);
 
 const getFieldsPath = (fieldsImage = []) => {
-  let fieldsPath = {};
-  for (const [keys, value] of Object.entries(fieldsImage)) {
-    fieldsPath[keys] = value.map((v) => v.path);
+  let fields = {};
+  for (const item of fieldsImage) {
+    if (!fields[item.fieldname]) fields[item.fieldname] = [item.path];
+    else fields[item.fieldname].push(item.path);
   }
-  // [{key:value}, {key:value}]
-  return fieldsPath;
+  return fields;
 };
 
 module.exports = {
@@ -126,7 +136,9 @@ module.exports = {
   uploadOneImage,
   uploadMultiImages,
   uploadMultiFieldsImages,
+  uploadMultiFieldsImagesDynamic,
   getImagesPath,
   getFieldsPath,
   capitalizeFirstLetter,
+  setDataNested,
 };

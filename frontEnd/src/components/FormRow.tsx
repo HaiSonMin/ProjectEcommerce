@@ -7,7 +7,7 @@ const StyledFormRow = styled.div<{ $width?: string }>`
   display: grid;
   align-items: center;
   grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
+  gap: 2rem;
   padding: 1.2rem 0;
   width: ${(props) => props.$width || "100%"};
 
@@ -21,12 +21,6 @@ const StyledFormRow = styled.div<{ $width?: string }>`
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
-  }
-
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
   }
 `;
 const Label = styled.label`
@@ -47,7 +41,6 @@ interface Props {
 }
 
 const FormRow = (props: Props) => {
-  // console.log("children?.props::",children?.props);
   return (
     <StyledFormRow $width={props.width}>
       <Label htmlFor={props.children?.props?.id}>{props.label}</Label>

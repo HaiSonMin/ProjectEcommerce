@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import JoditEditor from "jodit-react";
-import { IProductOption } from "@/helpers";
 import ProductSerialItem from "./ProductSerialItem";
 import { FormRow, FormRowContent, Heading, Input } from "@/components";
 import ProductSpecificationMain from "./ProductSpecificationMain";
+import { useProductOption } from "../context/ProductOptionProvider";
 
 const ProductOptionComponentStyled = styled.div``;
 
@@ -54,69 +54,35 @@ const BtnAddSerial = styled.div`
   color: #fff;
   font-weight: 600;
   font-size: 1.4rem;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 `;
 
 interface IProps {
   indexOption: number;
-  productOptions: Array<IProductOption>;
-  handlerAddProductSerial: (indexOption: number) => void;
-  handlerDeleteProductSerial: (
-    indexOption: number,
-    indexSerial: number
-  ) => void;
-  handlerChangeProductOptionName: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number
-  ) => void;
-  handlerChangeProductOptionPrice: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number
-  ) => void;
-  handlerChangeProductSerialName: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number,
-    indexSerial: number
-  ) => void;
-  handlerChangeProductSerialPrice: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number,
-    indexSerial: number
-  ) => void;
-  handlerChangeProductSerialImage: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    indexOption: number,
-    indexSerial: number
-  ) => void;
-  handlerChangeProductOptionDescription: (
-    description: string,
-    indexOption: number
-  ) => void;
-  handlerChangeProductOptionSpecificationMain: (
-    specification: string,
-    indexOption: number
-  ) => void;
-  handlerChangeProductOptionSpecificationDetail: (
-    specification: string,
-    indexOption: number
-  ) => void;
 }
 
-export default function ProductOptionComponent({
-  indexOption,
-  productOptions,
-  handlerAddProductSerial,
-  handlerDeleteProductSerial,
-  handlerChangeProductOptionName,
-  handlerChangeProductOptionPrice,
-  handlerChangeProductSerialName,
-  handlerChangeProductSerialImage,
-  handlerChangeProductSerialPrice,
-  handlerChangeProductOptionDescription,
-  handlerChangeProductOptionSpecificationMain,
-  handlerChangeProductOptionSpecificationDetail,
-}: IProps) {
-  const [haveSerials, setHaveSerials] = useState<boolean>(false);
+export default function ProductOptionComponent({ indexOption }: IProps) {
+  const [haveSerials, setHaveSerials] = useState<boolean>(true);
+  const {
+    productOptions,
+    handlerAddProductSerial,
+    handlerChangeProductOptionName,
+    handlerChangeProductOptionPrice,
+    handlerChangeProductOptionDescription,
+    handlerChangeProductOptionSpecificationDetail,
+    handlerDeleteAllProductSerial,
+  } = useProductOption();
+
+  const handlerHaveProductSerial = () => {
+    if (!haveSerials) {
+      setHaveSerials(true);
+      handlerAddProductSerial(indexOption);
+    } else {
+      setHaveSerials(false);
+      handlerDeleteAllProductSerial(indexOption);
+    }
+  };
 
   return (
     <ProductOptionComponentStyled>
@@ -126,9 +92,11 @@ export default function ProductOptionComponent({
           <div className="header--checkbox">
             (
             <Input
+              className="mt-[4px] cursor-pointer"
               type="checkbox"
               id="checkBox"
-              onChange={() => setHaveSerials(!haveSerials)}
+              onChange={handlerHaveProductSerial}
+              defaultChecked={haveSerials}
             />
             <label htmlFor="checkBox">Có serials</label>)
           </div>
@@ -137,11 +105,12 @@ export default function ProductOptionComponent({
           <FormRow
             label="Tên Option"
             error={
-              !productOptions[indexOption].product_optionName &&
+              !productOptions[indexOption]?.product_optionName &&
               "Please provide product option name"
             }
           >
             <Input
+              value={productOptions[indexOption]?.product_optionName}
               placeholder="Tên Option"
               id="optionName"
               onChange={(e) => handlerChangeProductOptionName(e, indexOption)}
@@ -149,7 +118,7 @@ export default function ProductOptionComponent({
           </FormRow>
           <FormRow label="Giá chênh lệch với giá gốc">
             <Input
-              defaultValue={0}
+              value={productOptions[indexOption].product_priceDifference}
               type="number"
               placeholder="Price difference"
               id="optionPriceDifference"
@@ -164,23 +133,12 @@ export default function ProductOptionComponent({
                 Add new serial
               </BtnAddSerial>
               <div className="serials--box">
-                {productOptions[indexOption]?.product_serials?.map(
+                {productOptions?.[indexOption]?.product_serials?.map(
                   (serial, indexSerial) => (
                     <ProductSerialItem
                       key={serial.id}
-                      productOptions={productOptions}
-                      indexSerial={indexSerial}
                       indexOption={indexOption}
-                      handlerChangeProductSerialImage={
-                        handlerChangeProductSerialImage
-                      }
-                      handlerDeleteProductSerial={handlerDeleteProductSerial}
-                      handlerChangeProductSerialName={
-                        handlerChangeProductSerialName
-                      }
-                      handlerChangeProductSerialPrice={
-                        handlerChangeProductSerialPrice
-                      }
+                      indexSerial={indexSerial}
                     />
                   )
                 )}
@@ -190,11 +148,11 @@ export default function ProductOptionComponent({
         </div>
       </ProductOption>
 
-      <ProductSpecificationMain/>
+      <ProductSpecificationMain indexOption={indexOption} />
 
       <FormRowContent label="Thông số kĩ thuật chi tiết">
         <JoditEditor
-          value={""}
+          value={productOptions[indexOption].product_specificationDetail}
           onChange={(specification: string) =>
             handlerChangeProductOptionSpecificationDetail(
               specification,
@@ -205,7 +163,7 @@ export default function ProductOptionComponent({
       </FormRowContent>
       <FormRowContent label="Mô tả sản phẩm">
         <JoditEditor
-          value={""}
+          value={productOptions[indexOption].product_description}
           onChange={(description: string) =>
             handlerChangeProductOptionDescription(description, indexOption)
           }

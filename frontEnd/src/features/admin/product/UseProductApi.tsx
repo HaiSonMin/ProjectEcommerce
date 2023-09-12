@@ -5,17 +5,14 @@ import {
   IProductGetOneResultApi,
   IProductGetAllResultApi,
   IProductDeleteResultApi,
-  IProductUpdateBasicResultApi,
-  IProductMainInfoDeleteResultApi,
-  IProductMainInfoGetOneResultApi,
-  IProductMainInfoUpdateResultApi,
-  IProductProvideMainInfoResultApi,
   IProductSearchResultApi,
+  IProductUpdateResultApi,
 } from "@/api-types/IProductResultApi";
 import { toast } from "react-hot-toast";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getQueriesString } from "@/utils";
 import { useQueriesString } from "@/hooks";
+import { GiConsoleController } from "react-icons/gi";
 
 export default class UseProductApi {
   static createProduct(): IProductCreateResultApi {
@@ -31,26 +28,6 @@ export default class UseProductApi {
     return {
       createProduct: mutate,
       isCreatingProduct: isLoading,
-      message: data?.message,
-      metadata: data?.metadata,
-      statusCode: data?.statusCode,
-      reasonStatusCode: data?.reasonStatusCode,
-    };
-  }
-
-  static provideProductMainInfo(): IProductProvideMainInfoResultApi {
-    const queryClient = useQueryClient();
-    const { isLoading, mutate, data } = useMutation({
-      mutationFn: ProductApi.provideProductMainInfo,
-      onSuccess: () => {
-        toast.success("Provide product successfully");
-        queryClient.invalidateQueries({ queryKey: ["products"] });
-      },
-      onError: (error) => toast.error("Create product errors"),
-    });
-    return {
-      provideProductMainInfo: mutate,
-      isAddingProduct: isLoading,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,
@@ -213,37 +190,21 @@ export default class UseProductApi {
     };
   }
 
-  static getProductMainInfoById(): IProductMainInfoGetOneResultApi {
-    const [searchParams] = useSearchParams();
-
-    const productMainInfoId = searchParams.get("mainInfoId") || "";
-
-    const { isLoading, data } = useQuery({
-      queryKey: ["product", productMainInfoId],
-      queryFn: () =>
-        ProductApi.getProductMainInfoById({
-          _id: productMainInfoId,
-        }),
-    });
-    return {
-      isGettingProduct: isLoading,
-      message: data?.message,
-      metadata: data?.metadata,
-      statusCode: data?.statusCode,
-      reasonStatusCode: data?.reasonStatusCode,
-    };
-  }
-
-  static updateProductBasic(): IProductUpdateBasicResultApi {
+  static updateProduct(): IProductUpdateResultApi {
     const queryClient = useQueryClient();
-    const { productId } = useParams();
     const { isLoading, data, mutate } = useMutation({
-      mutationFn: ProductApi.updateProductBasic,
-      onSuccess: () => {
-        toast.success("Update Images Product Successfully");
-        queryClient.invalidateQueries({ queryKey: ["product", productId] });
+      mutationFn: ProductApi.updateProduct,
+      onSuccess: (dataUpdated) => {
+        console.log(dataUpdated);
+        toast.success("Update product success");
+        queryClient.invalidateQueries({
+          queryKey: ["products"],
+        });
+        queryClient.removeQueries({
+          queryKey: ["product"],
+        });
       },
-      onError: () => toast.error("Update Error"),
+      onError: () => toast.error("Delete Error"),
     });
 
     return {
@@ -252,28 +213,7 @@ export default class UseProductApi {
       metadata: data?.metadata,
       statusCode: data?.statusCode,
       reasonStatusCode: data?.reasonStatusCode,
-      updateProductBasic: mutate,
-    };
-  }
-
-  static updateProductMainInfo(): IProductMainInfoUpdateResultApi {
-    const queryClient = useQueryClient();
-    const { isLoading, data, mutate } = useMutation({
-      mutationFn: ProductApi.updateProductMainInfo,
-      onSuccess: () => {
-        toast.success("Update Product Successfully");
-        queryClient.invalidateQueries({ queryKey: ["products"] });
-      },
-      onError: () => toast.error("Update Error"),
-    });
-
-    return {
-      isUpdatingProduct: isLoading,
-      message: data?.message,
-      metadata: data?.metadata,
-      statusCode: data?.statusCode,
-      reasonStatusCode: data?.reasonStatusCode,
-      updateProductMainInfo: mutate,
+      updateProduct: mutate,
     };
   }
 
@@ -295,27 +235,6 @@ export default class UseProductApi {
       statusCode: data?.statusCode,
       reasonStatusCode: data?.reasonStatusCode,
       deleteProduct: mutate,
-    };
-  }
-
-  static deleteProductMainInfo(): IProductMainInfoDeleteResultApi {
-    const queryClient = useQueryClient();
-    const { isLoading, data, mutate } = useMutation({
-      mutationFn: ProductApi.deleteProductMainInfo,
-      onSuccess: () => {
-        toast.success("Delete Product MainInfo Successfully");
-        queryClient.invalidateQueries({ queryKey: ["product"] });
-      },
-      onError: () => toast.error("Delete Error"),
-    });
-
-    return {
-      isDeletingProduct: isLoading,
-      message: data?.message,
-      metadata: data?.metadata,
-      statusCode: data?.statusCode,
-      reasonStatusCode: data?.reasonStatusCode,
-      deleteProductMainInfo: mutate,
     };
   }
 }

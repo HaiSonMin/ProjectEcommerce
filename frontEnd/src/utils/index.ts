@@ -2,6 +2,7 @@ import http from "./http";
 import { v4 as uuidv4 } from "uuid";
 import { VALUE_CONSTANT } from "@/constant";
 import { formatDistance, parseISO } from "date-fns";
+import { IProductOption } from "@/helpers";
 
 const getErrorMessage = (err: any): string => err.response.data.message;
 
@@ -21,16 +22,42 @@ const sortObject = ({ data, sortValue }) => {
 
 const resultAppendFormData = (args: object) => {
   const formData = new FormData();
-  for (let item of Object.entries(args)) {
-    if (typeof item[1] === "object") {
-      for (let i = 0; i < Object.keys(item[1]).length; i++) {
-        formData.append(`${item[0]}`, item[1][i]);
+  for (let [key, value] of Object.entries(args)) {
+    if (typeof value === "object") {
+      for (let i = 0; i < Object.keys(value).length; i++) {
+        formData.append(key, value[i]);
       }
-    } else formData.append(`${item[0]}`, item[1]);
+    } else formData.append(key, value);
   }
   return formData;
 };
 
+const duplicateObject = (object: IProductOption): IProductOption => {
+  for (const key in object) {
+    if (typeof object[key] === "object")
+      object[key] = duplicateObject(object[key]);
+    else if (key === "id") object[key] = randomKey();
+  }
+  return object;
+};
+
+const resultAppendFormDataRecursive = (
+  args: Record<string, any>,
+  formData: FormData = new FormData(),
+  prefix: string = ""
+): FormData => {
+  for (const [key, value] of Object.entries(args)) {
+    const fieldName: string = prefix ? `${prefix}[${key}]` : key;
+    if (value instanceof FileList) {
+      for (let i = 0; i < value.length; i++) {
+        formData.append(fieldName, value[i]);
+      }
+    } else if (typeof value === "object") {
+      resultAppendFormDataRecursive(value, formData, fieldName);
+    } else formData.append(fieldName, value);
+  }
+  return formData;
+};
 const formatDistanceFromNow = (dateStr: string) =>
   formatDistance(parseISO(dateStr), new Date(), {
     addSuffix: true,
@@ -87,6 +114,7 @@ export {
   randomKey,
   sortObject,
   getErrorMessage,
+  duplicateObject,
   getQueriesString,
   formatCurrencyVND,
   formatCurrencyUSD,
@@ -95,4 +123,5 @@ export {
   resultAppendFormData,
   formatDistanceFromNow,
   capitalizeFirstLetter,
+  resultAppendFormDataRecursive,
 };

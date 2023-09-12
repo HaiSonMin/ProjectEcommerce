@@ -13,6 +13,7 @@ import {
 } from "@/api-types/IProductCategoryResultApi";
 import { useQueriesString } from "@/hooks";
 import { useParams } from "react-router-dom";
+import { IApi } from "@/helpers";
 
 export default class UseProductCategoryApi {
   static createCategory(): IProductCategoryCreateResultApi {
@@ -203,7 +204,7 @@ export default class UseProductCategoryApi {
     const queryClient = useQueryClient();
     const { isLoading, mutate, data } = useMutation({
       mutationFn: ProductCategoryApi.updateProductCategory,
-      onSuccess: (data: IProductCategoryUpdateResultApi) => {
+      onSuccess: (data: IApi) => {
         toast.success(
           `Update category ${data.metadata?.productCategory_name} successfully`
         );

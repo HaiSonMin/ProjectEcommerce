@@ -11,23 +11,23 @@ import IArgsQuery from "@/helpers/IArgsQuery";
 import { IDemand, IProductCategory } from "@/interfaces";
 import { getErrorMessage, http, resultAppendFormData } from "@/utils";
 import { PATH_API_V1 } from "@/constant";
+import { IApi } from "@/helpers";
 
 class IDemandApi {
-  async createDemand(args: Omit<IDemand, "_id">) {
+  async createDemand(args: Omit<IDemand, "_id">): Promise<IApi> {
     try {
       const response = await http.postForm(
         `${PATH_API_V1.demand}/create`,
         resultAppendFormData(args)
       );
-      const result: Omit<IDemandCreateResultApi, "isCreatingDemand"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async getAllDemands(fieldsQuery: Partial<IArgsQuery>) {
+  async getAllDemands(fieldsQuery: Partial<IArgsQuery>): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.demand}/getAll`, {
         params: {
@@ -36,8 +36,7 @@ class IDemandApi {
           limit: fieldsQuery.limit,
         },
       });
-      const result: Omit<IDemandGetAllResultApi, "isGettingDemands"> =
-        response.data;
+      const result: IApi = response.data;
       console.log(result);
       return result;
     } catch (error: any) {
@@ -45,13 +44,12 @@ class IDemandApi {
     }
   }
 
-  async getDemandById({ _id: demandId }: Pick<IDemand, "_id">) {
+  async getDemandById({ _id: demandId }: Pick<IDemand, "_id">): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.demand}/getById/${demandId}`
       );
-      const result: Omit<IDemandGetByIdResultApi, "isGettingDemand"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
@@ -60,22 +58,19 @@ class IDemandApi {
 
   async getDemandsByProductCategoryId({
     _id: productCategoryId,
-  }: Pick<IProductCategory, "_id">) {
+  }: Pick<IProductCategory, "_id">): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.demand}/getByProductCategoryId/${productCategoryId}`
       );
-      const result: Omit<
-        IDemandGetByProductCategoryIdResultApi,
-        "isGettingDemands"
-      > = response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-  async searchDemands(fieldsQuery: Partial<IArgsQuery>) {
+  async searchDemands(fieldsQuery: Partial<IArgsQuery>): Promise<IApi> {
     try {
       const response = await http.get(`${PATH_API_V1.demand}/search`, {
         params: {
@@ -84,35 +79,32 @@ class IDemandApi {
           limit: fieldsQuery.limit,
         },
       });
-      const result: Omit<IDemandsSearchResultApi, "isSearchingDemands"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(getErrorMessage(error));
     }
   }
 
-  async updateDemand(args: Partial<IDemand>) {
+  async updateDemand(args: Partial<IDemand>): Promise<IApi> {
     try {
       const response = await http.patchForm(
         `${PATH_API_V1.demand}/update/${args._id}`,
         resultAppendFormData(args)
       );
-      const result: Omit<IDemandUpdateResultApi, "isUpdatingDemand"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-  async deleteDemand(arg: Pick<IDemand, "_id">) {
+  async deleteDemand(arg: Pick<IDemand, "_id">): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.demand}/delete/${arg._id}`
       );
-      const result: Omit<IDemandDeleteResultApi, "isDeletingDemand"> =
-        response.data;
+      const result: IApi = response.data;
       return result;
     } catch (error: any) {
       throw new Error(error);
