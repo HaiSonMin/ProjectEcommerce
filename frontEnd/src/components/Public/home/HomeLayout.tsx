@@ -11,6 +11,7 @@ import { ProductHotSaleLayout } from "../product";
 const HomeLayoutStyled = styled.div``;
 
 export default function HomeLayout() {
+  
   return (
     <HomeLayoutStyled>
       {/* Top */}
