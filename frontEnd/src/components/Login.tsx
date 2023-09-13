@@ -205,14 +205,7 @@ const Login: React.FC = () => {
       <BottomText> Xem chính sách ưu đãi Smember </BottomText>
       <BottomText> Xem chính sách ưu đãi Smember </BottomText>
       <BottomText> Xem chính sách ưu đãi Smember </BottomText>
-      <BottomText> Xem chính sách ưu đãi Smember </BottomText>
-      <BottomText> Xem chính sách ưu đãi Smember </BottomText>
-      <BottomText> Xem chính sách ưu đãi Smember </BottomText>
-      <BottomText> Xem chính sách ưu đãi Smember </BottomText>
-      <BottomText> Xem chính sách ưu đãi Smember </BottomText>
-      <BottomText> Xem chính sách ưu đãi Smember </BottomText>
-      <BottomText> Xem chính sách ưu đãi Smember </BottomText>
-      <BottomText> Xem chính sách ưu đãi Smember </BottomText>
+      
       
     </LoginContainer>
   );
