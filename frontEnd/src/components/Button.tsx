@@ -46,6 +46,7 @@ const variations: object = {
 };
 
 const Button = styled.button<{ $size?: string; $variation?: string }>`
+  width:100%;
   text-align: center;
   border-radius: 1rem;
   box-shadow: var(--shadow-md);
