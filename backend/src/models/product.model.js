@@ -1,6 +1,7 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
 const slugify = require("slugify");
-const COLLECTION_NAME = "Product";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.product;
 const ProductSchema = new Schema(
   {
     product_name: {
@@ -46,21 +47,21 @@ const ProductSchema = new Schema(
     },
     product_brand: {
       type: Schema.Types.ObjectId,
-      ref: "Brand",
+      ref: constant.MODELS_NAMES.brand,
       required: true,
     },
     product_category: {
       type: Schema.Types.ObjectId,
-      ref: "ProductCategory",
+      ref: constant.MODELS_NAMES.productCategory,
       required: true,
     },
     product_demands: {
       type: [Schema.Types.ObjectId],
-      ref: "Demand",
+      ref: constant.MODELS_NAMES.demand,
     },
     product_ratings: {
       type: [Schema.Types.ObjectId],
-      ref: "Rating",
+      ref: constant.MODELS_NAMES.rating,
       default: [],
     },
     product_optionFilters: {

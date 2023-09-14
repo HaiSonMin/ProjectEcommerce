@@ -1,16 +1,17 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Wishlist";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.wishlist;
 const RatingSchema = new Schema(
   {
     wishlist_byUserId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: constant.MODELS_NAMES.user,
       index: true,
       required: true,
     },
     wishlist_productIds: {
       type: [Schema.Types.ObjectId],
-      ref: "Product",
+      ref: constant.MODELS_NAMES.product,
       default: [],
     },
   },

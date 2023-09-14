@@ -1,11 +1,12 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "KeyToken";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.keyToken;
 // Declare the Schema of the Mongo model
 const KeyTokenSchema = new Schema(
   {
     keytoken_userId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: constant.MODELS_NAMES.user,
     },
     keytoken_publicKey: {
       type: String,

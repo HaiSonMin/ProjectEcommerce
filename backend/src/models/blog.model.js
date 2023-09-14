@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Blog";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.blog;
 const BlogSchema = new Schema(
   {
     blog_title: {
@@ -12,7 +13,7 @@ const BlogSchema = new Schema(
     },
     blog_category: {
       type: Schema.Types.ObjectId,
-      ref: "BlogCategory",
+      ref: constant.MODELS_NAMES.blogCategory,
     },
     blog_numberViews: {
       type: Number,

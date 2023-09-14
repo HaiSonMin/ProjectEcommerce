@@ -10,7 +10,8 @@ const {
   deleteTokenCookie,
 } = require("../utils");
 const sendMail = require("../utils/sendMail");
-const { createTokenPair, createKeys } = require("../utils/token.utils");
+const { createTokenPair, createDoubleKeys } = require("../utils/token.utils");
+const UserRepository = require("../repositories/user.repo");
 
 class AuthService {
   static async register(req, res) {
@@ -31,10 +32,10 @@ class AuthService {
   static async login(req, res) {
     const { user_email, user_password } = req.body;
     // Check user in DB
-    const findUser = await UserRepo.findUserByEmail({ user_email });
-    if (!findUser) throw new NotFoundError("Wrong Email Or Password");
+    const user = await UserRepository.getUserByEmail({ user_email });
+    if (!user) throw new NotFoundError("Wrong Email Or Password");
     // Check password is matching
-    const isMatchingPassword = await findUser.comparePassword(user_password);
+    const isMatchingPassword = await user.comparePassword(user_password);
     if (!isMatchingPassword) throw new NotFoundError("Wrong Email Or Password");
 
     const {
@@ -42,8 +43,10 @@ class AuthService {
       user_userName: userName,
       user_email: userEmail,
       user_role: userRole,
-    } = findUser;
-    const { privateKey, publicKey } = createKeys();
+    } = user;
+    const { privateKey, publicKey } = createDoubleKeys();
+    console.log("privateKey, publicKey", privateKey, publicKey);
+
     /////////////////////// Payload of token ///////////////////////
     const payload = { userId, userName, userEmail, userRole };
 
@@ -54,6 +57,7 @@ class AuthService {
       privateKey,
       publicKey,
     });
+    console.log("Done");
 
     // Save refreshToken to DB
     const keyStore = await KeyTokenModel.findOneAndUpdate(
@@ -78,7 +82,7 @@ class AuthService {
     });
 
     return {
-      user: getInfoData(findUser, [
+      user: getInfoData(user, [
         "_id",
         "user_firstName",
         "user_lastName",
@@ -119,11 +123,17 @@ class AuthService {
     // Verify RT
     const { keytoken_publicKey, keytoken_privatekey } = keyStore;
 
-    const payload = verifyToken({
+    const userVerify = verifyToken({
       token: refreshToken,
       key: keytoken_privatekey,
     });
-    if (!payload) throw new BadRequestError("Verify Token Error");
+    if (!userVerify) throw new BadRequestError("Verify Token Error");
+    const payload = {
+      userId: userVerify.userId,
+      userName: userVerify.userName,
+      userEmail: userVerify.userEmail,
+      userRole: userVerify.userRole,
+    };
 
     const { accessToken: newAT, refreshToken: newRT } = await createTokenPair({
       payload,
@@ -131,6 +141,7 @@ class AuthService {
       privateKey: keytoken_privatekey,
     });
 
+    console.log(newAT, newRT);
     // Update refreshToken
     await keyStore.updateOne({
       $set: {
@@ -161,11 +172,11 @@ class AuthService {
     if (!user_email) throw new BadRequestError("Please Provide Your Email");
 
     // Check user exist by email
-    const findUser = await UserRepo.findUserByEmail({ user_email });
-    if (!findUser) throw new NotFoundError("Not Found User By This Email");
+    const user = await UserRepo.getUserByEmail({ user_email });
+    if (!user) throw new NotFoundError("Not Found User By This Email");
 
-    const secretKey = findUser.createPasswordChanged();
-    await findUser.save(); // Save secretKey to DB
+    const secretKey = user.createPasswordChanged();
+    await user.save(); // Save secretKey to DB
 
     const html = `Please click here to change password, Password change time expires in 5 minute. <a href=${process.env.LOCAL_HOST}/api/v1/auth/forgotPassword/${secretKey}>Click here</a>`;
     const responseEmail = await sendMail(user_email, html);

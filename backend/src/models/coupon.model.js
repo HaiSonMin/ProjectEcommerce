@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Coupon";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.coupon;
 const CouponSchema = new Schema(
   {
     coupon_name: {
@@ -34,12 +35,12 @@ const CouponSchema = new Schema(
     },
     coupon_applicableProducts: {
       type: [Schema.Types.ObjectId],
-      ref: "Product",
+      ref: constant.MODELS_NAMES.product,
       default: [],
     },
     coupon_applicableProductCategories: {
       type: [Schema.Types.ObjectId],
-      ref: "ProductCategory",
+      ref: constant.MODELS_NAMES.productCategory,
       default: [],
     },
     coupon_minimumOrderValue: {

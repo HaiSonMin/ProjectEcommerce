@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Brand";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.brand;
 const BrandSchema = new Schema(
   {
     brand_name: {

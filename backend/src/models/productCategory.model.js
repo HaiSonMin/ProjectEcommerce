@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "ProductCategory";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.productCategory;
 const ProductCategorySchema = new Schema(
   {
     productCategory_name: {
@@ -16,15 +17,15 @@ const ProductCategorySchema = new Schema(
     },
     productCategory_demands: {
       type: [Schema.Types.ObjectId],
-      ref: "Demand",
+      ref: constant.MODELS_NAMES.demand,
     },
     productCategory_brands: {
       type: [Schema.Types.ObjectId],
-      ref: "Brand",
+      ref: constant.MODELS_NAMES.brand,
     },
     productCategory_group: {
       type: Schema.Types.ObjectId,
-      ref: "ProductCategoryGroup",
+      ref: constant.MODELS_NAMES.productCategory,
       require: [true, "Please provide product category group"],
     },
     productCategory_filtersOptions: String,

@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Demand";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.demand;
 const DemandSchema = new Schema(
   {
     demand_name: {
@@ -12,7 +13,7 @@ const DemandSchema = new Schema(
     },
     demand_productCategory: {
       type: Schema.Types.ObjectId,
-      ref: "ProductCategory",
+      ref: constant.MODELS_NAMES.productCategory,
       required: true,
     },
   },
