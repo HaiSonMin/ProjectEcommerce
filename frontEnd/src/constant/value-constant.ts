@@ -8,7 +8,6 @@ class Constant {
     this.MAX_UPLOAD_IMAGE = 10;
     this.SORT_DEFAULT = "ctime";
     this.TIME_ONE_DAY = 24 * 60 * 60 * 1000;
-  
   }
 }
 

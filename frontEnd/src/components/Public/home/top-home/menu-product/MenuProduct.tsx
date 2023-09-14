@@ -24,7 +24,7 @@ const MenuList = styled.ul`
 `;
 
 export default function MenuProduct() {
-  const { metadata } = UseProductCategoryGroupApi.getAllCategoriesGroup(100);
+  const { metadata } = UseProductCategoryGroupApi.getAllCategoriesGroup(10e9);
 
   const productCategoriesGroupSorted = metadata?.productCategoriesGroup?.sort(
     (a, b) =>

@@ -11,14 +11,14 @@ const AdminLayoutSide = styled.div`
 
 const Main = styled.main`
   background-color: var(--color-grey-50);
-  padding: 2.2rem 4.1rem;
 `;
 
 const Container = styled.div`
-  margin: 0 auto;
-  max-width: 120rem;
   display: flex;
   flex-direction: column;
+  padding-top: 2rem;
+  margin: 0 auto;
+  max-width: 120rem;
   gap: 2rem;
 `;
 

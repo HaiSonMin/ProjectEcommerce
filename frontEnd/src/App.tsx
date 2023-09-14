@@ -61,17 +61,8 @@ const ProductTablePage = lazy(
 const ProductCreatePage = lazy(
   () => import("@/pages/private/product/ProductCreatePage")
 );
-const ProductProvidePage = lazy(
-  () => import("@/pages/private/product/ProductProvidePage")
-);
-const ProductUpdateBasicPage = lazy(
-  () => import("@/pages/private/product/ProductUpdateBasicPage")
-);
-const ProductUpdateMainInfoPage = lazy(
-  () => import("@/pages/private/product/ProductUpdateMainInfoPage")
-);
-const ProductUpdateMainInfoDetail = lazy(
-  () => import("@/pages/private/product/ProductUpdateMainInfoDetail")
+const ProductUpdatePage = lazy(
+  () => import("@/pages/private/product/ProductUpdatePage")
 );
 
 const DemandPage = lazy(() => import("@/pages/private/demand/DemandPage"));
@@ -220,22 +211,7 @@ export default function App() {
           <Route path={PATH_ADMIN.product} element={<ProductPage />}>
             <Route path={``} element={<ProductTablePage />} />
             <Route path={`create`} element={<ProductCreatePage />} />
-            <Route
-              path={`provideInfo/:productId`}
-              element={<ProductProvidePage />}
-            />
-            <Route
-              path={`updateBasic/:productId`}
-              element={<ProductUpdateBasicPage />}
-            />
-            <Route
-              path={`updateMainInfo/:productId`}
-              element={<ProductUpdateMainInfoPage />}
-            />
-            <Route
-              path={`updateMainInfoDetail/:productId`}
-              element={<ProductUpdateMainInfoDetail />}
-            />
+            <Route path={`update/:productId`} element={<ProductUpdatePage />} />
           </Route>
 
           <Route path={PATH_ADMIN.customer} element={<CustomerPage />} />

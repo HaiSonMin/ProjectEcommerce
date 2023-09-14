@@ -32,11 +32,11 @@ export interface IOrderSearchResultApi
 export interface IOrderUpdateResultApi extends IApi {
   isUpdatingOrder: boolean;
   metadata: IOrder | undefined;
-  updateOrder: UseMutateFunction<IApi, any, Partial<IOrder>>;
+  updateOrder: UseMutateFunction<any, unknown, Partial<IOrder>>;
 }
 
 export interface IOrderDeleteResultApi extends IApi {
   isDeletingOrder: boolean;
   metadata: IOrder | undefined;
-  deleteOrder: UseMutateFunction<IApi, any, Pick<IOrder, "_id">>;
+  deleteOrder: UseMutateFunction<any, unknown, Pick<IOrder, "_id">>;
 }

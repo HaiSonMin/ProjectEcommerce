@@ -1,17 +1,6 @@
 import ProductPage from "./ProductPage";
 import ProductTablePage from "./ProductTablePage";
 import ProductCreatePage from "./ProductCreatePage";
-import ProductProvidePage from "./ProductProvidePage";
-import ProductUpdateBasicPage from "./ProductUpdateBasicPage";
-import ProductUpdateMainInfoPage from "./ProductUpdateMainInfoPage";
-import ProductUpdateMainInfoDetail from "./ProductUpdateMainInfoDetail";
+import ProductUpdatePage from "./ProductUpdatePage";
 
-export {
-  ProductPage,
-  ProductTablePage,
-  ProductCreatePage,
-  ProductProvidePage,
-  ProductUpdateBasicPage,
-  ProductUpdateMainInfoPage,
-  ProductUpdateMainInfoDetail,
-};
+export { ProductPage, ProductTablePage, ProductCreatePage, ProductUpdatePage };

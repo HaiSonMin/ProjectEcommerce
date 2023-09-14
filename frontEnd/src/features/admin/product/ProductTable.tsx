@@ -25,12 +25,13 @@ export default function ProductTable(props: Iprops) {
 
   return (
     <Menus>
-      <Table columns="0.5fr 1.1fr 0.8fr 1fr 1fr 0.5fr">
+      <Table columns="0.5fr 1.5fr 0.8fr 0.8fr 0.8fr 0.8fr 0.5fr">
         <Table.Header>
           <div>Thumb</div>
           <div>Name</div>
           <div>Brand</div>
           <div>Category</div>
+          <div>Origin</div>
           <div>Price</div>
           <div>Options</div>
         </Table.Header>

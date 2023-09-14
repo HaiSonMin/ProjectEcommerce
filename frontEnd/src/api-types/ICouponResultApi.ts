@@ -32,11 +32,11 @@ export interface ICouponSearchResultApi
 export interface ICouponUpdateResultApi extends IApi {
   isUpdatingCoupon: boolean;
   metadata: ICoupon | undefined;
-  updateCoupon: UseMutateFunction<IApi, any, Partial<ICoupon>>;
+  updateCoupon: UseMutateFunction<any, unknown, Partial<ICoupon>>;
 }
 
 export interface ICouponDeleteResultApi extends IApi {
   isDeletingCoupon: boolean;
   metadata: ICoupon | undefined;
-  deleteCoupon: UseMutateFunction<IApi, any, Pick<ICoupon, "_id">>;
+  deleteCoupon: UseMutateFunction<any, unknown, Pick<ICoupon, "_id">>;
 }

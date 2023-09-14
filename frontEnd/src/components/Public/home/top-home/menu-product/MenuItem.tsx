@@ -173,18 +173,6 @@ export default function MenuItem({ productCategoryGroup }: IProps) {
         $display={isDisplayChild}
         onMouseLeave={() => setIsDisplayChild(false)}
       >
-        {/* 
-        {
-          Freezer: { item[0]
-            Freezer: [],item[1][0]
-            productCategory_brands: [],item[1][1]
-            }
-          Fridge: {
-            Fridge: ['Fridge Bottom Freezer', 'Fridge Multi Door', 'Fridge Side By Side',...]
-            productCategory_brands: ["Samsung", "LG",...]
-          }  
-        }
-        */}
         {Object.entries(transformedData).map((item) => (
           <aside className="type">
             <div className="type-header">

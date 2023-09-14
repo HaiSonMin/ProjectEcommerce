@@ -8,7 +8,6 @@ const errorHandlerMiddleware = function (err, req, res, next) {
     reasonStatusCode: err.reasonStatusCode || "Error",
   };
 
-  console.log(err);
   // // Duplicate Error
   if (err.code || err.code === 11000) {
     customError.message = `Duplicate item, Please try again`;

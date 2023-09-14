@@ -3,7 +3,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiDelete } from "react-icons/fi";
 // import { randomKey } from "@/utils";
 import { randomKey } from "@/utils";
-import IFilterOption from "@/helpers/IFilterOption";
+import { IFilterOption } from "@/helpers";
 
 const ProductFilterOptionStyled = styled.div``;
 

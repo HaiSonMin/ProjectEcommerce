@@ -4,11 +4,9 @@ import { CiEdit } from "react-icons/ci";
 import { styled } from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { formatCurrencyVND } from "@/utils";
-import { IProduct } from "@/interfaces";
+import { IBrand, IProduct } from "@/interfaces";
 import { ConfirmDelete, Menus, Modal, Table } from "@/components";
 import { useNavigate } from "react-router-dom";
-import { AiFillFileAdd } from "react-icons/ai";
-import { BiEdit } from "react-icons/bi";
 
 const Img = styled.img`
   display: block;
@@ -34,11 +32,18 @@ const ProductBrand = styled.div`
   font-family: "Sono";
 `;
 
+const ProductBrandOrigin = styled.div`
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-grey-600);
+  font-family: "Sono";
+`;
+
 const ProductCategory = styled(ProductBrand)``;
 
 const ProductPrice = styled.div`
-  color: var(--color-green-700);
-  font-weight: 500;
+  color: var(--color-primary);
+  font-weight: 600;
 `;
 
 interface IProps {
@@ -46,49 +51,47 @@ interface IProps {
   product: IProduct;
 }
 
-export default function ProductRow(props: IProps) {
+export default function ProductRow({ product }: IProps) {
   const navigate = useNavigate();
   const { isDeletingProduct, deleteProduct } = UseProductApi.deleteProduct();
   return (
     <Table.Row>
-      <Img src={props.product.product_thumb} alt={props.product.product_name} />
-      <ProductName>{props.product.product_name}</ProductName>
-      <ProductBrand>{props?.product.brand?.[0]?.brand_name}</ProductBrand>
+      <Img src={product.product_thumb} alt={product.product_name} />
+      <ProductName>{product.product_name}</ProductName>
+      <ProductBrand>
+        {typeof product.product_brand === "string"
+          ? product.product_brand
+          : product.product_brand.brand_name}
+      </ProductBrand>
       <ProductCategory>
-        {props?.product.category?.[0]?.productCategory_name}
+        {typeof product.product_category === "string"
+          ? product.product_category
+          : product.product_category.productCategory_name}
       </ProductCategory>
-      <ProductPrice>
-        {formatCurrencyVND(+props.product.product_price)}
-      </ProductPrice>
+
+      <ProductBrandOrigin>
+        {typeof product.product_brand === "string"
+          ? product.product_brand
+          : product.product_brand.brand_origin}
+      </ProductBrandOrigin>
+
+      <ProductPrice>{formatCurrencyVND(+product.product_price)}</ProductPrice>
       <Modal>
         <Menus.Menu>
-          <Menus.ToggleButton id={props.product._id || ""} />
-          <Menus.List id={props.product._id || ""}>
+          <Menus.ToggleButton id={product._id || ""} />
+          <Menus.List id={product._id || ""}>
             <Menus.Button
               icon={<BsEye />}
-              onClick={() => navigate(`detail/${props.product._id}`)}
+              onClick={() => navigate(`detail/${product._id}`)}
             >
               See detail
             </Menus.Button>
             <Menus.Button
-              icon={<AiFillFileAdd />}
-              onClick={() => navigate(`provideInfo/${props.product._id}`)}
-            >
-              Provide Product
-            </Menus.Button>
-            <Menus.Button
               icon={<CiEdit />}
-              onClick={() => navigate(`updateBasic/${props.product._id}`)}
+              onClick={() => navigate(`update/${product._id}`)}
             >
-              Edit Product Basic
+              Edit
             </Menus.Button>
-            <Menus.Button
-              icon={<BiEdit />}
-              onClick={() => navigate(`updateMainInfo/${props.product._id}`)}
-            >
-              Edit Product MainInfo
-            </Menus.Button>
-
             <Modal.Open openWindowName="deleteProduct">
               <Menus.Button icon={<RiDeleteBinLine />}>Delete</Menus.Button>
             </Modal.Open>
@@ -97,8 +100,8 @@ export default function ProductRow(props: IProps) {
         <Modal.Window windowName="deleteProduct">
           <ConfirmDelete
             disabled={isDeletingProduct}
-            onConfirm={() => deleteProduct({ _id: props.product._id })}
-            resourceName={props.product.product_name}
+            onConfirm={() => deleteProduct({ _id: product._id })}
+            resourceName={product.product_name}
           />
         </Modal.Window>
       </Modal>

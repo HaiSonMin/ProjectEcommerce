@@ -43,7 +43,7 @@ export default function Introduce() {
       <ListItems>
         <ItemLinkImage to={"#"}>
           <img
-            src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/RightBanner_PreOrder_WATCH6_Series_07.png"
+            src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/m14-right-homepage-th9.png"
             alt="Image"
           />
         </ItemLinkImage>
@@ -55,7 +55,7 @@ export default function Introduce() {
         </ItemLinkImage>
         <ItemLinkImage to={"#"}>
           <img
-            src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/msi%20gaming%20right%20banner.jpg"
+            src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/asus%20tuf.jpg"
             alt="Image"
           />
         </ItemLinkImage>

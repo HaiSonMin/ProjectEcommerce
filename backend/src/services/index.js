@@ -1,4 +1,3 @@
-const ProductServiceV2 = require("./product.serviceV2");
 const AuthService = require("./auth.service");
 const UserService = require("./user.service");
 const BlogService = require("./blog.service");
@@ -21,7 +20,6 @@ const ProductCategoryService = require("./productCategory.service");
 const ProductCategoryGroupService = require("./productCategoryGroup.service");
 
 module.exports = {
-  ProductServiceV2,
   AuthService,
   UserService,
   BlogService,

@@ -15,73 +15,31 @@ class ProductController {
     }).send(res);
   }
 
-  static async getAllProductsAvailable(req, res) {
-    new OK({
-      message: "Get All Product Available Successfully",
-      metadata: await ProductService.getAllProductsAvailable(req, res),
-    }).send(res);
-  }
-
-  static async getAllProductsUnavailable(req, res) {
-    new OK({
-      message: "Get All Product Unavailable Successfully",
-      metadata: await ProductService.getAllProductsUnavailable(req, res),
-    }).send(res);
-  }
-
   static async getProductById(req, res) {
     new OK({
-      message: "Get Product By Id Successfully",
+      message: "Get Product Successfully",
       metadata: await ProductService.getProductById(req, res),
     }).send(res);
   }
 
-  static async getProductMainInfoById(req, res) {
+  static async updateProduct(req, res) {
     new OK({
-      message: "Get Product Main Info By Id Successfully",
-      metadata: await ProductService.getProductMainInfoById(req, res),
+      message: "Update product Successfully",
+      metadata: await ProductService.updateProduct(req, res),
     }).send(res);
   }
 
-  static async getProductByNameOrDescription(req, res) {
+  static async searchProduct(req, res) {
     new OK({
-      message: "Get Product By Name Or Description Successfully",
-      metadata: await ProductService.getProductByNameOrDescription(req, res),
+      message: "Search product Successfully",
+      metadata: await ProductService.searchProduct(req, res),
     }).send(res);
   }
 
-  static async updateProductBasic(req, res) {
+  static async deleteProduct(req, res) {
     new OK({
-      message: "Update Product By Id Successfully",
-      metadata: await ProductService.updateProductBasic(req, res),
-    }).send(res);
-  }
-
-  static async updateProductMainInfo(req, res) {
-    new OK({
-      message: "Update Product Main Info Successfully",
-      metadata: await ProductService.updateProductMainInfo(req, res),
-    }).send(res);
-  }
-
-  static async provideInfoProduct(req, res) {
-    new OK({
-      message: "Provide Info Product By Id Successfully",
-      metadata: await ProductService.provideInfoProduct(req, res),
-    }).send(res);
-  }
-
-  static async deleteProductById(req, res) {
-    new OK({
-      message: "Delete Product By Id Successfully",
-      metadata: await ProductService.deleteProductById(req, res),
-    }).send(res);
-  }
-
-  static async deleteProductMainInfo(req, res) {
-    new OK({
-      message: "Delete Product Main Info Successfully",
-      metadata: await ProductService.deleteProductMainInfo(req, res),
+      message: "Delete Product Successfully",
+      metadata: await ProductService.deleteProduct(req, res),
     }).send(res);
   }
 }
