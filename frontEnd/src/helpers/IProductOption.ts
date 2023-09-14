@@ -6,7 +6,7 @@ export default interface IProductOption {
     id: string;
     serialName: string;
     serialImage: any;
-    serialPriceDifference: Number;
+    serialPriceDifference: number;
   }>;
   product_description: string;
   product_specificationMain: Array<{

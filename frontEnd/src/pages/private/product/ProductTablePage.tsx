@@ -17,12 +17,11 @@ const ProductTablePage = () => {
         <Heading $as="h1">All Products</Heading>
         <ProductTableOperation />
       </Row>
-      <Row>
-        <ProductTable />
-        {!isSearching && (
-          <Button onClick={() => navigate("create")}>Add new product</Button>
-        )}
-      </Row>
+
+      <ProductTable />
+      {!isSearching && (
+        <Button onClick={() => navigate("create")}>Add new product</Button>
+      )}
     </>
   );
 };

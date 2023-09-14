@@ -12,9 +12,7 @@ const OrderTablePage = () => {
         <Heading $as="h1">All Orders</Heading>
         <OrderTableOperation />
       </Row>
-      <Row>
-        <OrderTable />
-      </Row>
+      <OrderTable />
     </>
   );
 };

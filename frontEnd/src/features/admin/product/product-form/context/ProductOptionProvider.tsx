@@ -170,7 +170,7 @@ export default function ProductOptionProvider({
     indexOption: number,
     indexSerial: number
   ) => {
-    console.log("indexOption,indexSerial::",indexOption,indexSerial);
+    console.log("indexOption,indexSerial::", indexOption, indexSerial);
     const newProductOptions: Array<IProductOption> = [...productOptions];
     if (newProductOptions[indexOption]?.product_serials) {
       const serial =

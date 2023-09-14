@@ -29,6 +29,7 @@ import {
   ProductFilterOptionSelect,
 } from "./element-product-form";
 import FormRowButton from "@/components/FormRowButton";
+import PhoneSpecMain from "@/constant/phoneSpecMain";
 
 const initializeProductOption: Array<IProductOption> = [
   {
@@ -38,7 +39,9 @@ const initializeProductOption: Array<IProductOption> = [
     product_priceDifference: 0,
     product_serials: [],
     product_specificationMain: [
-      { id: randomKey(), specKey: "", specValue: "" },
+      ...PhoneSpecMain.map((spec) => {
+        return { id: randomKey(), specKey: spec, specValue: "" };
+      }),
     ],
     product_specificationDetail: "",
   },

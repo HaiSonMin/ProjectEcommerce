@@ -46,12 +46,13 @@ const UserSchema = new Schema(
       type: String,
       unique: [true, "Phone number has exist"],
       required: true,
-      maxlength: 13,
+      maxlength: [10, "Number not correct"],
     },
     user_address: {
       type: Schema.Types.ObjectId,
       ref: "Address",
     },
+    user_avatar: String,
     user_isBlocking: {
       type: Boolean,
       default: false,
@@ -71,12 +72,12 @@ const UserSchema = new Schema(
 );
 
 UserSchema.index({
-  user_email: "text",
-  user_userName: "text",
+  user_email: 1,
+  user_userName: 1,
 });
 
 UserSchema.pre("save", async function (next) {
-  this.user_password = await bcrypt.hash(this.user_password, 10);
+  this.user_password = await bcrypt.hash(this.user_password, 8);
   next();
 });
 

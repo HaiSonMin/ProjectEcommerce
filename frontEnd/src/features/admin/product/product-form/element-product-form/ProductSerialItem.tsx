@@ -86,17 +86,22 @@ export default function ProductSerialItem({
         </FormRow>
         <FormRow label="Giá trên lệch so với option">
           <Input
-            defaultValue={0}
             type="number"
             placeholder="Giá chênh lệch"
             id="serialPriceDifference"
+            value={
+              productOptions[indexOption]?.product_serials?.[indexSerial]
+                .serialPriceDifference || 0
+            }
             onChange={(event) =>
               handlerChangeProductSerialPrice(event, indexOption, indexSerial)
             }
           />
         </FormRow>
         <FormRow label="Serial image">
-          {/* <InputFile
+          {/* 
+          //Handler later
+          <InputFile
             numberImage={0}
             id="serialImage"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

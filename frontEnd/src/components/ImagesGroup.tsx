@@ -21,6 +21,7 @@ const StyledImagesGroup = styled.div<{ $isMultiImage: boolean }>`
       height: 100%;
       object-position: center;
       object-fit: fill;
+      mix-blend-mode: multiply;
       ${(props) =>
         props.$isMultiImage &&
         css`

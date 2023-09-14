@@ -12,7 +12,7 @@ export default function Banner() {
   return (
     <BannerStyled to={"#"}>
       <img
-        src="https://cdn2.cellphones.com.vn/1200x75,webp,q100/https://dashboard.cellphones.com.vn/storage/b2s-special-desktop-dday-p1.png"
+        src="https://cdn2.cellphones.com.vn/1200x75,webp,q100/https://dashboard.cellphones.com.vn/storage/banner-special-desk-b2s-new.png"
         alt="Banner home"
       />
     </BannerStyled>

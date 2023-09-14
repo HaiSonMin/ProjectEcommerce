@@ -9,19 +9,19 @@ const items = [
     label: "ROG phone 6",
   },
   {
-    img: "https://cdn2.cellphones.com.vn/690x300,webp,q100/https://dashboard.cellphones.com.vn/storage/2355-1024-nord3.png",
-    title: "One plus",
-    label: "One plus",
+    img: "https://cdn2.cellphones.com.vn/690x300,webp,q100/https://dashboard.cellphones.com.vn/storage/oppo-month-sliding-0109.png",
+    title: "Tháng 8 Oppo",
+    label: "Mua oppo giảm nữa giá",
   },
   {
-    img: "https://cdn2.cellphones.com.vn/690x300,webp,q100/https://dashboard.cellphones.com.vn/storage/photo_2023-07-22_11-25-34-ghe-gaming-mo-ban.jpg",
-    title: "Ghế gaming",
-    label: "Ghế gaming",
+    img: "https://cdn2.cellphones.com.vn/690x300,webp,q100/https://dashboard.cellphones.com.vn/storage/sliding-normal-th9-tv-xiaomi-a.jpg",
+    title: "Tivi xiaome",
+    label: "Giá chỉ từ 4tr",
   },
   {
-    img: "https://cdn2.cellphones.com.vn/690x300,webp,q100/https://dashboard.cellphones.com.vn/storage/realme-11-sliding-dat-truoc-11.jpg",
+    img: "https://cdn2.cellphones.com.vn/690x300,webp,q100/https://dashboard.cellphones.com.vn/storage/sliding-realme%2011-009.jpg",
     title: "Realme 11",
-    label: "Realme 11",
+    label: "Săn ngay deal chất",
   },
   {
     img: "https://cdn2.cellphones.com.vn/690x300,webp,q100/https://dashboard.cellphones.com.vn/storage/bts-apple-sliding.png",
@@ -29,9 +29,9 @@ const items = [
     label: "Realme 12",
   },
   {
-    img: "https://cdn2.cellphones.com.vn/690x300,webp,q100/https://dashboard.cellphones.com.vn/storage/sliding-tab-s9-dat-hang.png",
-    title: "Realme 13",
-    label: "Realme 13",
+    img: "https://cdn2.cellphones.com.vn/690x300,webp,q100/https://dashboard.cellphones.com.vn/storage/amazfit%20cheetah.jpg",
+    title: "Amazfit cheetah",
+    label: "Mở bán mua ngay",
   },
 ];
 
