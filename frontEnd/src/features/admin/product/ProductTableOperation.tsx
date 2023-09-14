@@ -54,7 +54,6 @@ export default function ProductTableOperation() {
           onSearch={handlerSearchProduct}
         />
       </div>
-      ;
     </TableOperation>
   );
 }

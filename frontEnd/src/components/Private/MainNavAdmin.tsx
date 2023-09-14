@@ -30,6 +30,7 @@ const NavLinkStyled = styled(NavLink)`
     font-size: 1.4rem;
     font-weight: 500;
     padding: 1.2rem 2.4rem;
+    padding-left: 20%;
     transition: all 0.3s;
   }
 
@@ -59,6 +60,7 @@ const NavLinkStyled = styled(NavLink)`
   &.active:visited span {
     color: var(--color-primary);
     font-weight: 600;
+    text-align: center;
   }
 `;
 

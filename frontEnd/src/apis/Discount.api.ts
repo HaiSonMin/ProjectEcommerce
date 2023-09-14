@@ -1,4 +1,3 @@
-
 import { IDiscount } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { getErrorMessage, http } from "@/utils";

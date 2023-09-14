@@ -14,10 +14,11 @@ const Main = styled.main`
 `;
 
 const Container = styled.div`
-  margin: 0 auto;
-  max-width: 120rem;
   display: flex;
   flex-direction: column;
+  padding-top: 2rem;
+  margin: 0 auto;
+  max-width: 120rem;
   gap: 2rem;
 `;
 

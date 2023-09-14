@@ -10,7 +10,7 @@ export default function TextEditor(props: IProps) {
 
   console.log(content);
 
-  return (
+  return ( 
     <JoditEditor
       value={content}
       onChange={(newContext) => setContent(newContext)}

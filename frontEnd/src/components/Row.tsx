@@ -8,6 +8,7 @@ enum Type {
 
 const Row = styled.div<{ $type?: Type }>`
   display: flex;
+  padding: 0 1rem;
   ${(prop) =>
     prop.$type === "horizontal" &&
     css`

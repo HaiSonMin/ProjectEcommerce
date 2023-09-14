@@ -17,19 +17,8 @@ class AuthService {
     const payload = req.body;
     if (payload.user_password !== payload.reconfirmPassword)
       throw new BadRequestError("Password and reconfirmPassword don't match");
-
-    // const findUserByEmail = await UserModel.findOne({ user_email })
-    //   .lean()
-    //   .exec();
-
-    // if (findUserByEmail) throw new BadRequestError("Email has exist");
-
-    // const findUserByUserName = await UserModel.findOne({ user_userName })
-    //   .lean()
-    //   .exec();
-    // if (findUserByUserName) throw new BadRequestError("User Name has exit");
     const newUser = await UserModel.create(payload);
-    // if (!newUser) throw new BadRequestError("Register User Error");
+    if (!newUser) throw new BadRequestError("Register User Error");
     return getInfoData(newUser, [
       "user_firstName",
       "user_lastName",
@@ -43,11 +32,10 @@ class AuthService {
     const { user_email, user_password } = req.body;
     // Check user in DB
     const findUser = await UserRepo.findUserByEmail({ user_email });
-    if (!findUser) throw new NotFoundError("Wrong Email Or Password 1");
+    if (!findUser) throw new NotFoundError("Wrong Email Or Password");
     // Check password is matching
     const isMatchingPassword = await findUser.comparePassword(user_password);
-    if (!isMatchingPassword)
-      throw new NotFoundError("Wrong Email Or Password 2");
+    if (!isMatchingPassword) throw new NotFoundError("Wrong Email Or Password");
 
     const {
       _id: userId,
@@ -58,6 +46,7 @@ class AuthService {
     const { privateKey, publicKey } = createKeys();
     /////////////////////// Payload of token ///////////////////////
     const payload = { userId, userName, userEmail, userRole };
+
     // AT save to Author
     // RT save to DB and Cookie
     const { accessToken, refreshToken } = await createTokenPair({
@@ -136,12 +125,8 @@ class AuthService {
     });
     if (!payload) throw new BadRequestError("Verify Token Error");
 
-    const { userId, userName, userEmail, userRole } = payload;
-
-    const newPayload = { userId, userName, userEmail, userRole };
-
     const { accessToken: newAT, refreshToken: newRT } = await createTokenPair({
-      payload: newPayload,
+      payload,
       publicKey: keytoken_publicKey,
       privateKey: keytoken_privatekey,
     });
@@ -201,13 +186,13 @@ class AuthService {
       .update(secretToken)
       .digest("hex");
 
-    console.log("encodeSecretToken::::", encodeSecretToken);
-
     const user = await UserRepo.matchSecretToken(encodeSecretToken);
     if (!user)
-      throw new BadRequestError("Password change expired, please try again");
+      throw new BadRequestError(
+        "Time change new password expired, please try again"
+      );
 
-    const newPasswordEncode = await bcrypt.hash(newPassword, 10);
+    const newPasswordEncode = await bcrypt.hash(newPassword, 8);
 
     // Update newPassword
     await user.updateOne({
