@@ -22,6 +22,8 @@ import TextArea from "./TextArea";
 import Carousel from "./Carousel";
 import CountDown from "./CountDown";
 import InputFile from "./InputFile";
+import InputAuth from "./InputAuth";
+import InputButtonAuth from "./InputButtonAuth";
 import RatingStar from "./RatingStar";
 import SelectDate from "./SelectDate";
 import StarReview from "./StarReview";
@@ -63,6 +65,7 @@ export {
   Modal,
   Image,
   Input,
+  
   Button,
   SortBy,
   Logout,
@@ -77,6 +80,7 @@ export {
   Carousel,
   CountDown,
   InputFile,
+  InputAuth,
   SelectDate,
   StarReview,
   TextEditor,
@@ -99,6 +103,7 @@ export {
   TableOperation,
   ToasterDisplay,
   CarouselTopHome,
+  InputButtonAuth,
   ContainerImgLink,
   DarkModeProvider,
   InputRangeTwoValue,
