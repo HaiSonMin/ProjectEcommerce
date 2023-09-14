@@ -1,24 +1,21 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Question";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.question;
 const QuestionSchema = new Schema(
   {
     question_userId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: constant.MODELS_NAMES.user,
       required: true,
     },
     question_productId: {
       type: Schema.Types.ObjectId,
-      ref: "Product",
+      ref: constant.MODELS_NAMES.product,
       required: true,
     },
     question_content: {
       type: String,
       required: true,
-      minlength: [
-        20,
-        "Please provide rating point getter than equal 20 character",
-      ],
     },
     question_answer: String,
   },

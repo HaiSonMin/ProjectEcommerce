@@ -1,13 +1,15 @@
 const { model, Schema } = require("mongoose");
-const COLLECTION_NAME = "Notification";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.notification;
 
 const NotificationSchema = new Schema({
   notification_message: {
     type: String,
     required: [true, "Please provide notification message"],
   },
-  notification_: {
-    type: String,
+  notification_userId: {
+    type: Schema.Types.ObjectId,
+    ref: constant.MODELS_NAMES.user,
     required: [true, "Please provide notification message"],
   },
 });

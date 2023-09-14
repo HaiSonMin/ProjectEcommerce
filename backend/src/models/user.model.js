@@ -2,17 +2,18 @@ const bcrypt = require("bcrypt");
 const { model, Schema } = require("mongoose"); // Erase if already required
 const COLLECTION_NAME = "User";
 const crypto = require("crypto");
+const constant = require("../utils/constant");
 // Declare the Schema of the Mongo model
 const UserSchema = new Schema(
   {
     user_firstName: {
       type: String,
-      required: [true, "Please provide user firstName"],
+      required: [true, "Please provide user first name"],
       maxlength: 50,
     },
     user_lastName: {
       type: String,
-      required: [true, "Please provide user lastName"],
+      required: [true, "Please provide user last name"],
       maxlength: 50,
     },
     user_userName: {
@@ -50,7 +51,7 @@ const UserSchema = new Schema(
     },
     user_address: {
       type: Schema.Types.ObjectId,
-      ref: "Address",
+      ref: constant.MODELS_NAMES.userAddress,
     },
     user_avatar: String,
     user_isBlocking: {
@@ -77,12 +78,14 @@ UserSchema.index({
 });
 
 UserSchema.pre("save", async function (next) {
-  this.user_password = await bcrypt.hash(this.user_password, 8);
+  this.user_password = await bcrypt.hash(this.user_password, CONSTANT.SALT);
   next();
 });
 
 UserSchema.methods = {
   comparePassword: async function (password) {
+    console.log(password, this.user_password);
+
     return await bcrypt.compare(password, this.user_password);
   },
 

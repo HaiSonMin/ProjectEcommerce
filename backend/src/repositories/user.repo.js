@@ -7,7 +7,9 @@ class UserRepository {
   }
 
   static async getUserByEmail({ user_email }) {
-    return await UserModel.findOne({ user_email }).exec();
+    return await UserModel.findOne({ user_email })
+      .select("+user_password")
+      .exec();
   }
 
   static async updateUserById({ userId, dataUpdate }) {

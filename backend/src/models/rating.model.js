@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Rating";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.rating;
 const RatingSchema = new Schema(
   {
     rating_point: {
@@ -10,13 +11,13 @@ const RatingSchema = new Schema(
     },
     rating_product: {
       type: Schema.Types.ObjectId,
-      ref: "Product",
+      ref: constant.MODELS_NAMES.product,
       required: true,
       index: true,
     },
     rating_user: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: constant.MODELS_NAMES.user,
       required: true,
     },
     rating_description: {
@@ -25,7 +26,7 @@ const RatingSchema = new Schema(
     rating_response: String,
     rating_responseAdmin: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: constant.MODELS_NAMES.user,
     },
   },
   {

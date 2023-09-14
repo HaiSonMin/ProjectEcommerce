@@ -1,5 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Payment";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.payment;
 const PaymentSchema = new Schema(
   {
     payment_amount: {
@@ -9,11 +10,11 @@ const PaymentSchema = new Schema(
     },
     payment_orderId: {
       type: Schema.Types.ObjectId,
-      ref: "Order",
+      ref: constant.MODELS_NAMES.order,
     },
     payment_userId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: constant.MODELS_NAMES.user,
     },
     payment_method: {
       type: String,
@@ -21,7 +22,10 @@ const PaymentSchema = new Schema(
     },
   },
   {
-    timestamps: true,
+    timestamps: {
+      createdAt: "payment_createdAt",
+      updatedAt: "payment_updatedAt",
+    },
   }
 );
 //Export the model

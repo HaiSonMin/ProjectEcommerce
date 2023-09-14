@@ -3,12 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { BiChevronRight } from "react-icons/bi";
-import {
-  IBrand,
-  IDemand,
-  IProductCategory,
-  IProductCategoryGroup,
-} from "@/interfaces";
+import { IProductCategoryGroup } from "@/interfaces";
 import UseProductCategoryApi from "@/features/admin/productCategory/UseProductCategoryApi";
 import { removeSpaceString } from "@/utils";
 
@@ -161,7 +156,7 @@ export default function MenuItem({ productCategoryGroup }: IProps) {
         <IconType src={productCategoryGroup.productCategoryGroup_image} />
         <div>
           {keyTypes.map((type, i) => (
-            <MenuLink to={"#"} key={type}>
+            <MenuLink to={"product"} key={type}>
               {type.split(" ")}
               {i !== keyTypes.length - 1 && ", "}
             </MenuLink>

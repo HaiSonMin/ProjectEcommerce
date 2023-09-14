@@ -1,13 +1,9 @@
-import { css, styled } from "styled-components";
-import { useState, useEffect } from "react";
+import { styled } from "styled-components";
 import MenuItem from "./MenuItem";
 import UseProductCategoryGroupApi from "@/features/admin/productCategoryGroup/UseProductCategoryGroupApi";
-import UseProductCategoryApi from "@/features/admin/productCategory/UseProductCategoryApi";
-import { IProductCategoryGroup } from "@/interfaces";
 
 const MenuContainer = styled.div`
   position: relative;
-  /* overflow: auto; */
   min-width: 15%;
   max-width: 19%;
   box-shadow:

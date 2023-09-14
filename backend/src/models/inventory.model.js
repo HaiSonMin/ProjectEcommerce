@@ -1,15 +1,16 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "Inventory";
+const constant = require("../utils/constant");
+const COLLECTION_NAME = constant.MODELS_NAMES.inventory;
 const InventorySchema = new Schema(
   {
     inventory_location: {
       type: String,
       required: [true, "Please provide product name"],
     },
-    inventory_productId: {
+    inventory_product: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: "Product",
+      ref: constant.MODELS_NAMES.product,
     },
     inventory_numberImport: {
       type: Number,

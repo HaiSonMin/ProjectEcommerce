@@ -117,6 +117,7 @@ const OrderTablePage = lazy(
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 
 const HomePage = lazy(() => import("@/pages/public/home/Homepage"));
+
 const ProductCategoryPageUser = lazy(
   () => import("@/pages/public/product/product-category/ProductCategoryPage")
 );
