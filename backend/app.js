@@ -34,13 +34,18 @@ app.use(compression());
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+//Login API 
+// app.use("/api/users", userRouter)
+
 
 require("./src/db/connectDB");
 const { checkOverload } = require("./src/helpers/check-connect");
+const { default: userRouter } = require("./Routers/UserRoutes");
 checkOverload();
 
 app.use("/", require("./src/routes"));
 app.use(errorHandlerMiddleware);
 app.use("/**", notFound);
-
+// app.use("/api/users", userRouter)
+app.use("/api/users", userRouter)
 module.exports = app;

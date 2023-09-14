@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import { styled } from "styled-components";
+import styled from "styled-components";
 import HeaderLayout from "@/components/Public/header";
 import FooterLayout from "@/components/Public/footer";
 
@@ -18,7 +18,18 @@ const Container = styled.div`
   flex-direction: column;
   gap: 2rem;
 `;
+export const AppWrapper = styled.div`
+  text-align: center;
+  padding: 20px;
+`;
 
+export const LoginForm = styled.div<{ showLoginForm: boolean }>`
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+  filter: ${(props) => (props.showLoginForm ? 'blur(5px)' : 'none')};
+`;
 export default function PublicLayout() {
   return (
     <PublicLayoutStyled>
