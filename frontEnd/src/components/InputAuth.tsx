@@ -57,6 +57,14 @@ const ShowPasswordButton = styled.button<{ showPassword: boolean }>`
     props.showPassword ? "var(--color-primary)" : "inherit"};
 `;
 
+const ErrorInput = styled.p`
+  margin-top: 5px;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: left;
+`;
+
 interface IProps {
   id: string;
   type: React.HTMLInputTypeAttribute;
@@ -64,6 +72,7 @@ interface IProps {
   register: any;
   hasValue: boolean;
   children?: React.ReactNode;
+  error?: string;
 }
 
 export default function InputAuth({
@@ -73,6 +82,7 @@ export default function InputAuth({
   label,
   hasValue,
   children,
+  error,
 }: IProps) {
   const [focused, setFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -83,7 +93,7 @@ export default function InputAuth({
     setFocused(false);
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
-  
+
   return (
     <InputContainer>
       <Input
@@ -107,6 +117,7 @@ export default function InputAuth({
         </ShowPasswordButton>
       )}
       {children}
+      {error && <ErrorInput>{error}</ErrorInput>}
     </InputContainer>
   );
 }
