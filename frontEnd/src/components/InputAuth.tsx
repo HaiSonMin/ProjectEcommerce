@@ -1,51 +1,60 @@
 import React, { useState } from "react";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const InputContainer = styled.div`
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 2.4rem;
 `;
 
 const Input = styled.input`
   width: 700px;
+  padding: 0 1rem;
   padding-top: 2rem;
-  font-size: 16px;
+  font-size: 1.4rem;
   left: 0px;
   border: none;
-  border-radius: 5px;
-  border-bottom: solid 2px #f0f0f0;
+  border-radius: 1rem;
+  background-color: transparent;
+  border-bottom: solid 2px var(--color-grey-200);
   &:focus {
-    border-color: red;
-    border-bottom: solid 2px red;
+    border-color: "var(--color-primary)";
+    border-bottom: solid 2px var(--color-primary);
     outline: none;
   }
 `;
 
 const Label = styled.label<{ focused: boolean; hasValue: boolean }>`
   position: absolute;
-  width: max-content;
-  left: 0px;
+  ${(props) =>
+    props.focused || props.hasValue
+      ? css`
+          left: 0.5rem;
+          top: 0;
+        `
+      : css`
+          left: 1rem;
+          top: 1.8rem;
+        `};
+  font-size: ${(props) =>
+    props.focused || props.hasValue ? "1.2rem" : "1.4rem"};
+  color: ${(props) =>
+    props.focused ? "var(--color-primary)" : "var(--color-grey-400)"};
+  transition: all 0.3s;
   cursor: auto;
-  top: ${(props) => (props.focused || props.hasValue ? "0" : "19px")};
-  font-size: ${(props) => (props.focused || props.hasValue ? "12px" : "16px")};
-  color: ${(props) => (props.focused ? "red" : "var(--color-grey-500)")};
-  transition:
-    top 0.3s,
-    font-size 0.3s;
 `;
 
 const ShowPasswordButton = styled.button<{ showPassword: boolean }>`
-  padding-right:10px;
   position: absolute;
-  right: 0px;
-  top: 3rem;
+  right: 1rem;
+  top: 2.8rem;
   transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
   font-size: 18px;
-  color: ${(props) => (props.showPassword ? "red" : "inherit")};
+  color: ${(props) =>
+    props.showPassword ? "var(--color-primary)" : "inherit"};
 `;
 
 interface IProps {
@@ -68,14 +77,13 @@ export default function InputAuth({
   const [focused, setFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleInputFocus = () => {
-    setFocused(true);
-  };
+  const handleInputFocus = () => setFocused(true);
 
-  const handleInputBlur = (value: string) => {
+  const handleInputBlur = (event: React.FocusEvent<HTMLInputElement>) =>
     setFocused(false);
-  };
+
   const toggleShowPassword = () => setShowPassword(!showPassword);
+  
   return (
     <InputContainer>
       <Input

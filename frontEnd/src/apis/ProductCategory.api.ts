@@ -75,7 +75,6 @@ class ProductCategoryApi {
         `${PATH_API_V1.productCategory}/getByGroupId/${groupId}`
       );
       const result: IApi = response.data;
-      console.log(result);
       return result;
     } catch (error: any) {
       throw new Error(error.message);

@@ -1,30 +1,37 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { RiEyeFill, RiEyeOffFill } from "react-icons/ri"; // Import React Icons
 import { useForm } from "react-hook-form";
 import { IUserCreate } from "@/interfaces/user.interface";
-import { Button, InputAuth } from "@/components";
-import InputButtonAuth from "@/components/InputButtonAuth";
+import {
+  Button,
+  Heading,
+  InputAuth,
+  LoginRegisterLabel,
+  LogoAuth,
+} from "@/components";
+import { Link } from "react-router-dom";
+import { PATH_USER } from "@/constant";
 
-const LoginContainer = styled.div`
+const LoginPageStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  margin-top: 2rem;
+  margin-bottom: 6rem;
 `;
+
 const ContainerTop = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-`
-const Title = styled.h2`
-  margin-bottom: 20px;
+`;
+
+const Header = styled.div`
+  margin-bottom: 2rem;
 `;
 
 const ImgLogo = styled.img`
-  width:150px;
+  width: 150px;
 `;
 
 const Form = styled.form`
@@ -32,12 +39,41 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `;
-const TitleForget = styled.p`
-  position: relative;
-  left: 39%;
-  bottom: 15px;
+const TitleForget = styled(Link)`
+  align-self: flex-end;
+  bottom: 1.5rem;
   cursor: pointer;
-  margin:20px;
+  font-size: 1.4rem;
+  color: var(--color-primary);
+  font-style: italic;
+  margin-bottom: 1rem;
+`;
+
+const RegisterNow = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  & p {
+    color: var(--color-grey-500);
+    color: var(--color-text);
+  }
+
+  & a {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+`;
+
+const SeePromotion = styled(Link)`
+  text-decoration: underline;
+  color: var(--color-primary);
+  margin-top: 1rem;
+  font-weight: 600;
+
+  &:hover {
+    font-style: italic;
+  }
 `;
 
 const LoginPage: React.FC = () => {
@@ -46,17 +82,17 @@ const LoginPage: React.FC = () => {
     console.log();
   };
   return (
-    <LoginContainer onSubmit={handleSubmit(onSubmit)}>
-      
+    <LoginPageStyled>
       <ContainerTop>
-        <Title>Đăng nhập Smember</Title>
-          <ImgLogo
-            src="https://account.cellphones.com.vn/_nuxt/img/Shipper_CPS3.77d4065.png"
-            alt="logoLogin"
-          />
+        <Header>
+          <Heading $as="h3">Đăng nhập Smember</Heading>
+        </Header>
+        <ImgLogo
+          src="https://account.cellphones.com.vn/_nuxt/img/Shipper_CPS3.77d4065.png"
+          alt="logoLogin"
+        />
       </ContainerTop>
-     
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <InputAuth
           id="userName"
           type="text"
@@ -71,11 +107,21 @@ const LoginPage: React.FC = () => {
           label="Nhập mật khẩu"
           hasValue={!!watch("user_password")}
         />
-        <TitleForget>Quen mat khau?</TitleForget>
-        <Button>Đăng Nhập</Button>
+        <TitleForget to={`/${PATH_USER.forgotPassword}`}>
+          Quên mật khẩu?
+        </TitleForget>
+        <Button $width="100%">Đăng Nhập</Button>
+        <LoginRegisterLabel>
+          <p>Hoặc đăng ký bằng</p>
+        </LoginRegisterLabel>
       </Form>
-      <InputButtonAuth/>
-    </LoginContainer>
+      <LogoAuth />
+      <RegisterNow>
+        <p>Bạn chưa có tài khoản?</p>
+        <Link to={`/${PATH_USER.register}`}>Đăng ký ngay</Link>
+      </RegisterNow>
+      <SeePromotion to={"#"}> Xem chính sách ưu đãi Smember </SeePromotion>
+    </LoginPageStyled>
   );
 };
 

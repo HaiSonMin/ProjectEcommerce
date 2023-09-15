@@ -12,7 +12,7 @@ const sizes: object = {
   medium: css`
     font-size: 1.4rem;
     padding: 1.2rem 1.6rem;
-    font-weight: 500;
+    font-weight: 600;
   `,
   large: css`
     font-size: 1.6rem;
@@ -45,14 +45,17 @@ const variations: object = {
   `,
 };
 
-const Button = styled.button<{ $size?: string; $variation?: string }>`
-  width:100%;
+const Button = styled.button<{
+  $size?: string;
+  $variation?: string;
+  $width?: string;
+}>`
   text-align: center;
   border-radius: 1rem;
   box-shadow: var(--shadow-md);
   transition: all 0.3s;
   font-weight: 600;
-
+  width: ${(props) => (props.$width ? `${props.$width}` : `fit-content`)};
   ${(props: any) => sizes[props.$size]}
   ${(props: any) => variations[props.$variation]}
 `;

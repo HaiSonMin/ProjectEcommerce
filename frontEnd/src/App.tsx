@@ -1,6 +1,6 @@
 import { PATH_ADMIN, PATH_USER } from "@/constant";
 import { PublicLayOut } from "@/pages/public";
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import {
   AdminLayout,
   UserPage,
@@ -17,7 +17,7 @@ import {
   InventoryPage,
   DashboardPage,
 } from "@/pages/private";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Spinner } from "./components";
 
 const UserTablePage = lazy(() => import("@/pages/private/user/UserTablePage"));
@@ -124,6 +124,12 @@ const ProductCategoryPageUser = lazy(
 );
 
 export default function App() {
+  const pathName = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+  }, [pathName]);
+
   return (
     <Suspense fallback={<Spinner />}>
       <Routes>
@@ -131,8 +137,8 @@ export default function App() {
         <Route element={<Navigate replace to={"/"} />} />
         <Route path={"/"} element={<PublicLayOut />}>
           <Route path={PATH_USER.login} element={<LoginPage />} />
-          <Route path={PATH_USER.register} element={<RegisterPage/>} />
-          <Route path={PATH_USER.home} element={<HomePage/>} />
+          <Route path={PATH_USER.register} element={<RegisterPage />} />
+          <Route path={PATH_USER.home} element={<HomePage />} />
           <Route
             path={PATH_USER.product}
             element={<ProductCategoryPageUser />}
