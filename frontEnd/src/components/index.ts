@@ -54,6 +54,7 @@ import LoginRegisterLabel from "./LoginRegisterLabel";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import DarkModeProvider from "./private/DarkModeProvider";
 import ForgetPassword from "@/pages/ForgetPassword";
+import SnipLogo from "./SnipLogo";
 
 export {
   Row,
@@ -79,6 +80,7 @@ export {
   LogoAuth,
   TextArea,
   Carousel,
+  SnipLogo,
   CountDown,
   InputFile,
   InputAuth,
@@ -91,9 +93,9 @@ export {
   Pagination,
   SelectMulti,
   FromHeading,
+  ImagesGroup,
   ButtonGroup,
   SpinnerMini,
-  ImagesGroup,
   CarouselImage,
   ButtonConfirm,
   SelectMultiV2,

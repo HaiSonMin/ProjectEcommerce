@@ -9,10 +9,9 @@ import {
   IProductUpdateResultApi,
 } from "@/api-types/IProductResultApi";
 import { toast } from "react-hot-toast";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getQueriesString } from "@/utils";
 import { useQueriesString } from "@/hooks";
-import { GiConsoleController } from "react-icons/gi";
 
 export default class UseProductApi {
   static createProduct(): IProductCreateResultApi {

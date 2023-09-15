@@ -1,3 +1,4 @@
+import AuthApi from "./Auth.api";
 import AdminApi from "./Admin.api";
 import BrandApi from "./Brand.api";
 import OrderApi from "./Order.api";
@@ -9,6 +10,7 @@ import ProductCategoryApi from "./ProductCategory.api";
 import ProductCategoryGroupApi from "./ProductCategoryGroup.api";
 
 export {
+  AuthApi,
   AdminApi,
   BrandApi,
   OrderApi,

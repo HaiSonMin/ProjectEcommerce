@@ -1,5 +1,4 @@
 import { PATH_ADMIN, PATH_USER } from "@/constant";
-import { PublicLayOut } from "@/pages/public";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import {
   AdminLayout,
@@ -109,6 +108,8 @@ const ProductCategoryGroupUpdatePage = lazy(
       "@/pages/private/productCategoryGroup/ProductCategoryGroupUpdatePage"
     )
 );
+
+const PublicLayOut = lazy(() => import("@/pages/public/PublicLayOut"));
 const LoginPage = lazy(() => import("@/pages/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"));
 const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPassword"));
@@ -116,7 +117,7 @@ const OrderTablePage = lazy(
   () => import("@/pages/private/order/OrderTablePage")
 );
 
-const NotFoundPage = lazy(() => import("@/pages/NotFound"));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 const HomePage = lazy(() => import("@/pages/public/home/Homepage"));
 

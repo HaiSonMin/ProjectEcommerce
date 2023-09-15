@@ -1,4 +1,5 @@
 const PATH_API_V1 = {
+  auth: "/v1/auth",
   blog: "/v1/blog",
   admin: "/v1/admin",
   brand: "/v1/brand",

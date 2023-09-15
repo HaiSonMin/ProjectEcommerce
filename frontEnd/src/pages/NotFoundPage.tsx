@@ -22,7 +22,6 @@ const StyledPageNotFound = styled.div`
     color: var(--primary-1);
     margin-bottom: 2rem;
   }
-
 `;
 
 export default function NotFoundPage() {
@@ -32,7 +31,9 @@ export default function NotFoundPage() {
     <StyledPageNotFound>
       <div className="oops">Oops!</div>
       <p className="not-found">Error 404: Page Not Found</p>
-      <Button $variation="danger" onClick={() => navigate(-1)}>Go Back Home</Button>
+      <Button $variation="danger" onClick={() => navigate(-1)}>
+        Go Back Home
+      </Button>
     </StyledPageNotFound>
   );
 }
