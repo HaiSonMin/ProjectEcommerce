@@ -52,6 +52,7 @@ import RatingStarAction from "./RatingStarAction";
 import ContainerImgLink from "./ContainerImgLink";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import DarkModeProvider from "./private/DarkModeProvider";
+import ForgetPassword from "@/pages/ForgetPassword";
 
 export {
   Row,
@@ -100,6 +101,7 @@ export {
   ConfirmDelete,
   ConfirmUpdate,
   FormRowContent,
+  ForgetPassword,
   TableOperation,
   ToasterDisplay,
   CarouselTopHome,

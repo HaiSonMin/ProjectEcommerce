@@ -13,6 +13,7 @@ const PATH_USER = {
   discount: "discount",
   question: "question",
   wishlist: "wishlist",
+  forgetpassword:"forgetpassword",
   notfound: "*",
 };
 export default PATH_USER;
