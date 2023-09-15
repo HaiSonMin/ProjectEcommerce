@@ -19,11 +19,11 @@ import Heading from "./Heading";
 import Spinner from "./Spinner";
 import FormBox from "./FormBox";
 import TextArea from "./TextArea";
+import LogoAuth from "./LogoAuth";
 import Carousel from "./Carousel";
 import CountDown from "./CountDown";
 import InputFile from "./InputFile";
 import InputAuth from "./InputAuth";
-import InputButtonAuth from "./InputButtonAuth";
 import InputLabel from "./InputLabel";
 import RatingStar from "./RatingStar";
 import SelectDate from "./SelectDate";
@@ -50,6 +50,7 @@ import TableOperation from "./TableOperation";
 import CarouselTopHome from "./CarouselTopHome";
 import RatingStarAction from "./RatingStarAction";
 import ContainerImgLink from "./ContainerImgLink";
+import LoginRegisterLabel from "./LoginRegisterLabel";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import DarkModeProvider from "./private/DarkModeProvider";
 import ForgetPassword from "@/pages/ForgetPassword";
@@ -65,7 +66,6 @@ export {
   Modal,
   Image,
   Input,
-  
   Button,
   SortBy,
   Logout,
@@ -76,6 +76,7 @@ export {
   FormRow,
   Heading,
   Spinner,
+  LogoAuth,
   TextArea,
   Carousel,
   CountDown,
@@ -105,10 +106,10 @@ export {
   TableOperation,
   ToasterDisplay,
   CarouselTopHome,
-  InputButtonAuth,
   ContainerImgLink,
   DarkModeProvider,
   InputRangeTwoValue,
+  LoginRegisterLabel,
   RatingStar,
   RatingStarAction,
 };

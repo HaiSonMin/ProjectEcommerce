@@ -1,25 +1,28 @@
-import { Button, InputAuth, InputButtonAuth } from "@/components";
-import React, { useState } from "react";
+import {
+  Button,
+  Heading,
+  InputAuth,
+  LoginRegisterLabel,
+  LogoAuth,
+} from "@/components";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { IUserCreate } from "./../interfaces/user.interface";
-import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { PATH_USER } from "@/constant";
+import CONSTANT from "@/constant/value-constant";
 
 const RegisterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  margin-top: 2rem;
+  margin-bottom: 6rem;
 `;
 
-const Title = styled.h2`
-  margin-bottom: 20px;
+const Header = styled.div`
+  margin-bottom: 2rem;
 `;
 
 const ImgLogo = styled.img`
@@ -33,29 +36,57 @@ const Form = styled.form`
   width: 70rem;
 `;
 
-const Pnote = styled.p`
+const LoginNow = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  font-size: 1.4rem;
+
+  & p {
+    color: var(--color-grey-500);
+  }
+
+  & a {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+`;
+
+const Note = styled.p`
   margin-top: 5px;
-  font-size: 12px;
-  color: silver;
+  font-size: 1.2rem;
+  color: var(--color-grey-300);
   font-style: italic;
   text-align: left;
 `;
 
+const ErrorInput = styled.p`
+  margin-top: 5px;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: left;
+`;
+
+const MIN_LENGTH_PASSWORD = 6;
+
 const RegisterPage: React.FC = () => {
+  useEffect(() => {}, []);
+
   const { handleSubmit, register, formState, watch, getValues } =
     useForm<IUserCreate>();
   const { errors: errorsForm } = formState;
-  const onSubmit = (dataForm) => {
-
-  };
+  const onSubmit = (dataForm) => {};
   return (
-    <RegisterContainer onSubmit={handleSubmit(onSubmit)}>
-      <Title>Đăng ký Smember</Title>
+    <RegisterContainer>
+      <Header>
+        <Heading $as="h3">Đăng ký Smember</Heading>
+      </Header>
       <ImgLogo
         src="https://account.cellphones.com.vn/_nuxt/img/Shipper_CPS3.77d4065.png"
         alt="logoLogin"
       />
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <InputAuth
           id="userFullName"
           type="text"
@@ -65,62 +96,83 @@ const RegisterPage: React.FC = () => {
           label="Nhập họ và tên"
           hasValue={!!watch("user_fullName")}
         >
-          {errorsForm.user_fullName && ( 
-            <Pnote style={{ color: "red" }}>
-              {errorsForm.user_fullName.message}
-            </Pnote>
+          {errorsForm.user_fullName && (
+            <ErrorInput>{errorsForm.user_fullName.message}</ErrorInput>
           )}
         </InputAuth>
         <InputAuth
           id="phoneNumber"
           type="number"
-          register={register("user_phoneNumber",{required: {value:true, message:'Vui lòng nhập số điện thoại'}})}
+          register={register("user_phoneNumber", {
+            required: { value: true, message: "Vui lòng nhập số điện thoại" },
+            validate: (phoneNumberInput) => {
+              if (!phoneNumberInput.match(CONSTANT.REGEX_PHONE))
+                return "Số điện thoại không hợp lệ, vui lòng kiểm tra lại";
+            },
+          })}
           label="Nhập số điện thoại"
           hasValue={!!watch("user_phoneNumber")}
         >
-             {errorsForm.user_fullName && ( 
-            <Pnote style={{ color: "red" }}>
-              {errorsForm.user_fullName.message}
-            </Pnote>
+          {errorsForm.user_phoneNumber && (
+            <ErrorInput>{errorsForm.user_phoneNumber.message}</ErrorInput>
           )}
         </InputAuth>
         <InputAuth
           id="userEmail"
-          type="email"
-          register={register("user_email")}
+          type="text"
+          register={register("user_email", {
+            required: { value: true, message: "Vui lòng bổ sung email" },
+            validate: (emailInput) => {
+              if (!emailInput.match(CONSTANT.REGEX_EMAIL))
+                return "Email không hợp lệ";
+            },
+          })}
           label="Nhập email"
           hasValue={!!watch("user_email")}
         >
-          <Pnote>(*)Hóa đơn VAT khi mua hàng sẽ được gửi về email này </Pnote>
+          <Note>(*)Hóa đơn VAT khi mua hàng sẽ được gửi về email này </Note>
+          {errorsForm.user_email && (
+            <ErrorInput>{errorsForm.user_email.message}</ErrorInput>
+          )}
         </InputAuth>
         <InputAuth
           id="password"
           type="password"
-          register={register("user_password")}
+          register={register("user_password", {
+            required: { value: true, message: "Vui lòng bổ sung mật khẩu" },
+            minLength: {
+              value: MIN_LENGTH_PASSWORD,
+              message: "Mật khẩu phải nhiều hơn 6 ký tự",
+            },
+          })}
           label="Nhập mật khẩu"
           hasValue={!!watch("user_password")}
         >
-          <Pnote>
-            Mật khẩu phải nhiều hơn 8 ký tự, ít nhất 1 chữ thường, 1 chữ in hoa,
-            1 chữ số, 1 ký tự đặc biệt
-          </Pnote>
+          <>
+            <Note>(*)Mật khẩu phải nhiều hơn 6 ký tự</Note>
+            {errorsForm.user_password && (
+              <ErrorInput>{errorsForm.user_password.message}</ErrorInput>
+            )}
+          </>
         </InputAuth>
         <InputAuth
           id="comfirmPassword"
           type="password"
           register={register("reconfirmPassword", {
-            validate: (value) => {
-              if (value.trim() !== getValues("user_password"))
+            required: {
+              value: true,
+              message: "Vui lòng xác nhận lại mật khẩu",
+            },
+            validate: (passwordInput) => {
+              if (passwordInput.trim() !== getValues("user_password"))
                 return "xác nhận mật khẩu không khớp";
             },
           })}
-          label="Nhập mật khẩu"
+          label="Xác nhận lại mật khẩu"
           hasValue={!!watch("reconfirmPassword")}
         >
-          {errorsForm.reconfirmPassword && ( // Hiển thị chỉ khi confirmPasswordValid là false
-            <Pnote style={{ color: "red" }}>
-              Mật khẩu xác nhận không khớp.
-            </Pnote>
+          {errorsForm.reconfirmPassword && (
+            <ErrorInput>{errorsForm.reconfirmPassword.message}</ErrorInput>
           )}
         </InputAuth>
         <InputAuth
@@ -130,9 +182,16 @@ const RegisterPage: React.FC = () => {
           label="Nhập mã giới thiệu (nếu có)"
           hasValue={!!watch("user_promoCode")}
         />
-        <Button>Đăng Ký</Button>
+        <Button $width="100%">Đăng Ký</Button>
+        <LoginRegisterLabel>
+          <p>Hoặc đăng nhập bằng</p>
+        </LoginRegisterLabel>
       </Form>
-      <InputButtonAuth/>
+      <LogoAuth />
+      <LoginNow>
+        <p>Bạn đã có tài khoảng?</p>
+        <Link to={`/${PATH_USER.login}`}>Đăng nhập ngay</Link>
+      </LoginNow>
     </RegisterContainer>
   );
 };

@@ -2,7 +2,7 @@ const PATH_USER = {
   home: "",
   user: "user",
   login: "login",
-  register:"register",
+  register: "register",
   brand: "brand",
   order: "order",
   rating: "rating",

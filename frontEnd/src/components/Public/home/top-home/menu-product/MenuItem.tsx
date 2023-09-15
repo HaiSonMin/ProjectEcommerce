@@ -143,8 +143,6 @@ export default function MenuItem({ productCategoryGroup }: IProps) {
       return result;
     }, {}) || {};
 
-  console.log("transformedData:::", transformedData);
-
   const keyTypes = Object.keys(transformedData).slice(0, 3);
 
   return (
