@@ -24,10 +24,10 @@ const Input = styled.input`
   }
 `;
 
-const Label = styled.label<{ focused: boolean; hasValue: boolean }>`
+const Label = styled.label<{ $focused: boolean; $hasValue: boolean }>`
   position: absolute;
   ${(props) =>
-    props.focused || props.hasValue
+    props.$focused || props.$hasValue
       ? css`
           left: 0.5rem;
           top: 0;
@@ -37,14 +37,14 @@ const Label = styled.label<{ focused: boolean; hasValue: boolean }>`
           top: 1.8rem;
         `};
   font-size: ${(props) =>
-    props.focused || props.hasValue ? "1.2rem" : "1.4rem"};
+    props.$focused || props.$hasValue ? "1.2rem" : "1.4rem"};
   color: ${(props) =>
-    props.focused ? "var(--color-primary)" : "var(--color-grey-400)"};
+    props.$focused ? "var(--color-primary)" : "var(--color-grey-400)"};
   transition: all 0.3s;
   cursor: auto;
 `;
 
-const ShowPasswordButton = styled.button<{ showPassword: boolean }>`
+const ShowPasswordButton = styled.button<{ $showPassword: boolean }>`
   position: absolute;
   right: 1rem;
   top: 2.8rem;
@@ -54,7 +54,7 @@ const ShowPasswordButton = styled.button<{ showPassword: boolean }>`
   cursor: pointer;
   font-size: 18px;
   color: ${(props) =>
-    props.showPassword ? "var(--color-primary)" : "inherit"};
+    props.$showPassword ? "var(--color-primary)" : "inherit"};
 `;
 
 const ErrorInput = styled.p`
@@ -102,16 +102,16 @@ export default function InputAuth({
         {...register}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
-        autoComplete
+        autoComplete="true"
       />
-      <Label htmlFor={id} focused={focused} hasValue={hasValue}>
+      <Label htmlFor={id} $focused={focused} $hasValue={hasValue}>
         {label}
       </Label>
       {type === "password" && (
         <ShowPasswordButton
           type="button"
           onClick={toggleShowPassword}
-          showPassword={showPassword}
+          $showPassword={showPassword}
         >
           {showPassword ? <RiEyeOffFill /> : <RiEyeFill />}
         </ShowPasswordButton>

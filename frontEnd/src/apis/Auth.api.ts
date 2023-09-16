@@ -33,6 +33,7 @@ class AuthApi {
       const result: IApi = response.data;
       return result;
     } catch (error) {
+      console.log("error:::", error);
       throw new Error(getErrorMessage(error));
     }
   }

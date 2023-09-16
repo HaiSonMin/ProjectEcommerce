@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { PATH_USER } from "@/constant";
 import CONSTANT from "@/constant/value-constant";
 import { IUserCreate } from "@/interfaces/user.interface";
+import UseAuthApi from "./UseAuthApi";
 
 const RegisterLayoutStyled = styled.div`
   display: flex;
@@ -65,7 +66,19 @@ export default function RegisterLayout() {
   const { handleSubmit, register, formState, watch, getValues } =
     useForm<IUserCreate>();
   const { errors: errorsForm } = formState;
-  const onSubmit = (dataForm) => {};
+  const { isRegistering, register: registerAuth } = UseAuthApi.register();
+
+  const onSubmit = (dataForm: Partial<IUserCreate>) => {
+    const dataRegister: Partial<IUserCreate> = {
+      user_fullName: dataForm["user_fullName"],
+      user_email: dataForm["user_email"],
+      user_phoneNumber: dataForm["user_phoneNumber"],
+      user_password: dataForm["user_password"],
+      reconfirmPassword: dataForm["reconfirmPassword"],
+    };
+    registerAuth(dataRegister);
+  };
+
   return (
     <RegisterLayoutStyled>
       <Header>
@@ -88,7 +101,7 @@ export default function RegisterLayout() {
         />
         <InputAuth
           id="phoneNumber"
-          type="number"
+          type="text"
           register={register("user_phoneNumber", {
             required: { value: true, message: "Vui lòng nhập số điện thoại" },
             validate: (phoneNumberInput) => {

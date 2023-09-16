@@ -1,20 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import IUser, { IUserCreate } from "@/interfaces/user.interface";
+import IUser from "@/interfaces/user.interface";
 import {
   Button,
   Heading,
   InputAuth,
   LoginRegisterLabel,
   LogoAuth,
-  Spinner,
 } from "@/components";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { PATH_USER } from "@/constant";
 import CONSTANT from "@/constant/value-constant";
 import UseAuthApi from "./UseAuthApi";
-import { toast } from "react-hot-toast";
+import { IAuthLoginResultApi } from "@/api-types/IAuthResultApi";
+import { useLocalStorageState } from "@/hooks";
 
 const LoginLayoutStyled = styled.div`
   display: flex;
@@ -81,17 +81,36 @@ const SeePromotion = styled(Link)`
 `;
 
 export default function LoginLayout() {
+  const navigate = useNavigate();
+
   const { isLogin, login } = UseAuthApi.login();
+
   const { handleSubmit, register, formState, watch } =
     useForm<Pick<IUser, "user_email" | "user_password">>();
   const { errors: errorsForm } = formState;
+
   const onSubmit = (dataForm: Pick<IUser, "user_email" | "user_password">) => {
     const dataLogin: Pick<IUser, "user_email" | "user_password"> = {
       user_email: dataForm["user_email"],
       user_password: dataForm["user_password"],
     };
-    login(dataLogin);
+    login(dataLogin, {
+      onSuccess: ({
+        metadata: data,
+      }: Pick<IAuthLoginResultApi, "metadata">) => {
+        const dataStorage = {
+          token: data.accessToken,
+          userName: data.user.user_userName,
+        };
+        localStorage.setItem(
+          CONSTANT.USER_TOKEN_NAME,
+          JSON.stringify(dataStorage)
+        );
+        navigate("/");
+      },
+    });
   };
+
   return (
     <LoginLayoutStyled>
       <ContainerTop>

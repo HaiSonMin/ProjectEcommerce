@@ -53,7 +53,10 @@ export default class UseAuthApi {
     const { data, isLoading, mutate } = useMutation({
       mutationFn: AuthApi.register,
       onSuccess: (data) => toast.success(data.message),
-      onError: () => toast.success("Đăng kí thất bại"),
+      onError: (error) => {
+        console.log(error);
+        toast.error("Đăng kí thất bại");
+      },
     });
     return {
       register: mutate,

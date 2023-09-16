@@ -5,7 +5,7 @@ import { HiArrowLongRight } from "react-icons/hi2";
 import { BiChevronRight } from "react-icons/bi";
 import { IProductCategoryGroup } from "@/interfaces";
 import UseProductCategoryApi from "@/features/admin/productCategory/UseProductCategoryApi";
-import { removeSpaceString } from "@/utils";
+import { randomKey, removeSpaceString } from "@/utils";
 
 const MenuItemStyled = styled.li`
   display: flex;
@@ -167,7 +167,7 @@ export default function MenuItem({ productCategoryGroup }: IProps) {
         onMouseLeave={() => setIsDisplayChild(false)}
       >
         {Object.entries(transformedData).map((item) => (
-          <aside className="type">
+          <aside className="type" key={randomKey()}>
             <div className="type-header">
               <p>{item[0]}</p>
               {Object.keys(item[1]).length <= 2 && (

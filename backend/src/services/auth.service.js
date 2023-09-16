@@ -21,9 +21,7 @@ class AuthService {
     const newUser = await UserModel.create(payload);
     if (!newUser) throw new BadRequestError("Register User Error");
     return getInfoData(newUser, [
-      "user_firstName",
-      "user_lastName",
-      "user_userName",
+      "user_fullName",
       "user_email",
       "user_phoneNumber",
     ]);
@@ -82,13 +80,7 @@ class AuthService {
     });
 
     return {
-      user: getInfoData(user, [
-        "_id",
-        "user_firstName",
-        "user_lastName",
-        "user_userName",
-        "user_email",
-      ]),
+      user: getInfoData(user, ["_id", "user_email", "user_userName"]),
       accessToken,
     };
   }
