@@ -62,7 +62,6 @@ const NavLinkItem = styled(Link)`
 const CartBlock = styled.div`
   position: relative;
 `;
-
 const CountBuy = styled.div`
   position: absolute;
   top: -3px;
@@ -85,7 +84,6 @@ export default function HeaderMenuTop() {
     }
     return null;
   }, [localStorage.getItem(CONSTANT.USER_TOKEN_NAME)]);
-
   return (
     <HeaderMenuTopStyled>
       <Navs>

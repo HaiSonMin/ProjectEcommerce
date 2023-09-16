@@ -8,13 +8,14 @@ import {
   InputAuth,
   LoginRegisterLabel,
   LogoAuth,
+  SnipLogo,
+  SpinnerMini,
 } from "@/components";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATH_USER } from "@/constant";
 import CONSTANT from "@/constant/value-constant";
 import UseAuthApi from "./UseAuthApi";
 import { IAuthLoginResultApi } from "@/api-types/IAuthResultApi";
-import { useLocalStorageState } from "@/hooks";
 
 const LoginLayoutStyled = styled.div`
   display: flex;
@@ -113,6 +114,7 @@ export default function LoginLayout() {
 
   return (
     <LoginLayoutStyled>
+      {isLogin && <SnipLogo/>}
       <ContainerTop>
         <Header>
           <Heading $as="h3">Đăng nhập Smember</Heading>
@@ -150,7 +152,7 @@ export default function LoginLayout() {
           hasValue={!!watch("user_password")}
           error={errorsForm.user_password?.message}
         />
-        <TitleForget to={`/${PATH_USER.forgotPassword}`}>
+        <TitleForget to={`/${PATH_USER.forgetpassword}`}>
           Quên mật khẩu?
         </TitleForget>
         <Button $width="100%">Đăng Nhập</Button>
