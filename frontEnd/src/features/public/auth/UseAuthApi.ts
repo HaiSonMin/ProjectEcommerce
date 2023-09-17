@@ -7,6 +7,7 @@ import {
   IAuthResetPasswordResultApi,
 } from "@/api-types/IAuthResultApi";
 import { AuthApi } from "@/apis";
+import CONSTANT from "@/constant/value-constant";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
@@ -35,8 +36,11 @@ export default class UseAuthApi {
   static logout(): IAuthLogoutResultApi {
     const { data, mutate, isLoading } = useMutation({
       mutationFn: AuthApi.logout,
-      onSuccess: (data) => toast.success(data.message),
-      onError: () => toast.success("Thao tát thất bại"),
+      onSuccess: (data) => {
+        localStorage.removeItem(CONSTANT.USER_TOKEN_NAME);
+        toast.success(data.message);
+      },
+      onError: () => toast.error("Thao tát thất bại"),
     });
 
     return {
@@ -53,9 +57,8 @@ export default class UseAuthApi {
     const { data, isLoading, mutate } = useMutation({
       mutationFn: AuthApi.register,
       onSuccess: (data) => toast.success(data.message),
-      onError: (error) => {
-        console.log(error);
-        toast.error("Đăng kí thất bại");
+      onError: (error: any) => {
+        toast.error(error.message);
       },
     });
     return {

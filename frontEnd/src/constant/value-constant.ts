@@ -6,6 +6,7 @@ class Constant {
   REGEX_PHONE: any;
   REGEX_EMAIL: any;
   USER_TOKEN_NAME: string;
+  ROLE_USER: { ADMIN: string; USER: string; WRITER: string; READER: string };
   constructor() {
     this.LIMIT_PAGE = 10;
     this.MAX_UPLOAD_IMAGE = 10;
@@ -14,6 +15,12 @@ class Constant {
     this.REGEX_PHONE = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
     this.REGEX_EMAIL = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm;
     this.USER_TOKEN_NAME = "userToken";
+    this.ROLE_USER = {
+      USER: "USER",
+      ADMIN: "ADMIN",
+      WRITER: "WRITER",
+      READER: "READER",
+    };
   }
 }
 

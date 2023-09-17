@@ -2,6 +2,7 @@ const lodash = require("lodash");
 const JWT = require("jsonwebtoken");
 const { Types } = require("mongoose");
 const { cloudinary } = require("../configs");
+const otpGenerator = require("otp-generator");
 // Lodash
 const getInfoData = (object = {}, field = []) => lodash.pick(object, field);
 const setDataNested = (data, obj = {}) => {
@@ -29,12 +30,12 @@ const saveTokenCookie = ({ tokenName, tokenValue, day, res }) =>
   res.cookie(tokenName, tokenValue, {
     httpOnly: true,
     maxAge: day * 24 * 60 * 60 * 1000,
+    path: "/",
   });
 
 const deleteTokenCookie = ({ tokenName, res }) =>
   res.clearCookie(tokenName, {
     httpOnly: true,
-    secure: true,
   });
 
 const convertToMongoObjectId = (id) => new Types.ObjectId(id);
@@ -118,6 +119,15 @@ const getFieldsPath = (fieldsImage = []) => {
   return fields;
 };
 
+const getMiliSecondMinute = (minute) => minute * 60 * 1000;
+
+const generateOTP = async () =>
+  await otpGenerator.generate(6, {
+    lowerCaseAlphabets: false,
+    upperCaseAlphabets: false,
+    specialChars: false,
+  });
+
 module.exports = {
   checkStringType,
   skipPage,
@@ -141,4 +151,6 @@ module.exports = {
   getFieldsPath,
   capitalizeFirstLetter,
   setDataNested,
+  getMiliSecondMinute,
+  generateOTP,
 };

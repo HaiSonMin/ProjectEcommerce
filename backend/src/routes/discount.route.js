@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { DiscountController } = require("../controllers");
-const { checkAuthIsAdmin } = require("../middleware/checkAuth.middleware");
+const { checkAuthIsAdmin } = require("../middleware/auth.middleware");
 
 // router.use(checkAuthIsAdmin)
 router.route("/create").post(DiscountController.createDiscount);

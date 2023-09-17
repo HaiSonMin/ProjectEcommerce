@@ -1,28 +1,89 @@
-const crypto = require("crypto");
 const bcrypt = require("bcrypt");
-const { BadRequestError, NotFoundError } = require("../core/error.response");
-const { UserModel, KeyTokenModel } = require("../models");
+const {
+  BadRequestError,
+  NotFoundError,
+  UnavailableError,
+  ForbiddenError,
+} = require("../core/error.response");
+const { UserModel, KeyTokenModel, SessionAuthModel } = require("../models");
 const { UserRepo, KeyTokenRepo } = require("../repositories");
 const {
   getInfoData,
   verifyToken,
   saveTokenCookie,
   deleteTokenCookie,
+  getMiliSecondMinute,
+  generateOTP,
 } = require("../utils");
-const sendMail = require("../utils/sendMail");
+const { sendMail } = require("../helpers");
+const { htmlLogin, htmlRegister } = require("../constant/html");
 const { createTokenPair, createDoubleKeys } = require("../utils/token.utils");
-const UserRepository = require("../repositories/user.repo");
+const userModel = require("../models/user.model");
+const constant = require("../utils/constant");
+const schedule = require("node-schedule");
 
 class AuthService {
   static async register(req, res) {
     const payload = req.body;
+    const OTP = await generateOTP();
     if (payload.user_password !== payload.reconfirmPassword)
-      throw new BadRequestError("Password and reconfirmPassword don't match");
-    const newUser = await UserModel.create(payload);
-    if (!newUser) throw new BadRequestError("Register User Error");
-    return getInfoData(newUser, [
-      "user_fullName",
+      throw new BadRequestError("Mật khẩu xác nhận không khớp");
+
+    const checkPhone = await UserModel.findOne({
+      user_phoneNumber: payload.user_phoneNumber,
+    });
+    if (checkPhone)
+      throw new BadRequestError("Số điện thoại đã được đăng kí trước đó");
+
+    const checkEmail = await UserModel.findOne({
+      user_email: payload.user_email,
+    });
+    if (checkEmail) throw new BadRequestError("Email đã được đăng kí trước đó");
+
+    const checkUserName = await UserModel.findOne({
+      user_userName: payload.user_userName,
+    });
+    if (checkUserName)
+      throw new BadRequestError("Tên người dùng đã được đăng kí trước đó");
+
+    delete payload.reconfirmPassword;
+
+    // create newSessionAuth
+    const newSessionAuth = await SessionAuthModel.create({
+      session_OTP: OTP,
+      session_data: payload,
+      session_duration: Date.now() + getMiliSecondMinute(2),
+    });
+
+    if (!newSessionAuth) throw new BadRequestError("Tạo người dùng thất bại");
+    await sendMail(payload.user_email, htmlRegister(OTP));
+
+    return "Vui lòng kiểm tra gmail của bạn";
+  }
+
+  static async confirmRegisterUser(req, res) {
+    const { OTPCode } = req.body;
+
+    const sessionAuth = await SessionAuthModel.findOne({
+      session_OTP: OTPCode,
+    }).exec();
+    if (!sessionAuth)
+      throw new NotFoundError("OTP không đúng, vui lòng kiểm tra lại");
+
+    if (sessionAuth.session_duration < Date.now())
+      throw new NotFoundError(
+        "Mã OTP đã hết hiệu lực, vui lòng nhấn vào nút gửi lại mã"
+      );
+
+    const user = await UserModel.create(sessionAuth.session_data);
+    if (!user) throw new BadRequestError("Tạo người dùng thất bại");
+
+    await SessionAuthModel.findByIdAndDelete(sessionAuth._id);
+
+    return getInfoData(user, [
+      "user_userName",
       "user_email",
+      "user_role",
       "user_phoneNumber",
     ]);
   }
@@ -30,7 +91,7 @@ class AuthService {
   static async login(req, res) {
     const { user_email, user_password } = req.body;
     // Check user in DB
-    const user = await UserRepository.getUserByEmail({ user_email });
+    const user = await UserRepo.getUserByEmail({ user_email });
     if (!user) throw new NotFoundError("Wrong Email Or Password");
     // Check password is matching
     const isMatchingPassword = await user.comparePassword(user_password);
@@ -42,8 +103,8 @@ class AuthService {
       user_email: userEmail,
       user_role: userRole,
     } = user;
+
     const { privateKey, publicKey } = createDoubleKeys();
-    console.log("privateKey, publicKey", privateKey, publicKey);
 
     /////////////////////// Payload of token ///////////////////////
     const payload = { userId, userName, userEmail, userRole };
@@ -55,7 +116,6 @@ class AuthService {
       privateKey,
       publicKey,
     });
-    console.log("Done");
 
     // Save refreshToken to DB
     const keyStore = await KeyTokenModel.findOneAndUpdate(
@@ -80,7 +140,12 @@ class AuthService {
     });
 
     return {
-      user: getInfoData(user, ["_id", "user_email", "user_userName"]),
+      user: getInfoData(user, [
+        "_id",
+        "user_role",
+        "user_email",
+        "user_userName",
+      ]),
       accessToken,
     };
   }
@@ -96,6 +161,8 @@ class AuthService {
       refreshToken
     );
     if (!keyDeleted) throw new BadRequestError("Delete RT Error");
+
+    console.log("refreshToken:::", refreshToken);
 
     return getInfoData(keyDeleted, [
       "keytoken_userId",
@@ -161,50 +228,70 @@ class AuthService {
   static async forgotPassword(req, res) {
     // Check Email
     const { user_email } = req.body;
-    if (!user_email) throw new BadRequestError("Please Provide Your Email");
+    const OTP = await generateOTP();
+    if (!user_email)
+      throw new BadRequestError("Vui lòng nhập bổ sung địa chỉ email");
 
     // Check user exist by email
     const user = await UserRepo.getUserByEmail({ user_email });
-    if (!user) throw new NotFoundError("Not Found User By This Email");
+    if (!user)
+      throw new NotFoundError(
+        `Email ${user_email} chưa được đăng kí trong hệ thống`
+      );
 
-    const secretKey = user.createPasswordChanged();
-    await user.save(); // Save secretKey to DB
+    const sessionAuth = await SessionAuthModel.create({
+      session_OTP: OTP,
+      session_duration: Date.now() + 2 * 60 * 1000,
+    });
 
-    const html = `Please click here to change password, Password change time expires in 5 minute. <a href=${process.env.LOCAL_HOST}/api/v1/auth/forgotPassword/${secretKey}>Click here</a>`;
-    const responseEmail = await sendMail(user_email, html);
-    return {
-      sendTo: user_email,
-      response: responseEmail,
-    };
+    await Promise.all([
+      user.updateOne({ $set: { user_sessionAuth: sessionAuth._id } }),
+      sendMail(user_email, htmlLogin(OTP)),
+    ]);
+  }
+
+  static async createResetPasswordSession(req, res) {
+    const { OTPCode } = req.body;
+
+    const sessionAuth = await SessionAuthModel.findOne({
+      session_OTP: OTPCode,
+    }).exec();
+
+    if (!sessionAuth) throw new NotFoundError("Mã OTP không chính xác");
+
+    if (sessionAuth.session_duration < Date.now())
+      throw new UnavailableError(
+        "Mã OTP đã hết hiệu lực, vui lòng nhấn vào nút gửi lại mã"
+      );
+    await sessionAuth.updateOne({ $set: { session_confirm: true } });
+    return "Xác nhận OTP thành công";
   }
 
   static async resetPassword(req, res) {
-    const { secretToken } = req.params;
-    const { newPassword, repeatNewPassword } = req.body;
-    if (newPassword !== repeatNewPassword)
-      throw new BadRequestError("NewPassword must be same RepeatNewPassword");
+    const { user_password, reconfirmPassword, user_email } = req.body;
 
-    const encodeSecretToken = crypto
-      .createHash("sha256")
-      .update(secretToken)
-      .digest("hex");
+    const user = await UserRepo.getUserByEmail({ user_email });
+    if (!user) throw new NotFoundError("Người dùng không tồn tại");
 
-    const user = await UserRepo.matchSecretToken(encodeSecretToken);
-    if (!user)
-      throw new BadRequestError(
-        "Time change new password expired, please try again"
-      );
+    const sessionAuth = await SessionAuthModel.findById(user.user_sessionAuth);
+    if (!sessionAuth || !sessionAuth.session_confirm)
+      throw new ForbiddenError("Chưa xác nhận mã OTP, vui lòng thử lại");
 
-    const newPasswordEncode = await bcrypt.hash(newPassword, 8);
+    if (user_password !== reconfirmPassword)
+      throw new BadRequestError("Mật khẩu xác nhận không khớp");
+
+    const newPasswordEncode = await bcrypt.hash(user_password, constant.SALT);
 
     // Update newPassword
-    await user.updateOne({
-      $set: {
-        user_password: newPasswordEncode,
-        user_passwordResetSecretKey: null,
-        user_passwordResetExpires: null,
-      },
-    });
+    await Promise.all([
+      user.updateOne({
+        $set: {
+          user_password: newPasswordEncode,
+          user_sessionAuth: null,
+        },
+      }),
+      SessionAuthModel.findByIdAndDelete(user.user_sessionAuth),
+    ]);
     return;
   }
 }

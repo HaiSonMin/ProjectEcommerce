@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { WishlistController } = require("../controllers");
-const { checkAuthIsUser, authentication } = require("../middleware/checkAuth.middleware");
+const { checkAuthIsUser, authentication } = require("../middleware/auth.middleware");
 
 router.use(authentication);
 router.route("/addProduct").patch(WishlistController.addProduct);

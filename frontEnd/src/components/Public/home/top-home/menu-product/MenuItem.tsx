@@ -186,6 +186,7 @@ export default function MenuItem({ productCategoryGroup }: IProps) {
                     .slice(0, 7)
                     .map((brandLink: string) => (
                       <CategoryLink
+                        key={randomKey()}
                         to={`${removeSpaceString(
                           item[0]
                         ).toLocaleLowerCase()}/${removeSpaceString(

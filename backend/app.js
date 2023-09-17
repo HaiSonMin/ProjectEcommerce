@@ -24,7 +24,7 @@ app.use(
     max: 100, // Limit each IP to 100 requests per windowMs
   })
 );
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(helmet());
 app.use(xssClean());
 
@@ -37,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 //Login API
 // app.use("/api/users", userRouter)
 
+require("./src/schedule");
 require("./src/db/connectDB");
 const { checkOverload } = require("./src/helpers/check-connect");
 checkOverload();

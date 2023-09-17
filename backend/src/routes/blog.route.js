@@ -4,7 +4,7 @@ const { BlogController } = require("../controllers");
 const {
   authentication,
   checkAuthIsAdmin,
-} = require("../middleware/checkAuth.middleware");
+} = require("../middleware/auth.middleware");
 
 router.route("/getAll").get(BlogController.getAllBlogs);
 router.route("/getById/:blogId").get(BlogController.getBlogById);

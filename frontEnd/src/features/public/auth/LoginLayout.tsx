@@ -8,14 +8,15 @@ import {
   InputAuth,
   LoginRegisterLabel,
   LogoAuth,
-  SnipLogo,
-  SpinnerMini,
+  SpinnerLogo,
 } from "@/components";
 import { Link, useNavigate } from "react-router-dom";
 import { PATH_USER } from "@/constant";
 import CONSTANT from "@/constant/value-constant";
 import UseAuthApi from "./UseAuthApi";
 import { IAuthLoginResultApi } from "@/api-types/IAuthResultApi";
+import { useDispatch } from "react-redux";
+import { setATUser, setUser } from "@/storeReducer/userSlice";
 
 const LoginLayoutStyled = styled.div`
   display: flex;
@@ -82,6 +83,7 @@ const SeePromotion = styled(Link)`
 `;
 
 export default function LoginLayout() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { isLogin, login } = UseAuthApi.login();
@@ -100,13 +102,23 @@ export default function LoginLayout() {
         metadata: data,
       }: Pick<IAuthLoginResultApi, "metadata">) => {
         const dataStorage = {
-          token: data.accessToken,
+          userId: data.user._id,
+          userRole: data.user.user_role,
           userName: data.user.user_userName,
+          accessToken: data.accessToken,
         };
         localStorage.setItem(
           CONSTANT.USER_TOKEN_NAME,
           JSON.stringify(dataStorage)
         );
+        dispatch(
+          setUser({
+            userId: data.user._id,
+            userRole: data.user.user_role,
+            userName: data.user.user_userName,
+          })
+        );
+        dispatch(setATUser(data.accessToken));
         navigate("/");
       },
     });
@@ -114,7 +126,7 @@ export default function LoginLayout() {
 
   return (
     <LoginLayoutStyled>
-      {isLogin && <SnipLogo/>}
+      {isLogin && <SpinnerLogo />}
       <ContainerTop>
         <Header>
           <Heading $as="h3">Đăng nhập Smember</Heading>

@@ -37,6 +37,7 @@ import ButtonGroup from "./ButtonGroup";
 import SpinnerMini from "./SpinnerMini";
 import ImagesGroup from "./ImagesGroup";
 import FromHeading from "./FormHeading";
+import SpinnerLogo from "./SpinnerLogo";
 import TextAreaLabel from "./TextAreaLabel";
 import CarouselImage from "./CarouselImage";
 import ButtonConfirm from "./ButtonConfirm";
@@ -54,7 +55,6 @@ import LoginRegisterLabel from "./LoginRegisterLabel";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import DarkModeProvider from "./private/DarkModeProvider";
 import ForgetPassword from "@/pages/ForgetPassword";
-import SnipLogo from "./SnipLogo";
 
 export {
   Row,
@@ -80,7 +80,6 @@ export {
   LogoAuth,
   TextArea,
   Carousel,
-  SnipLogo,
   CountDown,
   InputFile,
   InputAuth,
@@ -92,6 +91,7 @@ export {
   ButtonIcon,
   Pagination,
   SelectMulti,
+  SpinnerLogo,
   FromHeading,
   ImagesGroup,
   ButtonGroup,

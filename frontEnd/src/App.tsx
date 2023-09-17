@@ -1,5 +1,5 @@
 import { PATH_ADMIN, PATH_USER } from "@/constant";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Router, Routes, useLocation } from "react-router-dom";
 import {
   AdminLayout,
   UserPage,
@@ -17,7 +17,8 @@ import {
   DashboardPage,
 } from "@/pages/private";
 import { Suspense, lazy, useEffect } from "react";
-import { Spinner } from "./components";
+import { SpinnerLogo } from "./components";
+import { PrivateRouter } from "./components/private";
 
 const UserTablePage = lazy(() => import("@/pages/private/user/UserTablePage"));
 const UserSearchPage = lazy(
@@ -133,103 +134,113 @@ export default function App() {
   }, [pathName]);
 
   return (
-    <Suspense fallback={<Spinner />}>
+    <Suspense fallback={<SpinnerLogo />}>
       <Routes>
         {/* Layout of public */}
         <Route element={<Navigate replace to={"/"} />} />
         <Route path={"/"} element={<PublicLayOut />}>
           <Route path={PATH_USER.login} element={<LoginPage />} />
-          <Route path={PATH_USER.register} element={<RegisterPage/>} />
-          <Route path={PATH_USER.home} element={<HomePage/>} />
-          <Route path={PATH_USER.forgetpassword} element={<ForgetPasswordPage/>} />
+          <Route path={PATH_USER.register} element={<RegisterPage />} />
+          <Route path={PATH_USER.home} element={<HomePage />} />
+          <Route
+            path={PATH_USER.forgetpassword}
+            element={<ForgetPasswordPage />}
+          />
           <Route
             path={PATH_USER.product}
             element={<ProductCategoryPageUser />}
           />
         </Route>
 
-        {/* <Route element={<Navigate replace to={"/admin"} />} /> */}
         {/* Layout of private */}
-        <Route path={PATH_ADMIN.admin} element={<AdminLayout />}>
-          <Route path={PATH_ADMIN.brand} element={<BrandPage />}>
-            <Route path="" element={<BrandTablePage />} />
-          </Route>
+        <Route element={<PrivateRouter />}>
+          <Route path={PATH_ADMIN.admin} element={<AdminLayout />}>
+            <Route path={PATH_ADMIN.brand} element={<BrandPage />}>
+              <Route path="" element={<BrandTablePage />} />
+            </Route>
 
-          <Route
-            path={PATH_ADMIN.productCategoryGroup}
-            element={<ProductCategoryGroupPage />}
-          >
-            <Route path="" element={<ProductCategoryGroupTablePage />} />
             <Route
-              path={"create"}
-              element={<ProductCategoryGroupCreatePage />}
-            />
+              path={PATH_ADMIN.productCategoryGroup}
+              element={<ProductCategoryGroupPage />}
+            >
+              <Route path="" element={<ProductCategoryGroupTablePage />} />
+              <Route
+                path={"create"}
+                element={<ProductCategoryGroupCreatePage />}
+              />
+              <Route
+                path={"update/:productCategoryGroupId"}
+                element={<ProductCategoryGroupUpdatePage />}
+              />
+            </Route>
+
             <Route
-              path={"update/:productCategoryGroupId"}
-              element={<ProductCategoryGroupUpdatePage />}
-            />
+              path={PATH_ADMIN.productCategory}
+              element={<ProductCategoryPage />}
+            >
+              <Route path="" element={<ProductCategoryTablePage />} />
+              <Route path={"create"} element={<ProductCategoryCreatePage />} />
+              <Route
+                path={"update/:productCategoryId"}
+                element={<ProductCategoryUpdatePage />}
+              />
+            </Route>
+
+            <Route path={PATH_ADMIN.demand} element={<DemandPage />}>
+              <Route path="" element={<DemandTablePage />} />
+              <Route path={"create"} element={<DemandCreatePage />} />
+              <Route path={"update/:demandId"} element={<DemandUpdatePage />} />
+            </Route>
+
+            <Route path={PATH_ADMIN.user} element={<UserPage />}>
+              <Route path="" element={<UserTablePage />} />
+              <Route path={`search`} element={<UserSearchPage />} />
+              <Route path={`createEmployees`} element={<UserCreatePage />} />
+            </Route>
+
+            <Route path={PATH_ADMIN.order} element={<OrderPage />}>
+              <Route path={""} element={<OrderTablePage />} />
+            </Route>
+
+            <Route path={PATH_ADMIN.coupon} element={<CouponPage />}>
+              <Route path="" element={<CouponTablePage />} />
+              <Route path={`create`} element={<CouponCreatePage />} />
+              <Route path={`update/:couponId`} element={<CouponEditPage />} />
+            </Route>
+
+            <Route path={PATH_ADMIN.discount} element={<DiscountPage />}>
+              <Route path={``} element={<DiscountTablePage />} />
+              <Route path={`create`} element={<DiscountCreatePage />} />
+              <Route
+                path={`update/:discountId`}
+                element={<DiscountEditPage />}
+              />
+              <Route
+                path={`addProduct/:discountId`}
+                element={<DiscountAddProductsPage />}
+              />
+            </Route>
+
+            <Route path={PATH_ADMIN.rating} element={<RatingPage />} />
+            <Route path={PATH_ADMIN.setting} element={<SettingPage />} />
+            <Route path={PATH_ADMIN.payment} element={<PaymentPage />} />
+
+            <Route path={PATH_ADMIN.product} element={<ProductPage />}>
+              <Route path={``} element={<ProductTablePage />} />
+              <Route path={`create`} element={<ProductCreatePage />} />
+              <Route
+                path={`update/:productId`}
+                element={<ProductUpdatePage />}
+              />
+            </Route>
+
+            <Route path={PATH_ADMIN.customer} element={<CustomerPage />} />
+            <Route path={PATH_ADMIN.question} element={<QuestionPage />} />
+            <Route path={PATH_ADMIN.wishlist} element={<WishlistPage />} />
+
+            <Route path={PATH_ADMIN.dashboard} element={<DashboardPage />} />
+            <Route path={PATH_ADMIN.inventory} element={<InventoryPage />} />
           </Route>
-
-          <Route
-            path={PATH_ADMIN.productCategory}
-            element={<ProductCategoryPage />}
-          >
-            <Route path="" element={<ProductCategoryTablePage />} />
-            <Route path={"create"} element={<ProductCategoryCreatePage />} />
-            <Route
-              path={"update/:productCategoryId"}
-              element={<ProductCategoryUpdatePage />}
-            />
-          </Route>
-
-          <Route path={PATH_ADMIN.demand} element={<DemandPage />}>
-            <Route path="" element={<DemandTablePage />} />
-            <Route path={"create"} element={<DemandCreatePage />} />
-            <Route path={"update/:demandId"} element={<DemandUpdatePage />} />
-          </Route>
-
-          <Route path={PATH_ADMIN.user} element={<UserPage />}>
-            <Route path="" element={<UserTablePage />} />
-            <Route path={`search`} element={<UserSearchPage />} />
-            <Route path={`createEmployees`} element={<UserCreatePage />} />
-          </Route>
-
-          <Route path={PATH_ADMIN.order} element={<OrderPage />}>
-            <Route path={""} element={<OrderTablePage />} />
-          </Route>
-
-          <Route path={PATH_ADMIN.coupon} element={<CouponPage />}>
-            <Route path="" element={<CouponTablePage />} />
-            <Route path={`create`} element={<CouponCreatePage />} />
-            <Route path={`update/:couponId`} element={<CouponEditPage />} />
-          </Route>
-
-          <Route path={PATH_ADMIN.discount} element={<DiscountPage />}>
-            <Route path={``} element={<DiscountTablePage />} />
-            <Route path={`create`} element={<DiscountCreatePage />} />
-            <Route path={`update/:discountId`} element={<DiscountEditPage />} />
-            <Route
-              path={`addProduct/:discountId`}
-              element={<DiscountAddProductsPage />}
-            />
-          </Route>
-
-          <Route path={PATH_ADMIN.rating} element={<RatingPage />} />
-          <Route path={PATH_ADMIN.setting} element={<SettingPage />} />
-          <Route path={PATH_ADMIN.payment} element={<PaymentPage />} />
-
-          <Route path={PATH_ADMIN.product} element={<ProductPage />}>
-            <Route path={``} element={<ProductTablePage />} />
-            <Route path={`create`} element={<ProductCreatePage />} />
-            <Route path={`update/:productId`} element={<ProductUpdatePage />} />
-          </Route>
-
-          <Route path={PATH_ADMIN.customer} element={<CustomerPage />} />
-          <Route path={PATH_ADMIN.question} element={<QuestionPage />} />
-          <Route path={PATH_ADMIN.wishlist} element={<WishlistPage />} />
-
-          <Route path={PATH_ADMIN.dashboard} element={<DashboardPage />} />
-          <Route path={PATH_ADMIN.inventory} element={<InventoryPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

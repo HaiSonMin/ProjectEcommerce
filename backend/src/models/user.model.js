@@ -9,12 +9,10 @@ const UserSchema = new Schema(
   {
     user_firstName: {
       type: String,
-      required: [true, "Please provide user first name"],
       maxlength: 50,
     },
     user_lastName: {
       type: String,
-      required: [true, "Please provide user last name"],
       maxlength: 50,
     },
     user_userName: {
@@ -26,17 +24,17 @@ const UserSchema = new Schema(
     user_email: {
       type: String,
       match: [
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm,
         ,
-        "Please provide valid email",
+        "Email không đúng định dạng",
       ],
-      unique: [true, "Email has exist"],
-      required: [true, "Please provide email"],
+      unique: [true, "Email đã được đăng kí trước đó"],
+      required: [true, "Vui lòng bổ sung email"],
       maxlength: 50,
     },
     user_password: {
       type: String,
-      required: [true, "Please provide user password"],
+      required: [true, "Vui lòng bổ sung mật khẩu"],
       select: false,
     },
     user_role: {
@@ -46,9 +44,12 @@ const UserSchema = new Schema(
     },
     user_phoneNumber: {
       type: String,
-      unique: [true, "Phone number has exist"],
+      unique: [true, "Số điện thoại đã được đăng kí trước đó"],
       required: true,
-      maxlength: [10, "Number not correct"],
+      match: [
+        /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
+        "Số điện thoại không đúng định dạng",
+      ],
     },
     user_address: {
       type: Schema.Types.ObjectId,
@@ -59,13 +60,9 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    user_passwordResetSecretKey: {
-      type: String,
-      select: false,
-    },
-    user_passwordResetExpires: {
-      type: String,
-      select: false,
+    user_sessionAuth: {
+      type: Schema.Types.ObjectId,
+      ref: constant.MODELS_NAMES.SessionAuth,
     },
   },
   {
@@ -76,6 +73,7 @@ const UserSchema = new Schema(
 UserSchema.index({
   user_email: 1,
   user_userName: 1,
+  user_phoneNumber: 1,
 });
 
 UserSchema.pre("save", async function (next) {
@@ -90,14 +88,9 @@ UserSchema.methods = {
     return await bcrypt.compare(password, this.user_password);
   },
 
-  createPasswordChanged: function () {
-    const resetSecretKey = crypto.randomBytes(64).toString("hex");
-    this.user_passwordResetSecretKey = crypto
-      .createHash("sha256")
-      .update(resetSecretKey)
-      .digest("hex");
-    this.user_passwordResetExpires = Date.now() + 5 * 60 * 1000; // Time expires is 5minute
-    return resetSecretKey;
+  createSessionOTP: function (OTPCode) {
+    this.user_OTP = OTPCode;
+    this.user_sessionDuration = Date.now() + 2 * 60 * 1000; // Time expires is 2minute
   },
 };
 

@@ -9,20 +9,16 @@ class UserRepository {
   static async getUserByEmail({ user_email }) {
     return await UserModel.findOne({ user_email })
       .select("+user_password")
+      .select("+user_OTP")
+      .select("+user_sessionConfirm")
+      .select("+user_sessionDuration")
       .exec();
   }
 
   static async updateUserById({ userId, dataUpdate }) {
     return await UserModel.findByIdAndUpdate(userId, dataUpdate, {
       new: true,
-    }).select(getUnSelectData(["__v"]));
-  }
-
-  static async matchSecretToken(encodeSecretToken) {
-    return await UserModel.findOne({
-      user_passwordResetSecretKey: encodeSecretToken,
-      user_passwordResetExpires: { $gt: Date.now() },
-    });
+    }).select(getUnSelectData(["__v"])).exec();
   }
 }
 

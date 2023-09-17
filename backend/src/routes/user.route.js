@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { UserController } = require("../controllers");
-const { checkAuthIsUser } = require("../middleware/checkAuth.middleware");
+const { checkAuthIsUser } = require("../middleware/auth.middleware");
 
 router.use(checkAuthIsUser);
 router.route("/update").patch(UserController.updateUser);

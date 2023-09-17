@@ -1,8 +1,10 @@
 import { PATH_API_V1 } from "@/constant";
+import CONSTANT from "@/constant/value-constant";
 import { IApi } from "@/helpers";
+import { useLocalStorageState } from "@/hooks";
 import { IUser } from "@/interfaces";
 import { IUserCreate } from "@/interfaces/user.interface";
-import { getErrorMessage, http } from "@/utils";
+import { getATLocalStorage, getErrorMessage, http } from "@/utils";
 
 class AuthApi {
   async login(
@@ -12,17 +14,20 @@ class AuthApi {
       const response = await http.post(`${PATH_API_V1.auth}/login`, args);
       const result: IApi = response.data;
       return result;
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(getErrorMessage(error));
     }
   }
 
   async logout(): Promise<IApi> {
+    const accessToken = getATLocalStorage();
     try {
-      const response = await http.post(`${PATH_API_V1.auth}/logout`);
+      const response = await http.get(`${PATH_API_V1.auth}/logout`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       const result: IApi = response.data;
       return result;
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(getErrorMessage(error));
     }
   }
@@ -33,7 +38,6 @@ class AuthApi {
       const result: IApi = response.data;
       return result;
     } catch (error) {
-      console.log("error:::", error);
       throw new Error(getErrorMessage(error));
     }
   }

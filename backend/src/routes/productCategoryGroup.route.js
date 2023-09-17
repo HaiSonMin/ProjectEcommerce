@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { ProductCategoryGroupController } = require("../controllers");
 
-const { checkAuthIsAdmin } = require("../middleware/checkAuth.middleware");
+const { checkAuthIsAdmin } = require("../middleware/auth.middleware");
 const { uploadOneImage } = require("../utils");
 
 // router.use(checkAuthIsAdmin);

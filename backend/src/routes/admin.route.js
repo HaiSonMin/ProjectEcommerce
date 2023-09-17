@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { AdminController } = require("../controllers");
-const { checkAuthIsAdmin } = require("../middleware/checkAuth.middleware");
+const { checkAuthIsAdmin } = require("../middleware/auth.middleware");
 
 // router.use(checkAuthIsAdmin);
 // -------------------- User --------------------

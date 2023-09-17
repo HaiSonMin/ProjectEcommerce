@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { VALUE_CONSTANT } from "@/constant";
 import { formatDistance, parseISO } from "date-fns";
 import { IProductOption } from "@/helpers";
+import CONSTANT from "@/constant/value-constant";
 
 const getErrorMessage = (err: any): string => err.response.data.message;
 
@@ -18,6 +19,12 @@ const sortObject = ({ data, sortValue }) => {
     }
   );
   return sortedData;
+};
+
+const getATLocalStorage = () => {
+  const data = localStorage.getItem(CONSTANT.USER_TOKEN_NAME);
+  if (data) return JSON.parse(data).token;
+  return null;
 };
 
 const resultAppendFormData = (args: object) => {
@@ -109,12 +116,14 @@ function capitalizeFirstLetter(inputString: string) {
 
 const randomKey = (): string => uuidv4();
 
+
 export {
   http,
   randomKey,
   sortObject,
   getErrorMessage,
   duplicateObject,
+  getATLocalStorage,
   getQueriesString,
   formatCurrencyVND,
   formatCurrencyUSD,

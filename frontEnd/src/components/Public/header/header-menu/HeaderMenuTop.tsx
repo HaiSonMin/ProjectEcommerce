@@ -6,9 +6,10 @@ import { LuPackageSearch } from "react-icons/lu";
 import { TbShoppingBag } from "react-icons/tb";
 import { MdOutlineDiscount } from "react-icons/md";
 import HeaderSearch from "./HeaderSearch";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import HeaderButtonAuth from "./HeaderButtonAuth";
 import CONSTANT from "@/constant/value-constant";
+import { useLocalStorageState } from "@/hooks";
 
 const HeaderMenuTopStyled = styled.div`
   padding: 1rem 0;
@@ -76,14 +77,6 @@ const CountBuy = styled.div`
 `;
 
 export default function HeaderMenuTop() {
-  const data = useMemo(() => {
-    if (localStorage.getItem(CONSTANT.USER_TOKEN_NAME)) {
-      const value: string =
-        localStorage.getItem(CONSTANT.USER_TOKEN_NAME) || "";
-      return JSON.parse(value);
-    }
-    return null;
-  }, [localStorage.getItem(CONSTANT.USER_TOKEN_NAME)]);
   return (
     <HeaderMenuTopStyled>
       <Navs>
@@ -126,7 +119,7 @@ export default function HeaderMenuTop() {
             hàng
           </p>
         </NavLinkItem>
-        <HeaderButtonAuth dataStorage={data} />
+        <HeaderButtonAuth/>
       </Navs>
     </HeaderMenuTopStyled>
   );

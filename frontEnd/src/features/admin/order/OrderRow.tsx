@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { formatCurrencyVND } from "@/utils";
 import { format } from "date-fns";
 import UseOrderApi from "./UserOrderApi";
-import IProduct, { IProductMainInfo } from "@/interfaces/product/product.interface";
+import IProduct, { IProductMainInfo } from "@/interfaces/product.interface";
 
 const OrderProduct = styled.div`
   display: flex;

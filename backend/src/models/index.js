@@ -13,6 +13,7 @@ const QuestionModel = require("./question.model");
 const DiscountModel = require("./discount.model");
 const WishlistModel = require("./wishlist.model");
 const InventoryModel = require("./inventory.model");
+const SessionAuthModel = require("./sessionAuth.model");
 const BlogCategoryModel = require("./blogCategory.model");
 const ProductCategoryModel = require("./productCategory.model");
 const ProductCategoryGroupModel = require("./productCategoryGroup.model");
@@ -32,6 +33,7 @@ module.exports = {
   DiscountModel,
   WishlistModel,
   InventoryModel,
+  SessionAuthModel,
   BlogCategoryModel,
   ProductCategoryModel,
   ProductCategoryGroupModel,

@@ -19,6 +19,7 @@ class CONSTANT {
       wishlist: "Wishlist",
       question: "Question",
       inventory: "Inventory",
+      SessionAuth: "SessionAuth",
       userAddress: "UserAddress",
       blogCategory: "BlogCategory",
       notification: "Notification",

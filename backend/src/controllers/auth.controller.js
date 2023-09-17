@@ -1,10 +1,22 @@
 const { CREATED, OK } = require("../core/success.response");
 const { AuthService } = require("../services/index");
 class AuthController {
+  static async createResetPasswordSession(req, res) {
+    new OK({
+      message: "Verify session reset password successfully",
+      metadata: await AuthService.createResetPasswordSession(req, res),
+    }).send(res);
+  }
   static async registerUser(req, res) {
-    new CREATED({
-      message: "Register successfully",
+    new OK({
+      message: "Register User",
       metadata: await AuthService.register(req, res),
+    }).send(res);
+  }
+  static async confirmRegisterUser(req, res) {
+    new OK({
+      message: "Register User successfully",
+      metadata: await AuthService.confirmRegisterUser(req, res),
     }).send(res);
   }
   static async login(req, res) {
@@ -35,6 +47,12 @@ class AuthController {
     new OK({
       message: "ResetPassword successfully",
       metadata: await AuthService.resetPassword(req, res),
+    }).send(res);
+  }
+  static async autoDeleteSessionAuthExpired(req, res) {
+    new OK({
+      message: "Auto Delete",
+      metadata: await AuthService.autoDeleteSessionAuthExpired(req, res),
     }).send(res);
   }
 }

@@ -7,6 +7,10 @@ import { Link } from "react-router-dom";
 import { css, keyframes, styled } from "styled-components";
 import { FaUserTie } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import UseAuthApi from "@/features/public/auth/UseAuthApi";
+import SpinnerLogo from "@/components/SpinnerLogo";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteUser, getUser } from "@/storeReducer/userSlice";
 
 const HeaderButtonAuthStyled = styled.div`
   position: relative;
@@ -77,13 +81,13 @@ const HeaderModal = styled.div`
   gap: 1rem;
   margin-bottom: 1rem;
 
-  & svg:first-child {
+  svg:first-child {
     width: 3.4rem;
     height: 3.4rem;
     color: var(--color-primary);
   }
 
-  & svg:last-child {
+  svg:last-child {
     position: absolute;
     cursor: pointer;
     width: 2.8rem;
@@ -94,7 +98,7 @@ const HeaderModal = styled.div`
     border-radius: 999px;
     transition: all 0.3s;
 
-    &:hover {
+    :hover {
       color: var(--color-grey-500);
     }
   }
@@ -140,26 +144,26 @@ const BoxLogout = styled.div<{ $showLogout: boolean }>`
   border-radius: 1rem;
   font-size: 1.6rem;
 
-  & a {
+  .btn__link,
+  .btn__logout {
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: 1.5rem 3.5rem 1.5rem 2rem;
-
     &:hover {
       color: var(--color-primary);
     }
   }
 
-  & a:first-child {
+  .btn__link {
     border-bottom: 1px solid var(--color-grey-300);
   }
 `;
 
-interface IProps {
-  dataStorage: any;
-}
-export default function HeaderButtonAuth({ dataStorage }: IProps) {
+export default function HeaderButtonAuth() {
+  const dispatch = useDispatch();
+  const user = useSelector(getUser);
+  const { isLogout, logout } = UseAuthApi.logout();
   const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
   const [showLogout, setShowLogout] = useState<boolean>(false);
   const toggleLoginForm = () => {
@@ -170,9 +174,6 @@ export default function HeaderButtonAuth({ dataStorage }: IProps) {
   };
 
   const toggleLogout = () => setShowLogout(!showLogout);
-
-  let fullName: string = "User";
-  if (dataStorage) fullName = dataStorage.userName.split(" ");
 
   const refLogout = useRef<HTMLDivElement>(null);
   const handlerClickDocument = (event: MouseEvent) => {
@@ -185,10 +186,14 @@ export default function HeaderButtonAuth({ dataStorage }: IProps) {
     return () => document.removeEventListener("click", handlerClickDocument);
   }, []);
 
-  console.log(dataStorage);
+  const handlerLogout = () => {
+    logout();
+    dispatch(deleteUser());
+  };
+
   return (
     <>
-      {!dataStorage ? (
+      {!user.userId ? (
         <HeaderButtonAuthStyled onClick={toggleLoginForm}>
           <FaUserAltSlash />
           <p>Đăng nhập</p>
@@ -230,19 +235,20 @@ export default function HeaderButtonAuth({ dataStorage }: IProps) {
           }}
         >
           <FaUserAlt />
-          <p>{fullName[fullName.length - 1]}</p>
+          <p>{user.userName}</p>
           <BoxLogout $showLogout={showLogout} ref={refLogout}>
-            <Link to={"#"}>
+            <Link to={"#"} className="btn__link">
               <FaUserCircle />
               <span>Smember</span>
             </Link>
-            <Link to={"#"}>
+            <div className="btn__logout" onClick={handlerLogout}>
               <FiLogOut />
               <span>Logout</span>
-            </Link>
+            </div>
           </BoxLogout>
         </HeaderButtonAuthStyled>
       )}
+      {isLogout && <SpinnerLogo />}
     </>
   );
 }

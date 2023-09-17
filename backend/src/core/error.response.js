@@ -34,11 +34,19 @@ class ForbiddenError extends CustomErrorApi {
     this.reasonStatusCode = ReasonPhrases.FORBIDDEN;
   }
 }
+class UnavailableError extends CustomErrorApi {
+  constructor(message) {
+    super(message);
+    this.statusCode = StatusCodes.SERVICE_UNAVAILABLE;
+    this.reasonStatusCode = ReasonPhrases.SERVICE_UNAVAILABLE;
+  }
+}
 
 module.exports = {
-  CustomErrorApi,
   NotFoundError,
-  BadRequestError,
-  UnauthenticatedError,
+  CustomErrorApi,
   ForbiddenError,
+  BadRequestError,
+  UnavailableError,
+  UnauthenticatedError,
 };

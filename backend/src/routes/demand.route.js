@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { uploadOneImage } = require("../utils");
 const { DemandController } = require("../controllers");
-const { checkAuthIsAdmin } = require("../middleware/checkAuth.middleware");
+const { checkAuthIsAdmin } = require("../middleware/auth.middleware");
 
 // router.use(checkAuthIsAdmin);
 router
