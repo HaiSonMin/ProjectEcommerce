@@ -32,6 +32,7 @@ class BrandService {
   }
 
   static async getAllBrand(req, res) {
+    console.log(req.concat);
     const { sort, limit, page } = req.query;
     const { brands, totalBrands } = await BrandRepo.getAllBrands({
       sort,

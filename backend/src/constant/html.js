@@ -1,6 +1,6 @@
 const SUBJECT = "Hải Sơn Company";
 
-const htmlLogin = (OTPCode) => {
+const htmlResetPassword = (OTPCode) => {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -11,7 +11,7 @@ const htmlLogin = (OTPCode) => {
     </head>
     <body>
         <p>Xin chào,</p>
-        <p>Bạn đang đăng nhập vào hệ thống Smember của <strong>${SUBJECT}</strong>. Sử dụng mã OTP bên dưới để hoàn tất quá trình đăng nhập. Mã OTP chỉ có hiệu lực trong 2 phút.</p>
+        <p>Bạn đang đăng nhập vào hệ thống Smember của <strong>${SUBJECT}</strong>. Sử dụng mã OTP bên dưới để hoàn tất quá trình đặt lại mật khẩu. Mã OTP chỉ có hiệu lực trong 2 phút.</p>
         <p><strong style="font-size: 24px;">${OTPCode}</strong></p>
         <p>Mọi thắc mắc, Quý khách vui lòng liên hệ tổng đài hỗ trợ <strong>0345.299.087</strong> từ 8:00 - 22:00.</p>
         <p>Trân trọng,</p>
@@ -42,4 +42,4 @@ const htmlRegister = (OTPCode) => {
     `;
 };
 
-module.exports = { htmlLogin, htmlRegister };
+module.exports = { htmlResetPassword, htmlRegister };

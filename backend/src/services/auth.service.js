@@ -16,11 +16,9 @@ const {
   generateOTP,
 } = require("../utils");
 const { sendMail } = require("../helpers");
-const { htmlLogin, htmlRegister } = require("../constant/html");
+const { htmlResetPassword, htmlRegister } = require("../constant/html");
 const { createTokenPair, createDoubleKeys } = require("../utils/token.utils");
-const userModel = require("../models/user.model");
 const constant = require("../utils/constant");
-const schedule = require("node-schedule");
 
 class AuthService {
   static async register(req, res) {
@@ -90,6 +88,7 @@ class AuthService {
 
   static async login(req, res) {
     const { user_email, user_password } = req.body;
+    console.log(req.app.locals);
     // Check user in DB
     const user = await UserRepo.getUserByEmail({ user_email });
     if (!user) throw new NotFoundError("Wrong Email Or Password");
@@ -225,74 +224,206 @@ class AuthService {
     };
   }
 
-  static async forgotPassword(req, res) {
-    // Check Email
-    const { user_email } = req.body;
-    const OTP = await generateOTP();
-    if (!user_email)
-      throw new BadRequestError("Vui lòng nhập bổ sung địa chỉ email");
+  // static async forgotPassword(req, res) {
+  //   // Check Email
+  //   const { user_email } = req.body;
+  //   const OTP = await generateOTP();
+  //   if (!user_email)
+  //     throw new BadRequestError("Vui lòng nhập bổ sung địa chỉ email");
 
-    // Check user exist by email
-    const user = await UserRepo.getUserByEmail({ user_email });
-    if (!user)
-      throw new NotFoundError(
-        `Email ${user_email} chưa được đăng kí trong hệ thống`
+  //   // Check user exist by email
+  //   const user = await UserRepo.getUserByEmail({ user_email });
+  //   if (!user)
+  //     throw new NotFoundError(
+  //       `Email ${user_email} chưa được đăng kí trong hệ thống`
+  //     );
+
+  //   const sessionAuth = await SessionAuthModel.create({
+  //     session_OTP: OTP,
+  //     session_duration: Date.now() + 2 * 60 * 1000,
+  //   });
+
+  //   await Promise.all([
+  //     user.updateOne({ $set: { user_sessionAuth: sessionAuth._id } }),
+  //     sendMail(user_email, htmlLogin(OTP)),
+  //   ]);
+  // }
+
+  // static async createResetPasswordSession(req, res) {
+  //   const { OTPCode } = req.body;
+
+  //   const sessionAuth = await SessionAuthModel.findOne({
+  //     session_OTP: OTPCode,
+  //   }).exec();
+
+  //   if (!sessionAuth) throw new NotFoundError("Mã OTP không chính xác");
+
+  //   if (sessionAuth.session_duration < Date.now())
+  //     throw new UnavailableError(
+  //       "Mã OTP đã hết hiệu lực, vui lòng nhấn vào nút gửi lại mã"
+  //     );
+  //   await sessionAuth.updateOne({ $set: { session_confirm: true } });
+  //   return "Xác nhận OTP thành công";
+  // }
+
+  // static async resetPassword(req, res) {
+  //   const { user_password, reconfirmPassword, user_email } = req.body;
+
+  //   const user = await UserRepo.getUserByEmail({ user_email });
+  //   if (!user) throw new NotFoundError("Người dùng không tồn tại");
+
+  //   const sessionAuth = await SessionAuthModel.findById(user.user_sessionAuth);
+  //   if (!sessionAuth || !sessionAuth.session_confirm)
+  //     throw new ForbiddenError("Chưa xác nhận mã OTP, vui lòng thử lại");
+
+  //   if (user_password !== reconfirmPassword)
+  //     throw new BadRequestError("Mật khẩu xác nhận không khớp");
+
+  //   const newPasswordEncode = await bcrypt.hash(user_password, constant.SALT);
+
+  //   // Update newPassword
+  //   await Promise.all([
+  //     user.updateOne({
+  //       $set: {
+  //         user_password: newPasswordEncode,
+  //         user_sessionAuth: null,
+  //       },
+  //     }),
+  //     SessionAuthModel.findByIdAndDelete(user.user_sessionAuth),
+  //   ]);
+  //   return;
+  // }
+
+  static async createSessionRegister(req, res) {
+    const payload = req.body;
+
+    if (payload.user_password !== payload.reconfirmPassword)
+      throw new BadRequestError("Mật khẩu xác nhận không khớp");
+
+    const checkEmail = await UserModel.findOne({
+      user_email: payload.user_email,
+    });
+    if (checkEmail) throw new BadRequestError("Email đã được đăng kí trước đó");
+
+    const checkPhone = await UserModel.findOne({
+      user_phoneNumber: payload.user_phoneNumber,
+    });
+    if (checkPhone)
+      throw new BadRequestError("Số điện thoại đã được đăng kí trước đó");
+
+    const checkUserName = await UserModel.findOne({
+      user_userName: payload.user_userName,
+    });
+    if (checkUserName)
+      throw new BadRequestError("Tên người dùng đã được đăng kí trước đó");
+
+    delete payload.reconfirmPassword;
+
+    req.app.locals.sessionOTP = await generateOTP();
+    req.app.locals.sessionDuration = Date.now() + getMiliSecondMinute(2);
+    req.app.locals.sessionData = payload;
+
+    await sendMail(payload.user_email, htmlRegister(req.app.locals.sessionOTP));
+
+    return `Vui lòng kiểm tra email ${payload.user_email}`;
+  }
+
+  static async confirmRegister(req, res) {
+    const { OTPCode } = req.body;
+    const { sessionOTP, sessionDuration, sessionData } = req.app.locals;
+
+    if (Number(OTPCode) !== Number(sessionOTP))
+      throw new BadRequestError(
+        "Mã OTP không chính xác, vui lòng kiểm tra lại"
+      );
+    if (sessionDuration < Date.now())
+      throw new BadRequestError(
+        "Mã OTP hết hạn, nhấn vào nút gửi lại để xác nhận mã khác"
       );
 
-    const sessionAuth = await SessionAuthModel.create({
-      session_OTP: OTP,
-      session_duration: Date.now() + 2 * 60 * 1000,
-    });
+    const newUser = await UserModel.create(sessionData);
 
-    await Promise.all([
-      user.updateOne({ $set: { user_sessionAuth: sessionAuth._id } }),
-      sendMail(user_email, htmlLogin(OTP)),
+    if (!newUser) throw new BadRequestError("Tạo tài khoảng thất bại");
+
+    req.app.locals.sessionOTP = null;
+    req.app.locals.sessionDuration = null;
+    req.app.locals.sessionData = null;
+
+    return getInfoData(newUser, [
+      "user_userName",
+      "user_email",
+      "user_phoneNumber",
+      "user_role",
     ]);
   }
 
-  static async createResetPasswordSession(req, res) {
-    const { OTPCode } = req.body;
+  static async generateOTPResetPassword(req, res) {
+    const { user_email } = req.body;
 
-    const sessionAuth = await SessionAuthModel.findOne({
-      session_OTP: OTPCode,
-    }).exec();
+    const userExist = await UserRepo.getUserByEmail({
+      user_email,
+    });
 
-    if (!sessionAuth) throw new NotFoundError("Mã OTP không chính xác");
-
-    if (sessionAuth.session_duration < Date.now())
-      throw new UnavailableError(
-        "Mã OTP đã hết hiệu lực, vui lòng nhấn vào nút gửi lại mã"
+    if (!userExist)
+      throw new BadRequestError(
+        `Email ${user_email} không tồn tại trong hệ thống`
       );
-    await sessionAuth.updateOne({ $set: { session_confirm: true } });
-    return "Xác nhận OTP thành công";
+
+    req.app.locals.sessionOTP = await generateOTP();
+    req.app.locals.sessionDuration = Date.now() + getMiliSecondMinute(2);
+    req.app.locals.sessionConfirm = false;
+    req.app.locals.sessionData = user_email;
+
+    await sendMail(user_email, htmlResetPassword(req.app.locals.sessionOTP));
+
+    return `Vui lòng kiểm tra email ${user_email}`;
+  }
+
+  static async createSessionResetPassword(req, res) {
+    const { OTPCode } = req.body;
+    const { sessionOTP, sessionDuration } = req.app.locals;
+    if (Number(OTPCode) !== Number(sessionOTP))
+      throw new BadRequestError(
+        "Mã OTP không chính xác, vui lòng kiểm tra lại"
+      );
+
+    if (sessionDuration < Date.now())
+      throw new BadRequestError(
+        "Mã OTP hết hạn, nhấn vào nút gửi lại để xác nhận mã khác"
+      );
+
+    req.app.locals.sessionConfirm = true;
+
+    return `Xác nhận thành công`;
   }
 
   static async resetPassword(req, res) {
-    const { user_password, reconfirmPassword, user_email } = req.body;
-
-    const user = await UserRepo.getUserByEmail({ user_email });
-    if (!user) throw new NotFoundError("Người dùng không tồn tại");
-
-    const sessionAuth = await SessionAuthModel.findById(user.user_sessionAuth);
-    if (!sessionAuth || !sessionAuth.session_confirm)
-      throw new ForbiddenError("Chưa xác nhận mã OTP, vui lòng thử lại");
+    const { sessionData: user_email, sessionConfirm } = req.app.locals;
+    const { user_password, reconfirmPassword } = req.body;
+    if (!sessionConfirm)
+      throw new UnavailableError(
+        "Không thể truy cập trang này khi chưa xác nhận OTP"
+      );
 
     if (user_password !== reconfirmPassword)
       throw new BadRequestError("Mật khẩu xác nhận không khớp");
 
+    const user = await UserRepo.getUserByEmail({ user_email });
+
+    if (!user) throw new NotFoundError("Người dùng không tồn tại");
+
     const newPasswordEncode = await bcrypt.hash(user_password, constant.SALT);
 
-    // Update newPassword
-    await Promise.all([
-      user.updateOne({
-        $set: {
-          user_password: newPasswordEncode,
-          user_sessionAuth: null,
-        },
-      }),
-      SessionAuthModel.findByIdAndDelete(user.user_sessionAuth),
-    ]);
-    return;
+    await user.updateOne({
+      $set: { user_password: newPasswordEncode },
+    });
+
+    req.app.locals.sessionOTP = null;
+    req.app.locals.sessionData = null;
+    req.app.locals.sessionDuration = null;
+    req.app.locals.sessionConfirm = false;
+
+    return "Đổi mật khẩu thành công";
   }
 }
 

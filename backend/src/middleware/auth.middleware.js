@@ -4,9 +4,12 @@ const {
   BadRequestError,
   UnauthenticatedError,
 } = require("../core/error.response");
-const { KeyTokenRepo } = require("../repositories");
-const { deleteTokenCookie } = require("../utils");
-const otpGenerator = require("otp-generator");
+const { KeyTokenRepo, UserRepo } = require("../repositories");
+const {
+  deleteTokenCookie,
+  generateOTP,
+  getMiliSecondMinute,
+} = require("../utils");
 
 const authentication = async (req, res, next) => {
   const accessToken = req.headers.authorization;
@@ -56,18 +59,19 @@ const checkAuthIsAdmin = async (req, res, next) => {
     );
 };
 
-const verifyUser = async (req, res, next) => {
-  const { user_email } = req.body;
+const localVariables = (req, res, next) => {
+  req.app.locals = {
+    sessionOTP: null,
+    sessionDuration: null,
+    sessionConfirm: null,
+    sessionData: null,
+  };
 
-  const user = await UserRepo.getUserByEmail({ user_email });
-
-  if (!user) return NotFoundError("Email người dùng không tồn tại");
-
-  return next();
+  next();
 };
 
 module.exports = {
-  verifyUser,
+  localVariables,
   authentication,
   checkAuthIsUser,
   checkAuthIsAdmin,

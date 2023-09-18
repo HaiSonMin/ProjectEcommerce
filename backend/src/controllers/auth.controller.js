@@ -1,22 +1,16 @@
 const { CREATED, OK } = require("../core/success.response");
 const { AuthService } = require("../services/index");
 class AuthController {
-  static async createResetPasswordSession(req, res) {
+  static async createSessionRegister(req, res) {
     new OK({
-      message: "Verify session reset password successfully",
-      metadata: await AuthService.createResetPasswordSession(req, res),
+      message: "Generate session register successfully",
+      metadata: await AuthService.createSessionRegister(req, res),
     }).send(res);
   }
-  static async registerUser(req, res) {
-    new OK({
-      message: "Register User",
-      metadata: await AuthService.register(req, res),
-    }).send(res);
-  }
-  static async confirmRegisterUser(req, res) {
+  static async confirmRegister(req, res) {
     new OK({
       message: "Register User successfully",
-      metadata: await AuthService.confirmRegisterUser(req, res),
+      metadata: await AuthService.confirmRegister(req, res),
     }).send(res);
   }
   static async login(req, res) {
@@ -37,22 +31,22 @@ class AuthController {
       metadata: await AuthService.refreshAccessToken(req, res),
     }).send(res);
   }
-  static async forgotPassword(req, res) {
+  static async generateOTPResetPassword(req, res) {
     new OK({
-      message: "ForgotPassword",
-      metadata: await AuthService.forgotPassword(req, res),
+      message: "Generate OTP reset password successfully",
+      metadata: await AuthService.generateOTPResetPassword(req, res),
+    }).send(res);
+  }
+  static async createSessionResetPassword(req, res) {
+    new OK({
+      message: "Create Session Password successfully",
+      metadata: await AuthService.createSessionResetPassword(req, res),
     }).send(res);
   }
   static async resetPassword(req, res) {
     new OK({
-      message: "ResetPassword successfully",
+      message: "Reset password successfully",
       metadata: await AuthService.resetPassword(req, res),
-    }).send(res);
-  }
-  static async autoDeleteSessionAuthExpired(req, res) {
-    new OK({
-      message: "Auto Delete",
-      metadata: await AuthService.autoDeleteSessionAuthExpired(req, res),
     }).send(res);
   }
 }

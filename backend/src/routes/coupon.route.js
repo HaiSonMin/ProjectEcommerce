@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { CouponController } = require("../controllers");
+const { checkAuthIsAdmin } = require("../middleware/auth.middleware");
 
 
-// router.use(checkAuthIsAdmin)
+router.use(checkAuthIsAdmin)
 router.route("/create").post(CouponController.createCoupon);
 router.route("/getAll").get(CouponController.getAllCoupons);
 router.route("/search").get(CouponController.searchCoupons);
