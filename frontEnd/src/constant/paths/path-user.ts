@@ -1,5 +1,6 @@
 const PATH_USER = {
   home: "",
+  OTP:'otp',
   user: "user",
   login: "login",
   register: "register",
