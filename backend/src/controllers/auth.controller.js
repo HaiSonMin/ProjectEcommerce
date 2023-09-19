@@ -13,6 +13,12 @@ class AuthController {
       metadata: await AuthService.confirmRegister(req, res),
     }).send(res);
   }
+  static async haveAuth(req, res) {
+    new OK({
+      message: "User have auth",
+      metadata: await AuthService.haveAuth(req, res),
+    }).send(res);
+  }
   static async login(req, res) {
     new OK({
       message: "Login successfully",

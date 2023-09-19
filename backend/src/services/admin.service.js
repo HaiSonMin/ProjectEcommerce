@@ -1,6 +1,6 @@
 const { NotFoundError, BadRequestError } = require("../core/error.response");
 const { UserModel } = require("../models");
-const { AdminRepo } = require("../repositories");
+const { AdminRepo, KeyTokenRepo } = require("../repositories");
 const { getInfoData } = require("../utils");
 
 class AdminService {
@@ -84,8 +84,12 @@ class AdminService {
 
   static async deleteUserById(req, res) {
     const { userId } = req.params;
+
     const userDeleted = await AdminRepo.deleteUserById({ userId });
     if (!userDeleted) throw new NotFoundError("Users don't exists");
+
+    await KeyTokenRepo.deleteTokenByUserId(userId);
+
     return { userDeleted };
   }
 }

@@ -45,7 +45,6 @@ const UserSchema = new Schema(
     user_phoneNumber: {
       type: String,
       unique: [true, "Số điện thoại đã được đăng kí trước đó"],
-      required: true,
       match: [
         /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
         "Số điện thoại không đúng định dạng",
@@ -55,14 +54,13 @@ const UserSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: constant.MODELS_NAMES.user,
     },
+    user_googleId: {
+      type: String,
+    },
     user_avatar: String,
     user_isBlocking: {
       type: Boolean,
       default: false,
-    },
-    user_sessionAuth: {
-      type: Schema.Types.ObjectId,
-      ref: constant.MODELS_NAMES.SessionAuth,
     },
   },
   {

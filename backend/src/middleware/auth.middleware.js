@@ -11,6 +11,16 @@ const {
   getMiliSecondMinute,
 } = require("../utils");
 
+const verifyUser = async (req, res, next) => {
+  const { userEmail: user_email } = req.query;
+
+  const user = await UserRepo.getUserByEmail({ user_email });
+
+  if (!user) throw new ForbiddenError("Invalid Credential 1");
+
+  return next();
+};
+
 const authentication = async (req, res, next) => {
   const accessToken = req.headers.authorization;
   if (!accessToken) throw new ForbiddenError("Invalid Credential 1");
@@ -27,10 +37,15 @@ const authentication = async (req, res, next) => {
     throw deleteTokenCookie("refreshToken", res);
   }
 
-  const payload = JWT.verify(
-    accessToken.split(" ")[1].trim(),
-    keyStore.keytoken_publicKey
-  );
+  try {
+    const payload = JWT.verify(
+      accessToken.split(" ")[1].trim(),
+      keyStore.keytoken_publicKey
+    );
+    req.user = payload;
+  } catch (error) {
+    throw new UnauthenticatedError("Phiên đăng nhập hết hạn");
+  }
 
   // {
   //   _id: userId,
@@ -38,7 +53,6 @@ const authentication = async (req, res, next) => {
   //   user_email: userEmail,
   //   user_role: userRole,
   // }
-  req.user = payload;
 
   return next();
 };

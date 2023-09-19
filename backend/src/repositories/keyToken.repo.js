@@ -14,5 +14,14 @@ class KeyTokenRepository {
       .exec();
     return keyDeleted;
   }
+
+  static async deleteTokenByUserId(userId) {
+    const keyDeleted = await KeyTokenModel.findOneAndDelete({
+      keytoken_userId: userId,
+    })
+      .lean()
+      .exec();
+    return keyDeleted;
+  }
 }
 module.exports = KeyTokenRepository;

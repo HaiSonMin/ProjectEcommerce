@@ -17,8 +17,8 @@ import {
   DashboardPage,
 } from "@/pages/private";
 import { Suspense, lazy, useEffect } from "react";
-import { SpinnerLogo } from "./components";
-import { PrivateRouter } from "./components/private";
+import { LoginGoogleSuccess, SpinnerLogo } from "@/components";
+import { PrivateRouter } from "@/components/private";
 
 const UserTablePage = lazy(() => import("@/pages/private/user/UserTablePage"));
 const UserSearchPage = lazy(
@@ -140,10 +140,14 @@ export default function App() {
         <Route element={<Navigate replace to={"/"} />} />
         <Route path={"/"} element={<PublicLayOut />}>
           <Route path={PATH_USER.login} element={<LoginPage />} />
+          <Route
+            path={`${PATH_USER.login}/success`}
+            element={<LoginGoogleSuccess />}
+          />
           <Route path={PATH_USER.register} element={<RegisterPage />} />
           <Route path={PATH_USER.home} element={<HomePage />} />
           <Route
-            path={PATH_USER.forgetpassword}
+            path={PATH_USER.forgetPassword}
             element={<ForgetPasswordPage />}
           />
           <Route

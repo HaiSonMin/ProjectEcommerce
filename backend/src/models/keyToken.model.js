@@ -8,6 +8,9 @@ const KeyTokenSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: constant.MODELS_NAMES.user,
     },
+    keytoken_googleID: {
+      type: String,
+    },
     keytoken_publicKey: {
       type: String,
       required: true,

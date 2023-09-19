@@ -164,7 +164,7 @@ export default function LoginLayout() {
           hasValue={!!watch("user_password")}
           error={errorsForm.user_password?.message}
         />
-        <TitleForget to={`/${PATH_USER.forgetpassword}`}>
+        <TitleForget to={`/${PATH_USER.forgetPassword}`}>
           Quên mật khẩu?
         </TitleForget>
         <Button $width="100%">Đăng Nhập</Button>

@@ -3,6 +3,7 @@ const JWT = require("jsonwebtoken");
 const { Types } = require("mongoose");
 const { cloudinary } = require("../configs");
 const otpGenerator = require("otp-generator");
+const passwordGenerator = require("generate-password");
 // Lodash
 const getInfoData = (object = {}, field = []) => lodash.pick(object, field);
 const setDataNested = (data, obj = {}) => {
@@ -120,6 +121,11 @@ const getFieldsPath = (fieldsImage = []) => {
 };
 
 const getMiliSecondMinute = (minute) => minute * 60 * 1000;
+const generatePassword = () =>
+  passwordGenerator.generate({
+    length: 10,
+    numbers: true,
+  });
 
 const generateOTP = async () =>
   await otpGenerator.generate(6, {
@@ -153,4 +159,5 @@ module.exports = {
   setDataNested,
   getMiliSecondMinute,
   generateOTP,
+  generatePassword,
 };
