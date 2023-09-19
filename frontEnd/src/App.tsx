@@ -113,7 +113,8 @@ const ProductCategoryGroupUpdatePage = lazy(
 const PublicLayOut = lazy(() => import("@/pages/public/PublicLayOut"));
 const LoginPage = lazy(() => import("@/pages/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"));
-const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPassword"));
+const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPasswordPage"));
+const OTPPage = lazy(() => import("@/pages/OTPPage"));
 const OrderTablePage = lazy(
   () => import("@/pages/private/order/OrderTablePage")
 );
@@ -149,6 +150,10 @@ export default function App() {
           <Route
             path={PATH_USER.forgetPassword}
             element={<ForgetPasswordPage />}
+          />
+          <Route
+            path={PATH_USER.OTP}
+            element={<OTPPage />}
           />
           <Route
             path={PATH_USER.product}

@@ -18,6 +18,7 @@ const initializeStateFromLocalStorage = (): IInitialState => {
         userName: "",
         userEmail: "",
         userRole: "",
+        userEmail: "",
       },
       accessToken: "",
     };
@@ -30,6 +31,7 @@ const initializeStateFromLocalStorage = (): IInitialState => {
       userName,
       userEmail,
       userRole,
+      userEmail,
     },
     accessToken,
   };
@@ -49,7 +51,6 @@ const userSlice = createSlice({
     },
     deleteUser(state) {
       state.user = { userId: "", userName: "", userRole: "", userEmail: "" };
-      state.accessToken = "";
     },
   },
 });
