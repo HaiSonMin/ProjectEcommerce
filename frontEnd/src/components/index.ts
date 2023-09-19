@@ -54,7 +54,7 @@ import ContainerImgLink from "./ContainerImgLink";
 import LoginRegisterLabel from "./LoginRegisterLabel";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import DarkModeProvider from "./private/DarkModeProvider";
-import ForgetPassword from "@/pages/ForgetPassword";
+import ForgetPassword from "@/pages/ForgetPasswordPage";
 
 export {
   Row,

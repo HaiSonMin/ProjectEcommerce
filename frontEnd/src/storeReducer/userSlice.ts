@@ -6,6 +6,7 @@ interface IInitialState {
     userId: string;
     userName: string;
     userRole: string;
+    userEmail:string;
   };
 }
 const initializeStateFromLocalStorage = (): IInitialState => {
@@ -16,16 +17,18 @@ const initializeStateFromLocalStorage = (): IInitialState => {
         userId: "",
         userName: "",
         userRole: "",
+        userEmail:"",
       },
       accessToken: "",
     };
-  const { userId, userName, userRole, accessToken } = JSON.parse(dataStorage);
+  const { userId, userName, userRole, userEmail, accessToken } = JSON.parse(dataStorage);
 
   return {
     user: {
       userId,
       userName,
       userRole,
+      userEmail,
     },
     accessToken,
   };
@@ -44,7 +47,7 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     deleteUser(state) {
-      state.user = { userId: "", userName: "", userRole: "" };
+      state.user = { userId: "", userName: "", userRole: "" , userEmail:"", };
       state.accessToken = "";
     },
   },
