@@ -19,7 +19,7 @@ import { IUserCreate } from "@/interfaces/user.interface";
  *  delete
  */
 
-export interface IUserCreateResultApi extends IApi {
+export interface IAdminCreateUserResultApi extends IApi {
   isCreatingUser: boolean;
   metadata: IUser | undefined;
   createUser: UseMutateFunction<
@@ -29,12 +29,12 @@ export interface IUserCreateResultApi extends IApi {
   >;
 }
 
-export interface IUserGetOneResultApi extends IApi {
+export interface IAdminGetOneUserResultApi extends IApi {
   isGettingUser: boolean;
   metadata: IUser | undefined;
 }
 
-export interface IUserGetAllResultApi extends IApi {
+export interface IAdminGetAllUserResultApi extends IApi {
   isGettingUsers: boolean;
   metadata:
     | {
@@ -45,7 +45,7 @@ export interface IUserGetAllResultApi extends IApi {
     | undefined;
 }
 
-export interface IUserSearchResultApi extends IApi {
+export interface IAdminSearchUserResultApi extends IApi {
   isSearchingUsers: boolean;
   metadata:
     | {
@@ -56,13 +56,13 @@ export interface IUserSearchResultApi extends IApi {
     | undefined;
 }
 
-export interface IUserUpdateResultApi extends IApi {
+export interface IAdminUpdateUserResultApi extends IApi {
   isUpdatingUser: boolean;
   metadata: IUser | undefined;
   updateUser: UseMutateFunction<any, unknown, Partial<IUser>>;
 }
 
-export interface IUserDeleteResultApi extends IApi {
+export interface IAdminDeleteUserResultApi extends IApi {
   isDeletingUser: boolean;
   metadata: IUser | undefined;
   deleteUser: UseMutateFunction<any, unknown, Pick<IUser, "_id">>;

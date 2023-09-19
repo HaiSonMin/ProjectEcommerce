@@ -2,19 +2,12 @@ const { NotFoundError, BadRequestError } = require("../core/error.response");
 const { UserRepo } = require("../repositories");
 
 class UserService {
-  static async generateOTP(req, res) {
-    req.locals.OTP = await otpGenerator.generate(6, {
-      lowerCaseAlphabets: false,
-      upperCaseAlphabets: false,
-      specialChars: false,
-    });
-
-    return { OTP: req.locals.OTP };
+  static async checkUser(req, res) {
+    const { user_email } = req.body;
+    const user = await UserRepo.getUserByEmailNoInfoSecret({ user_email });
+    if (!user) throw new NotFoundError("Users don't exists");
+    return user;
   }
-
-
-
-
   static async updateUser(req, res) {
     const dataUpdate = req.body;
     const { userId } = req.user;

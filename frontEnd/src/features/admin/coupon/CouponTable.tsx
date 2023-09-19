@@ -1,7 +1,7 @@
 import CouponRow from "./CouponRow";
-import UseCouponApi from "./UseCouponApi";
 import { ICoupon } from "@/interfaces";
 import { Menus, Spinner, Table, Pagination } from "@/components";
+import { UseCouponApi } from "@/apis-use";
 
 interface IProps {
   isSearch?: boolean;

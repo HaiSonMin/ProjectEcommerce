@@ -1,7 +1,6 @@
 import { ConfirmDelete, Menus, Modal, Table } from "@/components";
 import { IDiscount } from "@/interfaces";
 import { styled } from "styled-components";
-import UseDiscountApi from "./UseDiscountApi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsEye } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
@@ -10,6 +9,7 @@ import { formatCurrencyVND, formatDistanceFromNow } from "@/utils";
 import { format, isToday } from "date-fns";
 import Tag from "@/components/Tag";
 import { MdAddLink } from "react-icons/md";
+import { UseDiscountApi } from "@/apis-use";
 
 const DiscountName = styled.div`
   font-size: 1.4rem;

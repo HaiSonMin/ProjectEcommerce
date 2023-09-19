@@ -1,10 +1,10 @@
+import { CiEdit } from "react-icons/ci";
+import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { UseProductCategoryGroupApi } from "@/apis-use";
 import { ConfirmDelete, Menus, Modal, Table } from "@/components";
 import { IProductCategory, IProductCategoryGroup } from "@/interfaces";
-import { styled } from "styled-components";
-import UseProductCategoryGroupApi from "./UseProductCategoryGroupApi";
-import { CiEdit } from "react-icons/ci";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
 
 const Img = styled.img`
   display: block;

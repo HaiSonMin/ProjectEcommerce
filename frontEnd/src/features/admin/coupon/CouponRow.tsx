@@ -9,7 +9,7 @@ import { formatCurrencyVND } from "@/utils";
 import { format } from "date-fns";
 import Tag from "@/components/Tag";
 import { MdAddLink } from "react-icons/md";
-import UseCouponApi from "./UseCouponApi";
+import { UseCouponApi } from "@/apis-use";
 
 const DiscountName = styled.div`
   font-size: 1.4rem;

@@ -1,7 +1,7 @@
-import { Menus, Spinner, Table, Pagination } from "@/components";
-import UseUserApi from "./UseUserApi";
-import { IUser } from "@/interfaces";
 import UserRow from "./UserRow";
+import { IUser } from "@/interfaces";
+import { UseAdminApi } from "@/apis-use";
+import { Menus, Spinner, Table, Pagination } from "@/components";
 
 interface IProps {
   isSearch?: boolean;
@@ -10,11 +10,11 @@ interface IProps {
 export default function UserTable(props: IProps) {
   let data: any, isGetting: boolean;
   if (!props?.isSearch) {
-    const { isGettingUsers, metadata } = UseUserApi.getAllUser();
+    const { isGettingUsers, metadata } = UseAdminApi.getAllUser();
     data = metadata;
     isGetting = isGettingUsers;
   } else {
-    const { isSearchingUsers, metadata } = UseUserApi.searchUsers();
+    const { isSearchingUsers, metadata } = UseAdminApi.searchUsers();
     data = metadata;
     isGetting = isSearchingUsers;
   }

@@ -1,10 +1,10 @@
 import BrandRow from "./BrandRow";
-import UseBrand from "./UseBrandApi";
 import { useEffect } from "react";
 import { IBrand } from "@/interfaces";
 import { useSearchParams } from "react-router-dom";
 import { Menus, Spinner, Table, Pagination } from "@/components";
 import { KEY_QUERY, VALUE_CONSTANT } from "@/constant";
+import { UseBrandApi } from "@/apis-use";
 
 interface IProps {
   isSearch?: boolean;
@@ -27,12 +27,12 @@ export default function BrandTable(props: IProps) {
     isGetting: boolean;
   if (!searchParams.get(KEY_QUERY.KEY_SEARCH)) {
     console.log("Get");
-    const { isGettingBrands, metadata } = UseBrand.getAllBrand();
+    const { isGettingBrands, metadata } = UseBrandApi.getAllBrand();
     data = metadata;
     isGetting = isGettingBrands;
   } else {
     console.log("Search");
-    const { isSearchingBrands, metadata } = UseBrand.searchBrands();
+    const { isSearchingBrands, metadata } = UseBrandApi.searchBrands();
     data = metadata;
     isGetting = isSearchingBrands;
   }

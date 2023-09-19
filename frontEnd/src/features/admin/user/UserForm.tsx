@@ -1,25 +1,15 @@
-import UseUser from "./UseUserApi";
-import { useForm } from "react-hook-form";
-import { IUser } from "@/interfaces";
-import { Button, Form, FormRow, Input, Heading } from "@/components";
-import { IUserCreate } from "@/interfaces/user.interface";
 import { useState } from "react";
-import Select, { SingleValue } from "react-select";
-import IOptionSelect from "@/helpers/ISelectOption";
-import optionsRole from "./UserContant";
+import { IUser } from "@/interfaces";
 import { useMoveBack } from "@/hooks";
+import optionsRole from "./UserContant";
+import { useForm } from "react-hook-form";
+import Select, { SingleValue } from "react-select";
+import UseUser from "../../../apis-use/UseAdminApi";
+import IOptionSelect from "@/helpers/ISelectOption";
+import { IUserCreate } from "@/interfaces/user.interface";
+import { Button, Form, FormRow, Input, Heading } from "@/components";
 
 // Type of handler Submit
-const initializeUserForm: Omit<IUserCreate, "_id" | "user_isBlocking"> = {
-  user_lastName: "",
-  user_firstName: "",
-  user_userName: "",
-  user_email: "",
-  user_phoneNumber: "",
-  user_password: "",
-  reconfirmPassword: "",
-  user_role: "",
-};
 
 export function UserForm() {
   const moveBack = useMoveBack();
@@ -27,16 +17,15 @@ export function UserForm() {
     useState<SingleValue<Pick<IOptionSelect, "value">>>(null);
   const { createUser, isCreatingUser } = UseUser.createUser();
 
-  const { handleSubmit, register, formState, reset, getValues } = useForm({
-    defaultValues: initializeUserForm,
-  });
+  const { handleSubmit, register, formState, reset, getValues } =
+    useForm<IUserCreate>();
 
   const { errors: errorsForm } = formState;
 
   const onSubmit = (
     dataFormUser: Omit<IUserCreate, "_id" | "user_isBlocking">
   ) => {
-    const dataCreate: Omit<IUserCreate, "_id" | "user_isBlocking"> = {
+    const dataCreate: Partial<IUserCreate> = {
       user_firstName: dataFormUser.user_firstName + "",
       user_lastName: dataFormUser.user_lastName + "",
       user_userName: dataFormUser.user_userName + "",
@@ -57,8 +46,7 @@ export function UserForm() {
   const handlerSelectRole = (
     option: SingleValue<Pick<IOptionSelect, "value">>
   ) => {
-    console.log(option);
-    setSelectRole(option);
+    setSelectRole(option?.value);
   };
 
   return (

@@ -1,8 +1,8 @@
 import { useMoveBack } from "@/hooks";
 import { useForm } from "react-hook-form";
 import { IProductCategoryGroup } from "@/interfaces";
+import { UseProductCategoryGroupApi } from "@/apis-use";
 import { Button, InputFile, Form, FormRow, Input, Heading } from "@/components";
-import UseProductCategoryGroupApi from "./UseProductCategoryGroupApi";
 interface IProps {
   productCategoryGroupEdit?: IProductCategoryGroup;
   onCloseModal?: () => void;
@@ -90,8 +90,7 @@ export default function ProductCategoryForm(props: IProps) {
           >
             <InputFile
               id="productCategoryImage"
-              accept="image/*"
-              {...register("productCategoryGroup_image", {
+              register={register("productCategoryGroup_image", {
                 required: "Please provide product category image",
               })}
             />
@@ -100,8 +99,7 @@ export default function ProductCategoryForm(props: IProps) {
           <FormRow label="Product Category Image">
             <InputFile
               id="productCategoryImage"
-              accept="image/*"
-              {...register("productCategoryGroup_image")}
+              register={register("productCategoryGroup_image")}
             />
           </FormRow>
         )}

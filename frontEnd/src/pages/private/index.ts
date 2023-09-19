@@ -1,14 +1,14 @@
-import AdminLayout from "./AdminLayout";
+import AdminPageLayout from "./AdminPageLayout";
 import { UserPage, UserCreatePage, UserSearchPage } from "./user";
 import { OrderPage, OrderUpdatePage, OrderDetailPage } from "./order";
 import BrandPage from "./brand/BrandPage";
-import RatingPage from "./RatingPage";
-import PaymentPage from "./PaymentPage";
-import SettingPage from "./SettingPage";
+import RatingPage from "./rating/RatingPage";
+import PaymentPage from "./payment/PaymentPage";
+import SettingPage from "./setting/SettingPage";
 import CustomerPage from "./customer/CustomerPage";
-import QuestionPage from "./QuestionPage";
-import WishlistPage from "./WishlistPage";
-import InventoryPage from "./InventoryPage";
+import QuestionPage from "./question/QuestionPage";
+import WishlistPage from "./wishlist/WishlistPage";
+import InventoryPage from "./inventory/InventoryPage";
 import DashboardPage from "./home/DashboardPage";
 import {
   DiscountPage,
@@ -34,7 +34,7 @@ import {
 } from "./productCategory";
 
 export {
-  AdminLayout,
+  AdminPageLayout,
   UserPage,
   UserSearchPage,
   UserCreatePage,

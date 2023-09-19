@@ -7,16 +7,15 @@ import {
   SelectDate,
   SelectMulti,
 } from "@/components";
-import Select, { SingleValue } from "react-select";
+import { useMoveBack } from "@/hooks";
 import { ICoupon } from "@/interfaces";
 import { useForm } from "react-hook-form";
 import { useMemo, useState } from "react";
-import { useMoveBack } from "@/hooks";
+import Select, { SingleValue } from "react-select";
 import IOptionSelect from "@/helpers/ISelectOption";
-import UseCouponApi from "./UseCouponApi";
-import { CouponOptionAppliesAll, CouponOptionsType } from "./CouponConstant";
 import IOptionSelectBoolean from "@/helpers/ISelectOptionBoolean";
-import UseProductCategoryApi from "../productCategory/UseProductCategoryApi";
+import { UseCouponApi, UseProductCategoryApi } from "@/apis-use";
+import { CouponOptionAppliesAll, CouponOptionsType } from "./CouponConstant";
 
 interface IProps {
   couponEdit?: ICoupon;

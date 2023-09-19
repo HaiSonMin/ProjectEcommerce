@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { css, keyframes, styled } from "styled-components";
 import { FaUserTie } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import UseAuthApi from "@/features/public/auth/UseAuthApi";
+import UseAuthApi from "@/apis-use/UseAuthApi";
 import SpinnerLogo from "@/components/SpinnerLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUser } from "@/storeReducer/userSlice";

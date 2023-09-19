@@ -1,11 +1,10 @@
 import { useSearchParams } from "react-router-dom";
 import { IProductCategory } from "@/interfaces";
 import ProductCategoryRow from "./ProductCategoryRow";
-import UseProductCategoryApi from "./UseProductCategoryApi";
 import { Menus, Pagination, Spinner, Table } from "@/components";
 import { useEffect } from "react";
 import { KEY_QUERY, VALUE_CONSTANT } from "@/constant";
-import { keyframes } from "styled-components";
+import { UseProductCategoryApi } from "@/apis-use";
 
 interface IProps {
   isSearch?: boolean;

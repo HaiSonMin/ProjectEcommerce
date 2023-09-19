@@ -7,7 +7,7 @@ import {
   IProductDeleteResultApi,
   IProductSearchResultApi,
   IProductUpdateResultApi,
-} from "@/api-types/IProductResultApi";
+} from "@/apis-results/IProductResultApi";
 import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { getQueriesString } from "@/utils";

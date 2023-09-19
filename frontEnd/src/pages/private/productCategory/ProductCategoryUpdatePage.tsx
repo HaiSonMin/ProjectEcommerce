@@ -1,6 +1,6 @@
 import { Spinner } from "@/components";
+import { UseProductCategoryApi } from "@/apis-use";
 import { ProductCategoryForm } from "@/features/admin/productCategory";
-import UseProductCategoryApi from "@/features/admin/productCategory/UseProductCategoryApi";
 
 export default function ProductCategoryUpdatePage() {
   const { isGettingProductCategory, metadata: productCategory } =

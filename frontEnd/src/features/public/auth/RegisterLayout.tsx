@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { PATH_USER } from "@/constant";
 import CONSTANT from "@/constant/value-constant";
 import { IUserCreate } from "@/interfaces/user.interface";
-import UseAuthApi from "./UseAuthApi";
+import { UseAuthApi } from "@/apis-use";
 
 const RegisterLayoutStyled = styled.div`
   display: flex;

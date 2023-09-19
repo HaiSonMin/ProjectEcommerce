@@ -1,5 +1,5 @@
 import DiscountPage from "./DiscountPage";
-import DiscountEditPage from "./DiscountEditPage";
+import DiscountEditPage from "./DiscountUpdatePage";
 import DiscountTablePage from "./DiscountTablePage";
 import DiscountCreatePage from "./DiscountCreatePage";
 import DiscountAddProductsPage from "./DiscountAddProductsPage";

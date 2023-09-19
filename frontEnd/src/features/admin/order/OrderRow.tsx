@@ -6,7 +6,7 @@ import { BsEye } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { formatCurrencyVND } from "@/utils";
 import { format } from "date-fns";
-import UseOrderApi from "./UserOrderApi";
+import UseOrderApi from "../../../apis-use/UserOrderApi";
 import IProduct, { IProductMainInfo } from "@/interfaces/product.interface";
 
 const OrderProduct = styled.div`

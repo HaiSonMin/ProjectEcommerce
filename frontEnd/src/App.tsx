@@ -1,7 +1,9 @@
 import { PATH_ADMIN, PATH_USER } from "@/constant";
+import { Suspense, lazy, useEffect } from "react";
+import { PrivateRouter } from "@/components/private";
+import { LoginGoogleSuccess, SpinnerLogo } from "@/components";
 import { Navigate, Route, Router, Routes, useLocation } from "react-router-dom";
 import {
-  AdminLayout,
   UserPage,
   OrderPage,
   RatingPage,
@@ -15,10 +17,8 @@ import {
   WishlistPage,
   InventoryPage,
   DashboardPage,
+  AdminPageLayout,
 } from "@/pages/private";
-import { Suspense, lazy, useEffect } from "react";
-import { LoginGoogleSuccess, SpinnerLogo } from "@/components";
-import { PrivateRouter } from "@/components/private";
 
 const UserTablePage = lazy(() => import("@/pages/private/user/UserTablePage"));
 const UserSearchPage = lazy(
@@ -34,14 +34,14 @@ const CouponCreatePage = lazy(
   () => import("@/pages/private/coupon/CouponCreatePage")
 );
 const CouponEditPage = lazy(
-  () => import("@/pages/private/coupon/CouponEditPage")
+  () => import("@/pages/private/coupon/CouponUpdatePage")
 );
 
 const DiscountTablePage = lazy(
   () => import("@/pages/private/discount/DiscountTablePage")
 );
 const DiscountEditPage = lazy(
-  () => import("@/pages/private/discount/DiscountEditPage")
+  () => import("@/pages/private/discount/DiscountUpdatePage")
 );
 const DiscountCreatePage = lazy(
   () => import("@/pages/private/discount/DiscountCreatePage")
@@ -111,10 +111,12 @@ const ProductCategoryGroupUpdatePage = lazy(
 );
 
 const PublicLayOut = lazy(() => import("@/pages/public/PublicLayOut"));
-const LoginPage = lazy(() => import("@/pages/LoginPage"));
-const RegisterPage = lazy(() => import("@/pages/RegisterPage"));
-const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPasswordPage"));
-const OTPPage = lazy(() => import("@/pages/OTPPage"));
+const OTPPage = lazy(() => import("@/pages/auth/OTPPage"));
+const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
+const RegisterPage = lazy(() => import("@/pages/auth/RegisterPage"));
+const ForgetPasswordPage = lazy(
+  () => import("@/pages/auth/ForgetPasswordPage")
+);
 const OrderTablePage = lazy(
   () => import("@/pages/private/order/OrderTablePage")
 );
@@ -151,10 +153,7 @@ export default function App() {
             path={PATH_USER.forgetPassword}
             element={<ForgetPasswordPage />}
           />
-          <Route
-            path={PATH_USER.OTP}
-            element={<OTPPage />}
-          />
+          <Route path={PATH_USER.OTP} element={<OTPPage />} />
           <Route
             path={PATH_USER.product}
             element={<ProductCategoryPageUser />}
@@ -163,7 +162,7 @@ export default function App() {
 
         {/* Layout of private */}
         <Route element={<PrivateRouter />}>
-          <Route path={PATH_ADMIN.admin} element={<AdminLayout />}>
+          <Route path={PATH_ADMIN.admin} element={<AdminPageLayout />}>
             <Route path={PATH_ADMIN.brand} element={<BrandPage />}>
               <Route path="" element={<BrandTablePage />} />
             </Route>

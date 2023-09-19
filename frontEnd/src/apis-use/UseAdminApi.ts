@@ -1,28 +1,27 @@
-import { DiscountApi } from "@/apis";
+import { AdminApi } from "@/apis";
 import { toast } from "react-hot-toast";
-import {
-  IDiscountCreateResultApi,
-  IDiscountDeleteResultApi,
-  IDiscountGetAllResultApi,
-  IDiscountGetOneResultApi,
-  IDiscountSearchResultApi,
-  IDiscountUpdateResultApi,
-} from "@/api-types/IDiscountResultApi";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
 import { useQueriesString } from "@/hooks";
-import { getQueriesString } from "@/utils";
+import { useParams } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  IAdminCreateUserResultApi,
+  IAdminDeleteUserResultApi,
+  IAdminGetAllUserResultApi,
+  IAdminGetOneUserResultApi,
+  IAdminSearchUserResultApi,
+  IAdminUpdateUserResultApi,
+} from "@/apis-results/IAdminResultApi";
 import { VALUE_CONSTANT } from "@/constant";
 
-export default class UseDiscountApi {
-  static createDiscount(): IDiscountCreateResultApi {
+export default class UseAdminApi {
+  static createUser(): IAdminCreateUserResultApi {
     const queryClient = useQueryClient();
     const { isLoading, mutate, data } = useMutation({
-      mutationFn: DiscountApi.createDiscount,
+      mutationFn: AdminApi.createUser,
       onSuccess: (data) => {
-        const messageSuccess = data?.message || "Create discount successfully";
+        const messageSuccess = data?.message || "Create User successfully";
         toast.success(messageSuccess);
-        queryClient.invalidateQueries({ queryKey: ["discounts"] });
+        queryClient.invalidateQueries({ queryKey: ["users"] });
       },
       onError: (error: any) => {
         if (error.message.includes("duplicate")) {
@@ -35,8 +34,8 @@ export default class UseDiscountApi {
       },
     });
     return {
-      createDiscount: mutate,
-      isCreatingDiscount: isLoading,
+      createUser: mutate,
+      isCreatingUser: isLoading,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,
@@ -44,14 +43,14 @@ export default class UseDiscountApi {
     };
   }
 
-  static getOneDiscount(): IDiscountGetOneResultApi {
-    const { discountId } = useParams();
+  static getOneUser(): IAdminGetOneUserResultApi {
+    const { userId } = useParams();
     const { isLoading, data } = useQuery({
-      queryKey: ["discount"],
-      queryFn: () => DiscountApi.getOneDiscount({ _id: discountId }),
+      queryKey: ["user"],
+      queryFn: () => AdminApi.getOneUser({ _id: userId || "" }),
     });
     return {
-      isGettingDiscount: isLoading,
+      isGettingUser: isLoading,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,
@@ -59,30 +58,26 @@ export default class UseDiscountApi {
     };
   }
 
-  static getAllDiscount(): IDiscountGetAllResultApi {
-    const {
-      sort,
-      page: currentPage,
-      limit,
-      status,
-      numericFilters,
-    } = getQueriesString(useQueriesString());
+  static getAllUser(): IAdminGetAllUserResultApi {
+    const queriesString = useQueriesString();
+
     const { isLoading, data } = useQuery({
-      queryKey: ["discounts", sort, currentPage, status, limit, numericFilters],
+      queryKey: ["users", queriesString],
       queryFn: () =>
-        DiscountApi.getAllDiscounts({
-          sort: sort || "ctime",
-          page: Number(currentPage) || 1,
-          limit: Number(limit) || VALUE_CONSTANT.LIMIT_PAGE,
-          status: status || "all",
-          numericFilters,
+        AdminApi.getAllUsers({
+          sort: queriesString.sort || "ctime",
+          page: Number(queriesString.page) || 1,
+          limit: Number(queriesString.limit) || VALUE_CONSTANT.LIMIT_PAGE,
+          status: queriesString.status || "all",
+          keySearch: queriesString.keySearch,
+          numericFilters: queriesString?.numericFilters,
         }),
     });
 
     // Load pre next page
 
     return {
-      isGettingDiscounts: isLoading,
+      isGettingUsers: isLoading,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,
@@ -90,26 +85,23 @@ export default class UseDiscountApi {
     };
   }
 
-  static searchDiscount(): IDiscountSearchResultApi {
+  static searchUsers(): IAdminSearchUserResultApi {
     const queriesString = useQueriesString();
     console.log(queriesString);
 
     const { isLoading, data } = useQuery({
-      queryKey: ["discounts"],
+      queryKey: ["users", queriesString],
       queryFn: () =>
-        DiscountApi.searchDiscounts({
-          keySearch: "",
+        AdminApi.searchUsers({
+          keySearch: queriesString.keySearch,
           sort: "ctime",
-          page: 1,
-          limit: 10,
-          numericFilters: "",
+          page: queriesString.page || 1,
+          limit: queriesString.limit || VALUE_CONSTANT.LIMIT_PAGE,
         }),
     });
 
-    // Load pre next page
-
     return {
-      isSearchingDiscounts: isLoading,
+      isSearchingUsers: isLoading,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,
@@ -117,14 +109,14 @@ export default class UseDiscountApi {
     };
   }
 
-  static updateDiscount(): IDiscountUpdateResultApi {
+  static updateUser(): IAdminUpdateUserResultApi {
     const queryClient = useQueryClient();
     const { isLoading, mutate, data } = useMutation({
-      mutationFn: DiscountApi.updateDiscount,
+      mutationFn: AdminApi.updateUser,
       onSuccess: (data) => {
-        const messageSuccess = data?.message || "Update discount successfully";
+        const messageSuccess = data?.message || "Update User successfully";
         toast.success(messageSuccess);
-        queryClient.invalidateQueries({ queryKey: ["discounts"] });
+        queryClient.invalidateQueries({ queryKey: ["users"] });
       },
       onError: (error: any) => {
         if (error.message.includes("duplicate")) {
@@ -137,8 +129,8 @@ export default class UseDiscountApi {
       },
     });
     return {
-      isUpdatingDiscount: isLoading,
-      updateDiscount: mutate,
+      isUpdatingUser: isLoading,
+      updateUser: mutate,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,
@@ -146,19 +138,19 @@ export default class UseDiscountApi {
     };
   }
 
-  static deleteDiscount(): IDiscountDeleteResultApi {
+  static deleteUser(): IAdminDeleteUserResultApi {
     const queryClient = useQueryClient();
     const { isLoading, mutate, data } = useMutation({
-      mutationFn: DiscountApi.deleteDiscount,
+      mutationFn: AdminApi.deleteUser,
       onSuccess: (data) => {
-        const messageSuccess = data?.message || "Delete discount successfully";
+        const messageSuccess = data?.message || "Delete User successfully";
         toast.success(messageSuccess);
-        queryClient.invalidateQueries({ queryKey: ["discounts"] });
+        queryClient.invalidateQueries({ queryKey: ["users"] });
       },
     });
     return {
-      isDeletingDiscount: isLoading,
-      deleteDiscount: mutate,
+      isDeletingUser: isLoading,
+      deleteUser: mutate,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,

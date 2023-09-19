@@ -11,25 +11,24 @@ import {
   Spinner,
   ImagesGroup,
 } from "@/components";
-import UseProductApi from "../UseProductApi";
-import FormHeading from "@/components/FormHeading";
-import Select, { SingleValue } from "react-select";
-import UseProductCategoryApi from "../../productCategory/UseProductCategoryApi";
-import IOptionSelect from "@/helpers/ISelectOption";
-import { useMoveBack } from "@/hooks";
-import { toast } from "react-hot-toast";
-import { useForm } from "react-hook-form";
-import { formatCurrencyVND, randomKey } from "@/utils";
-import { DefaultOptionType } from "antd/es/select";
-import { useEffect, useMemo, useState } from "react";
-import { IBrand, IDemand, IProduct, IProductCategory } from "@/interfaces";
-import { IFilterOption, IProductOption } from "@/helpers";
 import {
   ProductOptions,
   ProductFilterOptionSelect,
 } from "./element-product-form";
-import FormRowButton from "@/components/FormRowButton";
+import { useMoveBack } from "@/hooks";
+import { toast } from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import FormHeading from "@/components/FormHeading";
+import Select, { SingleValue } from "react-select";
+import { DefaultOptionType } from "antd/es/select";
+import IOptionSelect from "@/helpers/ISelectOption";
+import { useEffect, useMemo, useState } from "react";
 import PhoneSpecMain from "@/constant/phoneSpecMain";
+import FormRowButton from "@/components/FormRowButton";
+import { formatCurrencyVND, randomKey } from "@/utils";
+import { IFilterOption, IProductOption } from "@/helpers";
+import { UseProductApi, UseProductCategoryApi } from "@/apis-use";
+import { IBrand, IDemand, IProduct, IProductCategory } from "@/interfaces";
 
 const initializeProductOption: Array<IProductOption> = [
   {

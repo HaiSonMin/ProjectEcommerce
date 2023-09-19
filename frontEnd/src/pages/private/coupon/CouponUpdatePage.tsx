@@ -1,6 +1,6 @@
 import { Spinner } from "@/components";
+import { UseCouponApi } from "@/apis-use";
 import { CouponForm } from "@/features/admin/coupon";
-import UseCouponApi from "@/features/admin/coupon/UseCouponApi";
 
 export default function CouponEditPage() {
   const { isGettingCoupon, metadata } = UseCouponApi.getOneCoupon();

@@ -1,11 +1,11 @@
 import { ConfirmDelete, Menus, Modal, Table } from "@/components";
 import { IDemand, IProductCategoryGroup } from "@/interfaces";
 import { styled } from "styled-components";
-import UseDemandApi from "./UseDemandApi";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBinLine } from "react-icons/ri";
 import DemandForm from "./DemandForm";
 import { useNavigate } from "react-router-dom";
+import { UseDemandApi } from "@/apis-use";
 
 const Img = styled.img`
   display: block;

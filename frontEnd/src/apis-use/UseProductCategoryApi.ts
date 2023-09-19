@@ -10,7 +10,7 @@ import {
   IProductCategoryUpdateResultApi,
   IProductCategoryGetByIdResultApi,
   IProductCategorySearchResultApi,
-} from "@/api-types/IProductCategoryResultApi";
+} from "@/apis-results/IProductCategoryResultApi";
 import { useQueriesString } from "@/hooks";
 import { useParams } from "react-router-dom";
 import { IApi } from "@/helpers";

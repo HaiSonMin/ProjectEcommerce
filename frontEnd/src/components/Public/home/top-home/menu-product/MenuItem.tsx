@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { BiChevronRight } from "react-icons/bi";
 import { IProductCategoryGroup } from "@/interfaces";
-import UseProductCategoryApi from "@/features/admin/productCategory/UseProductCategoryApi";
+import { UseProductCategoryApi } from "@/apis-use";
 import { randomKey, removeSpaceString } from "@/utils";
 
 const MenuItemStyled = styled.li`

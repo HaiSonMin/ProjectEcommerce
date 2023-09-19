@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import IUser from "@/interfaces/user.interface";
@@ -13,10 +12,11 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { PATH_USER } from "@/constant";
 import CONSTANT from "@/constant/value-constant";
-import UseAuthApi from "./UseAuthApi";
-import { IAuthLoginResultApi } from "@/api-types/IAuthResultApi";
+import { IAuthLoginResultApi } from "@/apis-results/IAuthResultApi";
 import { useDispatch } from "react-redux";
 import { setATUser, setUser } from "@/storeReducer/userSlice";
+import { toast } from "react-hot-toast";
+import { UseAuthApi } from "@/apis-use";
 
 const LoginLayoutStyled = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `;
-const TitleForget = styled(Link)`
+const ForgetPassword = styled.p`
   align-self: flex-end;
   bottom: 1.5rem;
   cursor: pointer;
@@ -124,7 +124,9 @@ export default function LoginLayout() {
     });
   };
   const handleForgetPassword = () => {
-    dispatch(
+    if (!watch("user_email"))
+      return toast.error("Vui lòng nhập email để xác nhận OTP");
+    const {} = dispatch(
       setUser({
         userEmail: watch("user_email"),
       })
@@ -170,12 +172,9 @@ export default function LoginLayout() {
           hasValue={!!watch("user_password")}
           error={errorsForm.user_password?.message}
         />
-        <TitleForget
-          to={`/${PATH_USER.forgetPassword}`}
-          onClick={handleForgetPassword}
-        >
+        <ForgetPassword onClick={handleForgetPassword}>
           Quên mật khẩu?
-        </TitleForget>
+        </ForgetPassword>
         <Button $width="100%">Đăng Nhập</Button>
         <LoginRegisterLabel>
           <p>Hoặc đăng ký bằng</p>

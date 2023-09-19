@@ -1,21 +1,20 @@
-import React from "react";
-import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import { IUserCreate } from "@/interfaces/user.interface";
 import {
   Button,
   Heading,
-  InputAuth,
-  LoginRegisterLabel,
   LogoAuth,
+  InputAuth,
   SpinnerLogo,
+  LoginRegisterLabel,
 } from "@/components";
-import { Link, useNavigate } from "react-router-dom";
-import { PATH_USER } from "@/constant";
+import React from "react";
+import styled from "styled-components";
 import CONSTANT from "@/constant/value-constant";
-import UseAuthApi from "./UseAuthApi";
-import { IAuthLoginResultApi } from "@/api-types/IAuthResultApi";
+import { PATH_USER } from "@/constant";
+import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { IUserCreate } from "@/interfaces/user.interface";
+import { IAuthLoginResultApi } from "@/apis-results/IAuthResultApi";
 import { setATUser, setUser } from "@/storeReducer/userSlice";
 
 const ContainerTop = styled.div`
@@ -37,12 +36,13 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `;
-export default function CreatePasswordPage () {
-    const {handleSubmit, register, formState, watch, getValues} = useForm<IUserCreate>();
-    const { errors: errorsForm } = formState;
-    return(
-        <>
-        <ContainerTop>
+export default function CreatePasswordPage() {
+  const { handleSubmit, register, formState, watch, getValues } =
+    useForm<IUserCreate>();
+  const { errors: errorsForm } = formState;
+  return (
+    <>
+      <ContainerTop>
         <Header>
           <Heading $as="h3">Tạo lại mật khẩu mới</Heading>
         </Header>
@@ -67,24 +67,24 @@ export default function CreatePasswordPage () {
           error={errorsForm.user_password?.message}
         />
         <InputAuth
-            id="comfirmPassword"
-            type="password"
-            register={register("reconfirmPassword", {
-              required: {
-                value: true,
-                message: "Vui lòng xác nhận lại mật khẩu",
-              },
-              validate: (passwordInput) => {
-                if (passwordInput.trim() !== getValues("user_password"))
-                  return "xác nhận mật khẩu không khớp";
-              },
-            })}
-            label="Xác nhận lại mật khẩu"
-            hasValue={!!watch("reconfirmPassword")}
-            error={errorsForm["reconfirmPassword"]?.message}
-          />
+          id="comfirmPassword"
+          type="password"
+          register={register("reconfirmPassword", {
+            required: {
+              value: true,
+              message: "Vui lòng xác nhận lại mật khẩu",
+            },
+            validate: (passwordInput) => {
+              if (passwordInput.trim() !== getValues("user_password"))
+                return "xác nhận mật khẩu không khớp";
+            },
+          })}
+          label="Xác nhận lại mật khẩu"
+          hasValue={!!watch("reconfirmPassword")}
+          error={errorsForm["reconfirmPassword"]?.message}
+        />
         <Button $width="100%">Xác nhận</Button>
       </Form>
-        </>
-    )
+    </>
+  );
 }

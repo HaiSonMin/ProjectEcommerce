@@ -15,10 +15,16 @@ class UserRepository {
       .exec();
   }
 
+  static async getUserByEmailNoInfoSecret({ user_email }) {
+    return await UserModel.findOne({ user_email }).exec();
+  }
+
   static async updateUserById({ userId, dataUpdate }) {
     return await UserModel.findByIdAndUpdate(userId, dataUpdate, {
       new: true,
-    }).select(getUnSelectData(["__v"])).exec();
+    })
+      .select(getUnSelectData(["__v"]))
+      .exec();
   }
 }
 

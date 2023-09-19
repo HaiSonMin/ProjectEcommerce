@@ -1,10 +1,10 @@
 import { useSearchParams } from "react-router-dom";
 import { IDemand } from "@/interfaces";
 import DemandRow from "./DemandRow";
-import UseDemandApi from "./UseDemandApi";
 import { Menus, Pagination, Spinner, Table } from "@/components";
 import { useEffect } from "react";
 import { KEY_QUERY, VALUE_CONSTANT } from "@/constant";
+import { UseDemandApi } from "@/apis-use";
 
 export default function DemandTable() {
   const [searchParams, setSearchParams] = useSearchParams();

@@ -6,14 +6,14 @@ import {
   Input,
   SelectDate,
 } from "@/components";
-import Select, { SingleValue } from "react-select";
+import { useState } from "react";
+import { useMoveBack } from "@/hooks";
 import { IDiscount } from "@/interfaces";
 import { useForm } from "react-hook-form";
-import UseDiscountApi from "./UseDiscountApi";
-import { useState } from "react";
-import DiscountOptionsType from "./DiscountConstant";
+import { UseDiscountApi } from "@/apis-use";
+import Select, { SingleValue } from "react-select";
 import IOptionSelect from "@/helpers/ISelectOption";
-import { useMoveBack } from "@/hooks";
+import DiscountOptionsType from "./DiscountConstant";
 
 interface IProps {
   discountEdit?: IDiscount;
@@ -161,7 +161,11 @@ export default function DiscountFrom(props: IProps) {
           />
         </FormRow>
         <FormRow>
-          <Button $variation="secondary" type="reset" onClick={() => moveBack()}>
+          <Button
+            $variation="secondary"
+            type="reset"
+            onClick={() => moveBack()}
+          >
             Cancel
           </Button>
           {!isEditSession ? (

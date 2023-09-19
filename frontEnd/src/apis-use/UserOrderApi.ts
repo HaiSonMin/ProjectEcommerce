@@ -7,7 +7,7 @@ import {
   IOrderGetOneResultApi,
   IOrderSearchResultApi,
   IOrderUpdateResultApi,
-} from "@/api-types/IOrderResultApi";
+} from "@/apis-results/IOrderResultApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useQueriesString } from "@/hooks";

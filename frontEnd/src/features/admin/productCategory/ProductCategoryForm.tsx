@@ -1,28 +1,30 @@
-import { useForm } from "react-hook-form";
-import { IBrand, IProductCategory } from "@/interfaces";
-import UseProductCategoryApi from "./UseProductCategoryApi";
 import {
-  Button,
-  InputFile,
   Form,
-  FormRow,
   Input,
+  Button,
+  FormRow,
   Heading,
-  SelectMultiV2,
   FormBox,
+  InputFile,
+  SelectMultiV2,
 } from "@/components";
+import {
+  UseBrandApi,
+  UseProductCategoryApi,
+  UseProductCategoryGroupApi,
+} from "@/apis-use";
 import { useState } from "react";
+import { randomKey } from "@/utils";
+import { useMoveBack } from "@/hooks";
+import { IFilterOption } from "@/helpers";
+import { useForm } from "react-hook-form";
 import Select, { SingleValue } from "react-select";
 import IOptionSelect from "@/helpers/ISelectOption";
-import { useMoveBack } from "@/hooks";
-import UseProductCategoryGroupApi from "../productCategoryGroup/UseProductCategoryGroupApi";
 import { PRODUCT_CATEGORY_TYPE } from "@/constant";
 import { DefaultOptionType } from "antd/es/select";
-import UseBrandApi from "../brand/UseBrandApi";
-import ProductFilterOption from "@/features/admin/product/product-form/element-product-form/ProductFilterOption";
 import FormHeading from "@/components/FormHeading";
-import { randomKey } from "@/utils";
-import { IFilterOption } from "@/helpers";
+import { IBrand, IProductCategory } from "@/interfaces";
+import ProductFilterOption from "@/features/admin/product/product-form/element-product-form/ProductFilterOption";
 
 const initializeOptionsFilters: Array<IFilterOption> = [
   {

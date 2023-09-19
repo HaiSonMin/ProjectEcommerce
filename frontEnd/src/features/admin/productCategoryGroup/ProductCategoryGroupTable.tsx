@@ -1,10 +1,10 @@
+import { useEffect } from "react";
+import { VALUE_CONSTANT } from "@/constant";
 import { useSearchParams } from "react-router-dom";
 import { IProductCategoryGroup } from "@/interfaces";
-import UseProductCategoryGroupApi from "./UseProductCategoryGroupApi";
+import { UseProductCategoryGroupApi } from "@/apis-use";
 import { Menus, Pagination, Spinner, Table } from "@/components";
-import { useEffect } from "react";
 import ProductCategoryGroupRow from "./ProductCategoryGroupRow";
-import { VALUE_CONSTANT } from "@/constant";
 
 export default function ProductCategoryTable() {
   const [searchParams, setSearchParams] = useSearchParams();

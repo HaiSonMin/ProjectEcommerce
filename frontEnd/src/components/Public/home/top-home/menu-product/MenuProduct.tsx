@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import MenuItem from "./MenuItem";
-import UseProductCategoryGroupApi from "@/features/admin/productCategoryGroup/UseProductCategoryGroupApi";
+import { UseProductCategoryGroupApi } from "@/apis-use";
 
 const MenuContainer = styled.div`
   position: relative;

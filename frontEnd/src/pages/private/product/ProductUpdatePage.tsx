@@ -1,6 +1,6 @@
 import { Spinner } from "@/components";
+import { UseProductApi } from "@/apis-use";
 import { ProductForm } from "@/features/admin/product";
-import UseProductApi from "@/features/admin/product/UseProductApi";
 
 export default function ProductUpdatePage() {
   const { isGettingProduct, metadata: product } =

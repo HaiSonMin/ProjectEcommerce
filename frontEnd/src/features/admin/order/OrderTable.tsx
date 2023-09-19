@@ -1,7 +1,7 @@
 import { Menus, Spinner, Table, Pagination } from "@/components";
 import { IOrder } from "@/interfaces";
 import OrderRow from "./OrderRow";
-import UseOrderApi from "./UserOrderApi";
+import UseOrderApi from "../../../apis-use/UserOrderApi";
 
 export default function OrderTable() {
   const { isGettingOrders, metadata } = UseOrderApi.getAllOrder();

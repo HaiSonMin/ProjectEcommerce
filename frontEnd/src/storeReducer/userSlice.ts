@@ -18,7 +18,6 @@ const initializeStateFromLocalStorage = (): IInitialState => {
         userName: "",
         userEmail: "",
         userRole: "",
-        userEmail: "",
       },
       accessToken: "",
     };
@@ -31,7 +30,6 @@ const initializeStateFromLocalStorage = (): IInitialState => {
       userName,
       userEmail,
       userRole,
-      userEmail,
     },
     accessToken,
   };

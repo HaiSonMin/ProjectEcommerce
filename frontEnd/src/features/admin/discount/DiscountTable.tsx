@@ -1,7 +1,7 @@
 import { Menus, Spinner, Table, Pagination } from "@/components";
-import UseDiscountApi from "./UseDiscountApi";
 import { IDiscount } from "@/interfaces";
 import DiscountRow from "./DiscountRow";
+import { UseDiscountApi } from "@/apis-use";
 
 export default function DiscountTable() {
   const { isGettingDiscounts, metadata } = UseDiscountApi.getAllDiscount();

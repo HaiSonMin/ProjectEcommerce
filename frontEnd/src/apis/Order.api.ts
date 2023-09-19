@@ -5,7 +5,7 @@ import {
   IOrderGetOneResultApi,
   IOrderUpdateResultApi,
   IOrderDeleteResultApi,
-} from "@/api-types/IOrderResultApi";
+} from "@/apis-results/IOrderResultApi";
 import { IOrder } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import {  getErrorMessage, http } from "@/utils";

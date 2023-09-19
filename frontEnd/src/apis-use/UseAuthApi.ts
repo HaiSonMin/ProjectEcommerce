@@ -1,11 +1,11 @@
 import {
-  IAuthForgotPasswordResultApi,
   IAuthLoginResultApi,
   IAuthLogoutResultApi,
-  IAuthRefreshATResultApi,
   IAuthRegisterResultApi,
+  IAuthRefreshATResultApi,
+  IAuthForgotPasswordResultApi,
   IAuthResetPasswordResultApi,
-} from "@/api-types/IAuthResultApi";
+} from "@/apis-results/IAuthResultApi";
 import { AuthApi } from "@/apis";
 import CONSTANT from "@/constant/value-constant";
 import { useMutation } from "@tanstack/react-query";

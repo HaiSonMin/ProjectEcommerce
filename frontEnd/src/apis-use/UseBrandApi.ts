@@ -4,7 +4,7 @@ import {
   IBrandUpdateResultApi,
   IBrandDeleteResultApi,
   IBrandSearchResultApi,
-} from "@/api-types/IBrandResultApi";
+} from "@/apis-results/IBrandResultApi";
 import { BrandApi } from "@/apis";
 import { toast } from "react-hot-toast";
 import { getQueriesString } from "@/utils";

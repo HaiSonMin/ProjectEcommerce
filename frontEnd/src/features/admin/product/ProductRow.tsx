@@ -1,12 +1,12 @@
-import UseProductApi from "./UseProductApi";
 import { BsEye } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { styled } from "styled-components";
-import { RiDeleteBinLine } from "react-icons/ri";
+import { UseProductApi } from "@/apis-use";
 import { formatCurrencyVND } from "@/utils";
-import { IBrand, IProduct } from "@/interfaces";
-import { ConfirmDelete, Menus, Modal, Table } from "@/components";
 import { useNavigate } from "react-router-dom";
+import { IBrand, IProduct } from "@/interfaces";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { ConfirmDelete, Menus, Modal, Table } from "@/components";
 
 const Img = styled.img`
   display: block;
