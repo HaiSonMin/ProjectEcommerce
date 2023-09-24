@@ -10,6 +10,7 @@ const errorHandlerMiddleware = function (err, req, res, next) {
 
   // // Duplicate Error
   if (err.code || err.code === 11000) {
+    console.log("err::::", err);
     customError.message = `Duplicate item, Please try again`;
     customError.statusCode = StatusCodes.BAD_REQUEST;
   }

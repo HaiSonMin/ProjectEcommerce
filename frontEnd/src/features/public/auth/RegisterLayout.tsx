@@ -8,17 +8,28 @@ import {
 } from "@/components";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATH_USER } from "@/constant";
 import CONSTANT from "@/constant/value-constant";
-import { IUserCreate } from "@/interfaces/user.interface";
 import { UseAuthApi } from "@/apis-use";
+import { useRef } from "react";
+import { IAuthRegister } from "@/interfaces/auth.interface";
+import { IAuthCreateSessionRegisterResultApi } from "@/apis-results/IAuthResultApi";
+import { toast } from "react-hot-toast";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/storeReducer/public/userSlice";
+import { EnumOptionConfirmOTP } from "@/enum";
+import {
+  setOptionConfirmOTP,
+  setUserEmailOTP,
+} from "@/storeReducer/public/otpSlice";
 
 const RegisterLayoutStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 3rem;
   margin-bottom: 6rem;
 `;
 
@@ -64,25 +75,43 @@ const Note = styled.p`
 const MIN_LENGTH_PASSWORD = 6;
 
 export default function RegisterLayout() {
-  const { handleSubmit, register, formState, watch, getValues } =
-    useForm<IUserCreate>();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { handleSubmit, register, formState, watch, getValues, reset } =
+    useForm<IAuthRegister>();
   const { errors: errorsForm } = formState;
-  const { isRegistering, register: registerAuth } = UseAuthApi.register();
+  const { isCreatingSessionRegister, createSessionRegister } =
+    UseAuthApi.createSessionRegister();
+  const refCaptcha = useRef<ReCAPTCHA>(null);
 
-  const onSubmit = (dataForm: Partial<IUserCreate>) => {
-    const dataRegister: Partial<IUserCreate> = {
-      user_userName: dataForm["user_userName"],
+  const onSubmit = (dataForm: IAuthRegister) => {
+    const tokenReCaptcha = refCaptcha.current?.getValue();
+    if (!tokenReCaptcha) return toast.error("Hãy vui lòng xác thực ReCaptcha");
+
+    const dataRegister: IAuthRegister = {
+      user_fullName: dataForm["user_fullName"],
       user_email: dataForm["user_email"],
       user_phoneNumber: dataForm["user_phoneNumber"],
       user_password: dataForm["user_password"],
-      reconfirmPassword: dataForm["reconfirmPassword"],
+      user_confirmPassword: dataForm["user_confirmPassword"],
+      tokenCaptcha: tokenReCaptcha,
     };
-    registerAuth(dataRegister);
+
+    createSessionRegister(dataRegister, {
+      onSuccess: () => {
+        refCaptcha.current?.reset();
+        reset();
+        dispatch(setUserEmailOTP(dataForm["user_email"]));
+        dispatch(setOptionConfirmOTP(EnumOptionConfirmOTP.REGISTER));
+        navigate(`/${PATH_USER.generateOTP}`);
+      },
+      onError: () => refCaptcha.current?.reset(),
+    });
   };
 
   return (
     <>
-      {isRegistering && <SpinnerLogo />}
+      {isCreatingSessionRegister && <SpinnerLogo />}
       <RegisterLayoutStyled>
         <Header>
           <Heading $as="h3">Đăng ký Smember</Heading>
@@ -95,15 +124,15 @@ export default function RegisterLayout() {
           <InputAuth
             id="userFullName"
             type="text"
-            register={register("user_userName", {
+            register={register("user_fullName", {
               required: {
                 value: true,
                 message: "Vui lòng cung cấp tên người dùng",
               },
             })}
             label="Tên người dùng"
-            hasValue={!!watch("user_userName")}
-            error={errorsForm["user_userName"]?.message}
+            hasValue={!!watch("user_fullName")}
+            error={errorsForm["user_fullName"]?.message}
           />
           <InputAuth
             id="phoneNumber"
@@ -155,7 +184,7 @@ export default function RegisterLayout() {
           <InputAuth
             id="comfirmPassword"
             type="password"
-            register={register("reconfirmPassword", {
+            register={register("user_confirmPassword", {
               required: {
                 value: true,
                 message: "Vui lòng xác nhận lại mật khẩu",
@@ -166,17 +195,24 @@ export default function RegisterLayout() {
               },
             })}
             label="Xác nhận lại mật khẩu"
-            hasValue={!!watch("reconfirmPassword")}
-            error={errorsForm["reconfirmPassword"]?.message}
+            hasValue={!!watch("user_confirmPassword")}
+            error={errorsForm["user_confirmPassword"]?.message}
           />
           <InputAuth
             id="promoCode"
             type="promoCode"
-            register={register("user_promoCode")}
+            register={register("user_referralCode")}
             label="Nhập mã giới thiệu (nếu có)"
-            hasValue={!!watch("user_promoCode")}
+            hasValue={!!watch("user_referralCode")}
           />
-          <Button $width="100%">Đăng Ký</Button>
+          <ReCAPTCHA
+            sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
+            size="normal"
+            ref={refCaptcha}
+          />
+          <Button $width="100%" className="mt-[1.5rem]">
+            Đăng Ký
+          </Button>
           <LoginRegisterLabel>
             <p>Hoặc đăng nhập bằng</p>
           </LoginRegisterLabel>

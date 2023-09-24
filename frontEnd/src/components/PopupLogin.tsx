@@ -7,7 +7,7 @@ const top = 90;
 export default function PopupLogin({ googleLinkURL }) {
   window.open(
     googleLinkURL,
-    "_blank",
+    "_self",
     `width=${popupWidth}px,height=${popupHeight}px,location=yes,left=${left},top=${top}`
   );
 }

@@ -1,12 +1,4 @@
-import {
-  IDemandCreateResultApi,
-  IDemandGetAllResultApi,
-  IDemandGetByIdResultApi,
-  IDemandUpdateResultApi,
-  IDemandDeleteResultApi,
-  IDemandGetByProductCategoryIdResultApi,
-  IDemandsSearchResultApi,
-} from "@/api-types/IDemandResultApi";
+
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { IDemand, IProductCategory } from "@/interfaces";
 import { getErrorMessage, http, resultAppendFormData } from "@/utils";

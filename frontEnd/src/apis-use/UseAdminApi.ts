@@ -7,7 +7,6 @@ import {
   IAdminCreateUserResultApi,
   IAdminDeleteUserResultApi,
   IAdminGetAllUserResultApi,
-  IAdminGetOneUserResultApi,
   IAdminSearchUserResultApi,
   IAdminUpdateUserResultApi,
 } from "@/apis-results/IAdminResultApi";
@@ -36,21 +35,6 @@ export default class UseAdminApi {
     return {
       createUser: mutate,
       isCreatingUser: isLoading,
-      message: data?.message,
-      metadata: data?.metadata,
-      statusCode: data?.statusCode,
-      reasonStatusCode: data?.reasonStatusCode,
-    };
-  }
-
-  static getOneUser(): IAdminGetOneUserResultApi {
-    const { userId } = useParams();
-    const { isLoading, data } = useQuery({
-      queryKey: ["user"],
-      queryFn: () => AdminApi.getOneUser({ _id: userId || "" }),
-    });
-    return {
-      isGettingUser: isLoading,
       message: data?.message,
       metadata: data?.metadata,
       statusCode: data?.statusCode,

@@ -1,5 +1,18 @@
 const PATH_API_V1 = {
-  auth: "/v1/auth",
+  auth: {
+    mainPath: "/v1/auth",
+    feature: {
+      login: "/login",
+      logout: "/logout",
+      generateOTP: "/generateOTP",
+      createSessionRegister: "/createSessionRegister",
+      confirmRegister: "/confirmRegister",
+      createSessionResetPassword: "/createSessionResetPassword",
+      confirmOTPResetPassword: "/confirmOTPResetPassword",
+      confirmResetPassword: "/confirmResetPassword",
+      refreshAccessToken: "/refreshAccessToken",
+    },
+  },
   user: "/v1/user",
   blog: "/v1/blog",
   admin: "/v1/admin",

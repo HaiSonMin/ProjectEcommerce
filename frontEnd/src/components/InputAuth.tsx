@@ -109,6 +109,7 @@ export default function InputAuth({
       </Label>
       {type === "password" && (
         <ShowPasswordButton
+          tabIndex={-1}
           type="button"
           onClick={toggleShowPassword}
           $showPassword={showPassword}

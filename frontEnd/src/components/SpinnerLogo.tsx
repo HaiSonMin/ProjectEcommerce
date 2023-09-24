@@ -1,66 +1,75 @@
 import styled, { keyframes } from "styled-components";
 
 // Define keyframes
-const spinning = keyframes`
+const aniImage = keyframes`
   0% {
-    transform: translate(-50%, -50%) scale(1) translateZ(0);
+    transform: translate(-50%, -50%) scale(1) ;
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.1) translateZ(0);
+    transform: translate(-50%, -50%) scale(1.1) ;
   }
   100% {
-    transform: translate(-50%, -50%) scale(1) translateZ(0);
+    transform: translate(-50%, -50%) scale(1) ;
   }
 `;
 
 const ldsEclipse = keyframes`
   0% {
-    transform: rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   50% {
-    transform: rotate(180deg);
+    transform: translate(-50%, -50%) rotate(180deg);
   }
   100% {
-    transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 `;
 
 // Create the styled-components
-const ContainerBackground = styled.div`
-  background-color: var(--color-grey-900);
+const Overlay = styled.div`
+  background-color: var(--color-grey-800);
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 200;
-  opacity: 0.6;
+  z-index: 900;
+  opacity: 0.8;
 `;
-const LoadingSpinnerWrapper = styled.div`
+
+const Container = styled.div`
   position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const ImageLoading = styled.div`
+  position: absolute;
   left: 50%;
   top: 50%;
+  transform: translate(-50%, -50%);
   width: 9rem;
   height: 9rem;
-  z-index: 999;
   background: url(https://brademar.com/wp-content/uploads/2022/10/CellphoneS-Logo-PNG-2.png)
     center no-repeat;
   background-size: contain;
+  animation: ${aniImage} 1s linear infinite;
+`;
 
-  &:after {
-    content: "";
-    position: absolute;
-    width: 12rem;
-    height: 12rem;
-    border-radius: 100%;
-    margin: -1.5rem;
-    box-shadow: 0 4px 0 0 #000;
-    transition: all 1s linear;
-    animation: ${ldsEclipse} 1s linear infinite;
-  }
-
-  /* Apply the spinning animation to the wrapper */
-  animation: ${spinning} 1.5s infinite ease-in-out;
+const SpinnerLoading = styled.div`
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 100%;
+  box-shadow: 0 4px 0 0 #000;
+  animation: ${ldsEclipse} 0.3s linear infinite;
 `;
 
 // Usage in your React component
@@ -68,8 +77,11 @@ const LoadingSpinnerWrapper = styled.div`
 export default function SpinnerLogo() {
   return (
     <>
-      <ContainerBackground />
-      <LoadingSpinnerWrapper />
+      <Overlay />
+      <Container>
+        <ImageLoading />
+        <SpinnerLoading />
+      </Container>
     </>
   );
 }

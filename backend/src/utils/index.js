@@ -31,7 +31,6 @@ const saveTokenCookie = ({ tokenName, tokenValue, day, res }) =>
   res.cookie(tokenName, tokenValue, {
     httpOnly: true,
     maxAge: day * 24 * 60 * 60 * 1000,
-    path: "/",
   });
 
 const deleteTokenCookie = ({ tokenName, res }) =>
@@ -120,14 +119,15 @@ const getFieldsPath = (fieldsImage = []) => {
   return fields;
 };
 
-const getMiliSecondMinute = (minute) => minute * 60 * 1000;
+const getMiliSecondFormSecond = (second) => second * 1000;
+
 const generatePassword = () =>
   passwordGenerator.generate({
     length: 10,
     numbers: true,
   });
 
-const generateOTP = async () =>
+const generatorOTP = async () =>
   await otpGenerator.generate(6, {
     lowerCaseAlphabets: false,
     upperCaseAlphabets: false,
@@ -157,7 +157,7 @@ module.exports = {
   getFieldsPath,
   capitalizeFirstLetter,
   setDataNested,
-  getMiliSecondMinute,
-  generateOTP,
+  getMiliSecondFormSecond,
+  generatorOTP,
   generatePassword,
 };

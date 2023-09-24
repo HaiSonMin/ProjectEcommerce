@@ -19,6 +19,12 @@ class AuthController {
       metadata: await AuthService.haveAuth(req, res),
     }).send(res);
   }
+  static async loginSuccessGoogle(req, res) {
+    new OK({
+      message: "Login google successfully",
+      metadata: await AuthService.loginSuccessGoogle(req, res),
+    }).send(res);
+  }
   static async login(req, res) {
     new OK({
       message: "Login successfully",
@@ -37,10 +43,10 @@ class AuthController {
       metadata: await AuthService.refreshAccessToken(req, res),
     }).send(res);
   }
-  static async generateOTPResetPassword(req, res) {
+  static async generateOTP(req, res) {
     new OK({
-      message: "Generate OTP reset password successfully",
-      metadata: await AuthService.generateOTPResetPassword(req, res),
+      message: "Generate OTP successfully",
+      metadata: await AuthService.generateOTP(req, res),
     }).send(res);
   }
   static async createSessionResetPassword(req, res) {
@@ -49,10 +55,22 @@ class AuthController {
       metadata: await AuthService.createSessionResetPassword(req, res),
     }).send(res);
   }
-  static async resetPassword(req, res) {
+  static async confirmOTPResetPassword(req, res) {
+    new OK({
+      message: "Create Session Password successfully",
+      metadata: await AuthService.confirmOTPResetPassword(req, res),
+    }).send(res);
+  }
+  static async confirmResetPassword(req, res) {
     new OK({
       message: "Reset password successfully",
-      metadata: await AuthService.resetPassword(req, res),
+      metadata: await AuthService.confirmResetPassword(req, res),
+    }).send(res);
+  }
+  static async generateOTP(req, res) {
+    new OK({
+      message: "Resend OTP successfully",
+      metadata: await AuthService.generateOTP(req, res),
     }).send(res);
   }
 }

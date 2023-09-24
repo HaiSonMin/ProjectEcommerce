@@ -1,8 +1,8 @@
 import { PATH_ADMIN, PATH_USER } from "@/constant";
 import { Suspense, lazy, useEffect } from "react";
-import { PrivateRouter } from "@/components/private";
-import { LoginGoogleSuccess, SpinnerLogo } from "@/components";
-import { Navigate, Route, Router, Routes, useLocation } from "react-router-dom";
+import { ProtectPrivateRouter } from "@/components/protect-routers";
+import { SpinnerLogo } from "@/components";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import {
   UserPage,
   OrderPage,
@@ -111,12 +111,15 @@ const ProductCategoryGroupUpdatePage = lazy(
 );
 
 const PublicLayOut = lazy(() => import("@/pages/public/PublicLayOut"));
-const OTPPage = lazy(() => import("@/pages/auth/OTPPage"));
+const ConfirmOTPPage = lazy(() => import("@/pages/auth/ConfirmOTPPage"));
 const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/auth/RegisterPage"));
-const ForgetPasswordPage = lazy(
-  () => import("@/pages/auth/ForgetPasswordPage")
+const GenerateOTPPage = lazy(() => import("@/pages/auth/GenerateOTPPage"));
+const ResetPasswordPage = lazy(() => import("@/pages/auth/ResetPasswordPage"));
+const LoginSuccessGooglePage = lazy(
+  () => import("@/pages/auth/LoginSuccessGooglePage")
 );
+
 const OrderTablePage = lazy(
   () => import("@/pages/private/order/OrderTablePage")
 );
@@ -144,16 +147,17 @@ export default function App() {
         <Route path={"/"} element={<PublicLayOut />}>
           <Route path={PATH_USER.login} element={<LoginPage />} />
           <Route
-            path={`${PATH_USER.login}/success`}
-            element={<LoginGoogleSuccess />}
+            path={`${PATH_USER.login}/success/google`}
+            element={<LoginSuccessGooglePage />}
           />
           <Route path={PATH_USER.register} element={<RegisterPage />} />
           <Route path={PATH_USER.home} element={<HomePage />} />
+          <Route path={PATH_USER.generateOTP} element={<GenerateOTPPage />} />
+          <Route path={PATH_USER.confirmOTP} element={<ConfirmOTPPage />} />
           <Route
-            path={PATH_USER.forgetPassword}
-            element={<ForgetPasswordPage />}
+            path={PATH_USER.resetPassword}
+            element={<ResetPasswordPage />}
           />
-          <Route path={PATH_USER.OTP} element={<OTPPage />} />
           <Route
             path={PATH_USER.product}
             element={<ProductCategoryPageUser />}
@@ -161,7 +165,7 @@ export default function App() {
         </Route>
 
         {/* Layout of private */}
-        <Route element={<PrivateRouter />}>
+        <Route element={<ProtectPrivateRouter />}>
           <Route path={PATH_ADMIN.admin} element={<AdminPageLayout />}>
             <Route path={PATH_ADMIN.brand} element={<BrandPage />}>
               <Route path="" element={<BrandTablePage />} />

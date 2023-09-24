@@ -1,3 +1,4 @@
+import { UseDemandApi } from "@/apis-use";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -38,6 +39,9 @@ const ItemLinkImage = styled(Link)`
 `;
 
 export default function Introduce() {
+
+  const {isGettingDemands,} = UseDemandApi.getAllDemands()
+
   return (
     <IntroduceStyled>
       <ListItems>

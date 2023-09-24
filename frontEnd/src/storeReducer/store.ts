@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userSlice from "./userSlice";
+import { userSlice, otpSlice } from "./public";
 const store = configureStore({
   reducer: {
+    // public slices
+    otp: otpSlice,
     user: userSlice,
     // private slices
-    // public slices
   },
 });
 

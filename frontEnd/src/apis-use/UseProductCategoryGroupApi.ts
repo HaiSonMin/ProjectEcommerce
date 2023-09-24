@@ -33,9 +33,7 @@ export default class UseProductCategoryGroupApi {
     };
   }
 
-  static getAllCategoriesGroup(
-    limitCustom?: number
-  ): IProductCategoryGroupGetAllResultApi {
+  static getAllCategoriesGroup(): IProductCategoryGroupGetAllResultApi {
     const queryClient = useQueryClient();
     const {
       sort,
@@ -48,7 +46,7 @@ export default class UseProductCategoryGroupApi {
         ProductCategoryGroupApi.getAllProductCategoriesGroup({
           sort,
           page: currentPage,
-          limit: limitCustom ?? limit,
+          limit: limit,
         }),
     });
     let numberPage: number = 1;

@@ -1,9 +1,10 @@
 import IApi from "./IApi";
 import IArgsQuery from "./IArgsQuery";
 import ISelectOption from "./ISelectOption";
-import { IFilterItem, IFilterOption } from "./IFilterOption";
 import IProductOption from "./IProductOption";
+import ILocalStoreUser from "./ILocalStoreUser";
 import ISelectOptionBoolean from "./ISelectOptionBoolean";
+import { IFilterItem, IFilterOption } from "./IFilterOption";
 
 export type {
   IApi,
@@ -12,5 +13,6 @@ export type {
   ISelectOption,
   IFilterOption,
   IProductOption,
+  ILocalStoreUser,
   ISelectOptionBoolean,
 };

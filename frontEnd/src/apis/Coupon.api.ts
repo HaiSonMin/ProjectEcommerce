@@ -1,11 +1,4 @@
-import {
-  ICouponCreateResultApi,
-  ICouponGetAllResultApi,
-  ICouponSearchResultApi,
-  ICouponGetOneResultApi,
-  ICouponUpdateResultApi,
-  ICouponDeleteResultApi,
-} from "@/api-types/ICouponResultApi";
+
 import { ICoupon } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { getErrorMessage, http } from "@/utils";

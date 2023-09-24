@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
 import { IDemand } from "@/interfaces";
-import UseDemandApi from "./UseDemandApi";
+import { UseDemandApi, UseProductCategoryApi } from "@/apis-use";
 import { Button, InputFile, Form, FormRow, Input, Heading } from "@/components";
 import { useState } from "react";
 import Select, { SingleValue } from "react-select";
 import IOptionSelect from "@/helpers/ISelectOption";
 import { useMoveBack } from "@/hooks";
-import UseProductCategoryApi from "../productCategory/UseProductCategoryApi";
 interface IProps {
   demandEdit?: IDemand;
   onCloseModal?: () => void;
@@ -131,19 +130,14 @@ export default function DemandForm(props: IProps) {
           <FormRow label="Demand Image" error={errorsForm.demand_image}>
             <InputFile
               id="DemandImage"
-              accept="image/*"
-              {...register("demand_image", {
+              register={register("demand_image", {
                 required: "Please provide demand image",
               })}
             />
           </FormRow>
         ) : (
           <FormRow label="Demand Image">
-            <InputFile
-              id="DemandImage"
-              accept="image/*"
-              {...register("demand_image")}
-            />
+            <InputFile id="DemandImage" register={register("demand_image")} />
           </FormRow>
         )}
         <FormRow>

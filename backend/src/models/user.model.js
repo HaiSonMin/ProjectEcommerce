@@ -7,18 +7,9 @@ const constant = require("../utils/constant");
 // Declare the Schema of the Mongo model
 const UserSchema = new Schema(
   {
-    user_firstName: {
+    user_fullName: {
       type: String,
-      maxlength: 50,
-    },
-    user_lastName: {
-      type: String,
-      maxlength: 50,
-    },
-    user_userName: {
-      type: String,
-      required: [true, "Please provide user Name"],
-      unique: [true, "Name has exist, please enter other name"],
+      required: [true, "Please provide user full name"],
       maxlength: 100,
     },
     user_email: {
@@ -44,18 +35,15 @@ const UserSchema = new Schema(
     },
     user_phoneNumber: {
       type: String,
-      unique: [true, "Số điện thoại đã được đăng kí trước đó"],
       match: [
         /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
         "Số điện thoại không đúng định dạng",
       ],
     },
+    user_referralCode: String,
     user_address: {
       type: Schema.Types.ObjectId,
       ref: constant.MODELS_NAMES.user,
-    },
-    user_googleId: {
-      type: String,
     },
     user_avatar: String,
     user_isBlocking: {
@@ -70,7 +58,7 @@ const UserSchema = new Schema(
 
 UserSchema.index({
   user_email: 1,
-  user_userName: 1,
+  user_fullName: 1,
   user_phoneNumber: 1,
 });
 

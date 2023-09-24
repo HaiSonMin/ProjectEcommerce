@@ -1,14 +1,12 @@
 import { IUser } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { http, getErrorMessage } from "@/utils";
-import { IUserCreate } from "@/interfaces/user.interface";
 import { PATH_API_V1 } from "@/constant";
 import { IApi } from "@/helpers";
+import { IAuthRegister } from "@/interfaces/auth.interface";
 
 class AdminApi {
-  async createUser(
-    args: Omit<IUserCreate, "_id" | "user_isBlocking">
-  ): Promise<IApi> {
+  async createUser(args: IAuthRegister): Promise<IApi> {
     console.log(args);
     try {
       const response = await http.post(

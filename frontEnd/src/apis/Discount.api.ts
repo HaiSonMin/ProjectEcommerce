@@ -20,7 +20,7 @@ class DiscountApi {
   async getOneDiscount(args: Pick<IDiscount, "_id">): Promise<IApi> {
     try {
       const response = await http.get(
-        `${PATH_API_V1.discount}/getById/${args._id}`
+        `${PATH_API_V1.discount}/getById/${args._id}`,
       );
       const result: IApi = response.data;
       return result;

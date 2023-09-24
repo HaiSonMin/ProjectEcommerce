@@ -1,3 +1,4 @@
+import IAuth from "./auth.interface";
 import IUser from "./user.interface";
 import IBrand from "./brand.interface";
 import IOrder from "./order.interface";
@@ -10,6 +11,7 @@ import IProductCategory from "./productCategory.interface";
 import IProductCategoryGroup from "./productCategoryGroup.interface";
 
 export type {
+  IAuth,
   IUser,
   IBrand,
   IOrder,

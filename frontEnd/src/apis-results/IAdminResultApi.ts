@@ -1,7 +1,7 @@
 import { UseMutateFunction } from "@tanstack/react-query";
 import IApi from "@/helpers/IApi";
 import { IUser } from "@/interfaces";
-import { IUserCreate } from "@/interfaces/user.interface";
+import { IAuthRegister } from "@/interfaces/auth.interface";
 
 /**
  *  ------- available -------
@@ -22,16 +22,7 @@ import { IUserCreate } from "@/interfaces/user.interface";
 export interface IAdminCreateUserResultApi extends IApi {
   isCreatingUser: boolean;
   metadata: IUser | undefined;
-  createUser: UseMutateFunction<
-    IApi,
-    any,
-    Omit<IUserCreate, "_id" | "user_isBlocking">
-  >;
-}
-
-export interface IAdminGetOneUserResultApi extends IApi {
-  isGettingUser: boolean;
-  metadata: IUser | undefined;
+  createUser: UseMutateFunction<IApi, any, IAuthRegister>;
 }
 
 export interface IAdminGetAllUserResultApi extends IApi {

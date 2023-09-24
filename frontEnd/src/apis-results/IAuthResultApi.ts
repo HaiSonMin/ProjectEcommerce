@@ -1,16 +1,27 @@
 import { IApi } from "@/helpers";
 import { IUser } from "@/interfaces";
-import { IUserCreate } from "@/interfaces/user.interface";
+import IAuth, {
+  IAuthCreateSessionOTP,
+  IAuthLogin,
+  IAuthRegister,
+} from "@/interfaces/auth.interface";
 import { UseMutateFunction } from "@tanstack/react-query";
+
+export interface IAuthLoginGoogleResultApi extends IApi {
+  isLoginGoogle: boolean;
+  metadata: {
+    user: Pick<IUser, "_id" | "user_email" | "user_fullName">;
+    accessToken: string;
+  };
+}
 
 export interface IAuthLoginResultApi extends IApi {
   isLogin: boolean;
-  metadata: { user: IUser; accessToken: string };
-  login: UseMutateFunction<
-    any,
-    unknown,
-    Pick<IUser, "user_email" | "user_password">
-  >;
+  metadata: {
+    user: Pick<IUser, "_id" | "user_email" | "user_fullName">;
+    accessToken: string;
+  };
+  login: UseMutateFunction<any, unknown, IAuthLogin>;
 }
 
 export interface IAuthLogoutResultApi extends IApi {
@@ -19,30 +30,56 @@ export interface IAuthLogoutResultApi extends IApi {
   logout: UseMutateFunction<any, unknown>;
 }
 
-export interface IAuthRegisterResultApi extends IApi {
-  isRegistering: boolean;
-  metadata: { user: IUser; accessToken: string };
-  register: UseMutateFunction<any, unknown, Partial<IUserCreate>>;
+export interface IAuthGenerateOTPResultApi extends IApi {
+  isGeneratingOTP: boolean;
+  metadata: string; // "Vui lòng kiểm tra email đã điền trước đó"
+  generateOTP: UseMutateFunction<any, unknown, IAuthCreateSessionOTP>;
+}
+
+export interface IAuthCreateSessionRegisterResultApi extends IApi {
+  isCreatingSessionRegister: boolean;
+  metadata: string; // "Vui lòng kiểm tra email ..."
+  createSessionRegister: UseMutateFunction<any, unknown, IAuthRegister>;
+}
+
+export interface IAuthConfirmRegisterResultApi extends IApi {
+  isConfirmingRegister: boolean;
+  metadata: IAuthRegister;
+  confirmRegister: UseMutateFunction<any, unknown, Pick<IAuth, "OTPCode">>;
+}
+
+export interface IAuthCreateSessionResetPasswordResultApi extends IApi {
+  isCreatingSessionResetPassword: boolean;
+  metadata: string; // "Vui lòng kiểm tra email ..."
+  createSessionResetPassword: UseMutateFunction<
+    any,
+    unknown,
+    Pick<IUser, "user_email">
+  >;
+}
+
+export interface IAuthConfirmOTPResetPasswordResultApi extends IApi {
+  isConfirmingOTPResetPassword: boolean;
+  metadata: string; // "Đổi mật khẩu thành công"
+  confirmOTPResetPassword: UseMutateFunction<
+    any,
+    unknown,
+    Pick<IAuth, "OTPCode">
+  >;
+}
+
+export interface IAuthConfirmResetPasswordResultApi extends IApi {
+  isConfirmingResetPassword: boolean;
+  metadata: string; // "Vui lòng kiểm tra email ..."
+  confirmResetPassword: UseMutateFunction<
+    any,
+    unknown,
+    Pick<IAuthRegister, "user_password" | "user_confirmPassword">
+  >;
 }
 
 export interface IAuthRefreshATResultApi extends IApi {
-  isRefreshing: boolean;
+  isRefreshingToken: boolean;
   metadata: { user: IUser; newAccessToken: string };
   refreshAT: UseMutateFunction<any, unknown>;
-}
-
-export interface IAuthForgotPasswordResultApi extends IApi {
-  isForgot: boolean;
-  metadata: any;
-  forgotPassword: UseMutateFunction<any, unknown, Pick<IUser, "user_email">>;
-}
-
-export interface IAuthResetPasswordResultApi extends IApi {
-  isResettingPassword: boolean;
-  metadata: any;
-  resetPassword: UseMutateFunction<
-    any,
-    unknown,
-    Pick<IUserCreate, "user_password" | "reconfirmPassword">
-  >;
 }

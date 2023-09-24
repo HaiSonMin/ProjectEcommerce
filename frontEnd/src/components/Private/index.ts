@@ -4,7 +4,6 @@ import SideBarAdmin from "./SideBarAdmin";
 import DarkModeToggle from "./DarkModeToggle";
 import HeaderAdminMenu from "./HeaderAdminMenu";
 import DarkModeProvider from "./DarkModeProvider";
-import PrivateRouter from "./PrivateRouter";
 
 export {
   HeaderAdmin,
@@ -13,5 +12,4 @@ export {
   DarkModeToggle,
   HeaderAdminMenu,
   DarkModeProvider,
-  PrivateRouter,
 };

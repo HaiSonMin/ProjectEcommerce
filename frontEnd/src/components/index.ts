@@ -51,7 +51,6 @@ import TableOperation from "./TableOperation";
 import CarouselTopHome from "./CarouselTopHome";
 import RatingStarAction from "./RatingStarAction";
 import ContainerImgLink from "./ContainerImgLink";
-import LoginGoogleSuccess from "./LoginGoogleSuccess";
 import LoginRegisterLabel from "./LoginRegisterLabel";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import DarkModeProvider from "./private/DarkModeProvider";
@@ -109,7 +108,6 @@ export {
   CarouselTopHome,
   ContainerImgLink,
   DarkModeProvider,
-  LoginGoogleSuccess,
   InputRangeTwoValue,
   LoginRegisterLabel,
   RatingStar,

@@ -10,7 +10,9 @@ import { FiLogOut } from "react-icons/fi";
 import UseAuthApi from "@/apis-use/UseAuthApi";
 import SpinnerLogo from "@/components/SpinnerLogo";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser, getUser } from "@/storeReducer/userSlice";
+import { deleteUser, getUser } from "@/storeReducer/public/userSlice";
+import { UseUserApi } from "@/apis-use";
+import CONSTANT from "@/constant/value-constant";
 
 const HeaderButtonAuthStyled = styled.div`
   position: relative;
@@ -163,9 +165,13 @@ const BoxLogout = styled.div<{ $showLogout: boolean }>`
 export default function HeaderButtonAuth() {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const [localStoreUser] = useState<string>(
+    localStorage.getItem(CONSTANT.USER_TOKEN_NAME) || ""
+  );
+  console.log("localStoreUser:::", localStoreUser);
   const { isLogout, logout } = UseAuthApi.logout();
   const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
-  const [showLogout, setShowLogout] = useState<boolean>(false);
+  const [showOptionUser, setShowOptionUser] = useState<boolean>(false);
   const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
   };
@@ -173,12 +179,12 @@ export default function HeaderButtonAuth() {
     setShowLoginForm(false);
   };
 
-  const toggleLogout = () => setShowLogout(!showLogout);
+  const toggleLogout = () => setShowOptionUser(!showOptionUser);
 
   const refLogout = useRef<HTMLDivElement>(null);
   const handlerClickDocument = (event: MouseEvent) => {
     if (refLogout.current && !refLogout.current.contains(event.target as Node))
-      setShowLogout(false);
+      setShowOptionUser(false);
   };
 
   useEffect(() => {
@@ -193,7 +199,7 @@ export default function HeaderButtonAuth() {
 
   return (
     <>
-      {!user.userId ? (
+      {!user.accessToken ? (
         <HeaderButtonAuthStyled onClick={toggleLoginForm}>
           <FaUserAltSlash />
           <p>Đăng nhập</p>
@@ -235,8 +241,8 @@ export default function HeaderButtonAuth() {
           }}
         >
           <FaUserAlt />
-          <p>{user.userName}</p>
-          <BoxLogout $showLogout={showLogout} ref={refLogout}>
+          <p>{user.userFullName}</p>
+          <BoxLogout $showLogout={showOptionUser} ref={refLogout}>
             <Link to={"#"} className="btn__link">
               <FaUserCircle />
               <span>Smember</span>

@@ -1,6 +1,5 @@
 const PATH_USER = {
   home: "",
-  OTP:'otp',
   user: "user",
   login: "login",
   brand: "brand",
@@ -14,7 +13,9 @@ const PATH_USER = {
   question: "question",
   wishlist: "wishlist",
   register: "register",
-  forgetPassword: "forgetPassword",
+  confirmOTP: "confirmOTP",
+  generateOTP: "generateOTP",
+  resetPassword: "resetPassword",
   notfound: "*",
 };
 export default PATH_USER;

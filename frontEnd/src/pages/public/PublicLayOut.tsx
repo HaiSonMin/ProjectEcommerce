@@ -28,7 +28,7 @@ export const LoginForm = styled.div<{ showLoginForm: boolean }>`
   border: 1px solid #ccc;
   padding: 20px;
   margin: 20px;
-  filter: ${(props) => (props.showLoginForm ? 'blur(5px)' : 'none')};
+  filter: ${(props) => (props.showLoginForm ? "blur(5px)" : "none")};
 `;
 export default function PublicLayout() {
   return (

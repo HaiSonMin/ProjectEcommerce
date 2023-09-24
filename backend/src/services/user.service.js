@@ -2,9 +2,9 @@ const { NotFoundError, BadRequestError } = require("../core/error.response");
 const { UserRepo } = require("../repositories");
 
 class UserService {
-  static async checkUser(req, res) {
-    const { user_email } = req.body;
-    const user = await UserRepo.getUserByEmailNoInfoSecret({ user_email });
+  static async getUser(req, res) {
+    const { userId } = req.params;
+    const user = await UserRepo.getUserById({ userId });
     if (!user) throw new NotFoundError("Users don't exists");
     return user;
   }

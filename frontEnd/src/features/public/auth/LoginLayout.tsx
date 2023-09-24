@@ -4,19 +4,28 @@ import IUser from "@/interfaces/user.interface";
 import {
   Button,
   Heading,
-  InputAuth,
-  LoginRegisterLabel,
   LogoAuth,
+  InputAuth,
   SpinnerLogo,
+  LoginRegisterLabel,
 } from "@/components";
 import { Link, useNavigate } from "react-router-dom";
+import { useRef } from "react";
 import { PATH_USER } from "@/constant";
-import CONSTANT from "@/constant/value-constant";
-import { IAuthLoginResultApi } from "@/apis-results/IAuthResultApi";
-import { useDispatch } from "react-redux";
-import { setATUser, setUser } from "@/storeReducer/userSlice";
-import { toast } from "react-hot-toast";
 import { UseAuthApi } from "@/apis-use";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import CONSTANT from "@/constant/value-constant";
+import { setUser } from "@/storeReducer/public/userSlice";
+import { IAuthLoginResultApi } from "@/apis-results/IAuthResultApi";
+import { IAuthLogin } from "@/interfaces/auth.interface";
+import ReCAPTCHA from "react-google-recaptcha";
+import {
+  setOptionConfirmOTP,
+  setUserEmailOTP,
+} from "@/storeReducer/public/otpSlice";
+import { EnumOptionConfirmOTP } from "@/enum";
+import { da } from "date-fns/locale";
 
 const LoginLayoutStyled = styled.div`
   display: flex;
@@ -47,12 +56,12 @@ const Form = styled.form`
 `;
 const ForgetPassword = styled.p`
   align-self: flex-end;
-  bottom: 1.5rem;
   cursor: pointer;
   font-size: 1.4rem;
   color: var(--color-primary);
   font-style: italic;
   margin-bottom: 1rem;
+  margin-top: -1rem;
 `;
 
 const RegisterNow = styled.div`
@@ -85,26 +94,31 @@ const SeePromotion = styled(Link)`
 export default function LoginLayout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { isLogin, login } = UseAuthApi.login();
+  const refCaptcha = useRef<ReCAPTCHA>(null);
 
-  const { handleSubmit, register, formState, watch } =
-    useForm<Pick<IUser, "user_email" | "user_password">>();
+  const { handleSubmit, register, formState, watch } = useForm<IAuthLogin>();
   const { errors: errorsForm } = formState;
 
-  const onSubmit = (dataForm: Pick<IUser, "user_email" | "user_password">) => {
-    const dataLogin: Pick<IUser, "user_email" | "user_password"> = {
+  const onSubmit = (dataForm: IAuthLogin) => {
+    const tokenReCaptcha = refCaptcha?.current?.getValue();
+    if (!tokenReCaptcha) return toast.error("Hãy vui lòng xác thực ReCaptcha");
+
+    const dataLogin: IAuthLogin = {
       user_email: dataForm["user_email"],
       user_password: dataForm["user_password"],
+      tokenCaptcha: tokenReCaptcha,
     };
+
     login(dataLogin, {
       onSuccess: ({
         metadata: data,
       }: Pick<IAuthLoginResultApi, "metadata">) => {
+        refCaptcha.current?.reset();
         const dataStorage = {
           userId: data.user._id,
-          userRole: data.user.user_role,
-          userName: data.user.user_userName,
+          userEmail: data.user.user_email,
+          userFullName: data.user.user_fullName,
           accessToken: data.accessToken,
         };
         localStorage.setItem(
@@ -114,27 +128,44 @@ export default function LoginLayout() {
         dispatch(
           setUser({
             userId: data.user._id,
-            userRole: data.user.user_role,
-            userName: data.user.user_userName,
+            userEmail: data.user.user_email,
+            userFullName: data.user.user_fullName,
+            accessToken: data.accessToken,
           })
         );
-        dispatch(setATUser(data.accessToken));
         navigate("/");
       },
+      onError: () => refCaptcha.current.reset(),
     });
   };
+
+  const { isCreatingSessionResetPassword, createSessionResetPassword } =
+    UseAuthApi.createSessionResetPassword();
+
   const handleForgetPassword = () => {
     if (!watch("user_email"))
       return toast.error("Vui lòng nhập email để xác nhận OTP");
-    const {} = dispatch(
-      setUser({
-        userEmail: watch("user_email"),
-      })
+    if (!refCaptcha?.current?.getValue())
+      return toast.error("Hãy vui lòng xác thực ReCaptcha");
+    createSessionResetPassword(
+      { user_email: watch("user_email") },
+      {
+        onSuccess: () => {
+          refCaptcha.current.reset();
+          dispatch(setUserEmailOTP(watch("user_email")));
+          dispatch(setOptionConfirmOTP(EnumOptionConfirmOTP.RESET_PASSWORD));
+          navigate(`/${PATH_USER.generateOTP}`);
+        },
+        onError: () => refCaptcha.current.reset(),
+      }
     );
   };
+
+  const isLoading = isCreatingSessionResetPassword || isLogin;
+
   return (
     <LoginLayoutStyled>
-      {isLogin && <SpinnerLogo />}
+      {isLoading && <SpinnerLogo />}
       <ContainerTop>
         <Header>
           <Heading $as="h3">Đăng nhập Smember</Heading>
@@ -175,7 +206,14 @@ export default function LoginLayout() {
         <ForgetPassword onClick={handleForgetPassword}>
           Quên mật khẩu?
         </ForgetPassword>
-        <Button $width="100%">Đăng Nhập</Button>
+        <ReCAPTCHA
+          sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
+          size="normal"
+          ref={refCaptcha}
+        />
+        <Button $width="100%" className="mt-[1.5rem]">
+          Đăng Nhập
+        </Button>
         <LoginRegisterLabel>
           <p>Hoặc đăng ký bằng</p>
         </LoginRegisterLabel>

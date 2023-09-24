@@ -1,12 +1,7 @@
 import { http, getErrorMessage, resultAppendFormData } from "@/utils";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { IBrand } from "@/interfaces";
-import {
-  IBrandCreateResultApi,
-  IBrandDeleteResultApi,
-  IBrandGetAllResultApi,
-  IBrandUpdateResultApi,
-} from "@/api-types/IBrandResultApi";
+
 import { PATH_API_V1 } from "@/constant";
 import { IApi } from "@/helpers";
 

@@ -1,5 +1,12 @@
 import LoginLayout from "./LoginLayout";
 import RegisterLayout from "./RegisterLayout";
-import ForgetPasswordLayout from "./ForgetPasswordLayout";
-import OTPLayout from "./OTP";
-export { LoginLayout, RegisterLayout, ForgetPasswordLayout, OTPLayout };
+import ConfirmOTPLayout from "./ConfirmOTPLayout";
+import GenerateOTPLayout from "./GenerateOTPLayout";
+import ResetPasswordLayout from "./ResetPasswordLayout";
+export {
+  LoginLayout,
+  RegisterLayout,
+  GenerateOTPLayout,
+  ConfirmOTPLayout,
+  ResetPasswordLayout,
+};

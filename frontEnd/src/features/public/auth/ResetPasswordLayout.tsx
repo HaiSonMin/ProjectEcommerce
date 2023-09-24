@@ -1,21 +1,16 @@
-import {
-  Button,
-  Heading,
-  LogoAuth,
-  InputAuth,
-  SpinnerLogo,
-  LoginRegisterLabel,
-} from "@/components";
+import { Button, Heading, InputAuth, SpinnerLogo } from "@/components";
 import React from "react";
 import styled from "styled-components";
-import CONSTANT from "@/constant/value-constant";
-import { PATH_USER } from "@/constant";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { IUserCreate } from "@/interfaces/user.interface";
-import { IAuthLoginResultApi } from "@/apis-results/IAuthResultApi";
-import { setATUser, setUser } from "@/storeReducer/userSlice";
+import { IAuthResetPassword } from "@/interfaces/auth.interface";
+import { UseAuthApi } from "@/apis-use";
+import { useNavigate } from "react-router-dom";
+import { PATH_USER } from "@/constant";
+
+const ResetPasswordLayoutStyled = styled.div`
+  margin-top: 3rem;
+  margin-bottom: 6rem;
+`;
 
 const ContainerTop = styled.div`
   display: flex;
@@ -36,12 +31,28 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `;
-export default function CreatePasswordPage() {
+export default function ResetPasswordLayout() {
+  const navigate = useNavigate();
   const { handleSubmit, register, formState, watch, getValues } =
-    useForm<IUserCreate>();
+    useForm<IAuthResetPassword>();
   const { errors: errorsForm } = formState;
+
+  const { confirmResetPassword, isConfirmingResetPassword } =
+    UseAuthApi.confirmResetPassword();
+
+  const onSubmit = (dataForm: IAuthResetPassword) => {
+    confirmResetPassword(
+      {
+        user_password: dataForm["user_password"],
+        user_confirmPassword: dataForm["user_confirmPassword"],
+      },
+      { onSuccess: () => navigate(`/${PATH_USER.login}`) }
+    );
+  };
+
   return (
-    <>
+    <ResetPasswordLayoutStyled>
+      {isConfirmingResetPassword && <SpinnerLogo />}
       <ContainerTop>
         <Header>
           <Heading $as="h3">Tạo lại mật khẩu mới</Heading>
@@ -51,8 +62,7 @@ export default function CreatePasswordPage() {
           alt="logoLogin"
         />
       </ContainerTop>
-      <Form>
-        <h4>Tạo mật khẩu mới</h4>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <InputAuth
           id="password"
           type="password"
@@ -64,12 +74,12 @@ export default function CreatePasswordPage() {
           })}
           label="Nhập mật khẩu"
           hasValue={!!watch("user_password")}
-          error={errorsForm.user_password?.message}
+          error={errorsForm["user_password"]?.message}
         />
         <InputAuth
           id="comfirmPassword"
           type="password"
-          register={register("reconfirmPassword", {
+          register={register("user_confirmPassword", {
             required: {
               value: true,
               message: "Vui lòng xác nhận lại mật khẩu",
@@ -80,11 +90,11 @@ export default function CreatePasswordPage() {
             },
           })}
           label="Xác nhận lại mật khẩu"
-          hasValue={!!watch("reconfirmPassword")}
-          error={errorsForm["reconfirmPassword"]?.message}
+          hasValue={!!watch("user_confirmPassword")}
+          error={errorsForm["user_confirmPassword"]?.message}
         />
-        <Button $width="100%">Xác nhận</Button>
+        <Button $width="70rem">Đặt lại mật khẩu</Button>
       </Form>
-    </>
+    </ResetPasswordLayoutStyled>
   );
 }

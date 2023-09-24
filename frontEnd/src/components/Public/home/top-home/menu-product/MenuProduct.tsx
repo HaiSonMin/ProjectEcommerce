@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { styled } from "styled-components";
 import MenuItem from "./MenuItem";
 import { UseProductCategoryGroupApi } from "@/apis-use";
@@ -19,8 +20,8 @@ const MenuList = styled.ul`
   overflow: hidden;
 `;
 
-export default function MenuProduct() {
-  const { metadata } = UseProductCategoryGroupApi.getAllCategoriesGroup(10e9);
+export default memo(function MenuProduct() {
+  const { metadata } = UseProductCategoryGroupApi.getAllCategoriesGroup();
 
   const productCategoriesGroupSorted = metadata?.productCategoriesGroup?.sort(
     (a, b) =>
@@ -36,4 +37,4 @@ export default function MenuProduct() {
       </MenuList>
     </MenuContainer>
   );
-}
+});

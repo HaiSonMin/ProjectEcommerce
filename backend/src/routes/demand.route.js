@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 const { uploadOneImage } = require("../utils");
 const { DemandController } = require("../controllers");
-const { checkAuthIsAdmin } = require("../middleware/auth.middleware");
+const {
+  authentication,
+  checkAuthIsAdmin,
+} = require("../middleware/auth.middleware");
 
-// router.use(checkAuthIsAdmin);
+router.use(authentication);
 router
   .route("/create")
   .post(uploadOneImage("demand_image"), DemandController.createDemand);
