@@ -8,7 +8,7 @@ export default interface IProductCategory {
   productCategory_group: string | IProductCategoryGroup;
   productCategory_name: string;
   productCategory_image: string;
-  productCategory_demands: Array<IDemand> | Array<string>;
-  productCategory_brands: Array<IBrand> | Array<string>;
+  productCategory_demands: Array<IDemand>;
+  productCategory_brands: Array<IBrand>;
   productCategory_filtersOptions: any;
 }

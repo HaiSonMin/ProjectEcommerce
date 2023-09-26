@@ -11,11 +11,11 @@ const RatingStarStyled = styled.div`
   }
 `;
 
-const NUMBER_STAR = 5;
 interface IProps {
   ratePoint: number;
 }
 
+const NUMBER_STAR = 5;
 export default function RatingStar({ ratePoint }: IProps) {
   return (
     <RatingStarStyled>

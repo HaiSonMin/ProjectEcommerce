@@ -1,12 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const Constant = require("../utils/constant");
 const { ProductController } = require("../controllers");
 const { checkAuthIsAdmin } = require("../middleware/auth.middleware");
 const { uploadMultiFieldsImagesDynamic } = require("../utils");
 // Only Admin have permission create product
 router.route("/getAll").get(ProductController.getAllProducts);
 router.route("/getById/:productId").get(ProductController.getProductById);
+router
+  .route("/getByCategoryId/:categoryId")
+  .get(ProductController.getProductByCategoryId);
 
 // router.use(checkAuthIsAdmin);
 router

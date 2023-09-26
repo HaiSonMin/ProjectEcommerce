@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose");
-const constant = require("../utils/constant");
-const COLLECTION_NAME = constant.MODELS_NAMES.notification;
+const CONSTANT = require("../constant");
+const COLLECTION_NAME = CONSTANT.MODELS_NAMES.notification;
 
 const NotificationSchema = new Schema({
   notification_message: {

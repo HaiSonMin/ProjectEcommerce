@@ -131,6 +131,9 @@ const HomePage = lazy(() => import("@/pages/public/home/Homepage"));
 const ProductCategoryPageUser = lazy(
   () => import("@/pages/public/product/product-category/ProductCategoryPage")
 );
+const ProductDetailPageUser = lazy(
+  () => import("@/pages/public/product/product-detail/ProductDetailPage")
+);
 
 export default function App() {
   const pathName = useLocation();
@@ -159,8 +162,12 @@ export default function App() {
             element={<ResetPasswordPage />}
           />
           <Route
-            path={PATH_USER.product}
+            path={PATH_USER.productCategory}
             element={<ProductCategoryPageUser />}
+          />
+          <Route
+            path={PATH_USER.productDetail}
+            element={<ProductDetailPageUser />}
           />
         </Route>
 

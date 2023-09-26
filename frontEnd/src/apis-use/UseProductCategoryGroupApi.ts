@@ -19,7 +19,7 @@ export default class UseProductCategoryGroupApi {
       mutationFn: ProductCategoryGroupApi.createProductCategoryGroup,
       onSuccess: () => {
         toast.success("Create product category successfully");
-        queryClient.invalidateQueries({ queryKey: ["productCategories"] });
+        queryClient.invalidateQueries({ queryKey: ["productCategoriesGroup"] });
       },
       onError: () => toast.error("Create product category errors"),
     });
@@ -33,7 +33,10 @@ export default class UseProductCategoryGroupApi {
     };
   }
 
-  static getAllCategoriesGroup(): IProductCategoryGroupGetAllResultApi {
+  static getAllCategoriesGroup(
+    limitCustom?: number,
+    pageCustom?: number
+  ): IProductCategoryGroupGetAllResultApi {
     const queryClient = useQueryClient();
     const {
       sort,
@@ -41,12 +44,12 @@ export default class UseProductCategoryGroupApi {
       limit,
     } = getQueriesString(useQueriesString());
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategories", sort, currentPage, limit],
+      queryKey: ["productCategoriesGroup", sort, currentPage, limit],
       queryFn: () =>
         ProductCategoryGroupApi.getAllProductCategoriesGroup({
           sort,
-          page: currentPage,
-          limit: limit,
+          page: pageCustom || currentPage,
+          limit: limitCustom || limit,
         }),
     });
     let numberPage: number = 1;
@@ -57,7 +60,7 @@ export default class UseProductCategoryGroupApi {
     // Get Data next page
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
-        queryKey: ["productCategories", sort, currentPage + 1],
+        queryKey: ["productCategoriesGroup", sort, currentPage + 1],
         queryFn: () =>
           ProductCategoryGroupApi.getAllProductCategoriesGroup({
             sort,
@@ -68,7 +71,7 @@ export default class UseProductCategoryGroupApi {
 
     if (currentPage > 1)
       queryClient.prefetchQuery({
-        queryKey: ["productCategories", sort, currentPage - 1],
+        queryKey: ["productCategoriesGroup", sort, currentPage - 1],
         queryFn: () =>
           ProductCategoryGroupApi.getAllProductCategoriesGroup({
             sort,
@@ -89,7 +92,7 @@ export default class UseProductCategoryGroupApi {
   static getCategoryGroupById(): IProductCategoryGroupGetByIdResultApi {
     const { productCategoryGroupId } = useParams();
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategory", productCategoryGroupId],
+      queryKey: ["productCategoryGroup", productCategoryGroupId],
       queryFn: () =>
         ProductCategoryGroupApi.getProductCategoryGroupById({
           _id: String(productCategoryGroupId),
@@ -112,7 +115,7 @@ export default class UseProductCategoryGroupApi {
       onSuccess: (data: any) => {
         toast.success(data.message);
         queryClient.invalidateQueries({
-          queryKey: ["productCategories"],
+          queryKey: ["productCategoriesGroup"],
         });
       },
       onError: (error: any) => toast.error(error.message),
@@ -133,7 +136,7 @@ export default class UseProductCategoryGroupApi {
       mutationFn: ProductCategoryGroupApi.deleteProductCategoryGroup,
       onSuccess: (data: any) => {
         toast.success(data.message);
-        queryClient.invalidateQueries({ queryKey: ["productCategories"] });
+        queryClient.invalidateQueries({ queryKey: ["productCategoriesGroup"] });
       },
     });
     return {

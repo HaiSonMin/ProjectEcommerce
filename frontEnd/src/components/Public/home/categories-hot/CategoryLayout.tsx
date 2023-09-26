@@ -1,5 +1,11 @@
+import { useEffect, useState } from "react";
+import { UseProductCategoryApi } from "@/apis-use";
+import Carousel from "@/components/Carousel";
 import { Link } from "react-router-dom";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
+import { randomKey } from "@/utils";
+import { InView } from "react-intersection-observer";
+import { IProductCategory } from "@/interfaces";
 
 const accessories = [
   {
@@ -64,6 +70,8 @@ const CategoryLayoutStyled = styled.div`
   margin-top: 2rem;
 `;
 
+// All withCard + all with Gap(1rem)
+
 const CategoryHeader = styled.div`
   padding: 1rem 0;
   text-align: center;
@@ -77,66 +85,118 @@ const CategoryHeader = styled.div`
   }
 `;
 
-const CategoryList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 2rem;
-  padding: 3.2rem 4.2rem;
+const CategoryBody = styled.div<{ $paddingX: number }>`
+  padding: 2rem ${(props) => props.$paddingX}rem;
+`;
+
+const CategoryList = styled.div<{
+  $withItem: number;
+  $gap: number;
+  $numberItems: number;
+}>`
+  display: flex;
+  gap: ${(props) => props.$gap}rem;
+  flex-wrap: wrap;
+  width: ${(props) => {
+    return css`
+      ${(props.$withItem * props.$numberItems) / 2 +
+      props.$gap * (props.$numberItems / 2)}rem
+    `;
+  }};
 `;
 
 const CategoryItem = styled(Link)`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 12rem;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 500;
   color: var(--color-text);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-around);
+  overflow: hidden;
 
-  & div {
-    width: 9.5rem;
-    height: 9.5rem;
-    background-color: var(--color-secondary);
+  & .category--box-image {
+    width: 100%;
+    height: 12rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
     transition: all 0.3s;
-    overflow: hidden;
+    background-color: var(--color-secondary);
 
     & img {
+      aspect-ratio: 2/1;
       object-fit: contain;
       object-position: center;
+      mix-blend-mode: multiply;
       transition: all 0.3s;
     }
   }
 
-  &:hover {
-    div {
-      box-shadow: var(--shadow-arrow);
+  & .category--name {
+    padding: 0 4px;
+    font-weight: 600;
+  }
 
-      & img {
-        scale: 1.1;
-      }
+  &:hover {
+    & img {
+      scale: 1.1;
     }
   }
 `;
 
 export default function CategoryLayout() {
+  // const [categories, setCategories] = useState<Array<IProductCategory>>([]);
+  const [limit] = useState(30);
+  const { isGettingProductCategories, metadata } =
+    UseProductCategoryApi.getCategoriesHightLight(limit);
+
+  // useEffect(() => {
+  //   const dataCategories = metadata?.productCategories || [];
+  //   if (!isGettingProductCategories) setCategories(dataCategories);
+  // }, [isGettingProductCategories]);
+
+  if (isGettingProductCategories) return;
+
   return (
     <CategoryLayoutStyled>
       <CategoryHeader>
         <span>Danh mục nổi bật</span>
       </CategoryHeader>
-      <CategoryList>
-        {accessories.map((acc) => (
-          <CategoryItem key={Math.floor(Math.random() * 100000)} to={"#"}>
-            <div>
-              <img src={acc.img} />
-            </div>
-            <span>{acc.title}</span>
-          </CategoryItem>
-        ))}
-      </CategoryList>
+      <CategoryBody $paddingX={2.5}>
+        <Carousel
+          gapValue={5}
+          numberProductDisplayOnScreen={10}
+          numberProductInRow={15}
+          widthItem={12}
+          paddingX={2.5}
+        >
+          <CategoryList
+            $gap={5}
+            $withItem={12}
+            $numberItems={metadata?.productCategories?.length || limit}
+          >
+            {metadata?.productCategories?.map((category) => (
+              <CategoryItem
+                key={randomKey()}
+                to={category.productCategory_name
+                  .toLowerCase()
+                  .replace(/[, ]+/g, "-")}
+              >
+                <div className="category--box-image">
+                  <img src={category.productCategory_image} />
+                </div>
+                <span className="category--name">
+                  {category.productCategory_name.split(",")[0]}
+                </span>
+              </CategoryItem>
+            ))}
+          </CategoryList>
+        </Carousel>
+      </CategoryBody>
     </CategoryLayoutStyled>
   );
 }

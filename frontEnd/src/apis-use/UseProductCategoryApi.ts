@@ -36,22 +36,41 @@ export default class UseProductCategoryApi {
     };
   }
 
+  static getCategoriesHightLight(
+    limitCustom: number
+  ): IProductCategoryGetAllResultApi {
+    const { isLoading, data } = useQuery({
+      queryKey: ["productCategories", limitCustom],
+      queryFn: () =>
+        ProductCategoryApi.getAllProductCategories({
+          limit: limitCustom,
+        }),
+    });
+
+    return {
+      isGettingProductCategories: isLoading,
+      message: data?.message,
+      metadata: data?.metadata,
+      statusCode: data?.statusCode,
+      reasonStatusCode: data?.reasonStatusCode,
+    };
+  }
+
   static getAllCategories(
-    limitCustom?: number
+    limitCustom?: number,
+    pageCustom?: number
   ): IProductCategoryGetAllResultApi {
     const queryClient = useQueryClient();
-    const {
-      sort,
-      page: currentPage,
-      limit,
-    } = getQueriesString(useQueriesString());
+    const { sort, page, limit } = getQueriesString(useQueriesString());
+
+    const currentPage = pageCustom || page;
     const { isLoading, data } = useQuery({
       queryKey: ["productCategories", sort, currentPage, limit],
       queryFn: () =>
         ProductCategoryApi.getAllProductCategories({
           sort,
-          page: currentPage,
-          limit: limitCustom ?? limit,
+          page: pageCustom || currentPage,
+          limit: limitCustom || limit,
         }),
     });
     let numberPage: number = 1;

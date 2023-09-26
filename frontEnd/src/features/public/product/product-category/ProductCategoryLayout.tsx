@@ -6,10 +6,19 @@ import FilterContainer from "./productFilter";
 import SortContainer from "./productSort";
 import ProductDealHotLayout from "@/components/public/product/product-deal-hot/ProductDealHotLayout";
 import ProductDemandsLayout from "./product-demands";
-import { ProductBrandsLayout, ProductHotSaleLayout } from "@/components/public/product";
+import {
+  ProductBrandsLayout,
+  ProductHotSaleLayout,
+} from "@/components/public/product";
 
 const ProductCategoryLayoutStyled = styled.div`
   padding: 1.5rem 0;
+`;
+
+const ContainerImage = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 `;
 
 const items = [
@@ -49,7 +58,10 @@ const items = [
 export default function ProductCategoryLayout() {
   return (
     <ProductCategoryLayoutStyled>
-      <CarouselImage items={items} />
+      <ContainerImage>
+        <CarouselImage items={items} />
+        <CarouselImage items={items} />
+      </ContainerImage>
       <ProductDealHotLayout />
       <ProductBrandsLayout />
       <ProductDemandsLayout />

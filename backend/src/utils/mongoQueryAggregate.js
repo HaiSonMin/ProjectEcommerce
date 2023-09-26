@@ -6,7 +6,7 @@ const convertKeyForQueryAggregate = (options = []) => {
   return fields;
 };
 
-// [_id, -1] => {_id:-1
+// [_id, -1] => {_id:-1}
 const convertSortByAggregate = ({ localField, sort = "ctime" }) => {
   if (sort === "ctime") return { _id: -1 };
   else
@@ -17,14 +17,13 @@ const convertSortByAggregate = ({ localField, sort = "ctime" }) => {
             if (el.split("-")[1] === "asc") return [el.split("-")[0], 1];
             else return [el.split("-")[0], -1];
           } else {
-            console.log(`${localField}.${el.split("-")[0]}`)
+            console.log(`${localField}.${el.split("-")[0]}`);
             if (el.split("-")[1] === "asc")
               return [`${localField}.${el.split("-")[0]}`, 1];
             else return [`${localField}.${el.split("-")[0]}`, -1];
           }
         })
       ),
-      _id: 1,
     };
 };
 

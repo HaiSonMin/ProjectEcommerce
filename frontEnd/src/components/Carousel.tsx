@@ -12,13 +12,12 @@ const ContainerChildren = styled.div<{ $valueTransform: number }>`
   transition: all 0.3s;
 `;
 
-const ButtonPre = styled.div`
+const ButtonTransform = css`
   position: absolute;
-  left: -3.5rem;
   top: 50%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
@@ -40,32 +39,18 @@ const ButtonPre = styled.div`
   }
 `;
 
-const ButtonNext = styled.div`
-  position: absolute;
-  right: -3.5rem;
-  top: 50%;
-  display: flex;
-  align-items: center;
+const ButtonPre = styled.div<{ $transformMore?: number }>`
+  ${ButtonTransform}
+  justify-content: flex-end;
+  left: ${(props) =>
+    !props.$transformMore ? "-3.5rem" : `-${props.$transformMore + 3.5}rem`};
+`;
+
+const ButtonNext = styled.div<{ $transformMore?: number }>`
+  ${ButtonTransform}
   justify-content: flex-start;
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  cursor: pointer;
-  transition: all 0.3s;
-  transform: translateY(-50%);
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-
-  & svg {
-    width: 50%;
-    height: 50%;
-    color: #fff;
-    margin-left: 4px;
-  }
+  right: ${(props) =>
+    !props.$transformMore ? "-3.5rem" : `-${props.$transformMore + 3.5}rem`};
 `;
 
 interface IProps {
@@ -74,6 +59,7 @@ interface IProps {
   widthItem: number;
   numberProductInRow: number;
   numberProductDisplayOnScreen: number;
+  paddingX?: number;
 }
 
 export default function Carousel({
@@ -82,6 +68,7 @@ export default function Carousel({
   widthItem,
   numberProductInRow,
   numberProductDisplayOnScreen,
+  paddingX,
 }: IProps) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
@@ -94,7 +81,7 @@ export default function Carousel({
         setCurrentSlide((cur: number) =>
           cur === resultCurrentSlide ? 0 : cur + 1
         );
-    }, 5000);
+    }, 40000);
 
     return () => clearInterval(timerScroll);
   }, [currentSlide]);
@@ -124,10 +111,18 @@ export default function Carousel({
       </ContainerChildren>
       {numberProductInRow > numberProductDisplayOnScreen && (
         <>
-          <ButtonPre className="btn-pre" onClick={handlePrevSlide}>
+          <ButtonPre
+            className="btn-pre"
+            onClick={handlePrevSlide}
+            $transformMore={paddingX}
+          >
             <GoChevronLeft />
           </ButtonPre>
-          <ButtonNext className="btn-next" onClick={handleNextSlide}>
+          <ButtonNext
+            className="btn-next"
+            onClick={handleNextSlide}
+            $transformMore={paddingX}
+          >
             <GoChevronRight />
           </ButtonNext>
         </>

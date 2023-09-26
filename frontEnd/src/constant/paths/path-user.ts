@@ -1,14 +1,13 @@
 const PATH_USER = {
   home: "",
-  user: "user",
   login: "login",
   brand: "brand",
   order: "order",
+  member: "member",
   rating: "rating",
   coupon: "coupon",
   account: "account",
   payment: "payment",
-  product: "product",
   discount: "discount",
   question: "question",
   wishlist: "wishlist",
@@ -16,6 +15,8 @@ const PATH_USER = {
   confirmOTP: "confirmOTP",
   generateOTP: "generateOTP",
   resetPassword: "resetPassword",
+  productDetail: "productDetail",
+  productCategory: "productCategory",
   notfound: "*",
 };
 export default PATH_USER;

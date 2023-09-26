@@ -4,7 +4,6 @@ import { http, getErrorMessage } from "@/utils";
 import { PATH_API_V1 } from "@/constant";
 import { IApi } from "@/helpers";
 import { IAuthRegister } from "@/interfaces/auth.interface";
-
 class AdminApi {
   async createUser(args: IAuthRegister): Promise<IApi> {
     console.log(args);
@@ -32,18 +31,6 @@ class AdminApi {
           keySearch: fieldsQuery.keySearch,
         },
       });
-      const result: IApi = response.data;
-      return result;
-    } catch (error: any) {
-      throw new Error(getErrorMessage(error));
-    }
-  }
-
-  async getOneUser(arg: Pick<IUser, "_id">): Promise<IApi> {
-    try {
-      const response = await http.get(
-        `${PATH_API_V1.admin}/getOneUser/${arg._id}`
-      );
       const result: IApi = response.data;
       return result;
     } catch (error: any) {

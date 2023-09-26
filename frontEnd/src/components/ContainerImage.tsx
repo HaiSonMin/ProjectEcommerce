@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const ContainerImgLinkStyled = styled.div`
   padding: 1rem 6px;
   overflow: hidden;
+  width: 100%;
 `;
 
 // All withCard + all with Gap(1rem)
@@ -16,17 +17,10 @@ const ContainerImgLinks = styled.div<{
   display: flex;
   gap: ${(props) => props.$gap}rem;
   flex-wrap: wrap;
-  width: ${(props) => {
-    if (props.$itemsImg.length > 10)
-      return css`
-        ${(props.$withImg * props.$itemsImg.length) / 2 +
-        props.$gap * (props.$itemsImg.length / 2)}rem
-      `;
-    return css`
-      ${props.$withImg * props.$itemsImg.length +
-      props.$gap * props.$itemsImg.length}rem
-    `;
-  }};
+  width: ${(props) => css`
+    ${props.$withImg * props.$itemsImg.length +
+    props.$gap * props.$itemsImg.length}rem
+  `};
 `;
 
 const ItemLink = styled(Link)<{ $width: number }>`
@@ -47,15 +41,13 @@ interface IProps {
   numberProductDisplay: number;
 }
 
-export default function ContainerImgLink({
+export default function ContainerImage({
   itemsImg,
   gapValue,
   withImg,
   numberProductDisplay,
 }: IProps) {
-  const numberProductInRow =
-    itemsImg.length > 10 ? itemsImg.length / 2 : itemsImg.length;
-
+  const numberProductInRow = itemsImg.length;
 
   return (
     <ContainerImgLinkStyled>

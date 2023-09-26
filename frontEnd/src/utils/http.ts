@@ -19,9 +19,9 @@ class Http {
       withCredentials: true,
       timeout: 20000, // 20s
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json; charset=UTF-8",
         Authorization: `Bearer  ${localStorage.getItem(
-          CONSTANT.USER_TOKEN_NAME
+          CONSTANT.AT_NAME_LOCAL_STORE
         )}`,
       },
     });
@@ -34,7 +34,6 @@ class Http {
   // Process data before response to client
   private handlerSuccessResponse(response: AxiosResponse): AxiosResponse {
     const result: IApi = response.data;
-    console.log("result:::", result);
 
     if (
       (response.config.url &&

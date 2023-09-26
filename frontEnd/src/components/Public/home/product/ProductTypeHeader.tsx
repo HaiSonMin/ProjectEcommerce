@@ -2,6 +2,8 @@ import Heading from "@/components/Heading";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { IBrand, IProductCategory } from "@/interfaces";
+import { randomKey } from "@/utils";
 
 const PhoneHeaderStyled = styled.div`
   display: flex;
@@ -30,7 +32,7 @@ const BrandLinkItem = styled(Link)`
   opacity: 0.8;
   transition: all 0.3s;
 
-  &:hover{
+  &:hover {
     opacity: 1;
     box-shadow: var(--shadow-md);
   }
@@ -38,22 +40,35 @@ const BrandLinkItem = styled(Link)`
 
 const HeadingPhone = styled(Link)``;
 
-export default function PhoneHeader() {
+interface IProps {
+  categoryName: string;
+  categoryBrands: Array<IBrand>;
+}
+
+export default function ProductTypeHeader({
+  categoryName,
+  categoryBrands,
+}: IProps) {
+  let brandsDisplay: Array<string>;
+
+  if (categoryBrands.length <= 10)
+    brandsDisplay = categoryBrands.map((category) => category.brand_name);
+  else
+    brandsDisplay = categoryBrands
+      .map((category) => category.brand_name)
+      .slice(0, 7);
+
   return (
     <PhoneHeaderStyled>
       <HeadingPhone to={"#"}>
-        <Heading $as="h2">Phone</Heading>
+        <Heading $as="h2">{categoryName}</Heading>
       </HeadingPhone>
       <BrandList>
-        <li>
-          <BrandLinkItem to={"#"}>Test phone 1</BrandLinkItem>
-        </li>
-        <li>
-          <BrandLinkItem to={"#"}>Test phone 2</BrandLinkItem>
-        </li>
-        <li>
-          <BrandLinkItem to={"#"}>Test phone 3</BrandLinkItem>
-        </li>
+        {brandsDisplay.map((brandName) => (
+          <li key={randomKey()}>
+            <BrandLinkItem to={"#"}>{brandName}</BrandLinkItem>
+          </li>
+        ))}
         <li>
           <BrandLinkItem className="see-all" to={"#"}>
             See All <HiOutlineArrowNarrowRight />

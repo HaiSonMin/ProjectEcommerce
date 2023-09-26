@@ -107,6 +107,27 @@ class ProductRepository {
       .exec();
   }
 
+  static async getProductByCategoryId({ categoryId }) {
+    return await ProductModel.find({ product_category: categoryId })
+      .select([
+        "_id",
+        "product_name",
+        "product_thumb",
+        "product_price",
+        "product_available",
+        "product_ratings",
+        "product_priceAppliedDiscount",
+      ])
+      .populate([
+        // { path: "product_brand", select: ["brand_name", "brand_origin"] },
+        // { path: "product_category", select: "productCategory_name" },
+        // { path: "product_demands", select: "demand_name" },
+        { path: "product_ratings" },
+      ])
+      .lean()
+      .exec();
+  }
+
   static async getProductByIds({ productIds }) {
     return await ProductModel.find({ _id: { $in: productIds } })
       .lean()

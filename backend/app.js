@@ -33,6 +33,7 @@ app.use(
   ratingLimit({
     windowMs: 15 * 60 * 100, // 15 Minute
     max: 100, // Limit each IP to 100 requests per windowMs
+    message: "So much request please try again",
   })
 );
 app.use(

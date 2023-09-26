@@ -10,7 +10,7 @@ import { UseMutateFunction } from "@tanstack/react-query";
 export interface IAuthLoginGoogleResultApi extends IApi {
   isLoginGoogle: boolean;
   metadata: {
-    user: Pick<IUser, "_id" | "user_email" | "user_fullName">;
+    user: Pick<IUser, "_id" | "user_email" | "user_fullName" | "user_role">;
     accessToken: string;
   };
 }
@@ -18,7 +18,7 @@ export interface IAuthLoginGoogleResultApi extends IApi {
 export interface IAuthLoginResultApi extends IApi {
   isLogin: boolean;
   metadata: {
-    user: Pick<IUser, "_id" | "user_email" | "user_fullName">;
+    user: Pick<IUser, "_id" | "user_email" | "user_fullName" | "user_role">;
     accessToken: string;
   };
   login: UseMutateFunction<any, unknown, IAuthLogin>;

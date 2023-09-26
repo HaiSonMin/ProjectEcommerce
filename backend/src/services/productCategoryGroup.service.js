@@ -4,6 +4,7 @@ const {
   ProductCategoryGroupRepo,
   ProductCategoryRepo,
 } = require("../repositories");
+const { getInfoData } = require("../utils");
 
 class ProductCategoryGroupService {
   static async createProductCategoryGroup(req, res) {
@@ -77,27 +78,63 @@ class ProductCategoryGroupService {
     return productCategoryGroupDeleted;
   }
 
-  // static async addGroup(req) {
-  //   const { productCategories } =
-  //     await ProductCategoryRepo.getAllProductCategories({});
+  static async addGroup(req) {
+    const { productCategoriesGroup } =
+      await ProductCategoryGroupRepo.getAllProductCategoriesGroup({
+        sort: "ctime",
+      });
 
-  //   const filterGroup = productCategories.filter(
-  //     (cate, index, arr) =>
-  //       arr.findIndex(
-  //         (cat) => cat.productCategory_group === cate.productCategory_group
-  //       ) === index
-  //   );
+    console.log("productCategoriesGroup:::", productCategoriesGroup);
 
-  //   await Promise.all(
-  //     filterGroup.map(async (cate) => {
-  //       const newGroup = await ProductCategoryGroupModel.create({
-  //         productCategoryGroup_name: cate.productCategory_group,
-  //         productCategoryGroup_image: cate.productCategory_image,
-  //       });
-  //       if (!newGroup) throw new BadRequestError("Create group error");
-  //     })
-  //   );
-  // }
+    const { productCategories, totalProductCategories } =
+      await ProductCategoryRepo.getAllProductCategories({
+        sort: "ctime",
+        limit: 10e9,
+      });
+
+    await Promise.all(
+      productCategoriesGroup.map(
+        async (productCategoryGroup) =>
+          await productCategoryGroup.updateOne({
+            $set: { productCategoryGroup_categoryChildren: [] },
+          })
+      )
+    );
+
+    await Promise.all(
+      productCategoriesGroup.map(async (productCategoryGroup) => {
+        console.log("-------------------------");
+        const productCategoriesSameGroup = productCategories.filter(
+          (productCategory) => {
+            console.log(productCategory.productCategory_group._id.toString());
+            return (
+              productCategory.productCategory_group._id.toString() ===
+              productCategoryGroup._id.toString()
+            );
+          }
+        );
+        return productCategoriesSameGroup.map(
+          async (productCategory) =>
+            await productCategoryGroup.updateOne({
+              $addToSet: {
+                productCategoryGroup_categoryChildren: productCategory._id,
+              },
+            })
+        );
+        // console.log(
+        //   "productCategoryGroup._id:::",
+        //   productCategoryGroup._id.toString()
+        // );
+        // console.log(
+        //   "productCategoriesIds.length:::",
+        //   productCategoriesIds.length
+        // );
+        // console.log("productCategoriesIds:::", productCategoriesIds);
+      })
+    );
+
+    return "update success";
+  }
 }
 
 module.exports = ProductCategoryGroupService;

@@ -55,7 +55,7 @@ const Button = styled.button<{
   box-shadow: var(--shadow-md);
   transition: all 0.3s;
   font-weight: 600;
-  width: ${(props) => (props.$width ? `${props.$width}` : `fit-content`)};
+  width: ${(props) => (props.$width ? `${props.$width}` : `100%`)};
   ${(props: any) => sizes[props.$size]}
   ${(props: any) => variations[props.$variation]}
 `;
