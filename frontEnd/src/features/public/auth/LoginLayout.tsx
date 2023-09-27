@@ -223,7 +223,7 @@ export default function LoginLayout() {
         <p>Bạn chưa có tài khoản?</p>
         <Link to={`/${PATH_USER.register}`}>Đăng ký ngay</Link>
       </RegisterNow>
-      <SeePromotion to={"#"}> Xem chính sách ưu đãi Smember </SeePromotion>
+      <SeePromotion to={`/${PATH_USER.Incentives}`}> Xem chính sách ưu đãi Smember </SeePromotion>
     </LoginLayoutStyled>
   );
 }

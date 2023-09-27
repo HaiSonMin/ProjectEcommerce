@@ -116,6 +116,7 @@ const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/auth/RegisterPage"));
 const GenerateOTPPage = lazy(() => import("@/pages/auth/GenerateOTPPage"));
 const ResetPasswordPage = lazy(() => import("@/pages/auth/ResetPasswordPage"));
+const IncentivesPage = lazy(() => import("@/pages/auth/IncentivesPage"));
 const LoginSuccessGooglePage = lazy(
   () => import("@/pages/auth/LoginSuccessGooglePage")
 );
@@ -130,7 +131,8 @@ const HomePage = lazy(() => import("@/pages/public/home/Homepage"));
 
 const ProductCategoryPageUser = lazy(
   () => import("@/pages/public/product/product-category/ProductCategoryPage")
-);
+);import { IncentivesLayout } from '@/features/public/auth';
+
 
 export default function App() {
   const pathName = useLocation();
@@ -154,6 +156,7 @@ export default function App() {
           <Route path={PATH_USER.home} element={<HomePage />} />
           <Route path={PATH_USER.generateOTP} element={<GenerateOTPPage />} />
           <Route path={PATH_USER.confirmOTP} element={<ConfirmOTPPage />} />
+          <Route path={PATH_USER.Incentives} element={<IncentivesPage />} />
           <Route
             path={PATH_USER.resetPassword}
             element={<ResetPasswordPage />}
