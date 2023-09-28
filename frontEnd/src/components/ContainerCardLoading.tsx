@@ -1,5 +1,5 @@
-import { css, styled } from "styled-components";
-import { Card, CardLoading, Carousel } from ".";
+import {  styled } from "styled-components";
+import { CardLoading } from ".";
 import { randomKey } from "@/utils";
 
 const ContainerCardStyled = styled.div`

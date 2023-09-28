@@ -22,7 +22,7 @@ const sortObject = ({ data, sortValue }) => {
 };
 
 const getATLocalStorage = () => {
-  const data = localStorage.getItem(CONSTANT.USER_TOKEN_NAME);
+  const data = localStorage.getItem(CONSTANT.AT_NAME_LOCAL_STORE);
   if (data) return JSON.parse(data).token;
   return null;
 };

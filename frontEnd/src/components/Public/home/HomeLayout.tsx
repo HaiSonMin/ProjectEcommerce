@@ -26,7 +26,6 @@ export default function HomeLayout() {
       <Banner />
       <ProductDealHotLayout />
       {/* product */}
-      {/* <ProductGroupLayout /> */}
       <ProductGroupLayout />
       <ProductHotSaleLayout />
       <OutstandingLayoutOfferLayout />

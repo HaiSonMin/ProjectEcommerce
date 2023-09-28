@@ -147,7 +147,7 @@ export default function App() {
       <Routes>
         {/* Layout of public */}
         <Route element={<Navigate replace to={"/"} />} />
-        <Route path={"/"} element={<PublicLayOut />}>
+        <Route path={PATH_USER.home} element={<PublicLayOut />}>
           <Route path={PATH_USER.login} element={<LoginPage />} />
           <Route
             path={`${PATH_USER.login}/success/google`}

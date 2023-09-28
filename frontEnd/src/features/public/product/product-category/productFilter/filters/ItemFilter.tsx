@@ -2,7 +2,7 @@ import { css, styled } from "styled-components";
 import { useState } from "react";
 import { useFilter } from "../context/FilterProvider";
 
-const ItemFilterStyled = styled.div<{ $isChose: boolean }>`
+const ItemFilterStyled = styled.div<{ $isActive: boolean }>`
   position: relative;
   padding: 6px 12px;
   background-color: var(--color-grey-200);
@@ -23,7 +23,7 @@ const ItemFilterStyled = styled.div<{ $isChose: boolean }>`
   }
 
   ${(props) =>
-    props.$isChose &&
+    props.$isActive &&
     css`
       &::before {
         background-color: var(--color-primary);
@@ -67,7 +67,7 @@ export default function ItemFilter({
 
   return (
     <ItemFilterStyled
-      $isChose={filtersSelecting.some((filter) => filter === optionName)}
+      $isActive={filtersSelecting.some((filter) => filter === optionName)}
       onClick={handlerClickItemFilter}
     >
       {optionName}

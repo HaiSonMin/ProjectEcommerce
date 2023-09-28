@@ -1,14 +1,16 @@
 import { CarouselImage, CarouselImageProductDetail } from "@/components";
 import styled from "styled-components";
+import BoxImageLayout from "./box-image";
+import WarrantyInfo from "./warranty-info";
 
 const LeftProductDetailLayoutStyled = styled.div`
-  border: solid 1px var(--color-grey-300);
 `;
 
 export default function LeftProductDetailLayout() {
   return (
     <LeftProductDetailLayoutStyled>
-      <CarouselImageProductDetail items={[]} />
+      <BoxImageLayout />
+      <WarrantyInfo />
     </LeftProductDetailLayoutStyled>
   );
 }

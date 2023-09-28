@@ -3,7 +3,9 @@ import { useState } from "react";
 import LeftProductDetailLayout from "./left-detail";
 import RightProductDetailLayout from "./right-detail";
 import HeaderDetailLayout from "./header-detail";
-import { Hr } from "@/components";
+import { Hr, SpinnerLogo } from "@/components";
+import BreadcrumbLayout from "./breadcrumb";
+import { UseProductApi } from "@/apis-use";
 
 const ProductDetailLayoutStyled = styled.div`
   margin: 3rem 0;
@@ -17,8 +19,14 @@ const BodyDetailLayout = styled.div`
 `;
 
 export default function ProductDetailLayout() {
+  const { isGettingProduct, metadata: product } = UseProductApi.getProductById(
+    "65006adda893090c2f08b69d"
+  );
+
   return (
     <ProductDetailLayoutStyled>
+      {isGettingProduct && <SpinnerLogo />}
+      <BreadcrumbLayout product={product} />
       <HeaderDetailLayout />
       <Hr />
       <BodyDetailLayout>

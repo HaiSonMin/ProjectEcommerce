@@ -94,13 +94,16 @@ class ProductRepository {
     return { products, totalProducts };
   }
 
-  static async getProductById({ productId, unselect }) {
-    return await ProductModel.findById(convertToMongoObjectId(productId))
-      .select(getUnSelectData(unselect))
+  static async getProductById({ productId }) {
+    console.log("productId::::", productId);
+    return await ProductModel.findById(productId)
       .populate([
         { path: "product_brand", select: ["brand_name", "brand_origin"] },
-        { path: "product_category", select: "productCategory_name" },
-        { path: "product_demands", select: "demand_name" },
+        {
+          path: "product_category",
+          select: ["productCategory_name", "productCategory_type"],
+        },
+        { path: "product_demands", select: ["demand_name"] },
         { path: "product_ratings" },
       ])
       .lean()

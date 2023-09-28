@@ -1,5 +1,6 @@
 const PATH_USER = {
-  home: "",
+  home: "/",
+  cart: "cart",
   login: "login",
   brand: "brand",
   order: "order",

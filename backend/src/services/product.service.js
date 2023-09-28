@@ -78,6 +78,7 @@ class ProductService {
   static async getProductById(req, res) {
     const { productId } = req.params;
     const product = await ProductRepo.getProductById({ productId });
+    console.log("product:::", product);
     if (!product) throw new NotFoundError("Product doesn't exists");
     return product;
   }

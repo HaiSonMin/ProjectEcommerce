@@ -91,9 +91,7 @@ export default class UseProductApi {
     };
   }
 
-  static getProductById(): IProductGetOneResultApi {
-    const { productId } = useParams();
-
+  static getProductById(productId: string): IProductGetOneResultApi {
     const { isLoading, data } = useQuery({
       queryKey: ["product", productId],
       queryFn: () =>
