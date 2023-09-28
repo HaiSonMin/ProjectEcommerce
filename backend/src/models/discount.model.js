@@ -1,7 +1,7 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
 const { BadRequestError } = require("../core/error.response");
-const constant = require("../utils/constant");
-const COLLECTION_NAME = constant.MODELS_NAMES.discount;
+const CONSTANT = require("../constant");
+const COLLECTION_NAME = CONSTANT.MODELS_NAMES.discount;
 const DiscountSchema = new Schema(
   {
     discount_name: {
@@ -27,7 +27,7 @@ const DiscountSchema = new Schema(
     },
     discount_productIds: {
       type: [Schema.Types.ObjectId],
-      ref: constant.MODELS_NAMES.product,
+      ref: CONSTANT.MODELS_NAMES.product,
       default: [],
     },
     discount_startDate: {

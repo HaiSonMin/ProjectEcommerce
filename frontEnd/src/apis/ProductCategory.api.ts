@@ -22,6 +22,7 @@ class ProductCategoryApi {
   async getAllProductCategories(
     fieldsQuery: Partial<IArgsQuery>
   ): Promise<IApi> {
+    console.log("fieldsQuery:::", fieldsQuery);
     try {
       const response = await http.get(`${PATH_API_V1.productCategory}/getAll`, {
         params: {

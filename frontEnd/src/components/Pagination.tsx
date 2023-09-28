@@ -68,12 +68,13 @@ interface Props {
 const Pagination = (props: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queriesString = useQueriesString();
-  const limitPerPage = queriesString?.limit || VALUE_CONSTANT.LIMIT_PAGE;
 
   const currentPage: number = Number(queriesString?.page) || 1;
   let numberPage: number = 1;
   if (props.countItems)
-    numberPage = Math.ceil(Number(props?.countItems) / VALUE_CONSTANT.LIMIT_PAGE);
+    numberPage = Math.ceil(
+      Number(props?.countItems) / VALUE_CONSTANT.LIMIT_PAGE
+    );
 
   function handlerNextPage() {
     const next: number =

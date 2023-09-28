@@ -134,6 +134,14 @@ const HomePage = lazy(() => import("@/pages/public/home/Homepage"));
 const ProductCategoryPageUser = lazy(
   () => import("@/pages/public/product/product-category/ProductCategoryPage")
 );
+<<<<<<< HEAD
+=======
+import { IncentivesLayout } from '@/features/public/auth';
+
+const ProductDetailPageUser = lazy(
+  () => import("@/pages/public/product/product-detail/ProductDetailPage")
+);
+>>>>>>> 58fe2bdaad1f12a8ebb3b88598605ae57a50c4a1
 
 
 export default function App() {
@@ -166,8 +174,12 @@ export default function App() {
           />
           
           <Route
-            path={PATH_USER.product}
+            path={PATH_USER.productCategory}
             element={<ProductCategoryPageUser />}
+          />
+          <Route
+            path={PATH_USER.productDetail}
+            element={<ProductDetailPageUser />}
           />
         </Route>
         {/* Layout of public */}

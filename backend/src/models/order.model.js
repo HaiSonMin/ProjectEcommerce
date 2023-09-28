@@ -1,11 +1,11 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const constant = require("../utils/constant");
-const COLLECTION_NAME = constant.MODELS_NAMES.order;
+const CONSTANT = require("../constant");
+const COLLECTION_NAME = CONSTANT.MODELS_NAMES.order;
 const OrderSchema = new Schema(
   {
     order_product: {
       type: [Schema.Types.ObjectId],
-      ref: constant.MODELS_NAMES.product,
+      ref: CONSTANT.MODELS_NAMES.product,
       required: [true, "Please provide product main info id"],
     },
     order_status: {
@@ -15,7 +15,7 @@ const OrderSchema = new Schema(
     },
     order_byUser: {
       type: Schema.Types.ObjectId,
-      ref: constant.MODELS_NAMES.user,
+      ref: CONSTANT.MODELS_NAMES.user,
       required: [true, "Please provide user id"],
     },
     order_totalAmount: {

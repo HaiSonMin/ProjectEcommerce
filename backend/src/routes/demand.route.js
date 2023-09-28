@@ -7,7 +7,7 @@ const {
   checkAuthIsAdmin,
 } = require("../middleware/auth.middleware");
 
-router.use(authentication);
+// router.use(authentication);
 router
   .route("/create")
   .post(uploadOneImage("demand_image"), DemandController.createDemand);

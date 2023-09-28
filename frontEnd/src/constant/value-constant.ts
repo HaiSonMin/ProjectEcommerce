@@ -5,7 +5,8 @@ class Constant {
   TIME_ONE_DAY: number;
   REGEX_PHONE: any;
   REGEX_EMAIL: any;
-  USER_TOKEN_NAME: string;
+  AT_NAME_LOCAL_STORE: string;
+  USER_NAME_LOCAL_STORE: string;
   TIME_EXPIRE_OTP: number;
   constructor() {
     this.LIMIT_PAGE = 10;
@@ -14,7 +15,8 @@ class Constant {
     this.TIME_ONE_DAY = 24 * 60 * 60 * 1000;
     this.REGEX_PHONE = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
     this.REGEX_EMAIL = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm;
-    this.USER_TOKEN_NAME = "userToken";
+    this.AT_NAME_LOCAL_STORE = "accessToken";
+    this.USER_NAME_LOCAL_STORE = "user";
     this.TIME_EXPIRE_OTP = 120; // 120 second
   }
 }

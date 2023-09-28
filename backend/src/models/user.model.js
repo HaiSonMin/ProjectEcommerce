@@ -1,9 +1,8 @@
 const bcrypt = require("bcrypt");
 const { model, Schema } = require("mongoose"); // Erase if already required
-const COLLECTION_NAME = "User";
 const crypto = require("crypto");
-const CONSTANT = require("../utils/constant");
-const constant = require("../utils/constant");
+const CONSTANT = require("../constant");
+const COLLECTION_NAME = CONSTANT.MODELS_NAMES.user;
 // Declare the Schema of the Mongo model
 const UserSchema = new Schema(
   {
@@ -43,7 +42,7 @@ const UserSchema = new Schema(
     user_referralCode: String,
     user_address: {
       type: Schema.Types.ObjectId,
-      ref: constant.MODELS_NAMES.user,
+      ref: CONSTANT.MODELS_NAMES.user,
     },
     user_avatar: String,
     user_isBlocking: {

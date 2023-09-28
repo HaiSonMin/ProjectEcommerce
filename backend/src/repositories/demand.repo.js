@@ -3,7 +3,7 @@ const { convertSortBy, skipPage } = require("../utils");
 const { convertSortByAggregate } = require("../utils/mongoQueryAggregate");
 
 class DemandRepo {
-  static async getAllDemands({ sort, limit = 10, page = 1 }) {
+  static async getAllDemands({ sort = "ctime", limit = 10, page = 1 }) {
     const result = await DemandModel.aggregate([
       {
         $facet: {

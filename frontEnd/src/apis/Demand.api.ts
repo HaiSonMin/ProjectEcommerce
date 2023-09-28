@@ -1,4 +1,3 @@
-
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { IDemand, IProductCategory } from "@/interfaces";
 import { getErrorMessage, http, resultAppendFormData } from "@/utils";
@@ -29,7 +28,6 @@ class IDemandApi {
         },
       });
       const result: IApi = response.data;
-      console.log(result);
       return result;
     } catch (error: any) {
       throw new Error(error.message);

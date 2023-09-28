@@ -26,6 +26,7 @@ import {
 } from "@/storeReducer/public/otpSlice";
 import { EnumOptionConfirmOTP } from "@/enum";
 import { da } from "date-fns/locale";
+import { ILocalStoreUser } from "@/helpers";
 
 const LoginLayoutStyled = styled.div`
   display: flex;
@@ -115,23 +116,22 @@ export default function LoginLayout() {
         metadata: data,
       }: Pick<IAuthLoginResultApi, "metadata">) => {
         refCaptcha.current?.reset();
-        const dataStorage = {
+        const userStorage: ILocalStoreUser = {
           userId: data.user._id,
           userEmail: data.user.user_email,
           userFullName: data.user.user_fullName,
-          accessToken: data.accessToken,
+          userRole: data.user.user_role,
         };
         localStorage.setItem(
-          CONSTANT.USER_TOKEN_NAME,
-          JSON.stringify(dataStorage)
+          CONSTANT.AT_NAME_LOCAL_STORE,
+          JSON.stringify(data.accessToken)
+        );
+        localStorage.setItem(
+          CONSTANT.USER_NAME_LOCAL_STORE,
+          JSON.stringify(userStorage)
         );
         dispatch(
-          setUser({
-            userId: data.user._id,
-            userEmail: data.user.user_email,
-            userFullName: data.user.user_fullName,
-            accessToken: data.accessToken,
-          })
+          setUser(userStorage)
         );
         navigate("/");
       },

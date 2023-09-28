@@ -1,5 +1,5 @@
+import { UseProductApi, UseProductCategoryApi } from "@/apis-use";
 import { ContainerCard } from "@/components";
-
 const products = [
   {
     img: "https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/b/4/b48cd136-7366-4d01-8d58-8ee3d5dc93b7_1.jpg",
@@ -163,13 +163,17 @@ const products = [
   },
 ];
 
-export default function PhoneContainerCard() {
+interface IProps {
+  categoryId: any;
+}
+
+export default function ProductTypeContainerCard({categoryId}:IProps) {
   return (
     <ContainerCard
       products={products}
       gapValue={1}
-      withCard={23}
       numberProductDisplayOnScreen={5}
+      withCard={23}
     />
   );
 }

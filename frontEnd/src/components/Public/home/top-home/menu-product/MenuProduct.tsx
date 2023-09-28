@@ -1,7 +1,7 @@
-import { memo } from "react";
 import { styled } from "styled-components";
-import MenuItem from "./MenuItem";
 import { UseProductCategoryGroupApi } from "@/apis-use";
+import MenuItem from "./MenuItem";
+import SpinnerLogo from "@/components/SpinnerLogo";
 
 const MenuContainer = styled.div`
   position: relative;
@@ -20,8 +20,9 @@ const MenuList = styled.ul`
   overflow: hidden;
 `;
 
-export default memo(function MenuProduct() {
-  const { metadata } = UseProductCategoryGroupApi.getAllCategoriesGroup();
+export default function MenuProduct() {
+  const { isGettingProductCategoriesGroup, metadata } =
+    UseProductCategoryGroupApi.getAllCategoriesGroup();
 
   const productCategoriesGroupSorted = metadata?.productCategoriesGroup?.sort(
     (a, b) =>
@@ -29,12 +30,15 @@ export default memo(function MenuProduct() {
   );
 
   return (
-    <MenuContainer>
-      <MenuList>
-        {productCategoriesGroupSorted?.map((group) => (
-          <MenuItem productCategoryGroup={group} key={group._id} />
-        ))}
-      </MenuList>
-    </MenuContainer>
+    <>
+      {isGettingProductCategoriesGroup && <SpinnerLogo />}
+      <MenuContainer>
+        <MenuList>
+          {productCategoriesGroupSorted?.map((group) => (
+            <MenuItem productCategoryGroup={group} key={group._id} />
+          ))}
+        </MenuList>
+      </MenuContainer>
+    </>
   );
-});
+}

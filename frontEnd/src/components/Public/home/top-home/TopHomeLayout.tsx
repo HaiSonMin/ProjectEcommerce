@@ -11,6 +11,7 @@ const TopHomeLayoutStyled = styled.div`
 `;
 
 export default function TopHomeLayout() {
+  console.log("re-render TopHomeLayout ");
   return (
     <TopHomeLayoutStyled>
       <MenuProduct />

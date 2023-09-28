@@ -1,4 +1,5 @@
 import { UseDemandApi } from "@/apis-use";
+import { PATH_USER } from "@/constant";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -39,13 +40,10 @@ const ItemLinkImage = styled(Link)`
 `;
 
 export default function Introduce() {
-
-  const {isGettingDemands,} = UseDemandApi.getAllDemands()
-
   return (
     <IntroduceStyled>
       <ListItems>
-        <ItemLinkImage to={"#"}>
+        <ItemLinkImage to={PATH_USER.productDetail}>
           <img
             src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/m14-right-homepage-th9.png"
             alt="Image"
