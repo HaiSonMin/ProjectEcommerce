@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { BiCreditCard } from "react-icons/bi";
 import { LiaMedalSolid } from "react-icons/lia";
-import { ContainerImgLink } from "@/components";
+import { ContainerImage } from "@/components";
 
 const OutstandingLayoutOfferStyled = styled.div`
   box-shadow: var(--shadow-lg);
@@ -104,7 +104,7 @@ export default function OutstandingLayoutOfferLayout() {
             <BiCreditCard />
             <span>Ưu đãi thanh toán</span>
           </OutStandingLayoutTitle>
-          <ContainerImgLink
+          <ContainerImage
             gapValue={1}
             withImg={39}
             numberProductDisplay={3}
@@ -116,7 +116,7 @@ export default function OutstandingLayoutOfferLayout() {
             <LiaMedalSolid />
             <span>Ưu đãi thương hiệu</span>
           </OutStandingLayoutTitle>
-          <ContainerImgLink
+          <ContainerImage
             gapValue={1}
             withImg={39}
             numberProductDisplay={3}

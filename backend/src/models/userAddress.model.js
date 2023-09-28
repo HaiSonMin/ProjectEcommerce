@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose");
-const constant = require("../utils/constant");
-const COLLECTION_NAME = constant.MODELS_NAMES.userAddress;
+const CONSTANT  = require("../constant");
+const COLLECTION_NAME = CONSTANT.MODELS_NAMES.userAddress;
 
 const UserAddressModel = new Schema({
   userAddress_location: {

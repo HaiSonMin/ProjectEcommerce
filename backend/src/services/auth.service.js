@@ -23,8 +23,8 @@ const {
   createDoubleKeys,
   createDoubleKeysV2,
 } = require("../utils/token.utils");
-const constant = require("../utils/constant");
 const crypto = require("crypto");
+const CONSTANT = require("../constant");
 
 class AuthService {
   static async haveAuth(req, res) {
@@ -128,14 +128,19 @@ class AuthService {
 
     // Save refreshToken to cookie( age: 7day)
     saveTokenCookie({
-      tokenName: "refreshToken",
+      tokenName: CONSTANT.RF_TOKEN_NAME,
       tokenValue: refreshToken,
       day: 7,
       res,
     });
 
     return {
-      user: getInfoData(user, ["_id", "user_email", "user_fullName"]),
+      user: getInfoData(user, [
+        "_id",
+        "user_email",
+        "user_fullName",
+        "user_role",
+      ]),
       accessToken,
     };
   }
@@ -194,14 +199,19 @@ class AuthService {
 
     // Save refreshToken to cookie( age: 7day)
     saveTokenCookie({
-      tokenName: "refreshToken",
+      tokenName: CONSTANT.RF_TOKEN_NAME,
       tokenValue: refreshToken,
       day: 7,
       res,
     });
 
     return {
-      user: getInfoData(user, ["_id", "user_email", "user_fullName"]),
+      user: getInfoData(user, [
+        "_id",
+        "user_email",
+        "user_fullName",
+        "user_role",
+      ]),
       accessToken,
     };
   }
@@ -211,7 +221,7 @@ class AuthService {
     const { refreshToken } = req.cookies;
     if (!refreshToken) throw new BadRequestError("No RefreshToken in cookie");
     // Delete RT in cookie
-    deleteTokenCookie({ tokenName: "RefreshToken", res });
+    deleteTokenCookie({ tokenName: CONSTANT.RF_TOKEN_NAME, res });
     // Delete RT in Db
     const keyDeleted = await KeyTokenRepo.deleteTokenByRefreshToken(
       refreshToken

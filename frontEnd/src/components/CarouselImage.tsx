@@ -6,20 +6,13 @@ const CarouselImageStyled = styled.div`
   box-shadow:
     0 1px 2px 0 rgba(60, 64, 67, 0.1),
     0 2px 6px 2px rgba(60, 64, 67, 0.15);
-  padding: 1.2rem;
   border-radius: 1rem;
+  overflow: hidden;
 `;
 
-const ContainerImage = styled.div`
-  width: 100%;
-  height: 20rem;
-  display: flex;
-  gap: 1rem;
-`;
-
-const ImageSlideLeft = styled.div`
+const ImageSlide = styled.div`
   position: relative;
-  width: 68%;
+  height: 15rem;
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
@@ -32,7 +25,7 @@ const ImageSlideLeft = styled.div`
   }
 `;
 
-const ImageLeft = styled(Link)<{ $valueTransform: number }>`
+const ImageItem = styled(Link)<{ $valueTransform: number }>`
   display: block;
   position: absolute;
   transition: all 0.3s;
@@ -43,26 +36,7 @@ const ImageLeft = styled(Link)<{ $valueTransform: number }>`
   & img {
     object-fit: contain;
     object-position: center;
-    width: 100%;
-  }
-`;
-
-const ImageSlideRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 32%;
-  gap: 1rem;
-`;
-
-const ImageRight = styled(Link)`
-  display: block;
-  height: 48%;
-  & img {
-    display: block;
-    object-fit: cover;
-    object-position: center;
-    width: 100%;
-    max-height: 100%;
+    /* width: 100%; */
   }
 `;
 
@@ -122,6 +96,7 @@ const DotsSlide = styled.div`
     background-color: var(--color-grey-100);
     border-radius: 50%;
     cursor: pointer;
+    transition: all 0.7s;
 
     &:hover {
       background-color: var(--color-grey-400);
@@ -129,7 +104,9 @@ const DotsSlide = styled.div`
   }
 
   & .active {
-    background-color: var(--color-orange-700);
+    background-color: var(--color-primary);
+    width: 1.6rem;
+    border-radius: 1rem;
   }
 `;
 
@@ -161,50 +138,34 @@ export default function CarouselImage({ items }: IProps) {
 
   return (
     <CarouselImageStyled>
-      <ContainerImage>
-        <ImageSlideLeft>
-          {items.map((item, index) => (
-            <ImageLeft
-              to={item.linkTo}
-              $valueTransform={100 * index - currentSlide * 100}
-            >
-              <img src={item.image} alt={item.imageName} />
-            </ImageLeft>
-          ))}
-          {items.length > 1 && (
-            <>
-              <ButtonPre className="btn-pre" onClick={handlePrevSlide}>
-                <GoChevronLeft />
-              </ButtonPre>
-              <ButtonNext className="btn-next" onClick={handleNextSlide}>
-                <GoChevronRight />
-              </ButtonNext>
-              <DotsSlide>
-                {items.map((item, index) => (
-                  <div
-                    className={`dot ${index === currentSlide && "active"}`}
-                    onClick={() => setCurrentSlide(index)}
-                  />
-                ))}
-              </DotsSlide>
-            </>
-          )}
-        </ImageSlideLeft>
-        <ImageSlideRight>
-          <ImageRight to={"#"}>
-            <img
-              src={"https://cdn.tgdd.vn/2021/09/banner/TraGop390-97-390x97.png"}
-              alt={"Hinh anh 1"}
-            />
-          </ImageRight>
-          <ImageRight to="#">
-            <img
-              src={"https://cdn.tgdd.vn/2021/09/banner/TraGop390-97-390x97.png"}
-              alt={"Hinh anh 1"}
-            />
-          </ImageRight>
-        </ImageSlideRight>
-      </ContainerImage>
+      <ImageSlide>
+        {items.map((item, index) => (
+          <ImageItem
+            to={item.linkTo}
+            $valueTransform={100 * index - currentSlide * 100}
+          >
+            <img src={item.image} alt={item.imageName} />
+          </ImageItem>
+        ))}
+        {items.length > 1 && (
+          <>
+            <ButtonPre className="btn-pre" onClick={handlePrevSlide}>
+              <GoChevronLeft />
+            </ButtonPre>
+            <ButtonNext className="btn-next" onClick={handleNextSlide}>
+              <GoChevronRight />
+            </ButtonNext>
+            <DotsSlide>
+              {items.map((item, index) => (
+                <div
+                  className={`dot ${index === currentSlide && "active"}`}
+                  onClick={() => setCurrentSlide(index)}
+                />
+              ))}
+            </DotsSlide>
+          </>
+        )}
+      </ImageSlide>
     </CarouselImageStyled>
   );
 }

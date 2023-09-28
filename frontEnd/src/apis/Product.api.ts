@@ -6,8 +6,6 @@ import { http, getErrorMessage, resultAppendFormDataRecursive } from "@/utils";
 
 class ProductApi {
   async createProduct(args: Partial<IProduct>): Promise<IApi> {
-    console.log("args:::", args);
-    console.log("resultAppendFormDataRecursive:::", resultAppendFormDataRecursive(args));
     try {
       const response = await http.postForm(
         `${PATH_API_V1.product}/create`,

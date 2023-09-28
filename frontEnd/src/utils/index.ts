@@ -96,13 +96,12 @@ const getToastMessageError = (errMessage: string) => {
 };
 
 const getQueriesString = (queriesString: any) => {
-  const sort: string =
-    String(queriesString.sort) || VALUE_CONSTANT.SORT_DEFAULT;
-  const page: number = Number(queriesString.page) || 1;
+  const sort: string = queriesString.sort || VALUE_CONSTANT.SORT_DEFAULT;
+  const page: number = queriesString.page || 1;
   const limit: number = queriesString.limit;
-  const status: string = String(queriesString.status) || "all";
-  const keySearch: string = String(queriesString.keySearch) || "";
-  const numericFilters: string = String(queriesString.numericFilters) || "";
+  const status: string = queriesString.status || "all";
+  const keySearch: string = queriesString.keySearch || "";
+  const numericFilters: string = queriesString.numericFilters || "";
   return { sort, page, limit, status, keySearch, numericFilters };
 };
 
@@ -115,7 +114,6 @@ function capitalizeFirstLetter(inputString: string) {
 }
 
 const randomKey = (): string => uuidv4();
-
 
 export {
   http,

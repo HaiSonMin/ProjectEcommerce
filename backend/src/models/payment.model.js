@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const constant = require("../utils/constant");
-const COLLECTION_NAME = constant.MODELS_NAMES.payment;
+const CONSTANT = require("../constant");
+const COLLECTION_NAME = CONSTANT.MODELS_NAMES.payment;
 const PaymentSchema = new Schema(
   {
     payment_amount: {
@@ -10,11 +10,11 @@ const PaymentSchema = new Schema(
     },
     payment_orderId: {
       type: Schema.Types.ObjectId,
-      ref: constant.MODELS_NAMES.order,
+      ref: CONSTANT.MODELS_NAMES.order,
     },
     payment_userId: {
       type: Schema.Types.ObjectId,
-      ref: constant.MODELS_NAMES.user,
+      ref: CONSTANT.MODELS_NAMES.user,
     },
     payment_method: {
       type: String,

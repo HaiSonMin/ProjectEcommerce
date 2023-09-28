@@ -10,31 +10,10 @@ const { convertSortByAggregate } = require("../utils/mongoQueryAggregate");
 const DemandRepo = require("./demand.repo");
 
 class ProductCategoryRepo {
-  // static async getAllProductCategories({
-  //   // filter,
-  //   sort = "ctime",
-  //   limit,
-  //   page = 1,
-  //   select,
-  //   unselect,
-  // }) {
-  //   const [productCategories, totalProductCategories] = await Promise.all([
-  //     ProductCategoryModel.find()
-  //       .sort(convertSortBy(sort))
-  //       .skip(skipPage({ limit, page }))
-  //       .limit(limit)
-  //       .populate("productCategory_group", ["productCategoryGroup_name"])
-  //       .lean()
-  //       .exec(),
-  //     ProductCategoryModel.count(),
-  //   ]);
-  //   return { productCategories, totalProductCategories };
-  // }
-
   static async getAllProductCategories({
     // filter,
     sort = "ctime",
-    limit = 1000,
+    limit = 10,
     page = 1,
   }) {
     const result = await ProductCategoryModel.aggregate([
@@ -56,13 +35,44 @@ class ProductCategoryRepo {
               },
             },
             {
+              $lookup: {
+                from: "brands",
+                localField: "productCategory_brands",
+                foreignField: "_id",
+                as: "productCategory_brands",
+              },
+            },
+            {
+              $lookup: {
+                from: "demands",
+                localField: "productCategory_demands",
+                foreignField: "_id",
+                as: "productCategory_demands",
+              },
+            },
+            {
               $project: {
                 __v: 0,
+                createdAt: 0,
+                updatedAt: 0,
                 productCategory_group: {
                   __v: 0,
                   createdAt: 0,
                   updatedAt: 0,
                   productCategoryGroup_image: 0,
+                  productCategoryGroup_categoryChildren: 0,
+                },
+                productCategory_brands: {
+                  __v: 0,
+                  createdAt: 0,
+                  updatedAt: 0,
+                  brand_origin: 0,
+                },
+                productCategory_demands: {
+                  __v: 0,
+                  createdAt: 0,
+                  updatedAt: 0,
+                  demand_productCategory: 0,
                 },
               },
             },

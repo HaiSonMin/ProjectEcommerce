@@ -31,6 +31,7 @@ export const LoginForm = styled.div<{ showLoginForm: boolean }>`
   filter: ${(props) => (props.showLoginForm ? "blur(5px)" : "none")};
 `;
 export default function PublicLayout() {
+  console.log("re-render PublicLayout")
   return (
     <PublicLayoutStyled>
       <HeaderLayout />

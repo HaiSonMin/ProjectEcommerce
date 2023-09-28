@@ -1,7 +1,7 @@
-import UseBrand from "./UseBrandApi";
 import { useForm } from "react-hook-form";
 import { IBrand } from "@/interfaces";
 import { Button, Form, FormRow, Input, InputFile } from "@/components";
+import { UseBrandApi } from "@/apis-use";
 
 interface IProps {
   brandEdit?: IBrand;
@@ -16,8 +16,8 @@ const initializeFormBrand: IBrand = {
 };
 
 export function BrandForm(props: IProps) {
-  const { createBrand, isCreatingBrand } = UseBrand.createBrand();
-  const { updateBrand, isUpdatingBrand } = UseBrand.updateBrand();
+  const { createBrand, isCreatingBrand } = UseBrandApi.createBrand();
+  const { updateBrand, isUpdatingBrand } = UseBrandApi.updateBrand();
 
   const { _id: editId, ...editValue } = props.brandEdit || initializeFormBrand;
 
@@ -95,19 +95,14 @@ export function BrandForm(props: IProps) {
         <FormRow label="Brand Image" error={errorsForm.brand_image}>
           <InputFile
             id="imageBrand"
-            accept="image/*"
-            {...register("brand_image", {
+            register={register("brand_image", {
               required: "Please provide brand origin",
             })}
           />
         </FormRow>
       ) : (
         <FormRow label="Brand Image">
-          <InputFile
-            id="imageBrand"
-            accept="image/*"
-            {...register("brand_image")}
-          />
+          <InputFile id="imageBrand" register={register("brand_image")} />
         </FormRow>
       )}
       <FormRow>

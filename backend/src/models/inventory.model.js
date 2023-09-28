@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose"); // Erase if already required
-const constant = require("../utils/constant");
-const COLLECTION_NAME = constant.MODELS_NAMES.inventory;
+const CONSTANT = require("../constant");
+const COLLECTION_NAME = CONSTANT.MODELS_NAMES.inventory;
 const InventorySchema = new Schema(
   {
     inventory_location: {
@@ -10,7 +10,7 @@ const InventorySchema = new Schema(
     inventory_product: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: constant.MODELS_NAMES.product,
+      ref: CONSTANT.MODELS_NAMES.product,
     },
     inventory_numberImport: {
       type: Number,

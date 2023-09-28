@@ -62,7 +62,8 @@ export default class UseAuthApi {
     const { data, mutate, isLoading } = useMutation({
       mutationFn: AuthApi.logout,
       onSuccess: (data) => {
-        localStorage.removeItem(CONSTANT.USER_TOKEN_NAME);
+        localStorage.removeItem(CONSTANT.AT_NAME_LOCAL_STORE);
+        localStorage.removeItem(CONSTANT.USER_NAME_LOCAL_STORE);
         toast.success(data.message);
       },
       onError: () => toast.error("Thao tát thất bại"),

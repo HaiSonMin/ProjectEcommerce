@@ -13,6 +13,7 @@ const HeaderLayoutStyled = styled.header`
 `;
 
 export default function HeaderLayout() {
+  console.log("re-render HeaderLayout")
   return (
     <HeaderLayoutStyled>
       <HeaderTopBar />

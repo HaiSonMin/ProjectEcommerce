@@ -82,6 +82,13 @@ class ProductService {
     return product;
   }
 
+  static async getProductByCategoryId(req, res) {
+    const { categoryId } = req.params;
+    const product = await ProductRepo.getProductByCategoryId({ categoryId });
+    if (!product) throw new NotFoundError("Product doesn't exists");
+    return product;
+  }
+
   static async searchProduct(req, res) {
     const { keySearch, limit, page, sort, select } = req.body;
     const products = await ProductRepo.searchProduct({

@@ -1,6 +1,6 @@
 import Heading from "@/components/Heading";
-import { PATH_USER } from "@/constant";
-import { useEffect, useRef, useState } from "react";
+import { PATH_ADMIN, PATH_USER } from "@/constant";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FaUserAlt, FaUserAltSlash, FaUserCircle } from "react-icons/fa";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
@@ -11,8 +11,7 @@ import UseAuthApi from "@/apis-use/UseAuthApi";
 import SpinnerLogo from "@/components/SpinnerLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUser } from "@/storeReducer/public/userSlice";
-import { UseUserApi } from "@/apis-use";
-import CONSTANT from "@/constant/value-constant";
+import { EnumRoleUser } from "@/enum";
 
 const HeaderButtonAuthStyled = styled.div`
   position: relative;
@@ -135,7 +134,7 @@ const ButtonRegister = styled(Link)`
 
 // Have login
 
-const BoxLogout = styled.div<{ $showLogout: boolean }>`
+const BoxOption = styled.div<{ $showLogout: boolean }>`
   position: absolute;
   top: 100%;
   right: 0;
@@ -165,13 +164,9 @@ const BoxLogout = styled.div<{ $showLogout: boolean }>`
 export default function HeaderButtonAuth() {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  const [localStoreUser] = useState<string>(
-    localStorage.getItem(CONSTANT.USER_TOKEN_NAME) || ""
-  );
-  console.log("localStoreUser:::", localStoreUser);
-  const { isLogout, logout } = UseAuthApi.logout();
   const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
   const [showOptionUser, setShowOptionUser] = useState<boolean>(false);
+  const { isLogout, logout } = UseAuthApi.logout();
   const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
   };
@@ -179,11 +174,14 @@ export default function HeaderButtonAuth() {
     setShowLoginForm(false);
   };
 
-  const toggleLogout = () => setShowOptionUser(!showOptionUser);
+  const toggleOptionUser = () => setShowOptionUser(!showOptionUser);
 
-  const refLogout = useRef<HTMLDivElement>(null);
+  const refOptionUser = useRef<HTMLDivElement>(null);
   const handlerClickDocument = (event: MouseEvent) => {
-    if (refLogout.current && !refLogout.current.contains(event.target as Node))
+    if (
+      refOptionUser.current &&
+      !refOptionUser.current.contains(event.target as Node)
+    )
       setShowOptionUser(false);
   };
 
@@ -199,7 +197,7 @@ export default function HeaderButtonAuth() {
 
   return (
     <>
-      {!user.accessToken ? (
+      {!user.userId ? (
         <HeaderButtonAuthStyled onClick={toggleLoginForm}>
           <FaUserAltSlash />
           <p>Đăng nhập</p>
@@ -237,21 +235,28 @@ export default function HeaderButtonAuth() {
         <HeaderButtonAuthStyled
           onClick={(e) => {
             e.stopPropagation();
-            toggleLogout();
+            toggleOptionUser();
           }}
         >
           <FaUserAlt />
           <p>{user.userFullName}</p>
-          <BoxLogout $showLogout={showOptionUser} ref={refLogout}>
-            <Link to={"#"} className="btn__link">
-              <FaUserCircle />
-              <span>Smember</span>
-            </Link>
+          <BoxOption $showLogout={showOptionUser} ref={refOptionUser}>
+            {user.userRole === EnumRoleUser.USER ? (
+              <Link to={`${PATH_USER.member}`} className="btn__link">
+                <FaUserCircle />
+                <span>Smember</span>
+              </Link>
+            ) : (
+              <Link to={`${PATH_ADMIN.admin}`} className="btn__link">
+                <FaUserCircle />
+                <span>Admin</span>
+              </Link>
+            )}
             <div className="btn__logout" onClick={handlerLogout}>
               <FiLogOut />
               <span>Logout</span>
             </div>
-          </BoxLogout>
+          </BoxOption>
         </HeaderButtonAuthStyled>
       )}
       {isLogout && <SpinnerLogo />}
