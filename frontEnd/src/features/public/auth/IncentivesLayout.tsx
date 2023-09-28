@@ -152,9 +152,8 @@ export default function IncentivesLayout() {
     }
   };
   const borderStyles = {
-    border: "1px red solid",
+    outline: "1px red solid",
     borderRadius:" 50%",
-    padding: ".5rem",
   };
   return (
       <IncentivesLayoutContainer>
@@ -173,21 +172,21 @@ export default function IncentivesLayout() {
             Icons={<RiVipCrown2Fill fontSize="50" />}
             NameTag="New-member"
             Checked={selectedCheckbox === 1}
-            OnChange={() => handleCheckboxChange(1)}
+            Onclick={() => handleCheckboxChange(1)}
           />
           <IncentivesCheckBox
-          STYLEss = { isBorder && selectedCheckbox === 2 ? borderStyles : {border: "none"}}
+            STYLEss = { isBorder && selectedCheckbox === 2 ? borderStyles : {border: "none"}}
             Icons={<RiVipDiamondFill fontSize="50" />}
             NameTag="Diamond-member"
             Checked={selectedCheckbox === 2}
-            OnChange={() => handleCheckboxChange(2)}
+            Onclick={() => handleCheckboxChange(2)}
           />
           <IncentivesCheckBox
             STYLEss = { isBorder && selectedCheckbox === 3 ? borderStyles : {border: "none"}}
             Icons={<RiVipLine fontSize="50" />}
             NameTag="VIP-member"
             Checked={selectedCheckbox === 3}
-            OnChange={() => handleCheckboxChange(3)}
+            Onclick={() => handleCheckboxChange(3)}
           />
         </IncentivesCheckboxContainer>
 
