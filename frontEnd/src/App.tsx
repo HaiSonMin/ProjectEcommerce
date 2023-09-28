@@ -19,6 +19,7 @@ import {
   DashboardPage,
   AdminPageLayout,
 } from "@/pages/private";
+import PATH_FORUM from "./constant/paths/path-forum";
 
 const UserTablePage = lazy(() => import("@/pages/private/user/UserTablePage"));
 const UserSearchPage = lazy(
@@ -118,6 +119,7 @@ const RegisterPage = lazy(() => import("@/pages/auth/register"));
 const GenerateOTPPage = lazy(() => import("@/pages/auth/generate-otp"));
 const ResetPasswordPage = lazy(() => import("@/pages/auth/reset-password"));
 const IncentivesPage = lazy(() => import("@/pages/auth/incentive"));
+
 const LoginSuccessGooglePage = lazy(
   () => import("@/pages/auth/login-google-success")
 );
@@ -145,7 +147,7 @@ export default function App() {
   return (
     <Suspense fallback={<SpinnerLogo />}>
       <Routes>
-        {/* Layout of public */}
+        {/* Auth Page */}
         <Route element={<Navigate replace to={"/"} />} />
         <Route path={PATH_USER.home} element={<PublicLayOut />}>
           <Route path={PATH_USER.login} element={<LoginPage />} />
@@ -162,6 +164,7 @@ export default function App() {
             path={PATH_USER.resetPassword}
             element={<ResetPasswordPage />}
           />
+
           <Route
             path={PATH_USER.productCategory}
             element={<ProductCategoryPageUser />}
@@ -171,6 +174,7 @@ export default function App() {
             element={<ProductDetailPageUser />}
           />
         </Route>
+        {/* Layout of public */}
 
         {/* Layout of private */}
         <Route element={<ProtectPrivateRouter />}>

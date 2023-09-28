@@ -16,9 +16,7 @@ const CSSinput = styled.input`
 `;
 const SpanIcon = styled.div`
   color: red;
-  
-  
-  
+  padding: .5rem;
 `
 const BorderColor = styled.div`
   border: 1px red solid;
@@ -29,7 +27,7 @@ const BorderColor = styled.div`
 export default function IncentivesCheckBox(props) {
 
   return (
-    <CheckboxContainer>
+    <CheckboxContainer onClick={props.Onclick}>
       <div style={props.STYLEss}>
       <SpanIcon>{props.Icons}</SpanIcon>
       </div>
