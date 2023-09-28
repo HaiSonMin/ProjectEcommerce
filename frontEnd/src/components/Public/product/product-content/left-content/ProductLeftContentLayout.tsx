@@ -7,16 +7,15 @@ import QuestionsAnswersLayout from "./questions-answers";
 const ProductLeftContentLayoutStyled = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  width: 70%;
+  gap: 1.5rem;
 `;
 
 export default function ProductLeftContentLayout() {
   return (
     <ProductLeftContentLayoutStyled>
       <ProductDescLayout productDesc={"abc"} />
-      <ProductRatingsLayout />
       <FrequentlyAskedQuestionsLayout />
+      <ProductRatingsLayout />
       <QuestionsAnswersLayout />
     </ProductLeftContentLayoutStyled>
   );

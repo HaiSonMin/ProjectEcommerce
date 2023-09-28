@@ -81,7 +81,7 @@ export default function Carousel({
         setCurrentSlide((cur: number) =>
           cur === resultCurrentSlide ? 0 : cur + 1
         );
-    }, 40000);
+    }, 502200);
 
     return () => clearInterval(timerScroll);
   }, [currentSlide]);

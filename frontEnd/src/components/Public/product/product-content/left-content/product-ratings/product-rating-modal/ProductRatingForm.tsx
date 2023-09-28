@@ -38,7 +38,7 @@ export default function ProductRatingForm() {
         <Heading $as="h4">Đánh giá và nhận xét sản phẩm XXX</Heading>
       </Header>
       <From onSubmit={handleSubmit(onSubmit)}>
-        <InputFile placeholder="Hình ảnh thực tế" />
+        <InputFile id="image-rating" />
         <TextArea placeholder="Cảm nhận về sản phẩm" />
         <RatingStarAction ratingPoint={3} />
         <Button type="submit">Gửi đánh giá</Button>

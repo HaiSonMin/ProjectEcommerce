@@ -127,7 +127,7 @@ const CardWishlist = styled.div`
 
   & span {
     color: var(--color-text);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   & svg {
     width: 2.4rem;
@@ -181,10 +181,12 @@ export default function Cart({ width, item }: IProps) {
       <CardEndow>
         <p>Phần Mềm Diệt Virus, Office chính hãng chỉ từ 150k </p>
       </CardEndow>
-      <CardWishlist>
-        <span>Add to wishlist</span>
-        {false ? <AiFillHeart /> : <AiOutlineHeart />}
-      </CardWishlist>
+      <div>
+        <CardWishlist>
+          <span>Yêu thích</span>
+          {false ? <AiFillHeart /> : <AiOutlineHeart />}
+        </CardWishlist>
+      </div>
     </CartStyled>
   );
 }

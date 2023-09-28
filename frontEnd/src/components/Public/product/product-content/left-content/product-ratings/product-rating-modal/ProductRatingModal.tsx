@@ -26,7 +26,7 @@ export default function ProductRatingModal() {
         <RatingNow>
           <p>Hãy đánh giá sản phẩm của chúng tôi</p>
           <Modal.Open openWindowName="ratingProduct">
-            <Button>Đánh giá ngay</Button>
+            <Button $width="20%">Đánh giá ngay</Button>
           </Modal.Open>
         </RatingNow>
         <Modal.Window windowName="ratingProduct">

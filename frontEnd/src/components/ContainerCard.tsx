@@ -1,5 +1,6 @@
 import { css, styled } from "styled-components";
 import { Card, Carousel } from ".";
+import { randomKey } from "@/utils";
 
 const ContainerCardStyled = styled.div`
   padding: 1rem 6px;
@@ -55,11 +56,7 @@ export default function ContainerCard({
       >
         <ContainerCards $withCard={withCard} $gap={1} $products={products}>
           {products.map((product) => (
-            <Card
-              width={withCard}
-              item={product}
-              key={Math.ceil(Math.random() * 1000000)}
-            />
+            <Card width={withCard} item={product} key={randomKey()} />
           ))}
         </ContainerCards>
       </Carousel>

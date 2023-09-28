@@ -79,7 +79,9 @@ export default function ItemOptionLayout() {
           </OptionStyled>
         </ItemOption>
       </OptionsBox>
-      <Heading $as="h6" className="mb-[8px]">Chọn màu yêu thích của bạn</Heading>
+      <Heading $as="h6" className="mb-[8px]">
+        Chọn màu yêu thích của bạn
+      </Heading>
       <OptionsBox>
         <ItemOption>
           <OptionColorStyled>
@@ -98,6 +100,22 @@ export default function ItemOptionLayout() {
           </OptionColorStyled>
         </ItemOption>
 
+        <ItemOption>
+          <OptionColorStyled>
+            <div className="box--image">
+              <img
+                src="https://cdn2.cellphones.com.vn/insecure/rs:fill:50:50/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/a/galaxy-z-fold-5-kem-1_1.jpg"
+                alt="image"
+              />
+            </div>
+            <div className="box__option">
+              <p className="box__option--color">Kem</p>
+              <p className="box__option--price">
+                {formatCurrencyVND(23000000)}
+              </p>
+            </div>
+          </OptionColorStyled>
+        </ItemOption>
         <ItemOption>
           <OptionColorStyled>
             <div className="box--image">

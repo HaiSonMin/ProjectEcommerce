@@ -2,17 +2,18 @@ import { styled } from "styled-components";
 import ProductLeftContentLayout from "./left-content";
 import ProductRightContentLayout from "./right-content";
 
-const ContentBlogLayoutStyled = styled.div`
-  display: flex;
-  gap: 1rem;
+const ProductContentLayoutStyled = styled.div`
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  gap: 1.5rem;
   margin-top: 1.5rem;
 `;
 
-export default function ContentBlogLayout() {
+export default function ProductContentLayout() {
   return (
-    <ContentBlogLayoutStyled>
+    <ProductContentLayoutStyled>
       <ProductLeftContentLayout />
       <ProductRightContentLayout />
-    </ContentBlogLayoutStyled>
+    </ProductContentLayoutStyled>
   );
 }

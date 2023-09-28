@@ -1,3 +1,3 @@
 import ButtonBuyOptionLayout from "./ButtonBuyOptionLayout";
 
-export default ButtonBuyOptionLayout
+export default ButtonBuyOptionLayout;

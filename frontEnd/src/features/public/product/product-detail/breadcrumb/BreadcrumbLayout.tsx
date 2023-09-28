@@ -48,14 +48,14 @@ interface IProps {
 export default function BreadcrumbLayout({ product }: IProps) {
   return (
     <BreadcrumbLayoutStyled>
-      <ItemBreadcrumb to={`/${PATH_USER.home}`}>
+      <ItemBreadcrumb to={`${PATH_USER.home}`}>
         <HiMiniHome className="icon--home" />
         <span className="breadcrumb--name">Trang chủ</span>
         <IoIosArrowForward />
       </ItemBreadcrumb>
       {product?.product_category.productCategory_name ===
       product?.product_category.productCategory_type ? (
-        <ItemBreadcrumb to={`/${PATH_USER.home}`}>
+        <ItemBreadcrumb to={`/${PATH_USER.productCategory}`}>
           <span className="breadcrumb--name">
             {product?.product_category.productCategory_name}
           </span>

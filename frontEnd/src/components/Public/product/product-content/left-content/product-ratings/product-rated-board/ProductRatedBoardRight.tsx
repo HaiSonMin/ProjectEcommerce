@@ -1,3 +1,4 @@
+import { randomKey } from "@/utils";
 import { BiSolidStar } from "react-icons/bi";
 import { styled } from "styled-components";
 
@@ -59,7 +60,7 @@ export default function ProductRatedBoarRight() {
     <ProductRatedBoarRightStyled>
       {Array.from({ length: NUMBER_STAR }, (_, index) => {
         return (
-          <RatedItem>
+          <RatedItem key={randomKey()}>
             <NumberStar>
               <span>{NUMBER_STAR - index}</span> <BiSolidStar />
             </NumberStar>

@@ -79,7 +79,7 @@ export default function ButtonBuyOptionLayout() {
     <ButtonBuyOptionLayoutStyled>
       <TopButtonBuy>
         <Link className="btn__buy" to={`/${PATH_USER.cart}`}>
-          <span>Mua ngay</span>
+          <span>Mua ngay với giá {formatCurrencyVND(23000000)}</span>
           <span>(Giao nhanh chóng trong 2 giờ hoặc nhận tại cửa hàng)</span>
         </Link>
 

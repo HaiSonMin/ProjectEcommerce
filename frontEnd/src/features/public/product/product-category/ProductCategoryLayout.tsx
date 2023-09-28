@@ -1,6 +1,6 @@
 import { CarouselImage } from "@/components";
 import { styled } from "styled-components";
-import ContentBlogLayout from "@/components/public/product/content-blog";
+import { ProductContentLayout } from "@/components/public/product";
 import ProductsCardContainer from "./productsCardContainer";
 import FilterContainer from "./productFilter";
 import SortContainer from "./productSort";
@@ -69,7 +69,7 @@ export default function ProductCategoryLayout() {
       <SortContainer />
       <ProductsCardContainer />
       <ProductHotSaleLayout />
-      <ContentBlogLayout />
+      <ProductContentLayout />
     </ProductCategoryLayoutStyled>
   );
 }

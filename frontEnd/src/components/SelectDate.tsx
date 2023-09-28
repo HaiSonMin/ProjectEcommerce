@@ -1,6 +1,4 @@
 import { DatePicker } from "antd";
-import { StringGradients } from "antd/es/progress/progress";
-import { fi } from "date-fns/locale";
 import dayjs from "dayjs";
 import { Control, Controller } from "react-hook-form";
 

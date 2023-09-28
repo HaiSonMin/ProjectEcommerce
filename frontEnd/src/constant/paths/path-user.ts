@@ -13,7 +13,7 @@ const PATH_USER = {
   question: "question",
   wishlist: "wishlist",
   register: "register",
-  Incentives:"Incentives",
+  incentives: "incentives",
   confirmOTP: "confirmOTP",
   generateOTP: "generateOTP",
   resetPassword: "resetPassword",
