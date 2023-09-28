@@ -19,6 +19,7 @@ import {
   DashboardPage,
   AdminPageLayout,
 } from "@/pages/private";
+import PATH_FORUM from "./constant/paths/path-forum";
 
 const UserTablePage = lazy(() => import("@/pages/private/user/UserTablePage"));
 const UserSearchPage = lazy(
@@ -117,6 +118,7 @@ const RegisterPage = lazy(() => import("@/pages/auth/RegisterPage"));
 const GenerateOTPPage = lazy(() => import("@/pages/auth/GenerateOTPPage"));
 const ResetPasswordPage = lazy(() => import("@/pages/auth/ResetPasswordPage"));
 const IncentivesPage = lazy(() => import("@/pages/auth/IncentivesPage"));
+const ForumPage = lazy(() => import("@/pages/forum/ForumPages"));
 const LoginSuccessGooglePage = lazy(
   () => import("@/pages/auth/LoginSuccessGooglePage")
 );
@@ -132,11 +134,14 @@ const HomePage = lazy(() => import("@/pages/public/home/Homepage"));
 const ProductCategoryPageUser = lazy(
   () => import("@/pages/public/product/product-category/ProductCategoryPage")
 );
+<<<<<<< HEAD
+=======
 import { IncentivesLayout } from '@/features/public/auth';
 
 const ProductDetailPageUser = lazy(
   () => import("@/pages/public/product/product-detail/ProductDetailPage")
 );
+>>>>>>> 58fe2bdaad1f12a8ebb3b88598605ae57a50c4a1
 
 
 export default function App() {
@@ -162,10 +167,12 @@ export default function App() {
           <Route path={PATH_USER.generateOTP} element={<GenerateOTPPage />} />
           <Route path={PATH_USER.confirmOTP} element={<ConfirmOTPPage />} />
           <Route path={PATH_USER.Incentives} element={<IncentivesPage />} />
+          <Route path={PATH_FORUM.forum} element={<ForumPage />} />
           <Route
             path={PATH_USER.resetPassword}
             element={<ResetPasswordPage />}
           />
+          
           <Route
             path={PATH_USER.productCategory}
             element={<ProductCategoryPageUser />}
@@ -175,6 +182,7 @@ export default function App() {
             element={<ProductDetailPageUser />}
           />
         </Route>
+        {/* Layout of public */}
 
         {/* Layout of private */}
         <Route element={<ProtectPrivateRouter />}>
@@ -266,7 +274,7 @@ export default function App() {
             <Route path={PATH_ADMIN.inventory} element={<InventoryPage />} />
           </Route>
         </Route>
-
+        
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
