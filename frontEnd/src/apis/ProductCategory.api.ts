@@ -1,7 +1,7 @@
 import { IProductCategory } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { getErrorMessage, http, resultAppendFormData } from "@/utils";
-import { PATH_API_V1 } from "@/constant";
+import { PATH_API_V1 } from "@/constant/path-api";
 import { IApi } from "@/helpers";
 
 class ProductCategoryApi {

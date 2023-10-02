@@ -7,6 +7,7 @@ import { TbShoppingBag } from "react-icons/tb";
 import { MdOutlineDiscount } from "react-icons/md";
 import HeaderSearch from "./HeaderSearch";
 import HeaderButtonAuth from "./HeaderButtonAuth";
+import { PATH_PUBLIC } from "@/constant/path-router";
 
 const HeaderMenuTopStyled = styled.div`
   padding: 1rem 0;
@@ -104,7 +105,7 @@ export default function HeaderMenu() {
             Đơn hàng
           </p>
         </NavLinkItem>
-        <NavLinkItem className="nav-styled" to={"/#"}>
+        <NavLinkItem className="nav-styled" to={`/${PATH_PUBLIC.cart}`}>
           <CartBlock>
             <TbShoppingBag />
             <CountBuy>2</CountBuy>

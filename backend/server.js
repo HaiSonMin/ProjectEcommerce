@@ -2,7 +2,7 @@ const app = require("./app");
 
 const port = process.env.PORT || 9000;
 const server = app.listen(port, () => {
-  console.log(`App Delivery listening on port ${port}`);
+  console.log(`App Ecommerce CellphoneS listening on port ${port}`);
 });
 
 // When we click ctrl+C

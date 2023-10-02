@@ -1,5 +1,4 @@
 import Heading from "@/components/Heading";
-import { PATH_ADMIN, PATH_USER } from "@/constant";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FaUserAlt, FaUserAltSlash, FaUserCircle } from "react-icons/fa";
 import { IoCloseCircleSharp } from "react-icons/io5";
@@ -12,6 +11,7 @@ import SpinnerLogo from "@/components/SpinnerLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUser } from "@/storeReducer/public/userSlice";
 import { EnumRoleUser } from "@/enum";
+import { PATH_AUTH, PATH_ADMIN, PATH_PUBLIC } from "@/constant/path-router";
 
 const HeaderButtonAuthStyled = styled.div`
   position: relative;
@@ -218,12 +218,15 @@ export default function HeaderButtonAuth() {
                 tốt hơn
               </Heading>
               <ContainerBtn>
-                <ButtonLogin onClick={closeLoginForm} to={PATH_USER.login}>
+                <ButtonLogin
+                  onClick={closeLoginForm}
+                  to={`/${PATH_AUTH.auth}/${PATH_AUTH.login}`}
+                >
                   Đăng nhập ngay
                 </ButtonLogin>
                 <ButtonRegister
                   onClick={closeLoginForm}
-                  to={PATH_USER.register}
+                  to={`/${PATH_AUTH.auth}/${PATH_AUTH.register}`}
                 >
                   Đăng kí ngay
                 </ButtonRegister>
@@ -242,7 +245,7 @@ export default function HeaderButtonAuth() {
           <p>{user.userFullName}</p>
           <BoxOption $showLogout={showOptionUser} ref={refOptionUser}>
             {user.userRole === EnumRoleUser.USER ? (
-              <Link to={`${PATH_USER.member}`} className="btn__link">
+              <Link to={`${PATH_PUBLIC.member}`} className="btn__link">
                 <FaUserCircle />
                 <span>Smember</span>
               </Link>

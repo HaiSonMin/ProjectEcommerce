@@ -1,6 +1,6 @@
 import { IUser } from "@/interfaces";
 import { http, getErrorMessage } from "@/utils";
-import { PATH_API_V1 } from "@/constant";
+import { PATH_API_V1 } from "@/constant/path-api";
 import { IApi } from "@/helpers";
 
 class UserApi {

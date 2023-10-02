@@ -11,7 +11,7 @@ import { BsPatchQuestion, BsFillPostcardHeartFill } from "react-icons/bs";
 import { PiUsersFourDuotone } from "react-icons/pi";
 import { HiMiniDevicePhoneMobile } from "react-icons/hi2";
 import { BiCategory, BiSolidDiscount } from "react-icons/bi";
-import { PATH_ADMIN } from "@/constant";
+import { PATH_ADMIN } from "@/constant/path-router";
 
 const MainNavList = styled.ul`
   display: flex;

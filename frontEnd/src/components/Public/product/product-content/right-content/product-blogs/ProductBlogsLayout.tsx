@@ -1,6 +1,7 @@
+import { ButtonSeeMoreLink } from "@/components";
 import Heading from "@/components/Heading";
+import { PATH_BLOG } from "@/constant/path-router";
 import { BsNewspaper } from "react-icons/bs";
-import { FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -57,37 +58,10 @@ const BlogItem = styled(Link)`
   }
 `;
 
-const SeeMoreBlogs = styled(Link)`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  font-size: 1.4rem;
-  font-weight: 500;
-  padding: 6px 0;
-  box-shadow: var(--shadow-around);
-  border-radius: 1rem;
-
-  & svg {
-    transition: all 0.3s;
-  }
-
-  &:hover {
-    color: var(--color-primary);
-    outline: 1px solid var(--color-primary);
-    background-color: var(--color-red-100);
-
-    & svg {
-      scale: 1.15;
-    }
-  }
-`;
-
 const blogsTest = [
   {
     id: "12",
-    linkTo: "#",
+    linkTo: `/${PATH_BLOG.blog}`,
     titleBlog:
       "Máy tính laptop là thiết bị công nghệ được rất nhiều người dùng y,Máy tính laptop là thiết bị công nghệ được rất nhiều người dùng y,Máy tính laptop là thiết bị công nghệ được rất nhiều người dùng y,Máy tính laptop là thiết bị công nghệ được rất nhiều người dùng y,Máy tính laptop là thiết bị công nghệ được rất nhiều người dùng y",
     thumbBlog:
@@ -95,21 +69,21 @@ const blogsTest = [
   },
   {
     id: "13",
-    linkTo: "#",
+    linkTo: `/${PATH_BLOG.blog}`,
     titleBlog: "Laptop mang thiết kế sang trọng, nhỏ gọn, tiện lợi",
     thumbBlog:
       "https://cellphones.com.vn/sforum/wp-content/uploads/2023/08/laptop-len-man-hinh-nhung-khong-chay-1.jpg",
   },
   {
     id: "14",
-    linkTo: "#",
+    linkTo: `/${PATH_BLOG.blog}`,
     titleBlog: "Máy cho sv kế toán dưới 15tt có những dòng nào ạ",
     thumbBlog:
       "https://cellphones.com.vn/sforum/wp-content/uploads/2023/08/nen-mua-macbook-hay-laptop-thumb.jpg",
   },
   {
     id: "15",
-    linkTo: "#",
+    linkTo: `/${PATH_BLOG.blog}`,
     titleBlog: "Xin được thông tin đến Chị ạ",
     thumbBlog:
       "https://cellphones.com.vn/sforum/wp-content/uploads/2023/07/laptop-tu-tat-man-hinh.jpg",
@@ -125,15 +99,12 @@ export default function ProductBlogsLayout() {
           <Heading $as="h5">Tin tức về sản phẩm laptop</Heading>
         </BlogTitle>
         {blogsTest.map((blog) => (
-          <BlogItem key={blog.titleBlog} to={"#"}>
+          <BlogItem key={blog.titleBlog} to={blog.linkTo}>
             <img className="blog-thumb" src={blog.thumbBlog} />
             <div className="blog-title">{blog.titleBlog}</div>
           </BlogItem>
         ))}
-        <SeeMoreBlogs to={"#"}>
-          See More Blogs
-          <FaRegEye />
-        </SeeMoreBlogs>
+        <ButtonSeeMoreLink to="#">Xem thêm bài viết</ButtonSeeMoreLink>
       </ProductBlogsBox>
     </ProductBlogsLayoutStyled>
   );

@@ -167,7 +167,7 @@ interface IProps {
   categoryId: any;
 }
 
-export default function ProductTypeContainerCard({categoryId}:IProps) {
+export default function ProductTypeContainerCard({ categoryId }: IProps) {
   return (
     <ContainerCard
       products={products}

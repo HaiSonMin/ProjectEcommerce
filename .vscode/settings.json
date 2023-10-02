@@ -9,6 +9,7 @@
         "keytoken",
         "maxlength",
         "Mili",
+        "onhand",
         "productcategories",
         "productmaininfos",
         "reduxjs",

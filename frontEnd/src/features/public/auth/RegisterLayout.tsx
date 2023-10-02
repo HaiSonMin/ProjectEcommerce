@@ -9,21 +9,19 @@ import {
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { PATH_USER } from "@/constant";
 import CONSTANT from "@/constant/value-constant";
 import { UseAuthApi } from "@/apis-use";
 import { useRef } from "react";
 import { IAuthRegister } from "@/interfaces/auth.interface";
-import { IAuthCreateSessionRegisterResultApi } from "@/apis-results/IAuthResultApi";
 import { toast } from "react-hot-toast";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useDispatch } from "react-redux";
-import { setUser } from "@/storeReducer/public/userSlice";
 import { EnumOptionConfirmOTP } from "@/enum";
 import {
   setOptionConfirmOTP,
   setUserEmailOTP,
 } from "@/storeReducer/public/otpSlice";
+import { PATH_AUTH } from "@/constant/path-router";
 
 const RegisterLayoutStyled = styled.div`
   display: flex;
@@ -103,7 +101,7 @@ export default function RegisterLayout() {
         reset();
         dispatch(setUserEmailOTP(dataForm["user_email"]));
         dispatch(setOptionConfirmOTP(EnumOptionConfirmOTP.REGISTER));
-        navigate(`/${PATH_USER.generateOTP}`);
+        navigate(`/${PATH_AUTH.generateOTP}`);
       },
       onError: () => refCaptcha.current?.reset(),
     });
@@ -220,7 +218,7 @@ export default function RegisterLayout() {
         <LogoAuth />
         <LoginNow>
           <p>Bạn đã có tài khoảng?</p>
-          <Link to={`/${PATH_USER.login}`}>Đăng nhập ngay</Link>
+          <Link to={`/${PATH_AUTH.login}`}>Đăng nhập ngay</Link>
         </LoginNow>
       </RegisterLayoutStyled>
     </>

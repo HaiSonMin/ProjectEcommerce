@@ -2,7 +2,7 @@ import { Button, Heading, SpinnerLogo } from "@/components";
 import { FaArrowLeft } from "react-icons/fa";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { PATH_USER, VALUE_CONSTANT } from "@/constant";
+import { VALUE_CONSTANT } from "@/constant";
 import { TbMessageCircle2 } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,6 +15,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { UseAuthApi } from "@/apis-use";
 import { EnumOptionConfirmOTP } from "@/enum";
 import toast from "react-hot-toast";
+import { PATH_AUTH } from "@/constant/path-router";
 
 const ForgetPasswordContainer = styled.div`
   font-size: 1.6rem;
@@ -108,7 +109,7 @@ export default function ForgetPasswordLayout() {
         onSuccess: () => {
           dispatch(setTimeExpireOTP(VALUE_CONSTANT.TIME_EXPIRE_OTP));
           refCaptcha.current.reset();
-          navigate(`/${PATH_USER.confirmOTP}`);
+          navigate(`/${PATH_AUTH.confirmOTP}`);
         },
       }
     );
@@ -117,7 +118,7 @@ export default function ForgetPasswordLayout() {
     <ForgetPasswordContainer>
       {isGeneratingOTP && <SpinnerLogo />}
       <IconBack>
-        <Link to={`/${PATH_USER.login}`}>
+        <Link to={`/${PATH_AUTH.login}`}>
           <FaArrowLeft />
         </Link>
         {optionConfirm === EnumOptionConfirmOTP.REGISTER ? (

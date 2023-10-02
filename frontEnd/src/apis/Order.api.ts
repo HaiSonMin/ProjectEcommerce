@@ -9,7 +9,7 @@ import {
 import { IOrder } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import {  getErrorMessage, http } from "@/utils";
-import { PATH_API_V1 } from "@/constant";
+import { PATH_API_V1 } from "@/constant/path-api";
 
 class OrderApi {
   async createOrder(args: Partial<IOrder>) {

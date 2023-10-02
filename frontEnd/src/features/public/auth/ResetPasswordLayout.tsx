@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { IAuthResetPassword } from "@/interfaces/auth.interface";
 import { UseAuthApi } from "@/apis-use";
 import { useNavigate } from "react-router-dom";
-import { PATH_USER } from "@/constant";
+import { PATH_AUTH } from "@/constant/path-router";
 
 const ResetPasswordLayoutStyled = styled.div`
   margin-top: 3rem;
@@ -46,7 +46,7 @@ export default function ResetPasswordLayout() {
         user_password: dataForm["user_password"],
         user_confirmPassword: dataForm["user_confirmPassword"],
       },
-      { onSuccess: () => navigate(`/${PATH_USER.login}`) }
+      { onSuccess: () => navigate(`/${PATH_AUTH.login}`) }
     );
   };
 

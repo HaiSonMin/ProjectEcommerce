@@ -11,7 +11,7 @@ import {
 } from "@/storeReducer/public/otpSlice";
 import { EnumOptionConfirmOTP } from "@/enum";
 import { useNavigate } from "react-router-dom";
-import { PATH_USER } from "@/constant";
+import { PATH_AUTH } from "@/constant/path-router";
 
 const ContainerOTP = styled.div`
   display: flex;
@@ -141,7 +141,7 @@ export default function OTPLayout() {
       confirmRegister(
         { OTPCode },
         {
-          onSuccess: () => navigate(`/${PATH_USER.login}`),
+          onSuccess: () => navigate(`/${PATH_AUTH.login}`),
         }
       );
     if (optionConfirm === EnumOptionConfirmOTP.RESET_PASSWORD) {
@@ -150,7 +150,7 @@ export default function OTPLayout() {
         { OTPCode },
         {
           onSuccess: () => {
-            navigate(`/${PATH_USER.resetPassword}`);
+            navigate(`/${PATH_AUTH.resetPassword}`);
           },
         }
       );

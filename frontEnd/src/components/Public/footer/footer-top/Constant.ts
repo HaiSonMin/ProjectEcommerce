@@ -127,7 +127,7 @@ import logoYoutube from "@/assets/icons/socials/youtube.jpg";
 import logoInstagram from "@/assets/icons/socials/instagram.jpg";
 import logoTiktok from "@/assets/icons/socials/tiktok.jpg";
 import logoZalo from "@/assets/icons/socials/zalo.png";
-import PATH_FORUM from './../../../../constant/paths/path-forum';
+import { PATH_BLOG} from "@/constant/path-router";
 export const ICON_SOCIAL = [
   {
     id: 1,
@@ -178,7 +178,7 @@ export const WEBSITE_MEMBER = [
   },
   {
     id: 3,
-    linkTo: `/${PATH_FORUM.forum}`,
+    linkTo: `/${PATH_BLOG.blog}`,
     src: "https://cdn2.cellphones.com.vn/x30,webp/media/logo/corp-members/sforum.png",
     alt: "Logo forum cellphones",
     label: "Latest technology information page",

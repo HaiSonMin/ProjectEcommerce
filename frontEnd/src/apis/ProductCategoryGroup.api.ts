@@ -1,7 +1,7 @@
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { IProductCategoryGroup } from "@/interfaces";
 import { http, resultAppendFormData } from "@/utils";
-import { PATH_API_V1 } from "@/constant";
+import { PATH_API_V1 } from "@/constant/path-api";
 import { IApi } from "@/helpers";
 
 class ProductCategoryGroupApi {

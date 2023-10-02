@@ -1,6 +1,8 @@
-import { PATH_ADMIN, PATH_USER } from "@/constant";
 import { Suspense, lazy, useEffect } from "react";
-import { ProtectPrivateRouter } from "@/components/protect-routers";
+import {
+  ProtectMemberRouter,
+  ProtectPrivateRouter,
+} from "@/components/protect-routers";
 import { SpinnerLogo } from "@/components";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import {
@@ -19,7 +21,13 @@ import {
   DashboardPage,
   AdminPageLayout,
 } from "@/pages/private";
-import PATH_FORUM from "./constant/paths/path-forum";
+import {
+  PATH_AUTH,
+  PATH_BLOG,
+  PATH_ADMIN,
+  PATH_PUBLIC,
+  PATH_MEMBER,
+} from "./constant/path-router";
 
 const UserTablePage = lazy(() => import("@/pages/private/user/UserTablePage"));
 const UserSearchPage = lazy(
@@ -111,8 +119,9 @@ const ProductCategoryGroupUpdatePage = lazy(
     )
 );
 
-// ---------------- Auth ----------------
 const PublicLayOut = lazy(() => import("@/pages/public/PublicLayOut"));
+// ---------------- Auth ----------------
+const AuthLayout = lazy(() => import("@/pages/auth/AuthLayout"));
 const ConfirmOTPPage = lazy(() => import("@/pages/auth/confirm-otp"));
 const LoginPage = lazy(() => import("@/pages/auth/login"));
 const RegisterPage = lazy(() => import("@/pages/auth/register"));
@@ -136,6 +145,12 @@ const ProductCategoryPageUser = lazy(
 const ProductDetailPageUser = lazy(
   () => import("@/pages/public/product/product-detail/ProductDetailPage")
 );
+const CartPage = lazy(() => import("@/pages/public/cart/CartPage"));
+
+// ---------------- Blog ----------------
+const BlogPageLayout = lazy(() => import("@/pages/blog"));
+const BlogHomePageLayout = lazy(() => import("@/pages/blog/home"));
+const BlogCategoryPageLayout = lazy(() => import("@/pages/blog/category"));
 
 export default function App() {
   const pathName = useLocation();
@@ -147,36 +162,52 @@ export default function App() {
   return (
     <Suspense fallback={<SpinnerLogo />}>
       <Routes>
-        {/* Auth Page */}
         <Route element={<Navigate replace to={"/"} />} />
-        <Route path={PATH_USER.home} element={<PublicLayOut />}>
-          <Route path={PATH_USER.login} element={<LoginPage />} />
-          <Route
-            path={`${PATH_USER.login}/success/google`}
-            element={<LoginSuccessGooglePage />}
-          />
-          <Route path={PATH_USER.register} element={<RegisterPage />} />
-          <Route path={PATH_USER.home} element={<HomePage />} />
-          <Route path={PATH_USER.generateOTP} element={<GenerateOTPPage />} />
-          <Route path={PATH_USER.confirmOTP} element={<ConfirmOTPPage />} />
-          <Route path={PATH_USER.incentives} element={<IncentivesPage />} />
-          <Route
-            path={PATH_USER.resetPassword}
-            element={<ResetPasswordPage />}
-          />
+
+        {/* Public Page */}
+        <Route path={PATH_PUBLIC.home} element={<PublicLayOut />}>
+          <Route path={PATH_PUBLIC.home} element={<HomePage />} />
 
           <Route
-            path={PATH_USER.productCategory}
+            path={PATH_PUBLIC.productCategory}
             element={<ProductCategoryPageUser />}
           />
           <Route
-            path={PATH_USER.productDetail}
+            path={PATH_PUBLIC.productDetail}
             element={<ProductDetailPageUser />}
           />
+          <Route path={PATH_PUBLIC.cart} element={<CartPage />} />
         </Route>
-        {/* Layout of public */}
 
-        {/* Layout of private */}
+        {/* Auth Page */}
+        <Route path={PATH_AUTH.auth} element={<AuthLayout />}>
+          <Route path={PATH_AUTH.login} element={<LoginPage />} />
+          <Route
+            path={`${PATH_AUTH.login}/success/google`}
+            element={<LoginSuccessGooglePage />}
+          />
+          <Route path={PATH_AUTH.register} element={<RegisterPage />} />
+          <Route path={PATH_AUTH.generateOTP} element={<GenerateOTPPage />} />
+          <Route path={PATH_AUTH.confirmOTP} element={<ConfirmOTPPage />} />
+          <Route path={PATH_AUTH.incentives} element={<IncentivesPage />} />
+          <Route
+            path={PATH_AUTH.resetPassword}
+            element={<ResetPasswordPage />}
+          />
+        </Route>
+        {/* Member Page */}
+        <Route element={<ProtectMemberRouter />}>
+          <Route path={PATH_MEMBER.home} element={<PublicLayOut />}></Route>
+        </Route>
+        {/* Blog Page */}
+        <Route path={PATH_BLOG.blogHome} element={<BlogPageLayout />}>
+          <Route path={""} element={<BlogHomePageLayout />} />
+          <Route
+            path={PATH_BLOG.category}
+            element={<BlogCategoryPageLayout />}
+          />
+        </Route>
+        {/* Private Page */}
         <Route element={<ProtectPrivateRouter />}>
           <Route path={PATH_ADMIN.admin} element={<AdminPageLayout />}>
             <Route path={PATH_ADMIN.brand} element={<BrandPage />}>

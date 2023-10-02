@@ -1,5 +1,5 @@
 import { UseDemandApi } from "@/apis-use";
-import { PATH_USER } from "@/constant";
+import { PATH_PUBLIC } from "@/constant/path-router";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -43,7 +43,7 @@ export default function Introduce() {
   return (
     <IntroduceStyled>
       <ListItems>
-        <ItemLinkImage to={PATH_USER.productDetail}>
+        <ItemLinkImage to={PATH_PUBLIC.productDetail}>
           <img
             src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/m14-right-homepage-th9.png"
             alt="Image"

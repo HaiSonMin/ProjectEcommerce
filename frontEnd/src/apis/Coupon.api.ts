@@ -2,7 +2,7 @@
 import { ICoupon } from "@/interfaces";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { getErrorMessage, http } from "@/utils";
-import { PATH_API_V1 } from "@/constant";
+import { PATH_API_V1 } from "@/constant/path-api";
 import { IApi } from "@/helpers";
 
 class CouponApi {

@@ -18,17 +18,16 @@ import {
 import { useMoveBack } from "@/hooks";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import FormHeading from "@/components/FormHeading";
 import Select, { SingleValue } from "react-select";
 import { DefaultOptionType } from "antd/es/select";
 import IOptionSelect from "@/helpers/ISelectOption";
 import { useEffect, useMemo, useState } from "react";
-import PhoneSpecMain from "@/constant/phoneSpecMain";
-import FormRowButton from "@/components/FormRowButton";
 import { formatCurrencyVND, randomKey } from "@/utils";
 import { IFilterOption, IProductOption } from "@/helpers";
 import { UseProductApi, UseProductCategoryApi } from "@/apis-use";
 import { IBrand, IDemand, IProduct, IProductCategory } from "@/interfaces";
+import FormHeading from "@/components/FormHeading";
+import FormRowButton from "@/components/FormRowButton";
 
 const initializeProductOption: Array<IProductOption> = [
   {
@@ -37,11 +36,7 @@ const initializeProductOption: Array<IProductOption> = [
     product_description: "",
     product_priceDifference: 0,
     product_serials: [],
-    product_specificationMain: [
-      ...PhoneSpecMain.map((spec) => {
-        return { id: randomKey(), specKey: spec, specValue: "" };
-      }),
-    ],
+    product_specificationMain: [],
     product_specificationDetail: "",
   },
 ];

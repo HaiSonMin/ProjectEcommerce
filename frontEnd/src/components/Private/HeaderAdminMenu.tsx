@@ -1,10 +1,10 @@
+import { Logout } from "..";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { HiOutlineUser } from "react-icons/hi2";
 import ButtonIcon from "../ButtonIcon";
 import DarkModeToggle from "./DarkModeToggle";
-import { Logout } from "..";
-import { PATH_ADMIN } from "@/constant";
+import { PATH_ADMIN } from "@/constant/path-router";
 
 const HeaderAdminMenuStyled = styled.ul`
   display: flex;

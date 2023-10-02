@@ -2,6 +2,7 @@ import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { css, styled } from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Dot from "./Dot";
 const CarouselImageStyled = styled.div`
   box-shadow:
     0 1px 2px 0 rgba(60, 64, 67, 0.1),
@@ -36,7 +37,6 @@ const ImageItem = styled(Link)<{ $valueTransform: number }>`
   & img {
     object-fit: contain;
     object-position: center;
-    /* width: 100%; */
   }
 `;
 
@@ -115,6 +115,8 @@ interface IProps {
   items: Array<any>;
 }
 
+const PERCENTAGE_TRANSFORM = 100;
+
 export default function CarouselImage({ items }: IProps) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
@@ -129,11 +131,15 @@ export default function CarouselImage({ items }: IProps) {
   }, [currentSlide]);
 
   const handleNextSlide = () => {
-    setCurrentSlide((cur: number) => (cur === items.length - 1 ? 0 : cur + 1));
+    setCurrentSlide((curSlide: number) =>
+      curSlide === items.length - 1 ? 0 : curSlide + 1
+    );
   };
 
   const handlePrevSlide = () => {
-    setCurrentSlide((cur: number) => (cur === 0 ? items.length - 1 : cur - 1));
+    setCurrentSlide((curSlide: number) =>
+      curSlide === 0 ? items.length - 1 : curSlide - 1
+    );
   };
 
   return (
@@ -142,7 +148,9 @@ export default function CarouselImage({ items }: IProps) {
         {items.map((item, index) => (
           <ImageItem
             to={item.linkTo}
-            $valueTransform={100 * index - currentSlide * 100}
+            $valueTransform={
+              PERCENTAGE_TRANSFORM * index - currentSlide * PERCENTAGE_TRANSFORM
+            }
           >
             <img src={item.image} alt={item.imageName} />
           </ImageItem>
@@ -156,9 +164,9 @@ export default function CarouselImage({ items }: IProps) {
               <GoChevronRight />
             </ButtonNext>
             <DotsSlide>
-              {items.map((item, index) => (
-                <div
-                  className={`dot ${index === currentSlide && "active"}`}
+              {items.map((_, index) => (
+                <Dot
+                  $isActive={index === currentSlide}
                   onClick={() => setCurrentSlide(index)}
                 />
               ))}

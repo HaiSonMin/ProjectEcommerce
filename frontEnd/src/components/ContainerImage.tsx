@@ -1,6 +1,7 @@
 import { css, styled } from "styled-components";
 import { Card, Carousel } from ".";
 import { Link } from "react-router-dom";
+import { randomKey } from "@/utils";
 
 const ContainerImgLinkStyled = styled.div`
   padding: 1rem 6px;
@@ -63,11 +64,7 @@ export default function ContainerImage({
           $itemsImg={itemsImg}
         >
           {itemsImg.map((item) => (
-            <ItemLink
-              $width={withImg}
-              key={Math.ceil(Math.random() * 1000000)}
-              to={item.linkTo}
-            >
+            <ItemLink $width={withImg} key={randomKey()} to={item.linkTo}>
               <img src={item.img} alt="Image " />
             </ItemLink>
           ))}

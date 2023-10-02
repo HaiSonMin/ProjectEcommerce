@@ -2,7 +2,7 @@ import { http, getErrorMessage, resultAppendFormData } from "@/utils";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { IBrand } from "@/interfaces";
 
-import { PATH_API_V1 } from "@/constant";
+import { PATH_API_V1 } from "@/constant/path-api";
 import { IApi } from "@/helpers";
 
 class BrandApi {

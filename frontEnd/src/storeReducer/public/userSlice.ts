@@ -1,4 +1,4 @@
-import CONSTANT from "@/constant/value-constant";
+import { LOCAL_STORE_NAME } from "@/constant";
 import { ILocalStoreUser } from "@/helpers";
 import { createSlice } from "@reduxjs/toolkit";
 interface IInitialState {
@@ -8,7 +8,9 @@ interface IInitialState {
   userRole: string;
 }
 const initializeStateFromLocalStorage = (): IInitialState => {
-  const dataStorage = localStorage.getItem(CONSTANT.USER_NAME_LOCAL_STORE);
+  const dataStorage = localStorage.getItem(
+    LOCAL_STORE_NAME.USER_NAME_LOCAL_STORE
+  );
   if (!dataStorage)
     return {
       userId: "",

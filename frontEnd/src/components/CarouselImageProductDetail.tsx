@@ -28,8 +28,8 @@ const ImageItem = styled.div<{ $valueTransform: number }>`
   display: block;
   position: absolute;
   transition: all 0.3s;
-  ${(props) => css`
-    transform: translateX(${props.$valueTransform}%);
+  ${({ $valueTransform }) => css`
+    transform: translateX(${$valueTransform}%);
   `}
 
   & img {

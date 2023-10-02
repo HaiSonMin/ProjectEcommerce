@@ -1,6 +1,6 @@
 import { IApi } from "@/helpers";
 import { IProduct } from "@/interfaces";
-import { PATH_API_V1 } from "@/constant";
+import { PATH_API_V1 } from "@/constant/path-api";
 import IArgsQuery from "@/helpers/IArgsQuery";
 import { http, getErrorMessage, resultAppendFormDataRecursive } from "@/utils";
 

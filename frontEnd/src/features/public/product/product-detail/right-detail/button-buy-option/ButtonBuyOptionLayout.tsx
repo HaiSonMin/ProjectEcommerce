@@ -2,7 +2,7 @@ import { Button } from "@/components";
 import styled, { css } from "styled-components";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-import { PATH_USER } from "@/constant";
+import { PATH_PUBLIC } from "@/constant/path-router";
 import { formatCurrencyVND } from "@/utils";
 
 const ButtonBuyOptionLayoutStyled = styled.div`
@@ -78,7 +78,7 @@ export default function ButtonBuyOptionLayout() {
   return (
     <ButtonBuyOptionLayoutStyled>
       <TopButtonBuy>
-        <Link className="btn__buy" to={`/${PATH_USER.cart}`}>
+        <Link className="btn__buy" to={`/${PATH_PUBLIC.cart}`}>
           <span>Mua ngay với giá {formatCurrencyVND(23000000)}</span>
           <span>(Giao nhanh chóng trong 2 giờ hoặc nhận tại cửa hàng)</span>
         </Link>

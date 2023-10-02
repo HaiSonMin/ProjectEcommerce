@@ -14,12 +14,8 @@ const CartSchema = new Schema(
        * productId
        * quantity
        */
-      type: Array,
+      type: Schema.Types.Mixed,
       default: [],
-    },
-    cart_countProduct: {
-      type: Number,
-      default: 0,
     },
   },
   {

@@ -1,12 +1,13 @@
 import { Filter, SortBy, TableOperation } from "@/components";
-import { PATH_ADMIN } from "@/constant";
+import { PATH_ADMIN } from "@/constant/path-router";
 import Search from "antd/es/input/Search";
 import { useNavigate } from "react-router-dom";
 
 export default function DiscountTableOperation() {
   const navigate = useNavigate();
   const handlerSearchUser = (value: string) => {
-    if (value.length > 0) navigate(`/admin/${PATH_ADMIN.coupon}/search?keySearch=${value}`);
+    if (value.length > 0)
+      navigate(`/admin/${PATH_ADMIN.coupon}/search?keySearch=${value}`);
     else navigate(`/admin/${PATH_ADMIN.coupon}`);
   };
   return (

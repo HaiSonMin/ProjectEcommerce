@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { HiMiniHome } from "react-icons/hi2";
 import { IProduct } from "@/interfaces";
-import { PATH_USER } from "@/constant";
+import { PATH_PUBLIC } from "@/constant/path-router";
 import { IoIosArrowForward } from "react-icons/io";
 
 const BreadcrumbLayoutStyled = styled.div`
@@ -48,14 +48,14 @@ interface IProps {
 export default function BreadcrumbLayout({ product }: IProps) {
   return (
     <BreadcrumbLayoutStyled>
-      <ItemBreadcrumb to={`${PATH_USER.home}`}>
+      <ItemBreadcrumb to={`${PATH_PUBLIC.home}`}>
         <HiMiniHome className="icon--home" />
         <span className="breadcrumb--name">Trang chủ</span>
         <IoIosArrowForward />
       </ItemBreadcrumb>
       {product?.product_category.productCategory_name ===
       product?.product_category.productCategory_type ? (
-        <ItemBreadcrumb to={`/${PATH_USER.productCategory}`}>
+        <ItemBreadcrumb to={`/${PATH_PUBLIC.productCategory}`}>
           <span className="breadcrumb--name">
             {product?.product_category.productCategory_name}
           </span>
@@ -63,13 +63,13 @@ export default function BreadcrumbLayout({ product }: IProps) {
         </ItemBreadcrumb>
       ) : (
         <>
-          <ItemBreadcrumb to={`/${PATH_USER.home}`}>
+          <ItemBreadcrumb to={`/${PATH_PUBLIC.home}`}>
             <span className="breadcrumb--name">
               {product?.product_category.productCategory_type}
             </span>
             <IoIosArrowForward />
           </ItemBreadcrumb>
-          <ItemBreadcrumb to={`/${PATH_USER.home}`}>
+          <ItemBreadcrumb to={`/${PATH_PUBLIC.home}`}>
             <span className="breadcrumb--name">
               {product?.product_category.productCategory_name}
             </span>

@@ -1,5 +1,6 @@
-import Collapses from "@/components/Collapse";
+import Collapses from "@/components/Collapsed";
 import Heading from "@/components/Heading";
+import { TbMessageQuestion } from "react-icons/tb";
 import { styled } from "styled-components";
 
 const FrequentlyAskedQuestionsLayoutStyled = styled.div`
@@ -9,8 +10,18 @@ const FrequentlyAskedQuestionsLayoutStyled = styled.div`
 `;
 
 const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-primary);
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
   .heading {
-    text-align: center;
     color: var(--color-primary);
     text-transform: uppercase;
   }
@@ -46,6 +57,7 @@ export default function FrequentlyAskedQuestionsLayout() {
         <Heading $as="h3" className="heading">
           Câu hỏi thường gặp
         </Heading>
+        <TbMessageQuestion />
       </Header>
       <Body>
         <Collapses items={itemsTest} />

@@ -9,7 +9,9 @@ import ProductGroupLayout from "./product";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
-const HomeLayoutStyled = styled.div``;
+const HomeLayoutStyled = styled.div`
+  margin-top: 1rem;
+`;
 
 export default function HomeLayout() {
   const [refViewCategoryLayout, inViewCategoryLayout] = useInView({

@@ -6,7 +6,7 @@ import HeaderMenu from "./header-menu/HeaderMenu";
 const HeaderLayoutStyled = styled.header`
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   z-index: 800;

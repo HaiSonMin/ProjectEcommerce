@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
 import { IProductCategoryGroup } from "@/interfaces";
 import MenuListChildren from "./MenuListChildren";
-import { PATH_USER } from "@/constant";
+import { PATH_PUBLIC } from "@/constant/path-router";
+// import { PATH_PUBLIC } from "@/constant/path-router";
 
 const MenuItemStyled = styled.li`
   display: flex;
@@ -82,7 +83,7 @@ export default function MenuItem({ productCategoryGroup }: IProps) {
         <IconType src={productCategoryGroup.productCategoryGroup_image} />
         <div>
           {Object.keys(typeNames).map((type, i) => (
-            <MenuLink to={PATH_USER.productCategory} key={type}>
+            <MenuLink to={PATH_PUBLIC.productCategory} key={type}>
               {type.split(" ")}
               {i !== Object.keys(typeNames).length - 1 && ", "}
             </MenuLink>

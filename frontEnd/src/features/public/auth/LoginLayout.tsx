@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import IUser from "@/interfaces/user.interface";
 import {
   Button,
   Heading,
@@ -11,7 +10,7 @@ import {
 } from "@/components";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import { PATH_USER } from "@/constant";
+import { PATH_PUBLIC } from "@/constant/path-router";
 import { UseAuthApi } from "@/apis-use";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -25,8 +24,8 @@ import {
   setUserEmailOTP,
 } from "@/storeReducer/public/otpSlice";
 import { EnumOptionConfirmOTP } from "@/enum";
-import { da } from "date-fns/locale";
 import { ILocalStoreUser } from "@/helpers";
+import { PATH_AUTH } from "@/constant/path-router";
 
 const LoginLayoutStyled = styled.div`
   display: flex;
@@ -130,9 +129,7 @@ export default function LoginLayout() {
           CONSTANT.USER_NAME_LOCAL_STORE,
           JSON.stringify(userStorage)
         );
-        dispatch(
-          setUser(userStorage)
-        );
+        dispatch(setUser(userStorage));
         navigate("/");
       },
       onError: () => refCaptcha.current.reset(),
@@ -154,7 +151,7 @@ export default function LoginLayout() {
           refCaptcha.current.reset();
           dispatch(setUserEmailOTP(watch("user_email")));
           dispatch(setOptionConfirmOTP(EnumOptionConfirmOTP.RESET_PASSWORD));
-          navigate(`/${PATH_USER.generateOTP}`);
+          navigate(`/${PATH_AUTH.generateOTP}`);
         },
         onError: () => refCaptcha.current.reset(),
       }
@@ -221,9 +218,9 @@ export default function LoginLayout() {
       <LogoAuth />
       <RegisterNow>
         <p>Bạn chưa có tài khoản?</p>
-        <Link to={`/${PATH_USER.register}`}>Đăng ký ngay</Link>
+        <Link to={`/${PATH_PUBLIC.register}`}>Đăng ký ngay</Link>
       </RegisterNow>
-      <SeePromotion to={`/${PATH_USER.Incentives}`}> Xem chính sách ưu đãi Smember </SeePromotion>
+      <SeePromotion to={"#"}> Xem chính sách ưu đãi Smember </SeePromotion>
     </LoginLayoutStyled>
   );
 }

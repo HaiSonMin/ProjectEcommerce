@@ -1,6 +1,7 @@
 import { FaRegEye } from "react-icons/fa";
 import { styled } from "styled-components";
 import AnswerQuestionItem from "./AnswerQuestionItem";
+import ButtonSeeMore from "@/components/ButtonSeeMore";
 
 const AnswerQuestionStyled = styled.div`
   display: flex;
@@ -51,10 +52,7 @@ export default function AnswerQuestion() {
           timeline={"2023-07-26T09:11:32.436+00:00"}
         />
       ))}
-      <SeeMoreQuestion>
-        <span>Xem thêm {12} câu hỏi về sản phẩm</span>
-        <FaRegEye />
-      </SeeMoreQuestion>
+      <ButtonSeeMore>Xem thêm {12} câu hỏi về sản phẩm</ButtonSeeMore>
     </AnswerQuestionStyled>
   );
 }

@@ -1,3 +1,3 @@
-import ProductTypePage from "./ProductTypePage";
+import ProductCategoryTypePage from "./ProductCategoryTypePage";
 
-export default ProductTypePage;
+export default ProductCategoryTypePage;

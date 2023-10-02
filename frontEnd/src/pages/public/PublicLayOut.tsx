@@ -18,20 +18,8 @@ const Container = styled.div`
   flex-direction: column;
   gap: 2rem;
 `;
-export const AppWrapper = styled.div`
-  text-align: center;
-  padding: 20px;
-`;
 
-export const LoginForm = styled.div<{ showLoginForm: boolean }>`
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin: 20px;
-  filter: ${(props) => (props.showLoginForm ? "blur(5px)" : "none")};
-`;
 export default function PublicLayout() {
-  console.log("re-render PublicLayout")
   return (
     <PublicLayoutStyled>
       <HeaderLayout />

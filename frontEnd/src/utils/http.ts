@@ -1,5 +1,5 @@
 import { UseAuthApi } from "@/apis-use";
-import { PATH_API_V1 } from "@/constant";
+import { PATH_API_V1 } from "@/constant/path-api";
 import CONSTANT from "@/constant/value-constant";
 import { IApi } from "@/helpers";
 import axios, {

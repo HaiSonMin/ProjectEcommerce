@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import { MdNoAccounts, MdClose } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { PATH_USER } from "@/constant";
+import { PATH_AUTH, PATH_PUBLIC } from "@/constant/path-router";
 
 const animationModal = keyframes`
   0% { top: 100%; }
@@ -142,12 +142,11 @@ const ButtonAuth: React.FC<LoginButtonProps> = ({
             Vui lòng đăng nhập tài khoản Smember để <br /> có trải nghiệm mua
             sắm tốt hơn
           </H2Style>
-          <ButtonAuthClick
-          >
-            <StyledLink onClick={closeLoginForm} to={PATH_USER.login}>
+          <ButtonAuthClick>
+            <StyledLink onClick={closeLoginForm} to={PATH_AUTH.login}>
               Đăng nhập ngay
             </StyledLink>
-            <StyledLink onClick={closeLoginForm} to={PATH_USER.register}>
+            <StyledLink onClick={closeLoginForm} to={PATH_PUBLIC.register}>
               Đăng ký
             </StyledLink>
           </ButtonAuthClick>

@@ -12,10 +12,10 @@ export default interface IProduct {
   product_promotion: string;
   product_imagesProduct: Array<string>;
   product_imagesHighlights: Array<string>;
-  product_brand: IBrand; // BrandId
-  product_category: IProductCategory;
-  product_demands: Array<IDemand>;
-  product_ratings: Array<IRating>;
+  product_brand: IBrand | string; // BrandId
+  product_category: IProductCategory | string;
+  product_demands: Array<IDemand> | Array<string>;
+  product_ratings: Array<IRating> | Array<string>;
   product_options: Array<IProductOption>;
   product_optionFilters: Array<IFilterOption>;
 }
