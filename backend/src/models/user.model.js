@@ -20,7 +20,6 @@ const UserSchema = new Schema(
       ],
       unique: [true, "Email đã được đăng kí trước đó"],
       required: [true, "Vui lòng bổ sung email"],
-      maxlength: 50,
     },
     user_password: {
       type: String,
@@ -71,11 +70,6 @@ UserSchema.methods = {
     console.log(password, this.user_password);
 
     return await bcrypt.compare(password, this.user_password);
-  },
-
-  createSessionOTP: function (OTPCode) {
-    this.user_OTP = OTPCode;
-    this.user_sessionDuration = Date.now() + 2 * 60 * 1000; // Time expires is 2minute
   },
 };
 

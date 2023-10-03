@@ -1,3 +1,3 @@
 import WarrantyInfo from "./WarrantyInfo";
 
-export default WarrantyInfo
+export default WarrantyInfo;

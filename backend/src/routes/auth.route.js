@@ -40,7 +40,7 @@ router.route("/login/google").get(
 router.route("/login/google/callback").get(
   passport.authenticate("google", {
     failureMessage: "Login failed, please try again later",
-    successRedirect: `${process.env.LOCAL_HOST_CLIENT}/login/success/google`,
+    successRedirect: `${process.env.LOCAL_HOST_CLIENT}/auth/login/success/google`,
   })
 );
 

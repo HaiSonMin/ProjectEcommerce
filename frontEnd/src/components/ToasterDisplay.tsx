@@ -12,7 +12,7 @@ const ToasterDisplay = (): JSX.Element => {
           fontSize: "1.6rem",
           maxWidth: "50rem",
           padding: "1.6rem 2.4rem",
-          backgroundColor: "var(--color-grey-0)",
+          backgroundColor: "var(--color-white)",
         },
         // Default options for specific types
         success: {

@@ -6,7 +6,7 @@ const StyledTable = styled.div`
   font-size: 1.4rem;
   border-radius: 7px;
   border: 1px solid var(--color-grey-200);
-  background-color: var(--color-grey-0);
+  background-color: var(--color-white);
 `;
 
 const CommonRow = styled.div<{ $columns?: string }>`

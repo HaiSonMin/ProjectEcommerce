@@ -3,7 +3,7 @@ const { AuthService } = require("../services/index");
 class AuthController {
   static async createSessionRegister(req, res) {
     new OK({
-      message: "Generate session register successfully",
+      message: "create session register successfully",
       metadata: await AuthService.createSessionRegister(req, res),
     }).send(res);
   }
@@ -65,12 +65,6 @@ class AuthController {
     new OK({
       message: "Reset password successfully",
       metadata: await AuthService.confirmResetPassword(req, res),
-    }).send(res);
-  }
-  static async generateOTP(req, res) {
-    new OK({
-      message: "Resend OTP successfully",
-      metadata: await AuthService.generateOTP(req, res),
     }).send(res);
   }
 }

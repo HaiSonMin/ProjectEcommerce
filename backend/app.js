@@ -3,7 +3,6 @@ require("express-async-errors");
 // Security
 const helmet = require("helmet");
 const cors = require("cors");
-const xssClean = require("xss-clean");
 const ratingLimit = require("express-rate-limit");
 // Extension
 const morgan = require("morgan");
@@ -43,7 +42,6 @@ app.use(
   })
 );
 app.use(helmet());
-app.use(xssClean());
 
 // Extension
 app.use(cookieParser());
@@ -63,10 +61,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Login API
-// app.use("/api/users", userRouter)
-
-// require("./src/schedule");
 require("./src/middleware/passportGoogleSSO.middleware");
 require("./src/db/connectDB");
 const { checkOverload } = require("./src/helpers/check-connect");

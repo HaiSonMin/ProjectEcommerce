@@ -21,7 +21,7 @@ const StyledToggleButton = styled.button`
   transition: all 0.3s;
 
   &:hover {
-    background-color: var(--color-grey-0);
+    background-color: var(--color-white);
   }
 
   & svg {
@@ -34,7 +34,7 @@ const StyledToggleButton = styled.button`
 const StyledList = styled.ul<{ $position: TypePos }>`
   position: fixed;
 
-  background-color: var(--color-grey-0);
+  background-color: var(--color-white);
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
 

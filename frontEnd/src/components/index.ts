@@ -19,6 +19,7 @@ import FormRow from "./FormRow";
 import Heading from "./Heading";
 import Spinner from "./Spinner";
 import FormBox from "./FormBox";
+import Overlay from "./Overlay";
 import TextArea from "./TextArea";
 import LogoAuth from "./LogoAuth";
 import Carousel from "./Carousel";
@@ -33,6 +34,7 @@ import StarReview from "./StarReview";
 import TextEditor from "./TextEditor";
 import InputColor from "./InputColor";
 import ButtonIcon from "./ButtonIcon";
+import CycleChose from "./CycleChose";
 import Pagination from "./Pagination";
 import CardLoading from "./CardLoading";
 import SelectMulti from "./SelectMulti";
@@ -85,6 +87,7 @@ export {
   FormRow,
   Heading,
   Spinner,
+  Overlay,
   LogoAuth,
   TextArea,
   Carousel,
@@ -94,6 +97,7 @@ export {
   InputAuth,
   InputLabel,
   SelectDate,
+  CycleChose,
   StarReview,
   TextEditor,
   InputColor,

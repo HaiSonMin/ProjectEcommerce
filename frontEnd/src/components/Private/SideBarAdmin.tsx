@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import MainNavAdmin from "./MainNavAdmin";
 import { Logo } from "..";
 const SideBarAdminStyled = styled.div`
-  background-color: var(--color-grey-0);
+  background-color: var(--color-white);
   border-right: 1px solid var(--color-grey-300);
   padding: 2rem 0rem 4rem;
   grid-row: 1/-1;

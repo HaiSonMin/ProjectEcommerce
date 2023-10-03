@@ -28,7 +28,7 @@ const variations: any = {
   `,
   secondary: css`
     color: var(--color-grey-600);
-    background: var(--color-grey-0);
+    background: var(--color-white);
     border: 1px solid var(--color-grey-200);
 
     &:hover {

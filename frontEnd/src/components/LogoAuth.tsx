@@ -31,12 +31,10 @@ const ImgLogo = styled.img`
 
 const redirectLoginGooglePopup = () => {
   const googleLinkURL = `${import.meta.env.VITE_API_URL}/v1/auth/login/google`;
-  const newWindowGoogleLogin = PopupLogin({ googleLinkURL });
+  PopupLogin({ googleLinkURL });
 };
 
 export default function LogoAuth() {
-  const dispatch = useDispatch();
-
   return (
     <LogoAuthStyled>
       <LogoLogin onClick={redirectLoginGooglePopup}>

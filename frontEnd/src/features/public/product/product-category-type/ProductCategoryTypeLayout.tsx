@@ -1,7 +1,9 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-const ProductCategoryTypeLayoutStyled = styled.div``
+const ProductCategoryTypeLayoutStyled = styled.div``;
 
 export default function ProductCategoryTypeLayout() {
-    return <ProductCategoryTypeLayoutStyled></ProductCategoryTypeLayoutStyled>
+  return <ProductCategoryTypeLayoutStyled>
+    
+  </ProductCategoryTypeLayoutStyled>;
 }

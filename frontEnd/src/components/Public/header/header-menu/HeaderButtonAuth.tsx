@@ -1,5 +1,5 @@
 import Heading from "@/components/Heading";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaUserAlt, FaUserAltSlash, FaUserCircle } from "react-icons/fa";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ import { css, keyframes, styled } from "styled-components";
 import { FaUserTie } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import UseAuthApi from "@/apis-use/UseAuthApi";
-import SpinnerLogo from "@/components/SpinnerLogo";
+import { SpinnerLogo, Overlay } from "@/components";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUser } from "@/storeReducer/public/userSlice";
 import { EnumRoleUser } from "@/enum";
@@ -38,41 +38,22 @@ const animationModal = keyframes`
   100% {top:50%;}
 `;
 
-const Overlay = styled.div<{ $showLoginForm: boolean }>`
-  display: ${(props) => (props.$showLoginForm ? "block" : "none")};
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 3.2rem 4rem;
-  transition: all 0.3s;
-  z-index: 100;
-`;
-
 const AuthModal = styled.div<{ $showLoginForm: boolean }>`
   position: fixed;
   font-family: "McLaren", cursive;
   background-color: white;
   border: 1px solid #ccc;
-  padding: 20px;
-  margin: 20px;
+  padding: 2rem;
   max-width: 36rem;
-
+  left: 50%;
+  border-radius: 20px;
+  transform: translate(-50%, -50%);
+  z-index: 100;
   ${(props) =>
     props.$showLoginForm &&
     css`
-      transition: all 0.3s ease-in-out;
       animation: ${animationModal} 0.5s cubic-bezier(0.66, 0, 0, 1) forwards;
     `}
-  left:50%;
-  border-radius: 20px;
-  transform: translate(-50%, -50%);
-  z-index: 200;
 `;
 
 const HeaderModal = styled.div`
@@ -201,7 +182,7 @@ export default function HeaderButtonAuth() {
         <HeaderButtonAuthStyled onClick={toggleLoginForm}>
           <FaUserAltSlash />
           <p>Đăng nhập</p>
-          <Overlay $showLoginForm={showLoginForm} onClick={closeLoginForm}>
+          <Overlay $isShow={showLoginForm} onClick={closeLoginForm}>
             <AuthModal
               $showLoginForm={showLoginForm}
               onClick={(e) => e.stopPropagation()}

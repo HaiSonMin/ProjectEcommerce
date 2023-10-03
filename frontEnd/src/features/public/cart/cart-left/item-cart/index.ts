@@ -1,3 +1,3 @@
-import ItemCart from "./ItemCart";
+import ItemCartLayout from "./ItemCartLayout";
 
-export default ItemCart;
+export default ItemCartLayout;

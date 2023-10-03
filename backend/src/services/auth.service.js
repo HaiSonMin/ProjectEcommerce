@@ -160,7 +160,6 @@ class AuthService {
       user_email: userEmail,
     } = user;
 
-    // const { privateKey, publicKey } = createDoubleKeys();
     const { privateKey, publicKey } = createDoubleKeysV2();
 
     const keyStore = await KeyTokenModel.findOneAndUpdate(
@@ -204,6 +203,8 @@ class AuthService {
       day: 7,
       res,
     });
+
+    console.log("Login Done");
 
     return {
       user: getInfoData(user, [

@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 
 const StyledFilter = styled.div`
   border: 1px solid var(--color-grey-100);
-  background-color: var(--color-grey-0);
+  background-color: var(--color-white);
   box-shadow: var(--shadow-sm);
   border-radius: var(--border-radius-sm);
   padding: 0.4rem;
@@ -13,7 +13,7 @@ const StyledFilter = styled.div`
 `;
 
 const FilterButton = styled.button<{ $active?: boolean }>`
-  background-color: var(--color-grey-0);
+  background-color: var(--color-white);
   border: none;
 
   ${(props) =>

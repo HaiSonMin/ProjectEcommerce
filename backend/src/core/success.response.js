@@ -14,12 +14,24 @@ class CustomerSuccessApi {
 }
 
 class OK extends CustomerSuccessApi {
-  constructor({ message, statusCode = StatusCodes.OK, reasonStatusCode = ReasonPhrases.OK, metadata, options = {} }) {
+  constructor({
+    message,
+    statusCode = StatusCodes.OK,
+    reasonStatusCode = ReasonPhrases.OK,
+    metadata,
+    options = {},
+  }) {
     super({ message, statusCode, reasonStatusCode, metadata, options });
   }
 }
 class CREATED extends CustomerSuccessApi {
-  constructor({ message, statusCode = StatusCodes.CREATED, reasonStatusCode = ReasonPhrases.CREATED, metadata, options = {} }) {
+  constructor({
+    message,
+    statusCode = StatusCodes.CREATED,
+    reasonStatusCode = ReasonPhrases.CREATED,
+    metadata,
+    options = {},
+  }) {
     super({ message, statusCode, reasonStatusCode, metadata, options });
   }
 }

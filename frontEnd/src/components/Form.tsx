@@ -6,7 +6,7 @@ const Form = styled.form<{ $type?: string }>`
     css`
       padding: 2.4rem 4rem;
       /* Box */
-      background-color: var(--color-grey-0);
+      background-color: var(--color-white);
       border: 1px solid var(--color-grey-100);
       border-radius: var(--border-radius-md);
       min-height: 75vh;

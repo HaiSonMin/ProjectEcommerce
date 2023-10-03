@@ -1,3 +1,3 @@
 import LoginGoogleSuccessPage from "./LoginSuccessGooglePage";
 
-export default LoginGoogleSuccessPage
+export default LoginGoogleSuccessPage;

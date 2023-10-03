@@ -1,3 +1,3 @@
 import LeftProductDetailLayout from "./LeftProductDetailLayout";
 
-export default LeftProductDetailLayout
+export default LeftProductDetailLayout;
