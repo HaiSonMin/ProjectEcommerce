@@ -16,7 +16,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const SideMenuContainer = styled.div`
     width: 200px;
-    height: 80vh;
+    height: 140vh;
     margin-top:150px;
     margin-left: 150px;
     background-color:#a8d6e2;

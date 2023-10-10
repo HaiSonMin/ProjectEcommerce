@@ -5,7 +5,7 @@ import {SlEnvolopeLetter} from "react-icons/sl"
 import {MdMarkEmailRead} from "react-icons/md"
 import CardSupport from "./CardSupport";
 const ContainerSupport = styled.div`
-margin-top: 10rem;
+margin-top: 2rem;
 display: grid;
 grid-template-columns: auto auto;
 gap: 1rem;

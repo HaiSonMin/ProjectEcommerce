@@ -34,19 +34,24 @@ const SubTitle = styled.div`
   text-align: center;
   gap: 1rem;
 
-  background-color: #fff;
+  background-color: #fdf6f6;
   padding: 0.5rem 0;
   border-radius: 8px;
   margin-top: 1rem;
 `;
 
 const TextCenter = styled.div`
-  height: 80%;
+  height: 65%;
   border-right: 1.5px solid #000;
-  margin-top: 10px;
+  margin: 20px ;
+  font-size: 20px;
+  font-weight: 600;
 `;
 const TextCenterA = styled.div`
   margin-top: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px ;
 `;
 const Hr = styled.div``;
 const DateOrder = styled.div`
