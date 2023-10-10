@@ -7,7 +7,7 @@ import { TbShoppingBag } from "react-icons/tb";
 import { MdOutlineDiscount } from "react-icons/md";
 import HeaderSearch from "./HeaderSearch";
 import HeaderButtonAuth from "./HeaderButtonAuth";
-import { PATH_PUBLIC } from "@/constant/path-router";
+import { PATH_MEMBER, PATH_PUBLIC } from "@/constant/path-router";
 
 const HeaderMenuTopStyled = styled.div`
   padding: 1rem 0;
@@ -89,7 +89,7 @@ export default function HeaderMenu() {
             0345.299.087
           </p>
         </NavTelItem>
-        <NavLinkItem className="nav-styled" to={"/#"}>
+        <NavLinkItem className="nav-styled" to={`/${PATH_MEMBER.member}`}>
           <MdOutlineDiscount />
           <p>
             Xem mã

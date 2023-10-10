@@ -34,6 +34,7 @@ const TitleRed = styled.div`
 const TextCenter = styled.div`
   text-align: center;
 `;
+
 export default function IncentivesLayout() {
   const [selectedCheckbox, setSelectedCheckbox] = useState(null);
   const [divContent, setDivContent] = useState(
@@ -52,7 +53,7 @@ export default function IncentivesLayout() {
       iconUDMHd={<GiWallet />}
       titleUDMHd="khi thực hiện thu cũ lên đời"
       iconUDMHe={<GiWallet />}
-      titleUDMHe="Tặng phiếu mua hàng trị giá <b> 50.000đ </b> (Code chỉ sử dụng 1 lần, áp dụng cho các đơn hàng (Trừ thẻ cào, sim, phí thu hộ, gói BHMR) có giá trị lớn gấp đôi giá trị code)"
+      titleUDMHe="Tặng phiếu mua hàng trị giá 50.000đ (Code chỉ sử dụng 1 lần, áp dụng cho các đơn hàng (Trừ thẻ cào, sim, phí thu hộ, gói BHMR) có giá trị lớn gấp đôi giá trị code)"
       notIncentives="Hiện chưa có chính sách ưu đãi phục vụ đặc biệt cho hạng thành
     viên S-New"
     />

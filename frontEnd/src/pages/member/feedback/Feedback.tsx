@@ -1,9 +1,36 @@
-export default function PurchaseHistory () {
-    return(
-        <>
-            <div className="ContainerPurchaseHistory">
-                
-            </div>
-        </>
-    )
+import { ArrowLeftOutlined } from '@ant-design/icons'
+
+import styled from 'styled-components'
+const Container = styled.div`
+text-align: center;
+`
+const Icon = styled.div`
+    position: absolute;
+    font-size: 30px;
+    cursor: pointer;
+`
+const Flex = styled.div`
+    display: flex;
+    align-items: center;
+    p{
+        text-align: start;
+    }
+`
+export default function GopYPhanHoi() {
+  return (
+    <Container>
+        <Icon>
+            <ArrowLeftOutlined/>
+        </Icon>
+        <h1>
+            GÓP Ý VÀ PHẢN HỒI
+        </h1>
+        <Flex>
+            <img src="https://cellphones.com.vn/smember/_nuxt/img/1024-15361.644ed9e.png" alt="img-staff" />
+            <p>Mời bạn đánh giá mức độ hài lòng về chương trình ưu <br /> đãi Smember của CellphoneS. Hãy cho chúng mình  <br /> thêm góp ý để cải thiện tốt hơn</p>
+
+        </Flex>
+        {/* Add From google */}
+    </Container>
+  )
 }

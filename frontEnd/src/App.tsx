@@ -128,6 +128,36 @@ const RegisterPage = lazy(() => import("@/pages/auth/register"));
 const GenerateOTPPage = lazy(() => import("@/pages/auth/generate-otp"));
 const ResetPasswordPage = lazy(() => import("@/pages/auth/reset-password"));
 const IncentivesPage = lazy(() => import("@/pages/auth/incentive"));
+// ---------------- Member ----------------
+const MemberLayout = lazy(() => import("@/pages/member/MemberLayout"));
+const DashboardMember = lazy(
+  () => import("@/pages/member/dash-board/Dashboard")
+);
+const HomePageMember = lazy(
+  () => import("@/pages/member/page/HomePage")
+);
+const HistoryOrder = lazy(
+  () => import("@/pages/member/page/HistoryOrder")
+);
+const WarrantyLookup = lazy(
+  () => import("@/pages/member/page/WarrantyLookup")
+);
+const YourOffers = lazy(
+  () => import("@/pages/member/page/YourOffers")
+);
+const MembershipRank = lazy(
+  () => import("@/pages/member/page/MembershipRank")
+);
+const YourAccount = lazy(
+  () => import("@/pages/member/page/YourAccount")
+);
+const SupportMember = lazy(
+  () => import("@/pages/member/page/Support")
+);
+const MemberFeedBack = lazy(() => import("@/pages/member/feedback/Feedback"));
+const MemberLogout = lazy(
+  () => import("@/pages/member/page/Logout")
+);
 
 const LoginSuccessGooglePage = lazy(
   () => import("@/pages/auth/login-google-success")
@@ -196,6 +226,18 @@ export default function App() {
           />
         </Route>
         {/* Member Page */}
+        <Route path={PATH_MEMBER.member} element={<MemberLayout />}>
+          <Route path={PATH_MEMBER.dashboard} element={<DashboardMember />} />
+          <Route path={PATH_MEMBER.home} element={<HomePageMember />} />
+          <Route path={PATH_MEMBER.historyorder} element={<HistoryOrder />} />
+          <Route path={PATH_MEMBER.warranty} element={<WarrantyLookup />} />
+          <Route path={PATH_MEMBER.order} element={<YourOffers />} />
+          <Route path={PATH_MEMBER.rank} element={<MembershipRank />} />
+          <Route path={PATH_MEMBER.account} element={<YourAccount />} />
+          <Route path={PATH_MEMBER.support} element={<SupportMember />} />
+          <Route path={PATH_MEMBER.feedback} element={<MemberFeedBack />} />
+          <Route path={PATH_MEMBER.logout} element={<MemberLogout />} />
+        </Route>
         <Route element={<ProtectMemberRouter />}>
           <Route path={PATH_MEMBER.home} element={<PublicLayOut />}></Route>
         </Route>
