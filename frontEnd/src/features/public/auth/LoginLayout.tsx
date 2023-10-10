@@ -10,7 +10,7 @@ import {
 } from "@/components";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import { PATH_PUBLIC } from "@/constant/path-router";
+import { PATH_MEMBER, PATH_PUBLIC } from "@/constant/path-router";
 import { UseAuthApi } from "@/apis-use";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -163,7 +163,7 @@ export default function LoginLayout() {
 
   return (
     <LoginLayoutStyled>
-      {isLoading && <SpinnerLogo />}
+      {isLoading && <SpinnerLogo/>}
       <ContainerTop>
         <Header>
           <Heading $as="h3">Đăng nhập Smember</Heading>
@@ -206,7 +206,8 @@ export default function LoginLayout() {
         </ForgetPassword>
         <ReCAPTCHA
           sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
-          size="normal"
+          size="norimport PATH_AUTH from './../../../constant/path-router/path-auth';
+mal"
           ref={refCaptcha}
         />
         <Button $width="100%" className="mt-[1.5rem]">
@@ -221,7 +222,7 @@ export default function LoginLayout() {
         <p>Bạn chưa có tài khoản?</p>
         <Link to={`/${PATH_AUTH.auth}/${PATH_AUTH.register}`}>Đăng ký ngay</Link>
       </RegisterNow>
-      <SeePromotion to={"#"}> Xem chính sách ưu đãi Smember </SeePromotion>
+      <SeePromotion to={`/${PATH_AUTH.auth}/${PATH_AUTH.incentives}`}> Xem chính sách ưu đãi Smember </SeePromotion>
     </LoginLayoutStyled>
   );
 }

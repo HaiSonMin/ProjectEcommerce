@@ -1,12 +1,15 @@
 const PATH_MEMBER = {
   home: "",
-  member: "member",
   rank: "rank",
   order: "order",
+  logout:'logout',
+  member: "member",
   account: "account",
   support: "support",
-  feedback: "feedback",
   warranty: "warranty",
+  feedback: "feedback",
+  dashboard:"dashboard",
   promotion: "promotion",
+  historyorder:'historyorder',
 };
 export default PATH_MEMBER;

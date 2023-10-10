@@ -4,7 +4,7 @@ import HeaderLayout from "@/components/Public/header";
 import FooterLayout from "@/components/Public/footer";
 
 const PublicLayoutStyled = styled.div`
-  height: 100vh;
+  height: 80vh;
 `;
 
 const Main = styled.main`
