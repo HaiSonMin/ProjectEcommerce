@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { IBrand } from "@/interfaces";
-import { Button, Form, FormRow, Input, InputFile } from "@/components";
+import { Button, Form, FormRow, Input, InputFile } from "@/components/shared";
 import { UseBrandApi } from "@/apis-use";
 
 interface IProps {

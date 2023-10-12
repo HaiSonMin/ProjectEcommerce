@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import TopBlog from "./top-blog";
 import { ListBlog } from "@/components/blog/shared";
-import Hr from "@/components/Hr";
+import Hr from "@/components/shared/Hr";
 
 const BodyHomeLeftLayoutStyled = styled.div``;
 

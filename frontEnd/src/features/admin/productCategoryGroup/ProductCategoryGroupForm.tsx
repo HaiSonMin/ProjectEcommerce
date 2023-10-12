@@ -2,7 +2,7 @@ import { useMoveBack } from "@/hooks";
 import { useForm } from "react-hook-form";
 import { IProductCategoryGroup } from "@/interfaces";
 import { UseProductCategoryGroupApi } from "@/apis-use";
-import { Button, InputFile, Form, FormRow, Input, Heading } from "@/components";
+import { Button, InputFile, Form, FormRow, Input, Heading } from "@/components/shared";
 interface IProps {
   productCategoryGroupEdit?: IProductCategoryGroup;
   onCloseModal?: () => void;

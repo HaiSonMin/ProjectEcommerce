@@ -1,5 +1,5 @@
-import { Filter, SortBy, TableOperation } from "@/components";
-import InputSearch from "@/components/InputSearch";
+import { Filter, SortBy, TableOperation } from "@/components/shared";
+import InputSearch from "@/components/shared/InputSearch";
 import Search from "antd/es/input/Search";
 import { useNavigate, useSearchParams } from "react-router-dom";
 

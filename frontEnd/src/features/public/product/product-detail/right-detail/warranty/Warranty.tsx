@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { TbShieldCheckFilled } from "react-icons/tb";
-import { Heading } from "@/components";
+import { Heading } from "@/components/shared";
 import { Link } from "react-router-dom";
 import WarrantyItemOption from "./WarrantyItemOption";
 

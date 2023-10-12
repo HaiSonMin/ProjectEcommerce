@@ -1,7 +1,7 @@
 import { FaRegEye } from "react-icons/fa";
 import { styled } from "styled-components";
 import AnswerQuestionItem from "./AnswerQuestionItem";
-import ButtonSeeMore from "@/components/ButtonSeeMore";
+import ButtonSeeMore from "@/components/shared/ButtonSeeMore";
 
 const AnswerQuestionStyled = styled.div`
   display: flex;

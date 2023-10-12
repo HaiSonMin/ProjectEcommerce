@@ -1,4 +1,4 @@
-import { Button } from "@/components";
+import { Button } from "@/components/shared";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 

@@ -1,5 +1,5 @@
-import ContainerCard from "@/components/ContainerCard";
-import CountDown from "@/components/CountDown";
+import ContainerCard from "@/components/shared/ContainerCard";
+import CountDown from "@/components/shared/CountDown";
 import { GiFireworkRocket } from "react-icons/gi";
 import { keyframes, styled } from "styled-components";
 

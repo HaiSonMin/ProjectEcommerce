@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 

@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { useState, useEffect } from "react";
 import JoditEditor from "jodit-react";
 import ProductSerialItem from "./ProductSerialItem";
-import { FormRow, FormRowContent, Heading, Input } from "@/components";
+import { FormRow, FormRowContent, Heading, Input } from "@/components/shared";
 import ProductSpecificationMain from "./ProductSpecificationMain";
 import { useProductOption } from "../context/ProductOptionProvider";
 

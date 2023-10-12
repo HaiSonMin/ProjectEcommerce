@@ -10,7 +10,7 @@ import {
   SelectMultiV2,
   Spinner,
   ImagesGroup,
-} from "@/components";
+} from "@/components/shared";
 import {
   ProductOptions,
   ProductFilterOptionSelect,
@@ -26,8 +26,8 @@ import { formatCurrencyVND, randomKey } from "@/utils";
 import { IFilterOption, IProductOption } from "@/helpers";
 import { UseProductApi, UseProductCategoryApi } from "@/apis-use";
 import { IBrand, IDemand, IProduct, IProductCategory } from "@/interfaces";
-import FormHeading from "@/components/FormHeading";
-import FormRowButton from "@/components/FormRowButton";
+import FormHeading from "@/components/shared/FormHeading";
+import FormRowButton from "@/components/shared/FormRowButton";
 
 const initializeProductOption: Array<IProductOption> = [
   {

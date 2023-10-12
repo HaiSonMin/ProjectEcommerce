@@ -1,4 +1,4 @@
-import { Spinner } from "@/components";
+import { Spinner } from "@/components/shared";
 import { UseCouponApi } from "@/apis-use";
 import { CouponForm } from "@/features/admin/coupon";
 

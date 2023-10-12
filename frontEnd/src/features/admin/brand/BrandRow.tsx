@@ -2,7 +2,7 @@ import { CiEdit } from "react-icons/ci";
 import { IBrand } from "@/interfaces";
 import { styled } from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { ConfirmDelete, Menus, Modal, Table } from "@/components";
+import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
 import { BrandForm } from "./BrandForm";
 import { UseBrandApi } from "@/apis-use";
 

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { css, styled } from "styled-components";
 import { GiMoneyStack } from "react-icons/gi";
 import ItemFilterType from "./ItemFilterType";
-import InputRangeTwoValueV2 from "@/components/InputRangeTwoValue";
+import InputRangeTwoValueV2 from "@/components/shared/InputRangeTwoValue";
 import { formatCurrencyVND } from "@/utils";
 import { useFilter } from "../context/FilterProvider";
 

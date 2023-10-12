@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -50,7 +50,7 @@ const ButtonSeeDetail = styled(Link)`
 
   &:hover {
     background-color: var(--color-primary);
-    color: var(--color-white)
+    color: var(--color-white);
   }
 `;
 

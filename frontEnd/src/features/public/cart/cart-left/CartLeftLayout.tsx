@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ItemCart from "./item-cart";
 import styled from "styled-components";
-import { CycleChose, Heading, Hr } from "@/components";
+import { CycleChose, Heading, Hr } from "@/components/shared";
 import { BsCheckCircleFill } from "react-icons/bs";
 
 const CartLeftLayoutStyled = styled.div`

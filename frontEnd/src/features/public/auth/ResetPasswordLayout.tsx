@@ -1,4 +1,4 @@
-import { Button, Heading, InputAuth, SpinnerLogo } from "@/components";
+import { Button, Heading, InputAuth, SpinnerLogo } from "@/components/shared";
 import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";

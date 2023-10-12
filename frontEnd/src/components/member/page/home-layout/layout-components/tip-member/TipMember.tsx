@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

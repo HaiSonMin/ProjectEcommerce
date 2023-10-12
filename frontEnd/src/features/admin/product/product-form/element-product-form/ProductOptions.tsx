@@ -7,7 +7,7 @@ import { Collapse } from "antd";
 import ProductOptionComponent from "./ProductOptionComponent";
 import ProductOptionProvider from "../context";
 import { MouseEventHandler } from "react";
-import { InputLabel } from "@/components";
+import { InputLabel } from "@/components/shared";
 import { IProduct } from "@/interfaces";
 import { UseFormRegister } from "react-hook-form";
 

@@ -5,7 +5,7 @@ import {
   LoginRegisterLabel,
   LogoAuth,
   SpinnerLogo,
-} from "@/components";
+} from "@/components/shared";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";

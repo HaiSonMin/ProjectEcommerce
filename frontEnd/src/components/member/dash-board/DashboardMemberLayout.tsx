@@ -27,17 +27,12 @@ const MenuCSS = styled(Menu)`
   .ant-menu-item {
     display: flex;
     align-items: center;
-    &:hover {
-      color: var(--color-primary) !important;
-      outline: 1px solid var(--color-primary) !important;
-      background-color: var(--color-red-100) !important;
-    }
+  }
 
-    &:active&:focus {
-      color: var(--color-primary) !important;
-      outline: 1px solid var(--color-primary) !important;
-      background-color: var(--color-red-100) !important;
-    }
+  .ant-menu-item.ant-menu-item-selected {
+    color: var(--color-primary) !important;
+    outline: 1px solid var(--color-primary) !important;
+    background-color: var(--color-red-100) !important;
   }
 
   svg {

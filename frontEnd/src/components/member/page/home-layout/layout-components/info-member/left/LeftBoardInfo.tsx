@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import LogoWeb from "@/assets/icons/icon-logo-web.png";
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import { BsFillCalendar2DateFill } from "react-icons/bs";
 import { formatCurrencyVND } from "@/utils";
 import { FaRankingStar } from "react-icons/fa6";

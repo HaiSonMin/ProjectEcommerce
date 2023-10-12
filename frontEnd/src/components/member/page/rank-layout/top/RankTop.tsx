@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import IconWeb from "@/assets/icons/icon-logo-web.png";
 import { formatCurrencyVND } from "@/utils";
-import { InputRank, Heading } from "@/components";
+import { InputRank, Heading } from "@/components/shared";
 const RankTopStyled = styled.div``;
 
 const MemberInfo = styled.div`

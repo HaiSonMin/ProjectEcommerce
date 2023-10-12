@@ -1,7 +1,7 @@
 import UserRow from "./UserRow";
 import { IUser } from "@/interfaces";
 import { UseAdminApi } from "@/apis-use";
-import { Menus, Spinner, Table, Pagination } from "@/components";
+import { Menus, Spinner, Table, Pagination } from "@/components/shared";
 
 interface IProps {
   isSearch?: boolean;

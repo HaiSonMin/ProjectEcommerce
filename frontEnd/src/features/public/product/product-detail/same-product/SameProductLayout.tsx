@@ -1,4 +1,4 @@
-import { ContainerCard, Heading } from "@/components";
+import { ContainerCard, Heading } from "@/components/shared";
 import styled from "styled-components";
 
 const SameProductLayoutStyled = styled.div`

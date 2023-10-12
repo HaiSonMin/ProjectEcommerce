@@ -1,7 +1,7 @@
 import { ProductRow } from "./";
 import { IProduct } from "@/interfaces";
 import { UseProductApi } from "@/apis-use";
-import { Menus, Pagination, Spinner, Table } from "@/components";
+import { Menus, Pagination, Spinner, Table } from "@/components/shared";
 
 interface Iprops {
   isSearch?: boolean;

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
-import logo from "../assets/logos/logo_light.png";
+import logo from "@/assets/logos/logo_light.png";
 const LogoStyled = styled(Link)`
   text-align: center;
   padding: 0rem 2rem;

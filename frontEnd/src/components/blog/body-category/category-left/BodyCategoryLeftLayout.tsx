@@ -1,5 +1,5 @@
-import { Heading } from "@/components";
-import Collapsed from "@/components/Collapsed";
+import { Heading } from "@/components/shared";
+import Collapsed from "@/components/shared/Collapsed";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 

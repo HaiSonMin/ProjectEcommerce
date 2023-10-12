@@ -3,7 +3,7 @@ import { VALUE_CONSTANT } from "@/constant";
 import { useSearchParams } from "react-router-dom";
 import { IProductCategoryGroup } from "@/interfaces";
 import { UseProductCategoryGroupApi } from "@/apis-use";
-import { Menus, Pagination, Spinner, Table } from "@/components";
+import { Menus, Pagination, Spinner, Table } from "@/components/shared";
 import ProductCategoryGroupRow from "./ProductCategoryGroupRow";
 
 export default function ProductCategoryTable() {

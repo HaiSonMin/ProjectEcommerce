@@ -2,7 +2,7 @@ import styled, { css, keyframes } from "styled-components";
 import { useState } from "react";
 import { GrShieldSecurity } from "react-icons/gr";
 import { HiArrowSmRight } from "react-icons/hi";
-import { Button, CycleChose, Heading, Hr, Overlay } from "@/components";
+import { Button, CycleChose, Heading, Hr, Overlay } from "@/components/shared";
 import { formatCurrencyVND } from "@/utils";
 
 const CartProductWarrantyStyled = styled.div``;

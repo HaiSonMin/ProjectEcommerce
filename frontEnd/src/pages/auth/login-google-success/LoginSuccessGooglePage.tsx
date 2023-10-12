@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { UseAuthApi } from "@/apis-use";
-import { SpinnerLogo } from "@/components";
+import { SpinnerLogo } from "@/components/shared";
 import { useDispatch } from "react-redux";
 import { ILocalStoreUser } from "@/helpers";
 import { Navigate } from "react-router-dom";

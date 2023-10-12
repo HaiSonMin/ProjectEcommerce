@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { RiVipCrown2Fill, RiVipDiamondFill, RiVipLine } from "react-icons/ri";
 import IncentivesCheckBox from "@/components/IncentivesCheckBox";
 import IncentivesDetails from "@/components/IncentivesDetails";
-import Button from "@/components/Button";
+import Button from "@/components/shared/Button";
 import { Link } from "react-router-dom";
 import { PATH_AUTH } from "@/constant/path-router";
 import IncentivesDetailsTwo from "@/components/IncentivesDetailsTwo";

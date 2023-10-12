@@ -1,7 +1,7 @@
-import ContainerCard from "@/components/ContainerCard";
+import ContainerCard from "@/components/shared/ContainerCard";
 import { keyframes, styled } from "styled-components";
 import { TiFlash } from "react-icons/ti";
-import CountDown from "@/components/CountDown";
+import CountDown from "@/components/shared/CountDown";
 const ProductDealHotLayoutStyled = styled.div`
   box-shadow: var(--shadow-around);
   border-radius: 1rem;

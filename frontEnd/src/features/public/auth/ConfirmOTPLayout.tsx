@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useRef, useEffect, useMemo } from "react";
-import { Button, Heading, SpinnerLogo } from "@/components";
+import { Button, Heading, SpinnerLogo } from "@/components/shared";
 import { useSelector } from "react-redux";
 import { getUser } from "@/storeReducer/public/userSlice";
 import { UseAuthApi } from "@/apis-use";

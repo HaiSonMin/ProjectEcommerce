@@ -1,4 +1,4 @@
-import InputFloat from "@/components/InputFloat";
+import InputFloat from "@/components/shared/InputFloat";
 import styled from "styled-components";
 
 const ContainerPurchaseHistory = styled.div``;

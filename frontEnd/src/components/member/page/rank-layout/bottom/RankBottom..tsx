@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import IconWeb from "@/assets/icons/icon-logo-web.png";
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import { levelRank, optionsRankSMem } from "@/mocks/member";
 import { HeadingNameRank } from "./shared";
 import { useState } from "react";
@@ -50,7 +50,7 @@ const RankBottomStyled = styled.div`
     }
 
     &--item.active {
-      color:var(--color-primary);
+      color: var(--color-primary);
       .box__level--item-icon {
         background-color: var(--color-primary-light);
         border: 1px solid var(--color-primary);

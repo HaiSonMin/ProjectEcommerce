@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import BlogHeader from "./header/BlogHeader";
-import Hr from "../Hr";
+import Hr from "../shared/Hr";
 import { Outlet } from "react-router-dom";
 
 const BlogLayoutStyled = styled.section`

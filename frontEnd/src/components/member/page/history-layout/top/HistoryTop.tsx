@@ -1,8 +1,7 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import { formatCurrencyVND } from "@/utils";
 import styled from "styled-components";
 import LogoWeb from "@/assets/icons/icon-logo-web.png";
-
 
 const HistoryTopStyled = styled.div``;
 

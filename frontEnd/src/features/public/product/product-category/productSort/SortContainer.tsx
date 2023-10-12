@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import {
   SortByRelease,
   SortByViewMore,

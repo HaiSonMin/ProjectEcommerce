@@ -1,4 +1,4 @@
-import useOutSideClick from "../hooks/useOutSide";
+import useOutSideClick from "../../hooks/useOutSide";
 import React, {
   ReactNode,
   cloneElement,

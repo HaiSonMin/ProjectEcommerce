@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { BiCreditCard } from "react-icons/bi";
 import { LiaMedalSolid } from "react-icons/lia";
-import { ContainerImage } from "@/components";
+import { ContainerImage } from "@/components/shared";
 
 const OutstandingLayoutOfferStyled = styled.div`
   box-shadow: var(--shadow-lg);

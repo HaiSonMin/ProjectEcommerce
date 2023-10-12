@@ -1,4 +1,4 @@
-import { Button } from "@/components";
+import { Button } from "@/components/shared";
 import styled, { css } from "styled-components";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";

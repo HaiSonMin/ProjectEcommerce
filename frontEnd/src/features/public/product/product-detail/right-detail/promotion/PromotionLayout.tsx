@@ -1,4 +1,4 @@
-import { Heading } from "@/components";
+import { Heading } from "@/components/shared";
 import { HiOutlineGift } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

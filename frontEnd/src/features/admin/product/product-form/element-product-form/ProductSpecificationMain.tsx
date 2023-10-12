@@ -4,7 +4,7 @@ import {
   InputLabel,
   TextArea,
   TextAreaLabel,
-} from "@/components";
+} from "@/components/shared";
 import { styled } from "styled-components";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useProductOption } from "../context/ProductOptionProvider";

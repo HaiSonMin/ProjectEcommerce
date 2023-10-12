@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import { useEffect, useRef, useState } from "react";
 import { FaUserAlt, FaUserAltSlash, FaUserCircle } from "react-icons/fa";
 import { IoCloseCircleSharp } from "react-icons/io5";
@@ -7,7 +7,7 @@ import { css, keyframes, styled } from "styled-components";
 import { FaUserTie } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import UseAuthApi from "@/apis-use/UseAuthApi";
-import { SpinnerLogo, Overlay } from "@/components";
+import { SpinnerLogo, Overlay } from "@/components/shared";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUser } from "@/storeReducer/public/userSlice";
 import { EnumRoleUser } from "@/enum";

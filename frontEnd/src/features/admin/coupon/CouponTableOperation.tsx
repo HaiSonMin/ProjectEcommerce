@@ -1,4 +1,4 @@
-import { Filter, SortBy, TableOperation } from "@/components";
+import { Filter, SortBy, TableOperation } from "@/components/shared";
 import { PATH_ADMIN } from "@/constant/path-router";
 import Search from "antd/es/input/Search";
 import { useNavigate } from "react-router-dom";

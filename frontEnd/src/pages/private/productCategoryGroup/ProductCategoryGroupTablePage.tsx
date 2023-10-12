@@ -1,4 +1,4 @@
-import { Heading, Row, Button } from "@/components";
+import { Heading, Row, Button } from "@/components/shared";
 import {
   ProductCategoryGroupTable,
   ProductCategoryGroupTableOperation,

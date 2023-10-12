@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import { styled } from "styled-components";
 import { FaRankingStar } from "react-icons/fa6";
 import ProductRatedBoard from "./product-rated-board";

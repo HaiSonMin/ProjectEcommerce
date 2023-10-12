@@ -1,4 +1,4 @@
-import { CarouselImage, CarouselImageProductDetail } from "@/components";
+import { CarouselImage, CarouselImageProductDetail } from "@/components/shared";
 import styled from "styled-components";
 import BoxImageLayout from "./box-image";
 import WarrantyInfo from "./warranty-info";

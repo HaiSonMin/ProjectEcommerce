@@ -1,4 +1,4 @@
-import { Heading, Row, Button } from "@/components";
+import { Heading, Row, Button } from "@/components/shared";
 import { CouponTable, CouponTableOperation } from "@/features/admin/coupon";
 import { useNavigate } from "react-router-dom";
 

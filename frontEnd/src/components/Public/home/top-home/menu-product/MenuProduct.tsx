@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { UseProductCategoryGroupApi } from "@/apis-use";
 import MenuItem from "./MenuItem";
-import SpinnerLogo from "@/components/SpinnerLogo";
+import SpinnerLogo from "@/components/shared/SpinnerLogo";
 
 const MenuContainer = styled.div`
   position: relative;

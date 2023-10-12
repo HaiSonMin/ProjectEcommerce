@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useRef } from "react";
-import { Button } from "@/components";
+import { Button } from "@/components/shared";
 
 const ContainerOTP = styled.div`
   display: flex;

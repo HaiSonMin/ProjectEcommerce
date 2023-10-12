@@ -1,4 +1,4 @@
-import { Heading } from "@/components";
+import { Heading } from "@/components/shared";
 import { styled } from "styled-components";
 
 const ProductDemandsLayoutStyled = styled.div`

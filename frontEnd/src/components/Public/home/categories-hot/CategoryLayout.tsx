@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UseProductCategoryApi } from "@/apis-use";
-import Carousel from "@/components/Carousel";
+import Carousel from "@/components/shared/Carousel";
 import { Link } from "react-router-dom";
 import { css, styled } from "styled-components";
 import { randomKey } from "@/utils";

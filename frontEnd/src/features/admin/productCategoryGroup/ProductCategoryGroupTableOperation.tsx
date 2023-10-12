@@ -1,4 +1,4 @@
-import { SortBy, TableOperation } from "@/components";
+import { SortBy, TableOperation } from "@/components/shared";
 
 export default function ProductCategoryTableOperation() {
   return (

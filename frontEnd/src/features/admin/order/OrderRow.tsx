@@ -1,4 +1,4 @@
-import { ConfirmDelete, Menus, Modal, Table, Tag } from "@/components";
+import { ConfirmDelete, Menus, Modal, Table, Tag } from "@/components/shared";
 import { IOrder, IUser } from "@/interfaces";
 import { styled } from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";

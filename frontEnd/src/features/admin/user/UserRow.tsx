@@ -9,7 +9,7 @@ import {
   Modal,
   Table,
   Tag,
-} from "@/components";
+} from "@/components/shared";
 import { BsEye } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { MdAddLink } from "react-icons/md";

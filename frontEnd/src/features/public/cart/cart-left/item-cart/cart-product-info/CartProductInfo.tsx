@@ -4,7 +4,7 @@ import { formatCurrencyVND } from "@/utils";
 import styled, { css } from "styled-components";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { CycleChose } from "@/components";
+import { CycleChose } from "@/components/shared";
 
 const CartProductInfoStyled = styled.div``;
 

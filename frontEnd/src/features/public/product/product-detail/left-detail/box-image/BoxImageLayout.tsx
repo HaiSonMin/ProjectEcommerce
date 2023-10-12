@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { CarouselImageProductDetail } from "@/components";
+import { CarouselImageProductDetail } from "@/components/shared";
 import { RiMedalLine } from "react-icons/ri";
 import { SiEbox } from "react-icons/si";
 import { GoInfo } from "react-icons/go";

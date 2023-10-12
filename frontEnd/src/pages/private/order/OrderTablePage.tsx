@@ -1,4 +1,4 @@
-import { Heading, Row } from "@/components";
+import { Heading, Row } from "@/components/shared";
 import { OrderTable, OrderTableOperation } from "@/features/admin/order";
 
 enum Type {

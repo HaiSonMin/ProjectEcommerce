@@ -63,7 +63,7 @@ import ButtonSeeMoreLink from "./ButtonSeeMoreLink";
 import LoginRegisterLabel from "./LoginRegisterLabel";
 import InputRangeTwoValue from "./InputRangeTwoValue";
 import ContainerCardLoading from "./ContainerCardLoading";
-import DarkModeProvider from "./private/DarkModeProvider";
+import DarkModeProvider from "../private/DarkModeProvider";
 import CarouselImageProductDetail from "./CarouselImageProductDetail";
 
 export {

@@ -1,4 +1,4 @@
-import { Spinner } from "@/components";
+import { Spinner } from "@/components/shared";
 import { UseDiscountApi } from "@/apis-use";
 import DiscountForm from "@/features/admin/discount/DiscountForm";
 

@@ -1,8 +1,8 @@
-import { Logout } from "..";
+import { Logout } from "../shared";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { HiOutlineUser } from "react-icons/hi2";
-import ButtonIcon from "../ButtonIcon";
+import ButtonIcon from "../shared/ButtonIcon";
 import DarkModeToggle from "./DarkModeToggle";
 import { PATH_ADMIN } from "@/constant/path-router";
 

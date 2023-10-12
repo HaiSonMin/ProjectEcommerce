@@ -4,7 +4,7 @@ import { AiFillFilter } from "react-icons/ai";
 import ItemFilterType from "./ItemFilterType";
 import OptionsFilterBox from "./OptionsFilterBox";
 import { useFilter } from "../context/FilterProvider";
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import ItemFilter from "./ItemFilter";
 import OptionsSelecting from "./OptionsSelecting";
 const CompositeFilterStyled = styled.div<{ $numberOption: number }>`

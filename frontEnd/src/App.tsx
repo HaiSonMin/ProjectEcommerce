@@ -3,7 +3,7 @@ import {
   ProtectMemberRouter,
   ProtectPrivateRouter,
 } from "@/components/protect-routers";
-import { SpinnerLogo } from "@/components";
+import { SpinnerLogo } from "@/components/shared";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import {
   UserPage,

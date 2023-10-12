@@ -1,4 +1,4 @@
-import { CarouselImage } from "@/components";
+import { CarouselImage } from "@/components/shared";
 import { styled } from "styled-components";
 import { ProductContentLayout } from "@/components/public/product";
 import ProductsCardContainer from "./productsCardContainer";

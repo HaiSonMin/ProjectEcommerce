@@ -6,7 +6,7 @@ import { formatCurrencyVND } from "@/utils";
 import { useNavigate } from "react-router-dom";
 import { IBrand, IProduct } from "@/interfaces";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { ConfirmDelete, Menus, Modal, Table } from "@/components";
+import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
 
 const Img = styled.img`
   display: block;

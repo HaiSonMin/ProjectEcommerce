@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import LeftProductDetailLayout from "./left-detail";
 import RightProductDetailLayout from "./right-detail";
 import HeaderDetailLayout from "./header-detail";
-import { Hr, SpinnerLogo } from "@/components";
+import { Hr, SpinnerLogo } from "@/components/shared";
 import BreadcrumbLayout from "./breadcrumb";
 import { UseProductApi } from "@/apis-use";
 import SameProductLayout from "./same-product";
