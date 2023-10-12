@@ -218,7 +218,7 @@ export default function RegisterLayout() {
         <LogoAuth />
         <LoginNow>
           <p>Bạn đã có tài khoảng?</p>
-          <Link to={`/${PATH_AUTH.login}`}>Đăng nhập ngay</Link>
+          <Link to={`/${PATH_AUTH.auth}/${PATH_AUTH.login}`}>Đăng nhập ngay</Link>
         </LoginNow>
       </RegisterLayoutStyled>
     </>
