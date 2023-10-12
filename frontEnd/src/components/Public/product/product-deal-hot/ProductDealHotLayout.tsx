@@ -118,11 +118,11 @@ export default function ProductDealHotLayout() {
   return (
     <ProductDealHotLayoutStyled>
       <DealHotHeader>
-        <div className="title">
+        {/* <div className="title">
           <span>Deal hot hôm nay</span>
           <TiFlash />
-        </div>
-        <CountDown hour="" minute="" second="9" />
+        </div> */}
+        <CountDown day="0" hour="0" minute="1" second="9" />
       </DealHotHeader>
       <Background>
         <ContainerCard

@@ -1,6 +1,8 @@
-import { InputAuth } from "@/components";
-import InputFloat from "@/components/InputFloat";
+import { Button, InputAuth } from "@/components";
+
 import styled from "styled-components";
+import ItemList from "./InputEditItems";
+import CountdownLayout from "@/components/CountdownLayout";
 
 const ContainerPurchaseHistory = styled.div``;
 const StartContent = styled.div`
@@ -29,9 +31,9 @@ export default function PurchaseHistory() {
           </p>
         </StartContent>
         <MainContainer>
-          <InputFloat
-          />
+          <ItemList/>  
         </MainContainer>
+       
       </ContainerPurchaseHistory>
     </>
   );

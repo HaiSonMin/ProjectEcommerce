@@ -12,6 +12,7 @@ const PATH_PUBLIC = {
   question: "question",
   wishlist: "wishlist",
   register: "register",
+  checkingOrder:"checkingOrder",
   productDetail: "productDetail",
   productCategory: "productCategory",
   notfound: "*",
