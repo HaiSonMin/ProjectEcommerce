@@ -89,7 +89,7 @@ const ItemWarranty = styled.div<{ $isChose: boolean }>`
         width: 17px;
         background-color: var(--color-primary);
         border-radius: 0 0 0 1rem;
-        color: #fff;
+        color: var(--color-white);
         font-size: 10px;
         padding-left: 4px;
       }

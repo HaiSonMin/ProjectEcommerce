@@ -18,7 +18,7 @@ const StyledBtn = css`
   align-items: center;
   justify-content: center;
   width: 100%;
-  color: #fff;
+  color: var(--color-white);
   border-radius: 1rem;
   & span:first-child {
     font-size: 1.6rem;

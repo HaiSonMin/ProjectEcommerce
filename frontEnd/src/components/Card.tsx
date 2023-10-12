@@ -16,7 +16,7 @@ const CartStyled = styled.div<{ $width: number }>`
     0 1px 2px 0 rgba(60, 64, 67, 0.1),
     0 2px 6px 2px rgba(60, 64, 67, 0.15);
   transition: all 0.3s;
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 1rem;
 `;
 
@@ -31,7 +31,7 @@ const CarDiscount = styled.div`
   & span {
     display: inline-block;
     font-weight: 600;
-    color: #fff;
+    color: var(--color-white);
     padding-bottom: 1rem;
   }
 `;

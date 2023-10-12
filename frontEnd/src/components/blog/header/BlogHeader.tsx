@@ -52,18 +52,18 @@ const BlogNavItem = styled.li`
       right: 0px;
       top: 50%;
       transform: translateY(-50%);
-      border-right: 1px solid #fff;
+      border-right: 1px solid var(--color-white);
       height: 2rem;
     }
   }
 
   &:hover {
     background-color: var(--color-primary);
-    color: #fff;
+    color: var(--color-white);
   }
 
   &:hover::after {
-    border-right: 1px solid #fff;
+    border-right: 1px solid var(--color-white);
   }
 `;
 

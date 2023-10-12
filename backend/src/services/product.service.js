@@ -1,4 +1,6 @@
+const CONSTANT = require("../constant");
 const { BadRequestError, NotFoundError } = require("../core/error.response");
+const redis = require("../databases/init.redisDB");
 const { ProductModel, RatingModel } = require("../models");
 const {
   BrandRepo,
@@ -60,6 +62,8 @@ class ProductService {
     console.log(numericFilters);
 
     // console.log(convertOperatorObject({ options, numericFilters }));
+    const productRedis = await redis.get("products");
+    if (productRedis) return JSON.parse(productRedis);
 
     const { products, totalProducts } = await ProductRepo.getAllProducts({
       sort,
@@ -67,6 +71,16 @@ class ProductService {
       limit,
       status,
     });
+
+    redis.setex(
+      "products",
+      CONSTANT.TIME_STORE_REDIS,
+      JSON.stringify({
+        totalProducts: totalProducts,
+        productsPerPage: products.length,
+        products,
+      })
+    );
 
     return {
       totalProducts: totalProducts,

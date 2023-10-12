@@ -28,7 +28,7 @@ const ItemFilterStyled = styled.div<{ $isActive: boolean }>`
       &::before {
         background-color: var(--color-primary);
         border-radius: 8px 0 10px 0;
-        color: #fff;
+        color: var(--color-white);
         content: "✓";
         font-size: 8px;
         height: 10px;

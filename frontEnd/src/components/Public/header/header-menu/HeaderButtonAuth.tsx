@@ -19,7 +19,7 @@ const HeaderButtonAuthStyled = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  color: #fff;
+  color: var(--color-white);
   font-size: 1.2rem;
   padding: 5px 1.5rem;
   border-radius: 1rem;
@@ -103,12 +103,12 @@ const ButtonStyle = css`
 const ButtonLogin = styled(Link)`
   ${ButtonStyle}
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-white);
 `;
 
 const ButtonRegister = styled(Link)`
   ${ButtonStyle}
-  background-color:#fff;
+  background-color:var(--color-white);
   color: var(--color-primary);
   border: 1px solid var(--color-primary);
 `;
@@ -119,7 +119,7 @@ const BoxOption = styled.div<{ $showLogout: boolean }>`
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: #fff;
+  background-color: var(--color-white);
   color: var(--color-text);
   display: ${(props) => (props.$showLogout ? "flex" : "none")};
   flex-direction: column;

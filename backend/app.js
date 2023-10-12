@@ -13,13 +13,6 @@ const express = require("express");
 const passport = require("passport");
 // Store
 const session = require("express-session");
-// const { createClient } = require("redis");
-// const RedisStore = require("connect-redis").default;
-// const redisClient = createClient();
-// redisClient.connect();
-// const redisStore = new RedisStore({
-//   client: redisClient,
-// });
 
 const app = express();
 const notFound = require("./src/middleware/notFound.middleware");
@@ -62,7 +55,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require("./src/middleware/passportGoogleSSO.middleware");
-require("./src/db/connectDB");
+require("./src/databases/init.mongoDB");
 const { checkOverload } = require("./src/helpers/check-connect");
 checkOverload();
 app.use("/", require("./src/routes"));

@@ -1,4 +1,5 @@
 const CONSTANT = {
+  TIME_STORE_REDIS: 600 + Math.floor(Math.random() * 60), // second
   SALT: 10,
   MAX_UPLOAD_IMAGES: 20,
   RF_TOKEN_NAME: "refreshToken",

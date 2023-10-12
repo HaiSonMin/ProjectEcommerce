@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const LoginContainer = styled.div`
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -82,7 +82,7 @@ const SubmitButton = styled.button`
   padding: 10px 20px;
   font-size:18px;
   background-color: red;
-  color: #fff;
+  color: var(--color-white);
   border: none;
   border-radius: 5px;
   cursor: pointer;

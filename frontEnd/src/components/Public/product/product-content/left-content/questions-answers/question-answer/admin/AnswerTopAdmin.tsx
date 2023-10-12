@@ -32,7 +32,7 @@ const CustomerLogo = styled.div`
   background-color: var(--color-primary);
 
   & svg {
-    color: #fff;
+    color: var(--color-white);
     width: 2rem;
     height: 2rem;
   }

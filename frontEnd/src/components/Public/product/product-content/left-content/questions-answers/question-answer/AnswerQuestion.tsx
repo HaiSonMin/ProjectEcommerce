@@ -22,7 +22,7 @@ const SeeMoreQuestion = styled.div`
   box-shadow: var(--shadow-around);
   border-radius: 1rem;
   cursor: pointer;
-  background-color: #fff;
+  background-color: var(--color-white);
 
   & svg {
     transition: all 0.3s;

@@ -56,7 +56,7 @@ const ButtonChangeSlide = css`
   & svg {
     width: 50%;
     height: 50%;
-    color: #fff;
+    color: var(--color-white);
   }
 `;
 

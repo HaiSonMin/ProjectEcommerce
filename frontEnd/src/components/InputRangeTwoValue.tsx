@@ -11,7 +11,7 @@ const StyledSlider = styled(ReactSlider)`
 const StyledThumb = styled.div`
   height: 16px;
   width: 16px;
-  background-color: #fff;
+  background-color: var(--color-white);
   outline: 2px solid var(--color-primary);
   color: black;
   border-radius: 50%;

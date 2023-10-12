@@ -50,7 +50,7 @@ const PromotionItem = styled.div`
     align-items: center;
     font-size: 1rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--color-white);
     background-color: var(--color-primary);
     border-radius: 50%;
     width: 1.6rem;

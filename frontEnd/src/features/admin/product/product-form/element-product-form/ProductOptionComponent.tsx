@@ -51,7 +51,7 @@ const BtnAddSerial = styled.div`
   border-radius: 1rem;
   background-color: var(--color-primary);
   cursor: pointer;
-  color: #fff;
+  color: var(--color-white);
   font-weight: 600;
   font-size: 1.4rem;
   margin-bottom: 1rem;

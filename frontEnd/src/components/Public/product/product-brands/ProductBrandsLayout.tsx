@@ -13,7 +13,7 @@ const BrandItem = styled(Link)`
   justify-content: center;
   align-items: center;
   padding: 8px 1rem;
-  background-color: #fff;
+  background-color: var(--color-white);
   border: 1px solid #e5e7eb;
   border-radius: 1rem;
   box-shadow: var(--shadow-md);

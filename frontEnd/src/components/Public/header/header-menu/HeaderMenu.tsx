@@ -25,7 +25,7 @@ const Navs = styled.div`
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #fff;
+    color: var(--color-white);
     font-size: 1.2rem;
     padding: 5px 1rem;
     border-radius: 1rem;
@@ -67,7 +67,7 @@ const CountBuy = styled.div`
   left: -6px;
   width: 1.6rem;
   height: 2rem;
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 50%;
   text-align: center;
   color: #15140c;

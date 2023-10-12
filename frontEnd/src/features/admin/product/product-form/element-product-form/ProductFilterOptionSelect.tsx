@@ -23,7 +23,7 @@ const OptionName = styled.div`
   text-align: center;
   font-weight: 600;
   background-color: var(--color-red-700);
-  color: #fff;
+  color: var(--color-white);
 `;
 
 const FiltersBox = styled.div`
@@ -54,7 +54,7 @@ const FilterItem = styled.div<{ $active: boolean }>`
         width: 15px;
         background-color: var(--color-primary);
         border-radius: 8px 0 10px 0;
-        color: #fff;
+        color: var(--color-white);
         content: "✓";
         font-size: 8px;
         height: 10px;

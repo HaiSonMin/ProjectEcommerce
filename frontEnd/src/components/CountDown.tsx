@@ -30,7 +30,7 @@ const FlipCard = styled.div<{ $time: string }>`
   flex-direction: column;
   font-size: 2.4rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--color-white);
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 1px 6px #000;

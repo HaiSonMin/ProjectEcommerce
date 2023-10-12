@@ -19,9 +19,9 @@ const pulsing = keyframes`
 const DotAnimation = styled.div`
   height: 1rem;
   width: 1rem;
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 50%;
-  box-shadow: 0 0 0 0 #fff;
+  box-shadow: 0 0 0 0 var(--color-white);
   display: block;
   transition: all 0.3s ease-in-out;
   animation: ${pulsing} 1.25s cubic-bezier(0.66, 0, 0, 1) infinite;

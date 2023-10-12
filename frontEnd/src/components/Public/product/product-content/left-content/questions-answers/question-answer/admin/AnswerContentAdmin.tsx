@@ -8,7 +8,7 @@ const Comment = styled.div`
   padding: 1rem;
   border-radius: 1rem;
   border: 1px solid var(--color-grey-200);
-  background-color: #fff;
+  background-color: var(--color-white);
   box-shadow: var(--shadow-around);
   & p {
     font-size: 1.2rem;

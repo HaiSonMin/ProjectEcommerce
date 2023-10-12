@@ -27,7 +27,7 @@ const CompositeFilterStyled = styled.div<{ $numberOption: number }>`
     font-size: 1.2rem;
     font-weight: 600;
     background-color: var(--color-primary);
-    color: #fff;
+    color: var(--color-white);
     z-index: 1;
   }
 `;

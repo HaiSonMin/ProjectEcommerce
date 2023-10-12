@@ -29,8 +29,8 @@ const HotSaleHeader = styled.div`
     & span {
       font-size: 3.4rem;
       text-transform: uppercase;
-      color: #fff;
-      text-shadow: #fff 2px 1px 6px;
+      color: var(--color-white);
+      text-shadow: var(--color-white) 2px 1px 6px;
     }
 
     & svg {

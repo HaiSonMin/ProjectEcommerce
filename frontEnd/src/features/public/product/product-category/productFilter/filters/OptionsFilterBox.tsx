@@ -14,7 +14,7 @@ const OptionsFilterBoxStyled = styled.div<{
   min-width: ${(props) =>
     !props.$minWidth ? "35rem" : `${props.$minWidth}rem`};
   padding: 1rem;
-  background-color: #fff;
+  background-color: var(--color-white);
   box-shadow: var(--shadow-around-dark);
   border-radius: 1rem;
   cursor: auto;
@@ -25,7 +25,7 @@ const OptionsFilterBoxStyled = styled.div<{
     position: absolute;
     left: 3rem;
     top: -1rem;
-    border-bottom: 1rem solid #fff;
+    border-bottom: 1rem solid var(--color-white);
     border-left: 1rem solid transparent;
     border-right: 1rem solid transparent;
   }
@@ -54,7 +54,7 @@ const FooterBoxOptions = styled.div`
   }
 
   & .btn-apply {
-    color: #fff;
+    color: var(--color-white);
     background-color: var(--color-primary);
   }
 `;

@@ -27,6 +27,7 @@ import CountDown from "./CountDown";
 import Collapsed from "./Collapsed";
 import InputFile from "./InputFile";
 import InputAuth from "./InputAuth";
+import InputRank from "./InputRank";
 import InputLabel from "./InputLabel";
 import RatingStar from "./RatingStar";
 import SelectDate from "./SelectDate";
@@ -91,6 +92,7 @@ export {
   LogoAuth,
   TextArea,
   Carousel,
+  InputRank,
   CountDown,
   Collapsed,
   InputFile,

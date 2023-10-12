@@ -47,7 +47,7 @@ const LoginButtonStyled = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: #fff;
+    color: var(--color-white);
     font-size: 1.4rem;
     padding: 5px 1rem;
     border-radius: 1rem;

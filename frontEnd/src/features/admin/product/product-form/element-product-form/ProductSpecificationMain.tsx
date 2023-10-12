@@ -33,7 +33,7 @@ const BtnAddSpecification = styled.div`
   border-radius: 1rem;
   background-color: var(--color-primary);
   font-weight: 500;
-  color: #fff;
+  color: var(--color-white);
   cursor: pointer;
 `;
 

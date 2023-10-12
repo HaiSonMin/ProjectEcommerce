@@ -103,7 +103,7 @@ const ButtonPre = styled.div`
   & svg {
     width: 50%;
     height: 50%;
-    color: #fff;
+    color: var(--color-white);
     margin-right: 4px;
   }
 `;
@@ -130,7 +130,7 @@ const ButtonNext = styled.div`
   & svg {
     width: 50%;
     height: 50%;
-    color: #fff;
+    color: var(--color-white);
     margin-left: 4px;
   }
 `;
