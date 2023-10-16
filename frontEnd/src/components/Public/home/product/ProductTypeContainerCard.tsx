@@ -1,5 +1,5 @@
 import { UseProductApi, UseProductCategoryApi } from "@/apis-use";
-import { ContainerCard } from "@/components";
+import { ContainerCard } from "@/components/shared";
 const products = [
   {
     img: "https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/b/4/b48cd136-7366-4d01-8d58-8ee3d5dc93b7_1.jpg",

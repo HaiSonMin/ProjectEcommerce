@@ -1,5 +1,5 @@
-import Collapses from "@/components/Collapsed";
-import Heading from "@/components/Heading";
+import Collapses from "@/components/shared/Collapsed";
+import Heading from "@/components/shared/Heading";
 import { TbMessageQuestion } from "react-icons/tb";
 import { styled } from "styled-components";
 

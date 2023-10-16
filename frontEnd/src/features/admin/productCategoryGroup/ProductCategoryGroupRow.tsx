@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { UseProductCategoryGroupApi } from "@/apis-use";
-import { ConfirmDelete, Menus, Modal, Table } from "@/components";
+import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
 import { IProductCategory, IProductCategoryGroup } from "@/interfaces";
 
 const Img = styled.img`

@@ -1,5 +1,5 @@
 import Search from "antd/es/input/Search";
-import { SortBy, TableOperation } from "@/components";
+import { SortBy, TableOperation } from "@/components/shared";
 import { KEY_QUERY, PATH_ADMIN } from "@/constant";
 import { useSearchParams } from "react-router-dom";
 

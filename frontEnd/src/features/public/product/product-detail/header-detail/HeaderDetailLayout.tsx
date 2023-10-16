@@ -1,4 +1,4 @@
-import { Heading, RatingStar } from "@/components";
+import { Heading, RatingStar } from "@/components/shared";
 import styled from "styled-components";
 
 const HeaderDetailLayoutStyled = styled.div`

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { IDemand } from "@/interfaces";
 import { UseDemandApi, UseProductCategoryApi } from "@/apis-use";
-import { Button, InputFile, Form, FormRow, Input, Heading } from "@/components";
+import { Button, InputFile, Form, FormRow, Input, Heading } from "@/components/shared";
 import { useState } from "react";
 import Select, { SingleValue } from "react-select";
 import IOptionSelect from "@/helpers/ISelectOption";

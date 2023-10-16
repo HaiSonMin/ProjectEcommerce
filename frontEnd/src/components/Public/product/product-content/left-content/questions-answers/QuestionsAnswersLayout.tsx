@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { MdOutlineQuestionAnswer } from "react-icons/md";
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import Question from "./question/Question";
 import AnswerQuestion from "./question-answer";
 

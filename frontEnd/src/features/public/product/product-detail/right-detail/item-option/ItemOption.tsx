@@ -20,7 +20,7 @@ const ItemOptionStyled = styled.div<{ $isActive: boolean }>`
         width: 17px;
         background-color: var(--color-primary);
         border-radius: 8px 0 10px 0;
-        color: #fff;
+        color: var(--color-white);
         font-size: 10px;
         padding-left: 4px;
       }

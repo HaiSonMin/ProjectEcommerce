@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import { useFilter } from "../context/FilterProvider";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { keyframes, styled } from "styled-components";

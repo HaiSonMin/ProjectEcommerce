@@ -1,4 +1,4 @@
-import { Hr } from "@/components";
+import { Hr } from "@/components/shared";
 import { PATH_PUBLIC } from "@/constant/path-router";
 import { IoReturnDownBackOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";

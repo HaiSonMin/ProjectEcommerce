@@ -3,7 +3,7 @@ import {
   BrandTable,
   BrandTableOperation,
 } from "@/features/admin/brand";
-import { Heading, Row } from "@/components";
+import { Heading, Row } from "@/components/shared";
 import { useSearchParams } from "react-router-dom";
 import { KEY_QUERY } from "@/constant";
 

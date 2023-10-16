@@ -6,7 +6,7 @@ import {
   Heading,
   TextArea,
   Button,
-} from "@/components";
+} from "@/components/shared";
 
 const IMG =
   " https://cdn2.cellphones.com.vn/150x150,webp,q100/media/wysiwyg/cps-ant-review.png";

@@ -7,7 +7,7 @@ import { Collapse } from "antd";
 import ProductOptionComponent from "./ProductOptionComponent";
 import ProductOptionProvider from "../context";
 import { MouseEventHandler } from "react";
-import { InputLabel } from "@/components";
+import { InputLabel } from "@/components/shared";
 import { IProduct } from "@/interfaces";
 import { UseFormRegister } from "react-hook-form";
 
@@ -19,7 +19,7 @@ const BtnAddFilterOption = styled.div`
   border-radius: 1rem;
   background-color: var(--color-primary);
   cursor: pointer;
-  color: #fff;
+  color: var(--color-white);
   font-weight: 600;
   font-size: 1.4rem;
   margin-bottom: 1rem;

@@ -30,7 +30,7 @@ const BoxButton = styled.div`
     180deg,
     rgb(255 255 255 / 50%),
     hsla(0, 0%, 100%, 0.81) 30%,
-    #fff 90%
+    var(--color-white) 90%
   );
 `;
 
@@ -40,7 +40,7 @@ const ButtonShowMore = styled.div`
   align-items: center;
   margin: 0 auto 1.5rem;
   gap: 8px;
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 5px 3rem;
   width: 30rem;
   box-shadow: var(--shadow-around);

@@ -1,4 +1,4 @@
-import { Carousel, ContainerCard, Heading } from "@/components";
+import { Carousel, ContainerCard, Heading } from "@/components/shared";
 import styled from "styled-components";
 
 const AccessoryPurchasedTogetherStyled = styled.div`

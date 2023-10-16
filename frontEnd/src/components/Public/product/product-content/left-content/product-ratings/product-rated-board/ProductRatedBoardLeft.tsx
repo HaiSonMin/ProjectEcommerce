@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { RatingStar } from "@/components";
+import { RatingStar } from "@/components/shared";
 
 const ProductRatedBoardLeftStyled = styled.div`
   width: 40%;

@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { IProductCategory } from "@/interfaces";
 import ProductCategoryRow from "./ProductCategoryRow";
-import { Menus, Pagination, Spinner, Table } from "@/components";
+import { Menus, Pagination, Spinner, Table } from "@/components/shared";
 import { useEffect } from "react";
 import { KEY_QUERY, VALUE_CONSTANT } from "@/constant";
 import { UseProductCategoryApi } from "@/apis-use";

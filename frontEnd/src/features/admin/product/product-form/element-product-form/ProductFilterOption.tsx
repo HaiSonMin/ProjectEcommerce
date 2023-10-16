@@ -13,7 +13,7 @@ const BtnAddFilterOption = styled.div`
   border-radius: 1rem;
   background-color: var(--color-primary);
   cursor: pointer;
-  color: #fff;
+  color: var(--color-white);
   font-weight: 600;
   font-size: 1.4rem;
   margin-bottom: 1rem;
@@ -61,7 +61,7 @@ const FilterOption = styled.div`
     padding: 5px 1rem;
     border-radius: 1rem;
     background-color: var(--color-primary);
-    color: #fff;
+    color: var(--color-white);
     font-weight: 600;
     font-size: 1.2rem;
     cursor: pointer;

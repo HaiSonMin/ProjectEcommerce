@@ -7,7 +7,7 @@ import {
   FormBox,
   InputFile,
   SelectMultiV2,
-} from "@/components";
+} from "@/components/shared";
 import {
   UseBrandApi,
   UseProductCategoryApi,
@@ -22,7 +22,7 @@ import Select, { SingleValue } from "react-select";
 import IOptionSelect from "@/helpers/ISelectOption";
 import { PRODUCT_CATEGORY_TYPE } from "@/constant";
 import { DefaultOptionType } from "antd/es/select";
-import FormHeading from "@/components/FormHeading";
+import FormHeading from "@/components/shared/FormHeading";
 import { IBrand, IProductCategory } from "@/interfaces";
 import ProductFilterOption from "@/features/admin/product/product-form/element-product-form/ProductFilterOption";
 

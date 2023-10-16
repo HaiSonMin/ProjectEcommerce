@@ -3,7 +3,7 @@ import {
   ProtectMemberRouter,
   ProtectPrivateRouter,
 } from "@/components/protect-routers";
-import { SpinnerLogo } from "@/components";
+import { SpinnerLogo } from "@/components/shared";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import {
   UserPage,
@@ -130,35 +130,15 @@ const ResetPasswordPage = lazy(() => import("@/pages/auth/reset-password"));
 const IncentivesPage = lazy(() => import("@/pages/auth/incentive"));
 const CheckingOrderPage = lazy(() => import("@/pages/auth/checking-order") )
 // ---------------- Member ----------------
-const MemberLayout = lazy(() => import("@/pages/member/MemberLayout"));
-const DashboardMember = lazy(
-  () => import("@/pages/member/dash-board/Dashboard")
-);
-const HomePageMember = lazy(
-  () => import("@/pages/member/page/HomePage")
-);
-const HistoryOrder = lazy(
-  () => import("@/pages/member/page/HistoryOrder")
-);
-const WarrantyLookup = lazy(
-  () => import("@/pages/member/page/WarrantyLookup")
-);
-const YourOffers = lazy(
-  () => import("@/pages/member/page/YourOffers")
-);
-const MembershipRank = lazy(
-  () => import("@/pages/member/page/MembershipRank")
-);
-const YourAccount = lazy(
-  () => import("@/pages/member/page/YourAccount")
-);
-const SupportMember = lazy(
-  () => import("@/pages/member/page/Support")
-);
-const MemberFeedBack = lazy(() => import("@/pages/member/feedback/Feedback"));
-const MemberLogout = lazy(
-  () => import("@/pages/member/page/Logout")
-);
+const MemberPageLayout = lazy(() => import("@/pages/member/MemberPageLayout"));
+const MemberRankPage = lazy(() => import("@/pages/member/rank-page"));
+const MemberHomePage = lazy(() => import("@/pages/member/home-page"));
+const MemberSupportPage = lazy(() => import("@/pages/member/support-page"));
+const MemberAccountPage = lazy(() => import("@/pages/member/account-page"));
+const MemberHistoryPage = lazy(() => import("@/pages/member/history-page"));
+const MemberWarrantyPage = lazy(() => import("@/pages/member/warranty-page"));
+const MemberFeedbackPage = lazy(() => import("@/pages/member/feedback-page"));
+const MemberPromotionPage = lazy(() => import("@/pages/member/promotion-page"));
 
 const LoginSuccessGooglePage = lazy(
   () => import("@/pages/auth/login-google-success")
@@ -229,17 +209,18 @@ export default function App() {
           />
         </Route>
         {/* Member Page */}
-        <Route path={PATH_MEMBER.member} element={<MemberLayout />}>
-          <Route path={PATH_MEMBER.dashboard} element={<DashboardMember />} />
-          <Route path={PATH_MEMBER.home} element={<HomePageMember />} />
-          <Route path={PATH_MEMBER.historyorder} element={<HistoryOrder />} />
-          <Route path={PATH_MEMBER.warranty} element={<WarrantyLookup />} />
-          <Route path={PATH_MEMBER.order} element={<YourOffers />} />
-          <Route path={PATH_MEMBER.rank} element={<MembershipRank />} />
-          <Route path={PATH_MEMBER.account} element={<YourAccount />} />
-          <Route path={PATH_MEMBER.support} element={<SupportMember />} />
-          <Route path={PATH_MEMBER.feedback} element={<MemberFeedBack />} />
-          <Route path={PATH_MEMBER.logout} element={<MemberLogout />} />
+        <Route path={PATH_MEMBER.member} element={<MemberPageLayout />}>
+          <Route path={PATH_MEMBER.home} element={<MemberHomePage />} />
+          <Route
+            path={PATH_MEMBER.historyorder}
+            element={<MemberHistoryPage />}
+          />
+          <Route path={PATH_MEMBER.warranty} element={<MemberWarrantyPage />} />
+          <Route path={PATH_MEMBER.order} element={<MemberPromotionPage />} />
+          <Route path={PATH_MEMBER.rank} element={<MemberRankPage />} />
+          <Route path={PATH_MEMBER.account} element={<MemberAccountPage />} />
+          <Route path={PATH_MEMBER.support} element={<MemberSupportPage />} />
+          <Route path={PATH_MEMBER.feedback} element={<MemberFeedbackPage />} />
         </Route>
         <Route element={<ProtectMemberRouter />}>
           <Route path={PATH_MEMBER.home} element={<PublicLayOut />}></Route>

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { BiCreditCard } from "react-icons/bi";
 import { LiaMedalSolid } from "react-icons/lia";
-import { ContainerImage } from "@/components";
+import { ContainerImage } from "@/components/shared";
 
 const OutstandingLayoutOfferStyled = styled.div`
   box-shadow: var(--shadow-lg);
@@ -19,8 +19,8 @@ const OutstandingLayoutOfferHeader = styled.div`
   & span {
     font-size: 3.4rem;
     text-transform: uppercase;
-    color: #fff;
-    text-shadow: #fff 2px 1px 6px;
+    color: var(--color-white);
+    text-shadow: var(--color-white) 2px 1px 6px;
   }
 `;
 

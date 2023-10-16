@@ -5,6 +5,7 @@ const GlobalStyles = createGlobalStyle`
   &,&.light-mode {
   /* Grey */
   --color-white: #fff;
+  --color-black: #000;
 
   --color-grey-100: #f3f4f6;
   --color-grey-200: #e5e7eb;
@@ -17,7 +18,14 @@ const GlobalStyles = createGlobalStyle`
   --color-grey-900: #111827;
 
   --color-blue-100: #e0f2fe;
-  --color-blue-300: #0369a1;
+  --color-blue-200: #cfe6f5;
+  --color-blue-300: #b1dbf8;
+  --color-blue-400: #98d1f7;
+  --color-blue-500: #88cffe;
+  --color-blue-600: #6ec3fb;
+  --color-blue-700: #50b8fd;
+  --color-blue-800: #31adff;
+  --color-blue-900: #189ef6;
   --color-green-100: #dcfce7;
   --color-green-200: #b4ebb4;
   --color-green-300: #99e699;
@@ -29,14 +37,20 @@ const GlobalStyles = createGlobalStyle`
   --color-green-900: #00ec00;
   --color-yellow-100: #383624;
   --color-yellow-700: #f0ff2b;
-  --color-organ-600: #ff9f00;
-  --color-orange-800: #ff5000;
+
   --color-silver-100: #e5e7eb;
   --color-silver-700: #374151;
+
   --color-indigo-100: #e0e7ff;
   --color-indigo-700: #4338ca;
 
 
+  --color-cream-100: #fff7ee;
+  --color-cream-200: #ffefdd;
+  --color-cream-300: #ffe7cb;
+  --color-cream-400: #f8d9b4;
+  --color-cream-500: #fbd7ac;
+  
   --color-red-100: #fff0f0;
   --color-red-200: #fee2e2;
   --color-red-500: #f14668;

@@ -1,4 +1,4 @@
-import { Filter, SortBy, TableOperation } from "@/components";
+import { Filter, SortBy, TableOperation } from "@/components/shared";
 
 export default function DiscountTableOperation() {
   return (

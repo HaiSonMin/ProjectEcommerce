@@ -2,7 +2,7 @@ import BrandRow from "./BrandRow";
 import { useEffect } from "react";
 import { IBrand } from "@/interfaces";
 import { useSearchParams } from "react-router-dom";
-import { Menus, Spinner, Table, Pagination } from "@/components";
+import { Menus, Spinner, Table, Pagination } from "@/components/shared";
 import { KEY_QUERY, VALUE_CONSTANT } from "@/constant";
 import { UseBrandApi } from "@/apis-use";
 

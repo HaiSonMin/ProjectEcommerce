@@ -1,4 +1,4 @@
-import { ConfirmDelete, Menus, Modal, Table } from "@/components";
+import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
 import { IDemand, IProductCategoryGroup } from "@/interfaces";
 import { styled } from "styled-components";
 import { CiEdit } from "react-icons/ci";

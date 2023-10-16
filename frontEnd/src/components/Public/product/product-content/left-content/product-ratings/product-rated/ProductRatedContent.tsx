@@ -1,4 +1,4 @@
-import { RatingStar } from "@/components";
+import { RatingStar } from "@/components/shared";
 import { styled } from "styled-components";
 
 const ProductRatedContentStyled = styled.div`

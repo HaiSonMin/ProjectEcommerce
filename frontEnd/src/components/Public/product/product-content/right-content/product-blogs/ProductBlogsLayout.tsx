@@ -1,5 +1,5 @@
-import { ButtonSeeMoreLink } from "@/components";
-import Heading from "@/components/Heading";
+import { ButtonSeeMoreLink } from "@/components/shared";
+import Heading from "@/components/shared/Heading";
 import { PATH_BLOG } from "@/constant/path-router";
 import { BsNewspaper } from "react-icons/bs";
 import { Link } from "react-router-dom";

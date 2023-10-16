@@ -1,4 +1,4 @@
-import { Heading } from "@/components";
+import { Heading } from "@/components/shared";
 import { css, styled } from "styled-components";
 import ItemOption from "./ItemOption";
 import { formatCurrencyVND } from "@/utils";

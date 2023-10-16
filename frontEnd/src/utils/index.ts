@@ -1,9 +1,8 @@
 import http from "./http";
 import { v4 as uuidv4 } from "uuid";
-import { VALUE_CONSTANT } from "@/constant";
+import { LOCAL_STORE_NAME, VALUE_CONSTANT } from "@/constant";
 import { formatDistance, parseISO } from "date-fns";
 import { IProductOption } from "@/helpers";
-import CONSTANT from "@/constant/value-constant";
 
 const getErrorMessage = (err: any): string => err.response.data.message;
 
@@ -22,7 +21,7 @@ const sortObject = ({ data, sortValue }) => {
 };
 
 const getATLocalStorage = () => {
-  const data = localStorage.getItem(CONSTANT.AT_NAME_LOCAL_STORE);
+  const data = localStorage.getItem(LOCAL_STORE_NAME.AT_NAME_LOCAL_STORE);
   if (data) return JSON.parse(data).token;
   return null;
 };

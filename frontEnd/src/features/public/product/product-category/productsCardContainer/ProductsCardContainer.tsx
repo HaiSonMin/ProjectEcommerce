@@ -1,4 +1,4 @@
-import { Card } from "@/components";
+import { Card } from "@/components/shared";
 import { useState } from "react";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { styled } from "styled-components";

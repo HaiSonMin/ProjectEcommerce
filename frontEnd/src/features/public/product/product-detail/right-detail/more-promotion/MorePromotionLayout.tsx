@@ -1,4 +1,4 @@
-import { Heading } from "@/components";
+import { Heading } from "@/components/shared";
 import styled from "styled-components";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";

@@ -1,4 +1,4 @@
-import { ConfirmDelete, Menus, Modal, Table } from "@/components";
+import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
 import { ICoupon } from "@/interfaces";
 import { styled } from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -7,7 +7,7 @@ import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { formatCurrencyVND } from "@/utils";
 import { format } from "date-fns";
-import Tag from "@/components/Tag";
+import Tag from "@/components/shared/Tag";
 import { MdAddLink } from "react-icons/md";
 import { UseCouponApi } from "@/apis-use";
 

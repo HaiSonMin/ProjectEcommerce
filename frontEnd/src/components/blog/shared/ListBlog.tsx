@@ -1,6 +1,6 @@
-import ButtonSeeMore from "@/components/ButtonSeeMore";
-import Heading from "@/components/Heading";
-import Hr from "@/components/Hr";
+import ButtonSeeMore from "@/components/shared/ButtonSeeMore";
+import Heading from "@/components/shared/Heading";
+import Hr from "@/components/shared/Hr";
 import { randomKey } from "@/utils";
 import { IoTimerOutline } from "react-icons/io5";
 import { TbCategory } from "react-icons/tb";

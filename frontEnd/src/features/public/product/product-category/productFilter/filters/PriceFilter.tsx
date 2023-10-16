@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { css, styled } from "styled-components";
 import { GiMoneyStack } from "react-icons/gi";
 import ItemFilterType from "./ItemFilterType";
-import InputRangeTwoValueV2 from "@/components/InputRangeTwoValue";
+import InputRangeTwoValueV2 from "@/components/shared/InputRangeTwoValue";
 import { formatCurrencyVND } from "@/utils";
 import { useFilter } from "../context/FilterProvider";
 
@@ -18,7 +18,7 @@ const OptionsFilterBoxStyled = styled.div<{
   gap: 8px;
   min-width: 35rem;
   padding: 1rem;
-  background-color: #fff;
+  background-color: var(--color-white);
   box-shadow: var(--shadow-around-dark);
   border-radius: 1rem;
   cursor: auto;
@@ -29,7 +29,7 @@ const OptionsFilterBoxStyled = styled.div<{
     position: absolute;
     left: 3rem;
     top: -1rem;
-    border-bottom: 1rem solid #fff;
+    border-bottom: 1rem solid var(--color-white);
     border-left: 1rem solid transparent;
     border-right: 1rem solid transparent;
   }
@@ -58,7 +58,7 @@ const FooterBoxOptions = styled.div`
   }
 
   & .btn-apply {
-    color: #fff;
+    color: var(--color-white);
     background-color: var(--color-primary);
   }
 `;

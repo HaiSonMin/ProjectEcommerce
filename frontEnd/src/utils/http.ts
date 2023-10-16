@@ -1,6 +1,6 @@
 import { UseAuthApi } from "@/apis-use";
 import { PATH_API_V1 } from "@/constant/path-api";
-import CONSTANT from "@/constant/value-constant";
+import { LOCAL_STORE_NAME } from "@/constant";
 import { IApi } from "@/helpers";
 import axios, {
   AxiosError,
@@ -21,7 +21,7 @@ class Http {
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
         Authorization: `Bearer  ${localStorage.getItem(
-          CONSTANT.AT_NAME_LOCAL_STORE
+          LOCAL_STORE_NAME.AT_NAME_LOCAL_STORE
         )}`,
       },
     });

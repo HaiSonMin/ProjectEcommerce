@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import ContainerCard from "@/components/ContainerCard";
 import CountDown from "@/components/CountDown";
 
+=======
+import ContainerCard from "@/components/shared/ContainerCard";
+import CountDown from "@/components/shared/CountDown";
+>>>>>>> c2168c3c2ad00145bcb3c6808b14e87628033304
 import { GiFireworkRocket } from "react-icons/gi";
 import { keyframes, styled } from "styled-components";
 
@@ -30,8 +35,8 @@ const HotSaleHeader = styled.div`
     & span {
       font-size: 3.4rem;
       text-transform: uppercase;
-      color: #fff;
-      text-shadow: #fff 2px 1px 6px;
+      color: var(--color-white);
+      text-shadow: var(--color-white) 2px 1px 6px;
     }
 
     & svg {

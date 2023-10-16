@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { Spinner } from "@/components";
+import { Spinner } from "@/components/shared";
 import { CONSTANT } from "@/utils";
 import { Route } from "react-router-dom";
 

@@ -1,7 +1,7 @@
-import Modal from "@/components/Modal";
+import Modal from "@/components/shared/Modal";
 import { styled } from "styled-components";
 import ProductRatingForm from "./ProductRatingForm";
-import Button from "@/components/Button";
+import Button from "@/components/shared/Button";
 
 const ProductRatingFormStyled = styled.div`
   margin: 1rem auto;

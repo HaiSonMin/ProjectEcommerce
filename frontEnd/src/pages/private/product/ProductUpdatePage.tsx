@@ -1,4 +1,4 @@
-import { Spinner } from "@/components";
+import { Spinner } from "@/components/shared";
 import { UseProductApi } from "@/apis-use";
 import { ProductForm } from "@/features/admin/product";
 

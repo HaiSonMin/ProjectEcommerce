@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { useState, useEffect } from "react";
 import JoditEditor from "jodit-react";
 import ProductSerialItem from "./ProductSerialItem";
-import { FormRow, FormRowContent, Heading, Input } from "@/components";
+import { FormRow, FormRowContent, Heading, Input } from "@/components/shared";
 import ProductSpecificationMain from "./ProductSpecificationMain";
 import { useProductOption } from "../context/ProductOptionProvider";
 
@@ -51,7 +51,7 @@ const BtnAddSerial = styled.div`
   border-radius: 1rem;
   background-color: var(--color-primary);
   cursor: pointer;
-  color: #fff;
+  color: var(--color-white);
   font-weight: 600;
   font-size: 1.4rem;
   margin-bottom: 1rem;

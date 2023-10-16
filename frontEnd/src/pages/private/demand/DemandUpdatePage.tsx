@@ -1,4 +1,4 @@
-import { Spinner } from "@/components";
+import { Spinner } from "@/components/shared";
 import { DemandForm } from "@/features/admin/demand";
 import UseDemandApi from "@/features/admin/demand/UseDemandApi";
 

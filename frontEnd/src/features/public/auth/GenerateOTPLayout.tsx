@@ -1,4 +1,4 @@
-import { Button, Heading, SpinnerLogo } from "@/components";
+import { Button, Heading, SpinnerLogo } from "@/components/shared";
 import { FaArrowLeft } from "react-icons/fa";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";

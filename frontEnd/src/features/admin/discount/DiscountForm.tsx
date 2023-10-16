@@ -5,7 +5,7 @@ import {
   Heading,
   Input,
   SelectDate,
-} from "@/components";
+} from "@/components/shared";
 import { useState } from "react";
 import { useMoveBack } from "@/hooks";
 import { IDiscount } from "@/interfaces";

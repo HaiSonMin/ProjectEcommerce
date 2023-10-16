@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Button, Heading, Row } from "@/components";
+import { Button, Heading, Row } from "@/components/shared";
 import { UserTable, UserTableOperation } from "@/features/admin/user";
 
 enum Type {

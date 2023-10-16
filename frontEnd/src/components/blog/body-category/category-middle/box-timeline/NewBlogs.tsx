@@ -1,4 +1,4 @@
-import { Hr, Heading } from "@/components";
+import { Hr, Heading } from "@/components/shared";
 import { ListBlog } from "@/components/blog/shared";
 import { Link } from "react-router-dom";
 import styled from "styled-components";

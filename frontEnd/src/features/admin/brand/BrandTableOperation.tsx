@@ -1,4 +1,4 @@
-import { SortBy, TableOperation } from "@/components";
+import { SortBy, TableOperation } from "@/components/shared";
 import { KEY_QUERY } from "@/constant";
 import Search from "antd/es/input/Search";
 import { useSearchParams } from "react-router-dom";

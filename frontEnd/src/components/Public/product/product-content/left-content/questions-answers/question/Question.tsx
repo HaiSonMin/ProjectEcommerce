@@ -43,7 +43,7 @@ const BtnSendQuestion = styled.button`
   padding: 1rem 1.2rem;
   border-radius: 1rem;
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-white);
 `;
 
 export default function Question() {

@@ -1,4 +1,4 @@
-import { Heading, CarouselCardBlog } from "@/components";
+import { Heading, CarouselCardBlog } from "@/components/shared";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { randomKey } from "@/utils";

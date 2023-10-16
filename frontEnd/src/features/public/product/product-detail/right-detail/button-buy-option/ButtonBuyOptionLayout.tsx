@@ -1,4 +1,4 @@
-import { Button } from "@/components";
+import { Button } from "@/components/shared";
 import styled, { css } from "styled-components";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ const StyledBtn = css`
   align-items: center;
   justify-content: center;
   width: 100%;
-  color: #fff;
+  color: var(--color-white);
   border-radius: 1rem;
   & span:first-child {
     font-size: 1.6rem;

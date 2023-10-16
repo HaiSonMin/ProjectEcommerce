@@ -7,7 +7,7 @@ import Select, { SingleValue } from "react-select";
 import UseUser from "../../../apis-use/UseAdminApi";
 import IOptionSelect from "@/helpers/ISelectOption";
 import { IUserCreate } from "@/interfaces/user.interface";
-import { Button, Form, FormRow, Input, Heading } from "@/components";
+import { Button, Form, FormRow, Input, Heading } from "@/components/shared";
 
 // Type of handler Submit
 

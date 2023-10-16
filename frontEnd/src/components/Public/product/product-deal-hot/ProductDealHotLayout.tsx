@@ -1,7 +1,7 @@
-import ContainerCard from "@/components/ContainerCard";
+import ContainerCard from "@/components/shared/ContainerCard";
 import { keyframes, styled } from "styled-components";
 import { TiFlash } from "react-icons/ti";
-import CountDown from "@/components/CountDown";
+import CountDown from "@/components/shared/CountDown";
 const ProductDealHotLayoutStyled = styled.div`
   box-shadow: var(--shadow-around);
   border-radius: 1rem;
@@ -28,8 +28,8 @@ const DealHotHeader = styled.div`
     & span {
       font-size: 3.4rem;
       text-transform: uppercase;
-      color: #fff;
-      text-shadow: #fff 2px 1px 6px;
+      color: var(--color-white);
+      text-shadow: var(--color-white) 2px 1px 6px;
     }
 
     & svg {

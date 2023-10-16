@@ -1,5 +1,5 @@
 import { ProductTable, ProductTableOperation } from "@/features/admin/product";
-import { Button, Heading, Row } from "@/components";
+import { Button, Heading, Row } from "@/components/shared";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { KEY_QUERY } from "@/constant";
 

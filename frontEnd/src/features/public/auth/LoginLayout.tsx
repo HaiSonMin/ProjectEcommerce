@@ -7,7 +7,7 @@ import {
   InputAuth,
   SpinnerLogo,
   LoginRegisterLabel,
-} from "@/components";
+} from "@/components/shared";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { PATH_MEMBER, PATH_PUBLIC } from "@/constant/path-router";

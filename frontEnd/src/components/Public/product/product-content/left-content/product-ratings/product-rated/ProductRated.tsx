@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import ProductRatedItem from "./ProductRatedItem";
 import { FaRegEye } from "react-icons/fa";
-import { ButtonSeeMore } from "@/components";
+import { ButtonSeeMore } from "@/components/shared";
 
 const ProductRatedStyled = styled.div`
   display: flex;

@@ -11,7 +11,7 @@ const MenuListChildStyled = styled.div<{ $display: boolean }>`
   position: absolute;
   top: 0;
   left: 100%;
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 1rem 1rem 1rem 1rem;
   flex-wrap: wrap;
   justify-content: flex-start;

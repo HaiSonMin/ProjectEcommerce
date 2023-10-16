@@ -4,7 +4,7 @@ import {
   InputLabel,
   TextArea,
   TextAreaLabel,
-} from "@/components";
+} from "@/components/shared";
 import { styled } from "styled-components";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useProductOption } from "../context/ProductOptionProvider";
@@ -33,7 +33,7 @@ const BtnAddSpecification = styled.div`
   border-radius: 1rem;
   background-color: var(--color-primary);
   font-weight: 500;
-  color: #fff;
+  color: var(--color-white);
   cursor: pointer;
 `;
 

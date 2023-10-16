@@ -1,6 +1,6 @@
 import CouponRow from "./CouponRow";
 import { ICoupon } from "@/interfaces";
-import { Menus, Spinner, Table, Pagination } from "@/components";
+import { Menus, Spinner, Table, Pagination } from "@/components/shared";
 import { UseCouponApi } from "@/apis-use";
 
 interface IProps {

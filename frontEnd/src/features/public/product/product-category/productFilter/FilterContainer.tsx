@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { CompositeFilter, GeneralFilter, PriceFilter } from "./filters";
-import Heading from "@/components/Heading";
+import Heading from "@/components/shared/Heading";
 import FilterProvider from "./context/FilterProvider";
 import OptionsSelected from "./filters/OptionsSelected";
 

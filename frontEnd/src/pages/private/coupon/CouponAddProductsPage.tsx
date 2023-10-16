@@ -1,5 +1,5 @@
 import { UseCouponApi } from "@/apis-use";
-import { Spinner } from "@/components";
+import { Spinner } from "@/components/shared";
 import { CouponForm } from "@/features/admin/coupon";
 
 export default function CouponEditPage() {

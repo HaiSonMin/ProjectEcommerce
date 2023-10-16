@@ -6,7 +6,7 @@ import {
   Input,
   SelectDate,
   SelectMulti,
-} from "@/components";
+} from "@/components/shared";
 import { useMoveBack } from "@/hooks";
 import { ICoupon } from "@/interfaces";
 import { useForm } from "react-hook-form";

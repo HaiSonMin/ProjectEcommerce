@@ -23,7 +23,7 @@ const WarrantyItemOptionStyled = styled.div<{ $isActive: boolean }>`
         border-bottom-left-radius: 1rem;
         top: 0;
         right: 0;
-        color: #fff;
+        color: var(--color-white);
         padding-left: 5px;
         background-color: var(--color-primary);
       }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UseProductCategoryApi } from "@/apis-use";
-import Carousel from "@/components/Carousel";
+import Carousel from "@/components/shared/Carousel";
 import { Link } from "react-router-dom";
 import { css, styled } from "styled-components";
 import { randomKey } from "@/utils";
@@ -80,8 +80,8 @@ const CategoryHeader = styled.div`
   & span {
     font-size: 3.4rem;
     text-transform: uppercase;
-    color: #fff;
-    text-shadow: #fff 2px 1px 6px;
+    color: var(--color-white);
+    text-shadow: var(--color-white) 2px 1px 6px;
   }
 `;
 
