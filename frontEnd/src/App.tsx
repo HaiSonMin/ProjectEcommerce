@@ -128,6 +128,7 @@ const RegisterPage = lazy(() => import("@/pages/auth/register"));
 const GenerateOTPPage = lazy(() => import("@/pages/auth/generate-otp"));
 const ResetPasswordPage = lazy(() => import("@/pages/auth/reset-password"));
 const IncentivesPage = lazy(() => import("@/pages/auth/incentive"));
+const CheckingOrderPage = lazy(() => import("@/pages/auth/checking-order") )
 // ---------------- Member ----------------
 const MemberPageLayout = lazy(() => import("@/pages/member/MemberPageLayout"));
 const MemberRankPage = lazy(() => import("@/pages/member/rank-page"));
@@ -187,6 +188,7 @@ export default function App() {
             element={<ProductDetailPageUser />}
           />
           <Route path={PATH_PUBLIC.cart} element={<CartPage />} />
+          <Route path={PATH_PUBLIC.checkingOrder} element={<CheckingOrderPage />} />
         </Route>
 
         {/* Auth Page */}
@@ -200,6 +202,7 @@ export default function App() {
           <Route path={PATH_AUTH.generateOTP} element={<GenerateOTPPage />} />
           <Route path={PATH_AUTH.confirmOTP} element={<ConfirmOTPPage />} />
           <Route path={PATH_AUTH.incentives} element={<IncentivesPage />} />
+          
           <Route
             path={PATH_AUTH.resetPassword}
             element={<ResetPasswordPage />}

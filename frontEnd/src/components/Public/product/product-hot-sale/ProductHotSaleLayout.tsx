@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+import ContainerCard from "@/components/ContainerCard";
+import CountDown from "@/components/CountDown";
+
+=======
 import ContainerCard from "@/components/shared/ContainerCard";
 import CountDown from "@/components/shared/CountDown";
+>>>>>>> c2168c3c2ad00145bcb3c6808b14e87628033304
 import { GiFireworkRocket } from "react-icons/gi";
 import { keyframes, styled } from "styled-components";
 
@@ -117,7 +123,7 @@ export default function ProductHotSaleLayout() {
           <span>Hot sale cuối tuần</span>
           <GiFireworkRocket />
         </div>
-        <CountDown hour="" minute="" second="9" />
+        <CountDown day="" hour="" minute="" second="" />
       </HotSaleHeader>
       <ContainerCard
         products={productsDiscounted}
