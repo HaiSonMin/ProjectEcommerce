@@ -1,6 +1,6 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-const MemberFeedbackLayoutStyled = styled.div``
+const MemberFeedbackLayoutStyled = styled.div``;
 export default function MemberFeedBackLayout() {
-    return <MemberFeedbackLayoutStyled></MemberFeedbackLayoutStyled>
+  return <MemberFeedbackLayoutStyled></MemberFeedbackLayoutStyled>;
 }

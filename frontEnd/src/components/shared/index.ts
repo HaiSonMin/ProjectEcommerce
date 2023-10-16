@@ -11,7 +11,6 @@ import Image from "./Image";
 import Input from "./Input";
 import Switch from "./Switch";
 import Logout from "./Logout";
-import Select from "./Select";
 import Filter from "./Filter";
 import Button from "./Button";
 import SortBy from "./SortBy";
@@ -35,7 +34,6 @@ import StarReview from "./StarReview";
 import TextEditor from "./TextEditor";
 import InputColor from "./InputColor";
 import ButtonIcon from "./ButtonIcon";
-import CycleChose from "./CycleChose";
 import Pagination from "./Pagination";
 import CardLoading from "./CardLoading";
 import SelectMulti from "./SelectMulti";
@@ -44,6 +42,8 @@ import SpinnerMini from "./SpinnerMini";
 import ImagesGroup from "./ImagesGroup";
 import FromHeading from "./FormHeading";
 import SpinnerLogo from "./SpinnerLogo";
+import InputChecked from "./InputChecked";
+import SelectedInput from "./SelectedInput";
 import TextAreaLabel from "./TextAreaLabel";
 import CarouselImage from "./CarouselImage";
 import ButtonConfirm from "./ButtonConfirm";
@@ -82,7 +82,6 @@ export {
   SortBy,
   Logout,
   Switch,
-  Select,
   Filter,
   FormBox,
   FormRow,
@@ -99,7 +98,6 @@ export {
   InputAuth,
   InputLabel,
   SelectDate,
-  CycleChose,
   StarReview,
   TextEditor,
   InputColor,
@@ -112,6 +110,8 @@ export {
   ImagesGroup,
   ButtonGroup,
   SpinnerMini,
+  InputChecked,
+  SelectedInput,
   CarouselImage,
   ButtonConfirm,
   SelectMultiV2,

@@ -46,9 +46,9 @@ export default function DashboardMemberLayout() {
   const location = useLocation();
   const [selectedKeys, setSelectedKeys] = useState("/");
   useEffect(() => {
-    const pathName = location.pathname;
-    setSelectedKeys(`/${pathName.split("/")[2]}`);
-    console.log(pathName);
+    const pathName = location.pathname.split("/")[2];
+    if (pathName) return setSelectedKeys(`/${pathName}`);
+    else setSelectedKeys("/");
   }, [location.pathname]);
 
   const navigate = useNavigate();

@@ -2,6 +2,7 @@ const AuthService = require("./auth.service");
 const UserService = require("./user.service");
 const BlogService = require("./blog.service");
 const CartService = require("./cart.service");
+const CityService = require("./city.service");
 const OrderService = require("./order.service");
 const AdminService = require("./admin.service");
 const BrandService = require("./brand.service");
@@ -24,6 +25,7 @@ module.exports = {
   UserService,
   BlogService,
   CartService,
+  CityService,
   OrderService,
   AdminService,
   BrandService,

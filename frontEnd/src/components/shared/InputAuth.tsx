@@ -5,10 +5,11 @@ import styled, { css } from "styled-components";
 const InputContainer = styled.div`
   position: relative;
   margin-bottom: 2.4rem;
+  width: 100%;
 `;
 
 const Input = styled.input`
-  width: 700px;
+  width: 100%;
   padding: 0 1rem;
   padding-top: 2rem;
   font-size: 1.4rem;
@@ -78,11 +79,11 @@ interface IProps {
 export default function InputAuth({
   type,
   id,
-  register,
   label,
-  hasValue,
-  children,
   error,
+  children,
+  register,
+  hasValue,
 }: IProps) {
   const [focused, setFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);

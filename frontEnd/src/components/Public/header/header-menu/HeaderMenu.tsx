@@ -5,9 +5,9 @@ import { FiPhone } from "react-icons/fi";
 import { LuPackageSearch } from "react-icons/lu";
 import { TbShoppingBag } from "react-icons/tb";
 import { MdOutlineDiscount } from "react-icons/md";
-import HeaderSearch from "./HeaderSearch";
+import HeaderSearch from "./search-input/HeaderSearch";
 import HeaderButtonAuth from "./HeaderButtonAuth";
-import { PATH_MEMBER, PATH_PUBLIC } from "@/constant/path-router";
+import { PATH_PUBLIC, PATH_MEMBER } from "@/constant/path-router";
 
 const HeaderMenuTopStyled = styled.div`
   padding: 1rem 0;
@@ -70,7 +70,7 @@ const CountBuy = styled.div`
   background-color: var(--color-white);
   border-radius: 50%;
   text-align: center;
-  color: #15140c;
+  color: var(--color-grey-800);
   font-weight: 600;
 `;
 export default function HeaderMenu() {
@@ -105,7 +105,7 @@ export default function HeaderMenu() {
             Đơn hàng
           </p>
         </NavLinkItem>
-        <NavLinkItem className="nav-styled" to={`/${PATH_PUBLIC.cart}`}>
+        <NavLinkItem className="nav-styled" to={`/${PATH_PUBLIC.cart.root}`}>
           <CartBlock>
             <TbShoppingBag />
             <CountBuy>2</CountBuy>

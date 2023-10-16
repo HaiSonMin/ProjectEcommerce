@@ -1,3 +1,3 @@
 import RankBottom from "./RankBottom.";
 
-export default RankBottom
+export default RankBottom;

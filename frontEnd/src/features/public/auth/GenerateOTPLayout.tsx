@@ -154,7 +154,6 @@ export default function ForgetPasswordLayout() {
         ref={refCaptcha}
       />
       <Button
-        $width="700px"
         className="mt-[1.5rem]"
         onClick={handleGenerateOTP}
       >

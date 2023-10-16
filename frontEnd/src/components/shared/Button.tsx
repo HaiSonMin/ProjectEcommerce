@@ -32,7 +32,7 @@ const variations: object = {
     border: 1px solid var(--color-grey-200);
 
     &:hover {
-      background-color: var(--color-grey-50);
+      background-color: var(--color-grey-100);
     }
   `,
   danger: css`
@@ -55,9 +55,13 @@ const Button = styled.button<{
   box-shadow: var(--shadow-md);
   transition: all 0.3s;
   font-weight: 600;
-  width: ${(props) => (props.$width ? `${props.$width}` : `100%`)};
+  width: 100%;
   ${(props: any) => sizes[props.$size]}
   ${(props: any) => variations[props.$variation]}
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 Button.defaultProps = {

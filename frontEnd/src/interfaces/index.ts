@@ -7,10 +7,14 @@ import ICoupon from "./coupon.interface";
 import IDemand from "./demand.interface";
 import IProduct from "./product.interface";
 import IDiscount from "./discount.interface";
+import { ICity, IDistrict, IWard } from "./city.interface";
 import IProductCategory from "./productCategory.interface";
 import IProductCategoryGroup from "./productCategoryGroup.interface";
 
 export type {
+  ICity,
+  IDistrict,
+  IWard,
   IAuth,
   IUser,
   IBrand,

@@ -13,6 +13,14 @@ const PATH_API_V1 = {
       refreshAccessToken: "/refreshAccessToken",
     },
   },
+  city: {
+    mainPath: "/v1/city",
+    feature: {
+      getAllCities: "/getAllCities",
+      getAllDistricts: "/getAllDistricts",
+      getAllWards: "/getAllWards",
+    },
+  },
   user: "/v1/user",
   blog: "/v1/blog",
   admin: "/v1/admin",

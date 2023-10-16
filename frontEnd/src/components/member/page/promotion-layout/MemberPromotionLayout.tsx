@@ -52,12 +52,7 @@ export default function MemberPromotionLayout() {
         </p>
       </BoxSwitch>
       <BoxContext>
-        {isActivePromotion ? 
-        
-        <PromotionMember />
-        :
-        <GiftMember/>
-        }
+        {isActivePromotion ? <PromotionMember /> : <GiftMember />}
       </BoxContext>
     </MemberPromotionLayoutStyled>
   );

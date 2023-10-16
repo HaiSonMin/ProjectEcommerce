@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 const Input = styled.input`
+  width: 100%;
   font-size: 1.4rem;
   background-color: var(--color-white);
-  border-radius: 4px;
+  border-radius: 5px;
   border: 1px solid var(--color-grey-300);
-  padding: 0.6rem 1.2rem;
+  padding: 8px 1.2rem;
   box-shadow: var(--shadow-sm);
   align-self: flex-start;
 
@@ -13,7 +14,7 @@ const Input = styled.input`
     outline: none;
   }
   &::placeholder {
-    color: #c0bcbc;
+    color: var(--color-grey-400);
   }
 `;
 

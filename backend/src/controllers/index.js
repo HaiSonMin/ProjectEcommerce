@@ -1,6 +1,7 @@
 const AuthController = require("./auth.controller");
 const UserController = require("./user.controller");
 const BlogController = require("./blog.controller");
+const CityController = require("./city.controller");
 const CartController = require("./cart.controller");
 const AdminController = require("./admin.controller");
 const BrandController = require("./brand.controller");
@@ -22,6 +23,7 @@ module.exports = {
   AuthController,
   UserController,
   BlogController,
+  CityController,
   CartController,
   AdminController,
   BrandController,

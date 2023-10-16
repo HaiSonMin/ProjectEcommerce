@@ -9,11 +9,11 @@ const HeaderLayoutStyled = styled.header`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  z-index: 800;
+  z-index: 1000;
 `;
 
 export default function HeaderLayout() {
-  console.log("re-render HeaderLayout")
+  console.log("re-render HeaderLayout");
   return (
     <HeaderLayoutStyled>
       <HeaderTopBar />

@@ -16,12 +16,12 @@ const optionsRankSNull = [
   {
     icon: Shopping,
     optionName: "Ưu đãi mua hàng",
-    items:[]
+    items: [],
   },
   {
     icon: Service,
     optionName: "Chính sách phục vụ",
-    items:[]
+    items: [],
   },
 ];
 

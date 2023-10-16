@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import Select from "./Select";
+import Select from "./SelectedInput";
 import { useSearchParams } from "react-router-dom";
 
 interface Props {

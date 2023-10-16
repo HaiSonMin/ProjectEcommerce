@@ -155,7 +155,14 @@ const ProductCategoryPageUser = lazy(
 const ProductDetailPageUser = lazy(
   () => import("@/pages/public/product/product-detail/ProductDetailPage")
 );
-const CartPage = lazy(() => import("@/pages/public/cart/CartPage"));
+// ##### Cart #####
+const CartLayout = lazy(() => import("@/pages/public/cart/CartLayout"));
+const CartOrderPage = lazy(
+  () => import("@/pages/public/cart/cart-order/CartOrderPage")
+);
+const CartInfoOrderPage = lazy(
+  () => import("@/pages/public/cart/cart-info-order/CartInfoOrderPage")
+);
 
 // ---------------- Blog ----------------
 const BlogPageLayout = lazy(() => import("@/pages/blog"));
@@ -173,7 +180,6 @@ export default function App() {
     <Suspense fallback={<SpinnerLogo />}>
       <Routes>
         <Route element={<Navigate replace to={"/"} />} />
-
         {/* Public Page */}
         <Route path={PATH_PUBLIC.home} element={<PublicLayOut />}>
           <Route path={PATH_PUBLIC.home} element={<HomePage />} />
@@ -186,7 +192,14 @@ export default function App() {
             path={PATH_PUBLIC.productDetail}
             element={<ProductDetailPageUser />}
           />
-          <Route path={PATH_PUBLIC.cart} element={<CartPage />} />
+          {/* Cart */}
+          <Route path={PATH_PUBLIC.cart.root} element={<CartLayout />}>
+            <Route path={""} element={<CartOrderPage />} />
+            <Route
+              path={PATH_PUBLIC.cart.feature.infoOrder}
+              element={<CartInfoOrderPage />}
+            />
+          </Route>
         </Route>
 
         {/* Auth Page */}

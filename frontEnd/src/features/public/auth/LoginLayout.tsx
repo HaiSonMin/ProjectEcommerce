@@ -10,7 +10,6 @@ import {
 } from "@/components/shared";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import { PATH_MEMBER, PATH_PUBLIC } from "@/constant/path-router";
 import { UseAuthApi } from "@/apis-use";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -54,6 +53,8 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 70rem;
+
 `;
 const ForgetPassword = styled.p`
   align-self: flex-end;
@@ -163,7 +164,7 @@ export default function LoginLayout() {
 
   return (
     <LoginLayoutStyled>
-      {isLoading && <SpinnerLogo/>}
+      {isLoading && <SpinnerLogo />}
       <ContainerTop>
         <Header>
           <Heading $as="h3">Đăng nhập Smember</Heading>
@@ -206,13 +207,9 @@ export default function LoginLayout() {
         </ForgetPassword>
         <ReCAPTCHA
           sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
-          size="norimport PATH_AUTH from './../../../constant/path-router/path-auth';
-mal"
           ref={refCaptcha}
         />
-        <Button $width="100%" className="mt-[1.5rem]">
-          Đăng Nhập
-        </Button>
+        <Button className="mt-[1.5rem]">Đăng Nhập</Button>
         <LoginRegisterLabel>
           <p>Hoặc đăng ký bằng</p>
         </LoginRegisterLabel>
@@ -220,9 +217,14 @@ mal"
       <LogoAuth />
       <RegisterNow>
         <p>Bạn chưa có tài khoản?</p>
-        <Link to={`/${PATH_AUTH.auth}/${PATH_AUTH.register}`}>Đăng ký ngay</Link>
+        <Link to={`/${PATH_AUTH.auth}/${PATH_AUTH.register}`}>
+          Đăng ký ngay
+        </Link>
       </RegisterNow>
-      <SeePromotion to={`/${PATH_AUTH.auth}/${PATH_AUTH.incentives}`}> Xem chính sách ưu đãi Smember </SeePromotion>
+      <SeePromotion to={`/${PATH_AUTH.auth}/${PATH_AUTH.incentives}`}>
+        {" "}
+        Xem chính sách ưu đãi Smember{" "}
+      </SeePromotion>
     </LoginLayoutStyled>
   );
 }

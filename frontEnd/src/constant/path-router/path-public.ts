@@ -1,6 +1,11 @@
 const PATH_PUBLIC = {
   home: "",
-  cart: "cart",
+  cart: {
+    root: "cart",
+    feature: {
+      infoOrder: "order-info",
+    },
+  },
   brand: "brand",
   order: "order",
   member: "member",
