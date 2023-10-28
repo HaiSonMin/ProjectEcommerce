@@ -2,13 +2,13 @@ import { styled } from "styled-components";
 import { duplicateObject, randomKey } from "@/utils";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { IoDuplicateOutline } from "react-icons/io5";
-import { IProductOption } from "@/helpers";
+import { IProductOption } from "@/interfaces/shared";
 import { Collapse } from "antd";
 import ProductOptionComponent from "./ProductOptionComponent";
 import ProductOptionProvider from "../context";
 import { MouseEventHandler } from "react";
 import { InputLabel } from "@/components/shared";
-import { IProduct } from "@/interfaces";
+import { IProduct } from "@/interfaces/models";
 import { UseFormRegister } from "react-hook-form";
 
 const ProductFilterOptionStyled = styled.div``;

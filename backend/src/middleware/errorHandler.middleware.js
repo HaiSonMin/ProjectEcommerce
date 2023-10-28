@@ -1,4 +1,5 @@
 ﻿const { StatusCodes } = require("http-status-codes");
+const logging = require("../helpers/logging");
 
 const errorHandlerMiddleware = function (err, req, res, next) {
   // Custom error
@@ -26,6 +27,16 @@ const errorHandlerMiddleware = function (err, req, res, next) {
     customError.message = `No item found with id :${err.value}`;
     customError.statusCode = StatusCodes.NOT_FOUND;
   }
+
+  // Print logs errors
+  let userInfo;
+  if (req.user) userInfo = req.user;
+  logging({
+    message: customError.message,
+    method: req.method,
+    url: req.url,
+    ...userInfo,
+  });
 
   return res.status(customError.statusCode).json({
     status: customError.statusCode,

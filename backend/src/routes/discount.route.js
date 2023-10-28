@@ -3,7 +3,7 @@ const router = express.Router();
 const { DiscountController } = require("../controllers");
 const { checkAuthIsAdmin } = require("../middleware/auth.middleware");
 
-// router.use(checkAuthIsAdmin)
+router.use(checkAuthIsAdmin)
 router.route("/create").post(DiscountController.createDiscount);
 
 router.route("/getAll").get(DiscountController.getAllDiscounts);

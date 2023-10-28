@@ -2,7 +2,7 @@ import Heading from "@/components/shared/Heading";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import { IBrand, IProductCategory } from "@/interfaces";
+import { IBrand, IProductCategory } from "@/interfaces/models";
 import { randomKey } from "@/utils";
 
 const PhoneHeaderStyled = styled.div`

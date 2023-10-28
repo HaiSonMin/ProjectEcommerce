@@ -1,7 +1,8 @@
 import CouponRow from "./CouponRow";
-import { ICoupon } from "@/interfaces";
+import { ICoupon } from "@/interfaces/models";
 import { Menus, Spinner, Table, Pagination } from "@/components/shared";
 import { UseCouponApi } from "@/apis-use";
+import { randomKey } from "@/utils";
 
 interface IProps {
   isSearch?: boolean;
@@ -37,10 +38,7 @@ export default function CouponTable(props: IProps) {
         <Table.Body
           data={data?.coupons}
           render={(coupon: ICoupon) => (
-            <CouponRow
-              coupon={coupon}
-              key={coupon._id || Math.floor(Math.random() * 10000000)}
-            />
+            <CouponRow coupon={coupon} key={coupon._id || randomKey()} />
           )}
         />
         <Table.Footer>

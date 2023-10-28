@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { styled } from "styled-components";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { FormRow, Heading, ImagesGroup, Input, InputFile } from "@/components/shared";
+import { FormRow, Heading, ImagesGroup, Input, InputFileImage } from "@/components/shared";
 import { useProductOption } from "../context/ProductOptionProvider";
 
 const ProductSerialItemStyled = styled.div`
@@ -101,7 +101,7 @@ export default function ProductSerialItem({
         <FormRow label="Serial image">
           {/* 
           //Handler later
-          <InputFile
+          <InputFileImage
             numberImage={0}
             id="serialImage"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

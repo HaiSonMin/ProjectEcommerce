@@ -26,10 +26,6 @@ const StyledHeader = styled(CommonRow)`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-600);
-
-  /* & div:first-child {
-    transform: translateX(20px);
-  } */
 `;
 
 const StyledRow = styled(CommonRow)`
@@ -50,7 +46,6 @@ const Footer = styled.footer`
   justify-content: center;
   padding: 1.2rem;
 
-  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
   &:not(:has(*)) {
     display: none;
   }
@@ -84,18 +79,17 @@ const Table = (props: Pick<IProps, "children" | "columns">) => {
   );
 };
 
-const Header = (props: Pick<IProps, "children">) => {
+const Header = ({ children }: Pick<IProps, "children">) => {
   const { columns } = useContext(TableContext);
   return (
     <StyledHeader role="row" $columns={columns}>
-      {props.children}
+      {children}
     </StyledHeader>
   );
 };
 
 function Body(props: Pick<IProps, "data" | "render">) {
   if (!props?.data?.length) return <Empty>No data to show at the moment</Empty>;
-  // props.render = (brand: BrandType) => <BrandRow brand={brand} />
   return <StyledBody>{props.data.map(props.render)}</StyledBody>;
 }
 

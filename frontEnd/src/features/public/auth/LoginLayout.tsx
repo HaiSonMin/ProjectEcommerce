@@ -14,17 +14,17 @@ import { UseAuthApi } from "@/apis-use";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/storeReducer/public/userSlice";
-import { IAuthLoginResultApi } from "@/apis-results/IAuthResultApi";
-import { IAuthLogin } from "@/interfaces/auth.interface";
+import { IAuthLoginResultApi } from "@/interfaces/result-apis/IAuthResultApi";
+import { IAuthLogin } from "@/interfaces/models/auth.interface";
 import ReCAPTCHA from "react-google-recaptcha";
 import {
   setOptionConfirmOTP,
   setUserEmailOTP,
 } from "@/storeReducer/public/otpSlice";
 import { EnumOptionConfirmOTP } from "@/enum";
-import { ILocalStoreUser } from "@/helpers";
+import { ILocalStoreUser } from "@/interfaces/shared";
 import { PATH_AUTH } from "@/constant/path-router";
-import { LOCAL_STORE_NAME } from "@/constant";
+import { WEB_STORE_NAME } from "@/constant";
 import CONSTANT from "@/constant/value-constant";
 
 const LoginLayoutStyled = styled.div`
@@ -54,7 +54,6 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 70rem;
-
 `;
 const ForgetPassword = styled.p`
   align-self: flex-end;
@@ -124,11 +123,11 @@ export default function LoginLayout() {
           userRole: data.user.user_role,
         };
         localStorage.setItem(
-          LOCAL_STORE_NAME.AT_NAME_LOCAL_STORE,
+          WEB_STORE_NAME.AT_NAME_LOCAL_STORE,
           JSON.stringify(data.accessToken)
         );
         localStorage.setItem(
-          LOCAL_STORE_NAME.USER_NAME_LOCAL_STORE,
+          WEB_STORE_NAME.USER_NAME_LOCAL_STORE,
           JSON.stringify(userStorage)
         );
         dispatch(setUser(userStorage));

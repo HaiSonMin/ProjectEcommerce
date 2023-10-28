@@ -5,9 +5,9 @@ import {
   IOrderGetOneResultApi,
   IOrderUpdateResultApi,
   IOrderDeleteResultApi,
-} from "@/apis-results/IOrderResultApi";
-import { IOrder } from "@/interfaces";
-import IArgsQuery from "@/helpers/IArgsQuery";
+} from "@/interfaces/result-apis/IOrderResultApi";
+import { IOrder } from "@/interfaces/models";
+import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
 import {  getErrorMessage, http } from "@/utils";
 import { PATH_API_V1 } from "@/constant/path-api";
 

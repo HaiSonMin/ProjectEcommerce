@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { UseProductCategoryGroupApi } from "@/apis-use";
 import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
-import { IProductCategory, IProductCategoryGroup } from "@/interfaces";
+import { IProductCategory, IProductCategoryGroup } from "@/interfaces/models";
 
 const Img = styled.img`
   display: block;

@@ -1,6 +1,6 @@
 import BrandRow from "./BrandRow";
 import { useEffect } from "react";
-import { IBrand } from "@/interfaces";
+import { IBrand } from "@/interfaces/models";
 import { useSearchParams } from "react-router-dom";
 import { Menus, Spinner, Table, Pagination } from "@/components/shared";
 import { KEY_QUERY, VALUE_CONSTANT } from "@/constant";

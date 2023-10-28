@@ -1,5 +1,5 @@
 import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
-import { IProductCategory } from "@/interfaces";
+import { IProductCategory } from "@/interfaces/models";
 import { styled } from "styled-components";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBinLine } from "react-icons/ri";

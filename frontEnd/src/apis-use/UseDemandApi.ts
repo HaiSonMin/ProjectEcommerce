@@ -10,7 +10,7 @@ import {
   IDemandUpdateResultApi,
   IDemandDeleteResultApi,
   IDemandsSearchResultApi,
-} from "@/apis-results/IDemandResultApi";
+} from "@/interfaces/result-apis/IDemandResultApi";
 import { useQueriesString } from "@/hooks";
 import { useParams } from "react-router-dom";
 

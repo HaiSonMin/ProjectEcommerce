@@ -5,7 +5,7 @@ import {
   FormRow,
   Heading,
   FormBox,
-  InputFile,
+  InputFileImage,
   SelectMultiV2,
 } from "@/components/shared";
 import {
@@ -16,14 +16,14 @@ import {
 import { useState } from "react";
 import { randomKey } from "@/utils";
 import { useMoveBack } from "@/hooks";
-import { IFilterOption } from "@/helpers";
+import { IFilterOption } from "@/interfaces/shared";
 import { useForm } from "react-hook-form";
 import Select, { SingleValue } from "react-select";
-import IOptionSelect from "@/helpers/ISelectOption";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
 import { PRODUCT_CATEGORY_TYPE } from "@/constant";
 import { DefaultOptionType } from "antd/es/select";
 import FormHeading from "@/components/shared/FormHeading";
-import { IBrand, IProductCategory } from "@/interfaces";
+import { IBrand, IProductCategory } from "@/interfaces/models";
 import ProductFilterOption from "@/features/admin/product/product-form/element-product-form/ProductFilterOption";
 
 const initializeOptionsFilters: Array<IFilterOption> = [
@@ -239,7 +239,7 @@ export default function ProductCategoryForm(props: IProps) {
             label="Product Category Image"
             error={errorsForm.productCategory_image}
           >
-            <InputFile
+            <InputFileImage
               register={register("productCategory_image", {
                 required: "Please provide product category image",
               })}
@@ -248,7 +248,7 @@ export default function ProductCategoryForm(props: IProps) {
           </FormRow>
         ) : (
           <FormRow label="Product Category Image">
-            <InputFile
+            <InputFileImage
               register={register("productCategory_image")}
               id="productCategoryImage"
             />

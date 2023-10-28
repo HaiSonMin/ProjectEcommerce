@@ -13,7 +13,7 @@ import {
 } from "@/apis-results/IProductCategoryResultApi";
 import { useQueriesString } from "@/hooks";
 import { useParams } from "react-router-dom";
-import { IApi } from "@/helpers";
+import { IApi } from "@/interfaces/shared";
 
 export default class UseProductCategoryApi {
   static createCategory(): IProductCategoryCreateResultApi {

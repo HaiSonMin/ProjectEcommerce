@@ -1,18 +1,19 @@
-import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/helpers";
-import { IUser } from "@/interfaces";
-import IAuth, {
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IApi } from '@/interfaces/shared';
+import {
+  IAuth,
   IAuthCreateSessionOTP,
   IAuthLogin,
   IAuthRegister,
-} from "@/interfaces/auth.interface";
-import { getATLocalStorage, getErrorMessage, http } from "@/utils";
+} from '@/interfaces/models/auth.interface';
+import { getATLocalStorage, getErrorMessage, http } from '@/utils';
+import IUser from '@/interfaces/models/user.interface';
 
 class AuthApi {
   async loginGoogle(): Promise<IApi> {
     try {
       const response = await http.get(
-        `${PATH_API_V1.auth.mainPath}${PATH_API_V1.auth.feature.login}/success/google`
+        `${PATH_API_V1.auth.root}/${PATH_API_V1.auth.feature.login}/success/google`
       );
       const result: IApi = response.data;
       return result;
@@ -24,7 +25,7 @@ class AuthApi {
   async login(args: IAuthLogin): Promise<IApi> {
     try {
       const response = await http.post(
-        `${PATH_API_V1.auth.mainPath}${PATH_API_V1.auth.feature.login}`,
+        `${PATH_API_V1.auth.root}/${PATH_API_V1.auth.feature.login}`,
         args
       );
       const result: IApi = response.data;
@@ -38,7 +39,7 @@ class AuthApi {
     const accessToken = getATLocalStorage();
     try {
       const response = await http.get(
-        `${PATH_API_V1.auth.mainPath}${PATH_API_V1.auth.feature.logout}`,
+        `${PATH_API_V1.auth.root}/${PATH_API_V1.auth.feature.logout}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
@@ -53,7 +54,7 @@ class AuthApi {
   async generateOTP(args: IAuthCreateSessionOTP): Promise<IApi> {
     try {
       const response = await http.post(
-        `${PATH_API_V1.auth.mainPath}${PATH_API_V1.auth.feature.generateOTP}`,
+        `${PATH_API_V1.auth.root}/${PATH_API_V1.auth.feature.generateOTP}`,
         args
       );
       const result: IApi = response.data;
@@ -66,7 +67,7 @@ class AuthApi {
   async createSessionRegister(args: IAuthRegister): Promise<IApi> {
     try {
       const response = await http.post(
-        `${PATH_API_V1.auth.mainPath}${PATH_API_V1.auth.feature.createSessionRegister}`,
+        `${PATH_API_V1.auth.root}/${PATH_API_V1.auth.feature.createSessionRegister}`,
         args
       );
       const result: IApi = response.data;
@@ -76,10 +77,10 @@ class AuthApi {
     }
   }
 
-  async confirmRegister(args: Pick<IAuth, "OTPCode">): Promise<IApi> {
+  async confirmRegister(args: Pick<IAuth, 'OTPCode'>): Promise<IApi> {
     try {
       const response = await http.post(
-        `${PATH_API_V1.auth.mainPath}${PATH_API_V1.auth.feature.confirmRegister}`,
+        `${PATH_API_V1.auth.root}/${PATH_API_V1.auth.feature.confirmRegister}`,
         args
       );
       const result: IApi = response.data;
@@ -90,11 +91,11 @@ class AuthApi {
   }
 
   async createSessionResetPassword(
-    args: Pick<IUser, "user_email">
+    args: Pick<IUser, 'user_email'>
   ): Promise<IApi> {
     try {
       const response = await http.post(
-        `${PATH_API_V1.auth.mainPath}${PATH_API_V1.auth.feature.createSessionResetPassword}`,
+        `${PATH_API_V1.auth.root}/${PATH_API_V1.auth.feature.createSessionResetPassword}`,
         args
       );
       const result: IApi = response.data;
@@ -104,11 +105,11 @@ class AuthApi {
     }
   }
 
-  async confirmOTPResetPassword(args: Pick<IAuth, "OTPCode">): Promise<IApi> {
-    console.log("args::::", args);
+  async confirmOTPResetPassword(args: Pick<IAuth, 'OTPCode'>): Promise<IApi> {
+    console.log('args::::', args);
     try {
       const response = await http.post(
-        `${PATH_API_V1.auth.mainPath}${PATH_API_V1.auth.feature.confirmOTPResetPassword}`,
+        `${PATH_API_V1.auth.root}/${PATH_API_V1.auth.feature.confirmOTPResetPassword}`,
         args
       );
       const result: IApi = response.data;
@@ -119,11 +120,11 @@ class AuthApi {
   }
 
   async confirmResetPassword(
-    args: Pick<IAuthRegister, "user_password" | "user_confirmPassword">
+    args: Pick<IAuthRegister, 'user_password' | 'user_confirmPassword'>
   ): Promise<IApi> {
     try {
       const response = await http.post(
-        `${PATH_API_V1.auth.mainPath}${PATH_API_V1.auth.feature.confirmResetPassword}`,
+        `${PATH_API_V1.auth.root}/${PATH_API_V1.auth.feature.confirmResetPassword}`,
         args
       );
       const result: IApi = response.data;

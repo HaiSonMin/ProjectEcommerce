@@ -1,5 +1,5 @@
 import { Menus, Spinner, Table, Pagination } from "@/components/shared";
-import { IOrder } from "@/interfaces";
+import { IOrder } from "@/interfaces/models";
 import OrderRow from "./OrderRow";
 import UseOrderApi from "../../../apis-use/UserOrderApi";
 

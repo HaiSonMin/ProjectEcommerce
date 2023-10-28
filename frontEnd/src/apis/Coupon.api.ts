@@ -1,9 +1,8 @@
-
-import { ICoupon } from "@/interfaces";
-import IArgsQuery from "@/helpers/IArgsQuery";
-import { getErrorMessage, http } from "@/utils";
-import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/helpers";
+import ICoupon from '@/interfaces/models/coupon.interface';
+import IArgsQuery from '@/interfaces/shared/IArgsQuery.interface';
+import { getErrorMessage, http } from '@/utils';
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IApi } from '@/interfaces/shared';
 
 class CouponApi {
   async createCoupon(args: Partial<ICoupon>): Promise<IApi> {
@@ -34,7 +33,7 @@ class CouponApi {
     }
   }
 
-  async getOneCoupon(arg: Pick<ICoupon, "_id">): Promise<IApi> {
+  async getOneCoupon(arg: Pick<ICoupon, '_id'>): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.coupon}/getById/${arg._id}`
@@ -77,7 +76,7 @@ class CouponApi {
     }
   }
 
-  async deleteCoupon(arg: Pick<ICoupon, "_id">): Promise<IApi> {
+  async deleteCoupon(arg: Pick<ICoupon, '_id'>): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.coupon}/delete/${arg._id}`

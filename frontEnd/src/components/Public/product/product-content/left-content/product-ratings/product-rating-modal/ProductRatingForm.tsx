@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
 import {
   RatingStarAction,
-  InputFile,
+  InputFileImage,
   Heading,
   TextArea,
   Button,
@@ -38,7 +38,7 @@ export default function ProductRatingForm() {
         <Heading $as="h4">Đánh giá và nhận xét sản phẩm XXX</Heading>
       </Header>
       <From onSubmit={handleSubmit(onSubmit)}>
-        <InputFile id="image-rating" />
+        <InputFileImage id="image-rating" />
         <TextArea placeholder="Cảm nhận về sản phẩm" />
         <RatingStarAction ratingPoint={3} />
         <Button type="submit">Gửi đánh giá</Button>

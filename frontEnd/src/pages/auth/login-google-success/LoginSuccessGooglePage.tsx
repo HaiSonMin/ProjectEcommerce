@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { UseAuthApi } from "@/apis-use";
 import { SpinnerLogo } from "@/components/shared";
 import { useDispatch } from "react-redux";
-import { ILocalStoreUser } from "@/helpers";
+import { ILocalStoreUser } from "@/interfaces/shared";
 import { Navigate } from "react-router-dom";
 import CONSTANT from "@/constant/value-constant";
 import { setUser } from "@/storeReducer/public/userSlice";

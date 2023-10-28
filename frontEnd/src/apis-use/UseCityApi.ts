@@ -2,7 +2,7 @@ import {
   ICityGetAllCities,
   ICityGetAllDistrictInCity,
   ICityGetAllWardsInDistrict,
-} from "@/apis-results/ICityResultApi";
+} from "@/interfaces/result-apis/ICityResultApi";
 import { CityApi } from "@/apis";
 import { useQuery } from "@tanstack/react-query";
 

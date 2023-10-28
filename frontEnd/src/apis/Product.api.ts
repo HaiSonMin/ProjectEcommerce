@@ -1,7 +1,7 @@
-import { IApi } from "@/helpers";
-import { IProduct } from "@/interfaces";
+import { IApi } from "@/interfaces/shared";
+import { IProduct } from "@/interfaces/models";
 import { PATH_API_V1 } from "@/constant/path-api";
-import IArgsQuery from "@/helpers/IArgsQuery";
+import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
 import { http, getErrorMessage, resultAppendFormDataRecursive } from "@/utils";
 
 class ProductApi {

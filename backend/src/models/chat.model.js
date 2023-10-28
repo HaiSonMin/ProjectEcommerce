@@ -1,20 +1,30 @@
-const { model, Schema } = require("mongoose");
-const CONSTANT = require("../constant");
+const { model, Schema } = require('mongoose');
+const CONSTANT = require('../constant');
 const COLLECTION_NAME = CONSTANT.MODELS_NAMES.chat;
 const ChatSchema = new Schema({
-  chat_roomName: {
-    type: String,
-    required: [true, "Please provide room name"],
+  //   {
+  //     chat_emailUser: string, Can be admin or user
+  //     chat_phoneUser: string
+  //     chat_nameUser: string
+  //     chat_sexUser: string
+  //   },
+  chat_user: {
+    type: Schema.Types.Mixed,
+    required: true,
   },
-  use_send: {
+  chat_admin: {
     type: Schema.Types.ObjectId,
     ref: CONSTANT.MODELS_NAMES.user,
-    required: [true, "Please provide user id send"],
   },
-  use_receive: {
-    type: Schema.Types.ObjectId,
-    ref: CONSTANT.MODELS_NAMES.user,
-    required: [true, "Please provide user id send"],
+  // [
+  //   {
+  //     chat_emailUser: string, Can be Admin or User
+  //     chat_message: string // message when send text
+  //   },
+  //   ....
+  // ]
+  chat_contents: {
+    type: Schema.Types.Mixed,
   },
 });
 

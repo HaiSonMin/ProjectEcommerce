@@ -1,0 +1,7 @@
+{"message":"Vui lòng điền đầy đủ thông tin","method":"POST","url":"/api/v1/chat/create","timeStamp":"27/10/2023 12:14:45"}
+{"message":"Cannot access 'chatUser' before initialization","method":"POST","url":"/api/v1/chat/create","timeStamp":"27/10/2023 12:16:00"}
+{"message":"Vui lòng điền đầy đủ thông tin","method":"POST","url":"/api/v1/chat/create","timeStamp":"27/10/2023 12:16:17"}
+{"message":"Vui lòng điền đầy đủ thông tin","method":"POST","url":"/api/v1/chat/create","timeStamp":"27/10/2023 12:35:00"}
+{"message":"Phòng chat không tồn tại","method":"DELETE","url":"/api/v1/chat/delete/653b4c412dff9335b1c9e3d9","timeStamp":"27/10/2023 12:41:02"}
+{"message":"Phòng chat không tồn tại","method":"GET","url":"/api/v1/chat/getById/6539cb060590edbd8fe86a00","timeStamp":"27/10/2023 12:41:06"}
+{"message":"Phòng chat không tồn tại","method":"DELETE","url":"/api/v1/chat/delete/653b4d5d2e76490277109cdf","timeStamp":"27/10/2023 13:22:15"}

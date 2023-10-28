@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { css, styled } from "styled-components";
 import { randomKey } from "@/utils";
 import { InView } from "react-intersection-observer";
-import { IProductCategory } from "@/interfaces";
+import { IProductCategory } from "@/interfaces/models";
 
 const accessories = [
   {

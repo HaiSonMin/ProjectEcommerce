@@ -1,5 +1,5 @@
 import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
-import { ICoupon } from "@/interfaces";
+import { ICoupon } from "@/interfaces/models";
 import { styled } from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsEye } from "react-icons/bs";
@@ -50,7 +50,6 @@ const Stacked = styled.div`
 `;
 
 interface IProps {
-  key: React.Key;
   coupon: ICoupon;
 }
 

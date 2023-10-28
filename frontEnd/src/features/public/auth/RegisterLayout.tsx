@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CONSTANT from "@/constant/value-constant";
 import { UseAuthApi } from "@/apis-use";
 import { useRef } from "react";
-import { IAuthRegister } from "@/interfaces/auth.interface";
+import { IAuthRegister } from "@/interfaces/models/auth.interface";
 import { toast } from "react-hot-toast";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useDispatch } from "react-redux";

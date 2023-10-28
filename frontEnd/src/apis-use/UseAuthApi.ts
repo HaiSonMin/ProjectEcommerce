@@ -9,11 +9,11 @@ import {
   IAuthConfirmOTPResetPasswordResultApi,
   IAuthCreateSessionResetPasswordResultApi,
   IAuthLoginGoogleResultApi,
-} from "@/apis-results/IAuthResultApi";
+} from "@/interfaces/result-apis/IAuthResultApi";
 import { AuthApi } from "@/apis";
-import CONSTANT from "@/constant/value-constant";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { WEB_STORE_NAME } from "@/constant";
 
 export default class UseAuthApi {
   static loginGoogle(): IAuthLoginGoogleResultApi {
@@ -62,8 +62,8 @@ export default class UseAuthApi {
     const { data, mutate, isLoading } = useMutation({
       mutationFn: AuthApi.logout,
       onSuccess: (data) => {
-        localStorage.removeItem(CONSTANT.AT_NAME_LOCAL_STORE);
-        localStorage.removeItem(CONSTANT.USER_NAME_LOCAL_STORE);
+        localStorage.removeItem(WEB_STORE_NAME.AT_NAME_LOCAL_STORE);
+        localStorage.removeItem(WEB_STORE_NAME.USER_NAME_LOCAL_STORE);
         toast.success(data.message);
       },
       onError: () => toast.error("Thao tát thất bại"),

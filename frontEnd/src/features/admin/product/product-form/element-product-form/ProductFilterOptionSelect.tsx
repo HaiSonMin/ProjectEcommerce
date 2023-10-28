@@ -1,5 +1,5 @@
 import { css, styled } from "styled-components";
-import { IFilterItem, IFilterOption } from "@/helpers";
+import { IFilterItem, IFilterOption } from "@/interfaces/shared";
 import { useState } from "react";
 import { fi } from "date-fns/locale";
 

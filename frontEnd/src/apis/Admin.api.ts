@@ -1,9 +1,9 @@
-import { IUser } from "@/interfaces";
-import IArgsQuery from "@/helpers/IArgsQuery";
+import { IUser } from "@/interfaces/models";
+import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
 import { http, getErrorMessage } from "@/utils";
 import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/helpers";
-import { IAuthRegister } from "@/interfaces/auth.interface";
+import { IApi } from "@/interfaces/shared";
+import { IAuthRegister } from "@/interfaces/models/auth.interface";
 class AdminApi {
   async createUser(args: IAuthRegister): Promise<IApi> {
     console.log(args);

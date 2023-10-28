@@ -6,6 +6,7 @@ const PATH_PUBLIC = {
       infoOrder: "order-info",
     },
   },
+  feedback: "feedback",
   brand: "brand",
   order: "order",
   member: "member",

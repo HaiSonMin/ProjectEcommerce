@@ -7,7 +7,7 @@ import {
   IDiscountGetOneResultApi,
   IDiscountSearchResultApi,
   IDiscountUpdateResultApi,
-} from "@/apis-results/IDiscountResultApi";
+} from "@/interfaces/result-apis/IDiscountResultApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useQueriesString } from "@/hooks";

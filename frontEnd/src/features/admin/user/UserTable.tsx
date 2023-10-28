@@ -1,5 +1,5 @@
 import UserRow from "./UserRow";
-import { IUser } from "@/interfaces";
+import { IUser } from "@/interfaces/models";
 import { UseAdminApi } from "@/apis-use";
 import { Menus, Spinner, Table, Pagination } from "@/components/shared";
 

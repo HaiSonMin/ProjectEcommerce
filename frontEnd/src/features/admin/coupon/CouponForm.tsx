@@ -8,12 +8,12 @@ import {
   SelectMulti,
 } from "@/components/shared";
 import { useMoveBack } from "@/hooks";
-import { ICoupon } from "@/interfaces";
+import { ICoupon } from "@/interfaces/models";
 import { useForm } from "react-hook-form";
 import { useMemo, useState } from "react";
 import Select, { SingleValue } from "react-select";
-import IOptionSelect from "@/helpers/ISelectOption";
-import IOptionSelectBoolean from "@/helpers/ISelectOptionBoolean";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
+import IOptionSelectBoolean from "@/interfaces/shared/ISelectOptionBoolean.interface";
 import { UseCouponApi, UseProductCategoryApi } from "@/apis-use";
 import { CouponOptionAppliesAll, CouponOptionsType } from "./CouponConstant";
 

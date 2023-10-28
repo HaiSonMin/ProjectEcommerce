@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ProductTypeLayout from "./ProductTypeLayout";
 import { UseProductCategoryApi } from "@/apis-use";
 import { useState, useEffect } from "react";
-import { IProductCategory } from "@/interfaces";
+import { IProductCategory } from "@/interfaces/models";
 import { ContainerCardLoading } from "@/components/shared";
 import { randomKey } from "@/utils";
 import InfiniteScroll from "react-infinite-scroll-component";

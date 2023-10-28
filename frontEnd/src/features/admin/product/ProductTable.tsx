@@ -1,5 +1,5 @@
 import { ProductRow } from "./";
-import { IProduct } from "@/interfaces";
+import { IProduct } from "@/interfaces/models";
 import { UseProductApi } from "@/apis-use";
 import { Menus, Pagination, Spinner, Table } from "@/components/shared";
 

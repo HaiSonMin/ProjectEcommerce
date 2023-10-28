@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { HiMiniHome } from "react-icons/hi2";
-import { IProduct } from "@/interfaces";
+import { IProduct } from "@/interfaces/models";
 import { PATH_PUBLIC } from "@/constant/path-router";
 import { IoIosArrowForward } from "react-icons/io";
 

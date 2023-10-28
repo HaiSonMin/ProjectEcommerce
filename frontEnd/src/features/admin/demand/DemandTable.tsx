@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { IDemand } from "@/interfaces";
+import { IDemand } from "@/interfaces/models";
 import DemandRow from "./DemandRow";
 import { Menus, Pagination, Spinner, Table } from "@/components/shared";
 import { useEffect } from "react";

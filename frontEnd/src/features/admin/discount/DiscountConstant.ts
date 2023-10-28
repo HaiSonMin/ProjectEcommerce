@@ -1,4 +1,4 @@
-import IOptionSelect from "@/helpers/ISelectOption";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
 
 const DiscountOptionsType: Array<IOptionSelect> = [
   { value: "percentage", label: "Percentage(%)" },

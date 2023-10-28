@@ -8,11 +8,11 @@ import {
 } from "@/components/shared";
 import { useState } from "react";
 import { useMoveBack } from "@/hooks";
-import { IDiscount } from "@/interfaces";
+import { IDiscount } from "@/interfaces/models";
 import { useForm } from "react-hook-form";
 import { UseDiscountApi } from "@/apis-use";
 import Select, { SingleValue } from "react-select";
-import IOptionSelect from "@/helpers/ISelectOption";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
 import DiscountOptionsType from "./DiscountConstant";
 
 interface IProps {

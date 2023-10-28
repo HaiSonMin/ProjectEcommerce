@@ -1,4 +1,4 @@
-import IOptionSelect from "@/helpers/ISelectOption";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
 
 const OptionsRole: Array<IOptionSelect> = [
   { value: "WRITER", label: "WRITER" },

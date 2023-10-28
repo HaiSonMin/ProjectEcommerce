@@ -1,0 +1,23 @@
+
+{"message":"Product doesn't exists","method":"GET","url":"/api/v1/product/getById/65006adda893090c2f08b691","timeStamp":"17/10/2023 15:38:56"}
+{"message":"No item found with id :64fab12ea19b33f5436540c71","method":"DELETE","url":"/api/v1/product/delete/64fab12ea19b33f5436540c71","timeStamp":"17/10/2023 15:39:22"}
+{"message":"No item found with id :64fab12ea19b33f5436540c","method":"DELETE","url":"/api/v1/product/delete/64fab12ea19b33f5436540c","timeStamp":"17/10/2023 15:39:24"}
+{"message":"Product delete error","method":"DELETE","url":"/api/v1/product/delete/64fab12ea19b33f5436540c2","timeStamp":"17/10/2023 15:39:26"}
+{"message":"Product delete error","method":"DELETE","url":"/api/v1/product/delete/64fab12ea19b33f5436540c1","timeStamp":"17/10/2023 15:39:31"}
+{"message":"Product delete error","method":"DELETE","url":"/api/v1/product/delete/64fab12ea19b33f5436540c1","timeStamp":"17/10/2023 15:41:22"}
+{"message":"Product delete error","method":"DELETE","url":"/api/v1/product/delete/64fab12ea19b33f5436540c1","timeStamp":"17/10/2023 15:41:32"}
+{"message":"Product delete error","method":"DELETE","url":"/api/v1/product/delete/64fab12ea19b33f5436540c1","timeStamp":"17/10/2023 15:41:49"}
+{"message":"Product doesn't exists","method":"GET","url":"/api/v1/product/getById/65006adda893090c2f08b691","timeStamp":"17/10/2023 15:42:03"}
+{"message":"Product doesn't exists","method":"GET","url":"/api/v1/product/getById/65006adda893090c2f08b691","timeStamp":"17/10/2023 15:42:47"}
+{"message":"Product doesn't exists","method":"GET","url":"/api/v1/product/getById/65006adda893090c2f08b691","userFullName":"Nguyen Lam Hai Son","userEmail":"1851050068@sv.ut.edu.vn","iat":1697532147,"exp":1697535747,"timeStamp":"17/10/2023 15:43:42"}
+{"message":"Product doesn't exists","method":"GET","url":"/api/v1/product/getById/65006adda893090c2f08b691","userFullName":"Nguyen Lam Hai Son","userEmail":"1851050068@sv.ut.edu.vn","iat":1697532147,"exp":1697535747,"timeStamp":"17/10/2023 15:43:42"}
+{"message":"You don't have enough permission visit here","method":"GET","url":"/api/v1/discount/getAll","userFullName":"Nguyen Lam Hai Son","userEmail":"1851050068@sv.ut.edu.vn","iat":1697532147,"exp":1697535747,"timeStamp":"17/10/2023 15:45:20"}
+{"message":"Invalid credential 2","method":"GET","url":"/api/v1/discount/getAll","timeStamp":"17/10/2023 15:46:12"}
+{"message":"Invalid credential 2","method":"GET","url":"/api/v1/user/getUser","timeStamp":"17/10/2023 15:57:05"}
+{"message":"Invalid credential 2","method":"GET","url":"/api/v1/user/getUser","timeStamp":"17/10/2023 15:58:00"}
+{"message":"Invalid credential 2","method":"GET","url":"/api/v1/user/getUser","timeStamp":"17/10/2023 15:59:08"}
+{"message":"Invalid credential 2","method":"GET","url":"/api/v1/user/getUser","timeStamp":"17/10/2023 16:02:31"}
+{"message":"Invalid credential 2","method":"GET","url":"/api/v1/user/getUser","timeStamp":"17/10/2023 16:03:36"}
+{"message":"Invalid credential 2","method":"GET","url":"/api/v1/user/getUser","timeStamp":"17/10/2023 16:04:14"}
+{"message":"Invalid credential 2","method":"GET","url":"/api/v1/user/getUser","timeStamp":"17/10/2023 16:04:15"}
+{"message":"Invalid credential 2","method":"GET","url":"/api/v1/user/getUser","timeStamp":"17/10/2023 16:04:19"}

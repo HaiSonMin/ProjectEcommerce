@@ -1,7 +1,7 @@
-import { IUser } from "@/interfaces";
+import { IUser } from "@/interfaces/models";
 import { http, getErrorMessage } from "@/utils";
 import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/helpers";
+import { IApi } from "@/interfaces/shared";
 
 class UserApi {
   async getUser(arg: Pick<IUser, "_id">): Promise<IApi> {

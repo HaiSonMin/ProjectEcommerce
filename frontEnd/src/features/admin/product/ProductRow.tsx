@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import { UseProductApi } from "@/apis-use";
 import { formatCurrencyVND } from "@/utils";
 import { useNavigate } from "react-router-dom";
-import { IBrand, IProduct } from "@/interfaces";
+import { IBrand, IProduct } from "@/interfaces/models";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
 

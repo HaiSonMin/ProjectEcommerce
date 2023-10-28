@@ -9,7 +9,7 @@ import {
   IAdminGetAllUserResultApi,
   IAdminSearchUserResultApi,
   IAdminUpdateUserResultApi,
-} from "@/apis-results/IAdminResultApi";
+} from "@/interfaces/result-apis/IAdminResultApi";
 import { VALUE_CONSTANT } from "@/constant";
 
 export default class UseAdminApi {

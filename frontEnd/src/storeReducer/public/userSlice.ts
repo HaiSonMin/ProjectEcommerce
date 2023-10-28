@@ -1,5 +1,5 @@
-import { LOCAL_STORE_NAME } from "@/constant";
-import { ILocalStoreUser } from "@/helpers";
+import { WEB_STORE_NAME } from "@/constant";
+import { ILocalStoreUser } from "@/interfaces/shared";
 import { createSlice } from "@reduxjs/toolkit";
 interface IInitialState {
   userId: string;
@@ -9,7 +9,7 @@ interface IInitialState {
 }
 const initializeStateFromLocalStorage = (): IInitialState => {
   const dataStorage = localStorage.getItem(
-    LOCAL_STORE_NAME.USER_NAME_LOCAL_STORE
+    WEB_STORE_NAME.USER_NAME_LOCAL_STORE
   );
   if (!dataStorage)
     return {

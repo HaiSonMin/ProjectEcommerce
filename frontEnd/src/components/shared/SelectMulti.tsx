@@ -1,7 +1,7 @@
 import React from "react";
 import { Select, Tag, Space } from "antd";
 import type { CustomTagProps } from "rc-select/lib/BaseSelect";
-import IOptionSelect from "@/helpers/ISelectOption";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
 
 const tagRender = (props: CustomTagProps) => {
   const { label, closable, onClose } = props;

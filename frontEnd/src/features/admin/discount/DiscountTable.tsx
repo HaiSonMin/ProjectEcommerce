@@ -1,5 +1,5 @@
 import { Menus, Spinner, Table, Pagination } from "@/components/shared";
-import { IDiscount } from "@/interfaces";
+import { IDiscount } from "@/interfaces/models";
 import DiscountRow from "./DiscountRow";
 import { UseDiscountApi } from "@/apis-use";
 

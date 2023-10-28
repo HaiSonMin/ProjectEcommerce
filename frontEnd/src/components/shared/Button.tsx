@@ -51,7 +51,7 @@ const Button = styled.button<{
   $width?: string;
 }>`
   text-align: center;
-  border-radius: 1rem;
+  border-radius: 1rem;  
   box-shadow: var(--shadow-md);
   transition: all 0.3s;
   font-weight: 600;

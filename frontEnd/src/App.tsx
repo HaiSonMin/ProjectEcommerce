@@ -155,6 +155,10 @@ const ProductCategoryPageUser = lazy(
 const ProductDetailPageUser = lazy(
   () => import("@/pages/public/product/product-detail/ProductDetailPage")
 );
+
+// ##### Feedback #####
+const FeedbackPage = lazy(() => import("@/pages/public/feedback/FeedBackPage"));
+
 // ##### Cart #####
 const CartLayout = lazy(() => import("@/pages/public/cart/CartLayout"));
 const CartOrderPage = lazy(
@@ -183,7 +187,9 @@ export default function App() {
         {/* Public Page */}
         <Route path={PATH_PUBLIC.home} element={<PublicLayOut />}>
           <Route path={PATH_PUBLIC.home} element={<HomePage />} />
-
+          {/* Feedback */}
+          <Route path={PATH_PUBLIC.feedback} element={<FeedbackPage />} />
+          {/* Product */}
           <Route
             path={PATH_PUBLIC.productCategory}
             element={<ProductCategoryPageUser />}

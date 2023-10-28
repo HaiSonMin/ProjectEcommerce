@@ -1,4 +1,4 @@
-import { IProductCategoryGroupChildren } from "@/interfaces/productCategoryGroup.interface";
+import { IProductCategoryGroupChildren } from "@/interfaces/models/productCategoryGroup.interface";
 import { randomKey, removeSpaceString } from "@/utils";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { Link } from "react-router-dom";

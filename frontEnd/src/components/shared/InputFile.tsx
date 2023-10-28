@@ -1,35 +1,7 @@
-// import styled from "styled-components";
-
-// const InputFile = styled.input.attrs({ type: "file"})`
-//   font-size: 1.4rem;
-//   border-radius: 1rem;
-
-//   &::file-selector-button {
-//     font-weight: 500;
-//     padding: 0.8rem 1.2rem;
-//     margin-right: 1.2rem;
-//     border-radius: 1rem;
-//     border: none;
-//     color: var(--color-brand-50);
-//     background-color: var(--color-grey-500);
-//     cursor: pointer;
-//     transition:
-//       color 0.2s,
-//       background-color 0.2s;
-
-//     &:hover {
-//       background-color: var(--color-grey-600);
-//     }
-//   }
-// `;
-
-// export default InputFile;
-
 import styled, { css } from "styled-components";
-import { ImImage, ImImages } from "react-icons/im";
-import { UseFormRegister } from "react-hook-form";
+import { BiCloudUpload } from "react-icons/bi";
 
-const InputFileStyled = styled.label<{ $isDisabled?: boolean }>`
+const InputFilesStyled = styled.label<{ $isDisabled?: boolean }>`
   display: flex;
   align-items: center;
   font-size: 1.4rem;
@@ -49,32 +21,31 @@ const InputFileStyled = styled.label<{ $isDisabled?: boolean }>`
   }
 `;
 
-const InputFile = styled.input.attrs({ type: "file" })`
+const Input = styled.input.attrs({ type: "file" })`
   display: none; /* Hide the actual file input */
 `;
 
 const FileInputChose = styled.p`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 5px;
   width: fit-content;
   font-weight: 500;
   padding: 0.6rem 1.2rem;
   margin-right: 1.2rem;
   border-radius: 1rem;
-  border: none;
-  color: var(--color-brand-50);
-  background-color: var(--color-grey-500);
+  background-color: var(--color-grey-100);
+  border: 1px solid var(--color-grey-200);
+
+  span {
+    color: var(--color-blue-900) !important;
+  }
 
   & svg {
     width: 2.4rem;
     height: 2.4rem;
+    color: var(--color-blue-900) !important;
   }
-`;
-
-const InfoSelect = styled.p`
-  font-size: 1.4rem;
-  font-weight: 600;
 `;
 
 interface IProps {
@@ -83,35 +54,23 @@ interface IProps {
   id: string;
   multiple?: boolean;
   register?: any;
-  numberImage?: number;
 }
 
-export default function CustomFileInput({
+export default function InputFile({
   onChange,
   disabled,
   multiple,
   id,
   register,
-  numberImage,
 }: IProps) {
   return (
-    <InputFileStyled htmlFor={id} $isDisabled={disabled}>
-      {!multiple ? (
-        <FileInputChose>
-          <span>Choose a file</span> <ImImage />
-        </FileInputChose>
-      ) : (
-        <FileInputChose>
-          <span>Choose files</span> <ImImages />
-        </FileInputChose>
-      )}
-      {!numberImage ? (
-        <InfoSelect>Chọn ảnh</InfoSelect>
-      ) : (
-        <InfoSelect>Bạn đã chọn {numberImage} ảnh</InfoSelect>
-      )}
+    <InputFilesStyled htmlFor={id} $isDisabled={disabled}>
+      <FileInputChose>
+        <span>Chọn files</span> <BiCloudUpload />
+      </FileInputChose>
+
       {register ? (
-        <InputFile
+        <Input
           {...register}
           disabled={disabled}
           multiple={multiple}
@@ -119,7 +78,7 @@ export default function CustomFileInput({
           id={id}
         />
       ) : (
-        <InputFile
+        <Input
           onChange={onChange}
           disabled={disabled}
           multiple={multiple}
@@ -127,6 +86,6 @@ export default function CustomFileInput({
           id={id}
         />
       )}
-    </InputFileStyled>
+    </InputFilesStyled>
   );
 }

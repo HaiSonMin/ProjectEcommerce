@@ -1,5 +1,5 @@
-import IOptionSelectBoolean from "@/helpers/ISelectOptionBoolean";
-import IOptionSelect from "@/helpers/ISelectOption";
+import IOptionSelectBoolean from "@/interfaces/shared/ISelectOptionBoolean.interface";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
 
 export const CouponOptionsType: Array<IOptionSelect> = [
   { value: "percentage", label: "Percentage(%)" },

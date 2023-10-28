@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import PhoneHeaderLayout from "./ProductTypeHeader";
 import PhoneContainerCard from "./ProductTypeContainerCard";
-import { IProductCategory } from "@/interfaces";
+import { IProductCategory } from "@/interfaces/models";
 
 const ProductTypeLayoutStyled = styled.div`
   display: flex;

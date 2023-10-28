@@ -153,10 +153,7 @@ export default function ForgetPasswordLayout() {
         size="normal"
         ref={refCaptcha}
       />
-      <Button
-        className="mt-[1.5rem]"
-        onClick={handleGenerateOTP}
-      >
+      <Button className="mt-[1.5rem]" onClick={handleGenerateOTP}>
         Gửi mã về email
       </Button>
     </ForgetPasswordContainer>

@@ -1,5 +1,5 @@
 import { CiEdit } from "react-icons/ci";
-import { IBrand } from "@/interfaces";
+import { IBrand } from "@/interfaces/models";
 import { styled } from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";

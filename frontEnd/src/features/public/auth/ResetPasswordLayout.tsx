@@ -2,7 +2,7 @@ import { Button, Heading, InputAuth, SpinnerLogo } from "@/components/shared";
 import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { IAuthResetPassword } from "@/interfaces/auth.interface";
+import { IAuthResetPassword } from "@/interfaces/models/auth.interface";
 import { UseAuthApi } from "@/apis-use";
 import { useNavigate } from "react-router-dom";
 import { PATH_AUTH } from "@/constant/path-router";

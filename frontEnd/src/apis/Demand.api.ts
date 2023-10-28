@@ -1,8 +1,8 @@
-import IArgsQuery from "@/helpers/IArgsQuery";
-import { IDemand, IProductCategory } from "@/interfaces";
+import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
+import { IDemand, IProductCategory } from "@/interfaces/models";
 import { getErrorMessage, http, resultAppendFormData } from "@/utils";
 import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/helpers";
+import { IApi } from "@/interfaces/shared";
 
 class IDemandApi {
   async createDemand(args: Omit<IDemand, "_id">): Promise<IApi> {

@@ -24,7 +24,7 @@ import LogoAuth from "./LogoAuth";
 import Carousel from "./Carousel";
 import CountDown from "./CountDown";
 import Collapsed from "./Collapsed";
-import InputFile from "./InputFile";
+import InputFileImage from "./InputFileImage";
 import InputAuth from "./InputAuth";
 import InputRank from "./InputRank";
 import InputLabel from "./InputLabel";
@@ -94,7 +94,7 @@ export {
   InputRank,
   CountDown,
   Collapsed,
-  InputFile,
+  InputFileImage,
   InputAuth,
   InputLabel,
   SelectDate,

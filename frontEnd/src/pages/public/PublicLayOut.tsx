@@ -1,7 +1,8 @@
-import { Outlet } from "react-router";
-import styled from "styled-components";
-import HeaderLayout from "@/components/Public/header";
-import FooterLayout from "@/components/Public/footer";
+import { Outlet } from 'react-router';
+import styled from 'styled-components';
+import HeaderLayout from '@/components/Public/header';
+import FooterLayout from '@/components/Public/footer';
+import PopupChat from '@/components/popup-chat';
 
 const PublicLayoutStyled = styled.div`
   height: 80vh;
@@ -12,7 +13,8 @@ const Main = styled.main`
 `;
 
 const Container = styled.div`
-  margin: 14rem auto 0;
+  position: relative;
+  margin: 15rem auto 0;
   max-width: 120rem;
   display: flex;
   flex-direction: column;
@@ -26,6 +28,7 @@ export default function PublicLayout() {
       <Main>
         <Container>
           <Outlet />
+          <PopupChat />
         </Container>
       </Main>
       <FooterLayout />

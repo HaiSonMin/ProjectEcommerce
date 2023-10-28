@@ -7,7 +7,7 @@ import {
   ICouponGetOneResultApi,
   ICouponSearchResultApi,
   ICouponUpdateResultApi,
-} from "@/apis-results/ICouponResultApi";
+} from "@/interfaces/result-apis/ICouponResultApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useQueriesString } from "@/hooks";

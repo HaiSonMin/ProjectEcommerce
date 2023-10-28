@@ -1,94 +1,104 @@
-import { css, keyframes, styled } from "styled-components";
+import useCountDown from '@/hooks/useCountDown';
+import { randomKey } from '@/utils';
+import dayjs from 'dayjs';
+import { useMemo } from 'react';
+import styled from 'styled-components';
 
-const CountDowStyled = styled.div``;
-
-const flipTop = keyframes`
-    100% {
-        background-color: red;
-        transform: rotateX(90deg);
-    }
-`;
-
-const flipBottom = keyframes`
-    100% {
-        background-color: red;
-        transform: rotateX(0deg);
-    }
-`;
-
-const sharedStyles = css`
-  line-height: 1;
-  height: 0.75em;
-  padding: 0.25em;
-  overflow: hidden;
-  text-align: center;
-`;
-
-const FlipCard = styled.div<{ $time: string }>`
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: var(--color-white);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 1px 6px #000;
-
-  &::before {
-    display: block;
-    content: ${(props) => props.$time};
-    position: absolute;
-    width: 100%;
-    ${sharedStyles}
-    transform-origin: bottom;
-    /* animation: ${flipTop} 2s ease-in infinite; */
-  }
-
-  &::after {
-    display: block;
-    content: ${(props) => props.$time};
-    position: absolute;
-    display: flex;
-    align-items: flex-end;
-    width: 100%;
-    bottom: 0;
-    ${sharedStyles}
-    transform-origin: top;
-    transform: rotateX(90deg);
-    /* animation: ${flipBottom} 2s ease-out infinite; */
-  }
-`;
-
-const Top = styled.div`
-  background-color: #000;
-  ${sharedStyles};
-`;
-
-const Bottom = styled.div`
-  background-color: #111010;
-  ${sharedStyles}
+const CountDownStyled = styled.div`
   display: flex;
-  align-items: flex-end;
+  gap: 8px;
 `;
 
-interface IProps {
-  hour: string;
-  minute: string;
-  second: string;
-}
+const BoxTime = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1px;
+  padding: 2px 4px;
+  height: fit-content;
+  background-color: var(--color-white);
+  border-radius: 5px;
+  overflow: hidden;
+`;
 
-export default function CountDown({ hour, minute, second }: IProps) {
-  const hourDisplay: string = "";
-  const minuteDisplay: string = "";
-  const secondDisplay: string = "";
+const BoxUnitTime = styled.div<{ $translateY: number }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 2rem;
+  transform: translateY(${(props) => props.$translateY}px);
+  transition: all 0.7s cubic-bezier(0.35, 0.82, 0.965, 1);
+`;
+
+const UnitTime = styled.p`
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+`;
+
+const VALUE_TRANSLATE_Y = -20;
+
+export default function CountDown({ timeLeft }) {
+  const time = useCountDown(timeLeft);
+  const date = dayjs(time);
+
+  const hour = date.hour();
+  const minute = date.minute();
+  const second = date.second();
+  const unitHour = hour % 10;
+  const dozenHour = Math.floor(hour / 10);
+  const unitMinute = minute % 10;
+  const dozenMinute = Math.floor(minute / 10);
+  const unitSecond = second % 10;
+  const dozenSecond = Math.floor(second / 10);
+
+  const arrUnitTime = useMemo(() => {
+    return Array.from({ length: 10 }, (v, i) => i);
+  }, []);
 
   return (
-    <CountDowStyled>
-      <FlipCard $time={second}>
-        <Top>{second}</Top>
-        <Bottom>{second}</Bottom>
-      </FlipCard>
-    </CountDowStyled>
+    <CountDownStyled>
+      {/* Hour */}
+      <BoxTime>
+        <BoxUnitTime $translateY={VALUE_TRANSLATE_Y * dozenHour}>
+          {arrUnitTime.map((v) => (
+            <UnitTime key={randomKey()}>{v}</UnitTime>
+          ))}
+        </BoxUnitTime>
+        <BoxUnitTime $translateY={VALUE_TRANSLATE_Y * unitHour}>
+          {arrUnitTime.map((v) => (
+            <UnitTime key={randomKey()}>{v}</UnitTime>
+          ))}
+        </BoxUnitTime>
+      </BoxTime>
+
+      {/* Minute */}
+      <BoxTime>
+        <BoxUnitTime $translateY={VALUE_TRANSLATE_Y * dozenMinute}>
+          {arrUnitTime.map((v) => (
+            <UnitTime key={randomKey()}>{v}</UnitTime>
+          ))}
+        </BoxUnitTime>
+        <BoxUnitTime $translateY={VALUE_TRANSLATE_Y * unitMinute}>
+          {arrUnitTime.map((v) => (
+            <UnitTime key={randomKey()}>{v}</UnitTime>
+          ))}
+        </BoxUnitTime>
+      </BoxTime>
+
+      {/* Second */}
+      <BoxTime>
+        <BoxUnitTime $translateY={VALUE_TRANSLATE_Y * dozenSecond}>
+          {arrUnitTime.map((v) => (
+            <UnitTime key={randomKey()}>{v}</UnitTime>
+          ))}
+        </BoxUnitTime>
+        <BoxUnitTime $translateY={VALUE_TRANSLATE_Y * unitSecond}>
+          {arrUnitTime.map((v) => (
+            <UnitTime key={randomKey()}>{v}</UnitTime>
+          ))}
+        </BoxUnitTime>
+      </BoxTime>
+    </CountDownStyled>
   );
 }

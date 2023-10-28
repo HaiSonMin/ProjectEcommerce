@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { Heading, Input, InputChecked } from "@/components/shared";
 import Select, { SingleValue } from "react-select";
-import IOptionSelect from "@/helpers/ISelectOption";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
 import UseCityApi from "@/apis-use/UseCityApi";
 
 const FormOfReceiptStyled = styled.div`

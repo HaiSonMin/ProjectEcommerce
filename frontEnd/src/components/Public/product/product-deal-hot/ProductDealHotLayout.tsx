@@ -2,6 +2,7 @@ import ContainerCard from "@/components/shared/ContainerCard";
 import { keyframes, styled } from "styled-components";
 import { TiFlash } from "react-icons/ti";
 import CountDown from "@/components/shared/CountDown";
+import { RiTimerFlashLine } from "react-icons/ri";
 const ProductDealHotLayoutStyled = styled.div`
   box-shadow: var(--shadow-around);
   border-radius: 1rem;
@@ -10,7 +11,7 @@ const ProductDealHotLayoutStyled = styled.div`
   margin-top: 1rem;
 `;
 
-const animation = keyframes`
+const animationScale = keyframes`
 0%   {scale: 1}
 50%   {scale: 1.3}
 100% {scale: 1}
@@ -37,7 +38,25 @@ const DealHotHeader = styled.div`
       height: 4rem;
       color: #eff06b;
 
-      animation: ${animation} 1.75s cubic-bezier(0.66, 0, 0, 1) infinite;
+      animation: ${animationScale} 1s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+    }
+  }
+
+  .countdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    &--title {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 1.6rem;
+      color: var(--color-white);
+      font-weight: 600;
+
+      svg {
+        animation: ${animationScale} 1.75s cubic-bezier(0.66, 0, 0, 1) infinite;
+      }
     }
   }
 `;
@@ -122,7 +141,13 @@ export default function ProductDealHotLayout() {
           <span>Deal hot hôm nay</span>
           <TiFlash />
         </div>
-        <CountDown hour="" minute="" second="9" />
+        <div className="countdown">
+          <div className="countdown--title">
+            <RiTimerFlashLine />
+            <span>Thời gian còn lại:</span>
+          </div>
+          <CountDown timeLeft={Date.now() + 10000000} />
+        </div>
       </DealHotHeader>
       <Background>
         <ContainerCard

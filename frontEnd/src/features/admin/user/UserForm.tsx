@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { IUser } from "@/interfaces";
+import { IUser } from "@/interfaces/models";
 import { useMoveBack } from "@/hooks";
 import optionsRole from "./UserContant";
 import { useForm } from "react-hook-form";
 import Select, { SingleValue } from "react-select";
 import UseUser from "../../../apis-use/UseAdminApi";
-import IOptionSelect from "@/helpers/ISelectOption";
-import { IUserCreate } from "@/interfaces/user.interface";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
+import { IUserCreate } from "@/interfaces/models/user.interface";
 import { Button, Form, FormRow, Input, Heading } from "@/components/shared";
 
 // Type of handler Submit

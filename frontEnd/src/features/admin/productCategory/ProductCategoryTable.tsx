@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { IProductCategory } from "@/interfaces";
+import { IProductCategory } from "@/interfaces/models";
 import ProductCategoryRow from "./ProductCategoryRow";
 import { Menus, Pagination, Spinner, Table } from "@/components/shared";
 import { useEffect } from "react";

@@ -1,5 +1,5 @@
 import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
-import { IDiscount } from "@/interfaces";
+import { IDiscount } from "@/interfaces/models";
 import { styled } from "styled-components";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsEye } from "react-icons/bs";

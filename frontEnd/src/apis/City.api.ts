@@ -1,4 +1,4 @@
-import { IApi } from "@/helpers";
+import { IApi } from "@/interfaces/shared";
 import { getErrorMessage, http } from "@/utils";
 import { PATH_API_V1 } from "@/constant/path-api";
 

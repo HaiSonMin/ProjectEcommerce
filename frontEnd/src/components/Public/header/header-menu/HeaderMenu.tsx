@@ -5,6 +5,7 @@ import { FiPhone } from "react-icons/fi";
 import { LuPackageSearch } from "react-icons/lu";
 import { TbShoppingBag } from "react-icons/tb";
 import { MdOutlineDiscount } from "react-icons/md";
+import { VscFeedback } from "react-icons/vsc";
 import HeaderSearch from "./search-input/HeaderSearch";
 import HeaderButtonAuth from "./HeaderButtonAuth";
 import { PATH_PUBLIC, PATH_MEMBER } from "@/constant/path-router";
@@ -81,6 +82,14 @@ export default function HeaderMenu() {
           <img src={logoPage} alt="Logo Page" />
         </LogoPage>
         <HeaderSearch />
+        <NavLinkItem className="nav-styled" to={`/${PATH_PUBLIC.feedback}`}>
+          <VscFeedback />
+          <p>
+            Góp ý và
+            <br />
+            phản hồi
+          </p>
+        </NavLinkItem>
         <NavTelItem className="nav-styled" href={"tel: 0345299087"}>
           <FiPhone />
           <p>

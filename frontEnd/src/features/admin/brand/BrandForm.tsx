@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { IBrand } from "@/interfaces";
-import { Button, Form, FormRow, Input, InputFile } from "@/components/shared";
+import { IBrand } from "@/interfaces/models";
+import { Button, Form, FormRow, Input, InputFileImage } from "@/components/shared";
 import { UseBrandApi } from "@/apis-use";
 
 interface IProps {
@@ -93,7 +93,7 @@ export function BrandForm(props: IProps) {
       </FormRow>
       {!isEditSession ? (
         <FormRow label="Brand Image" error={errorsForm.brand_image}>
-          <InputFile
+          <InputFileImage
             id="imageBrand"
             register={register("brand_image", {
               required: "Please provide brand origin",
@@ -102,7 +102,7 @@ export function BrandForm(props: IProps) {
         </FormRow>
       ) : (
         <FormRow label="Brand Image">
-          <InputFile id="imageBrand" register={register("brand_image")} />
+          <InputFileImage id="imageBrand" register={register("brand_image")} />
         </FormRow>
       )}
       <FormRow>

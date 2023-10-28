@@ -5,7 +5,7 @@ import {
   FormRow,
   Heading,
   FormBox,
-  InputFile,
+  InputFileImage,
   FromHeading,
   SelectMultiV2,
   Spinner,
@@ -20,12 +20,12 @@ import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import Select, { SingleValue } from "react-select";
 import { DefaultOptionType } from "antd/es/select";
-import IOptionSelect from "@/helpers/ISelectOption";
+import IOptionSelect from "@/interfaces/shared/ISelectOption.interface";
 import { useEffect, useMemo, useState } from "react";
 import { formatCurrencyVND, randomKey } from "@/utils";
-import { IFilterOption, IProductOption } from "@/helpers";
+import { IFilterOption, IProductOption } from "@/interfaces/shared";
 import { UseProductApi, UseProductCategoryApi } from "@/apis-use";
-import { IBrand, IDemand, IProduct, IProductCategory } from "@/interfaces";
+import { IBrand, IDemand, IProduct, IProductCategory } from "@/interfaces/models";
 import FormHeading from "@/components/shared/FormHeading";
 import FormRowButton from "@/components/shared/FormRowButton";
 
@@ -325,7 +325,7 @@ export default function ProductForm({ productEdit }: IProps) {
         {!isEditSession ? (
           <>
             <FormRow label="Hình ảnh đại diện" error={errorsForm.product_thumb}>
-              <InputFile
+              <InputFileImage
                 id="productThumb"
                 register={register("product_thumb", {
                   required: "Vui lòng bổ sung hình ảnh đại diện sản phẩm",
@@ -337,7 +337,7 @@ export default function ProductForm({ productEdit }: IProps) {
               label="Hình ảnh sản phẩm"
               error={errorsForm.product_imagesProduct}
             >
-              <InputFile
+              <InputFileImage
                 multiple
                 id="productImages"
                 register={register("product_imagesProduct", {
@@ -350,7 +350,7 @@ export default function ProductForm({ productEdit }: IProps) {
               label="Hình ảnh nổi bật"
               error={errorsForm.product_imagesHighlights}
             >
-              <InputFile
+              <InputFileImage
                 multiple
                 id="productImagesInfo"
                 register={register("product_imagesHighlights", {
@@ -366,7 +366,7 @@ export default function ProductForm({ productEdit }: IProps) {
               label="Thay đổi hình ảnh đại diện"
               error={errorsForm.product_thumb}
             >
-              <InputFile
+              <InputFileImage
                 id="productThumb"
                 register={register("product_thumb")}
                 numberImage={1}
@@ -377,7 +377,7 @@ export default function ProductForm({ productEdit }: IProps) {
               />
             </FormRow>
             <FormRow label="Bổ sung hình ảnh sản phẩm">
-              <InputFile
+              <InputFileImage
                 id="productImages"
                 multiple
                 register={register("product_imagesProduct")}
@@ -396,7 +396,7 @@ export default function ProductForm({ productEdit }: IProps) {
               />
             </FormRow>
             <FormRow label="Bổ sung hình ảnh nổi bật">
-              <InputFile
+              <InputFileImage
                 id="productImagesInfo"
                 multiple
                 numberImage={watch("product_imagesHighlights")?.length}

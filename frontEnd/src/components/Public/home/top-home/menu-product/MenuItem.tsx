@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
-import { IProductCategoryGroup } from "@/interfaces";
+import { IProductCategoryGroup } from "@/interfaces/models";
 import MenuListChildren from "./MenuListChildren";
 import { PATH_PUBLIC } from "@/constant/path-router";
 // import { PATH_PUBLIC } from "@/constant/path-router";

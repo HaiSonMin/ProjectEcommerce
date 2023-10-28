@@ -1,4 +1,4 @@
-import { IUser } from "@/interfaces";
+import { IUser } from "@/interfaces/models";
 import { useNavigate } from "react-router-dom";
 import UseUserApi from "../../../apis-use/UseAdminApi";
 import { styled } from "styled-components";

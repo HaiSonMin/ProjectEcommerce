@@ -1,9 +1,9 @@
-import { IBrand } from "@/interfaces";
-import IArgsQuery from "@/helpers/IArgsQuery";
+import { IBrand } from "@/interfaces/models";
+import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
 import { http, getErrorMessage, resultAppendFormData } from "@/utils";
 
 import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/helpers";
+import { IApi } from "@/interfaces/shared";
 
 class BrandApi {
   async createBrand(args: Omit<IBrand, "_id">): Promise<IApi> {

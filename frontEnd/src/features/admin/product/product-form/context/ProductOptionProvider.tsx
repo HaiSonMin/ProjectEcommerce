@@ -1,4 +1,4 @@
-import { IProductOption } from "@/helpers";
+import { IProductOption } from "@/interfaces/shared";
 import { randomKey } from "@/utils";
 import { useContext, createContext, useCallback } from "react";
 

@@ -10,7 +10,7 @@ import {
   IProductCategoryGroupGetAllResultApi,
   IProductCategoryGroupUpdateResultApi,
   IProductCategoryGroupGetByIdResultApi,
-} from "@/apis-results/IProductCategoryGroupResultApi";
+} from "@/interfaces/result-apis/IProductCategoryGroupResultApi";
 
 export default class UseProductCategoryGroupApi {
   static createCategoryGroup(): IProductCategoryGroupCreateResultApi {
