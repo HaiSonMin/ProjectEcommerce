@@ -1,13 +1,13 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const {
   BadRequestError,
   NotFoundError,
   UnavailableError,
   ForbiddenError,
   UnauthenticatedError,
-} = require("../core/error.response");
-const { UserModel, KeyTokenModel } = require("../models");
-const { UserRepo, KeyTokenRepo } = require("../repositories");
+} = require('../core/error.response');
+const { UserModel, KeyTokenModel } = require('../models');
+const { UserRepo, KeyTokenRepo } = require('../repositories');
 const {
   getInfoData,
   verifyToken,
@@ -15,20 +15,20 @@ const {
   deleteTokenCookie,
   getMiliSecondFormSecond,
   generatorOTP,
-} = require("../utils");
-const { sendMail } = require("../helpers");
-const { htmlResetPassword, htmlRegister } = require("../constant/html");
+} = require('../utils');
+const { sendMail } = require('../helpers');
+const { htmlResetPassword, htmlRegister } = require('../constant/html');
 const {
   createTokenPair,
   createDoubleKeys,
   createDoubleKeysV2,
-} = require("../utils/token.utils");
-const crypto = require("crypto");
-const CONSTANT = require("../constant");
+} = require('../utils/token.utils');
+const crypto = require('crypto');
+const CONSTANT = require('../constant');
 
 class AuthService {
   static async haveAuth(req, res) {
-    if (!req.user) throw new UnauthenticatedError("Người dùng chưa đăng nhập");
+    if (!req.user) throw new UnauthenticatedError('Người dùng chưa đăng nhập');
     return req.user;
   }
 
@@ -36,18 +36,18 @@ class AuthService {
     const payload = req.body;
 
     if (payload.user_password !== payload.user_confirmPassword)
-      throw new BadRequestError("Mật khẩu xác nhận không khớp");
+      throw new BadRequestError('Mật khẩu xác nhận không khớp');
 
     const checkEmail = await UserModel.findOne({
       user_email: payload.user_email,
     });
-    if (checkEmail) throw new BadRequestError("Email đã được đăng kí trước đó");
+    if (checkEmail) throw new BadRequestError('Email đã được đăng kí trước đó');
 
     const checkPhone = await UserModel.findOne({
       user_phoneNumber: payload.user_phoneNumber,
     });
     if (checkPhone)
-      throw new BadRequestError("Số điện thoại đã được đăng kí trước đó");
+      throw new BadRequestError('Số điện thoại đã được đăng kí trước đó');
 
     delete payload.user_confirmPassword;
 
@@ -64,16 +64,16 @@ class AuthService {
 
     if (Number(OTPCode) !== Number(sessionOTP))
       throw new BadRequestError(
-        "Mã OTP không chính xác, vui lòng kiểm tra lại"
+        'Mã OTP không chính xác, vui lòng kiểm tra lại'
       );
     if (sessionDuration < Date.now())
       throw new BadRequestError(
-        "Mã OTP hết hạn, nhấn vào nút gửi lại để xác nhận mã khác"
+        'Mã OTP hết hạn, nhấn vào nút gửi lại để xác nhận mã khác'
       );
 
     const newUser = await UserModel.create(sessionData);
 
-    if (!newUser) throw new BadRequestError("Tạo tài khoảng thất bại");
+    if (!newUser) throw new BadRequestError('Tạo tài khoảng thất bại');
 
     req.app.locals.sessionOTP = null;
     req.app.locals.sessionDuration = null;
@@ -81,9 +81,9 @@ class AuthService {
     req.app.locals.sessionConfirm = null;
 
     return getInfoData(newUser, [
-      "user_fullName",
-      "user_email",
-      "user_phoneNumber",
+      'user_fullName',
+      'user_email',
+      'user_phoneNumber',
     ]);
   }
 
@@ -91,7 +91,7 @@ class AuthService {
     const user = req.user;
 
     if (!user || !req.isAuthenticated())
-      throw new BadRequestError("Login google failed");
+      throw new BadRequestError('Login google failed');
 
     const {
       _id: userId,
@@ -103,7 +103,8 @@ class AuthService {
     const publicKeyString = crypto.createPublicKey(publicKey);
 
     /////////////////////// Payload of token ///////////////////////
-    const payload = { userFullName, userEmail };
+    const payload = { userId, userFullName, userEmail };
+
 
     // AT save to Author
     // RT save to DB and Cookie
@@ -136,10 +137,10 @@ class AuthService {
 
     return {
       user: getInfoData(user, [
-        "_id",
-        "user_email",
-        "user_fullName",
-        "user_role",
+        '_id',
+        'user_email',
+        'user_fullName',
+        'user_role',
       ]),
       accessToken,
     };
@@ -149,10 +150,10 @@ class AuthService {
     const { user_email, user_password } = req.body;
     // Check user in DB
     const user = await UserRepo.getUserByEmail({ user_email });
-    if (!user) throw new NotFoundError("Wrong Email Or Password");
+    if (!user) throw new NotFoundError('Wrong Email Or Password');
     // Check password is matching
     const isMatchingPassword = await user.comparePassword(user_password);
-    if (!isMatchingPassword) throw new NotFoundError("Wrong Email Or Password");
+    if (!isMatchingPassword) throw new NotFoundError('Wrong Email Or Password');
 
     const {
       _id: userId,
@@ -174,7 +175,7 @@ class AuthService {
       { new: true, upsert: true }
     );
 
-    if (!keyStore) throw new BadRequestError("Some thing went wrong");
+    if (!keyStore) throw new BadRequestError('Some thing went wrong');
 
     const publicKeyString = crypto.createPublicKey(
       keyStore.keytoken_publicKey.toString()
@@ -183,7 +184,7 @@ class AuthService {
     // AT save to Author
     // RT save to DB and Cookie
     /////////////////////// Payload of token ///////////////////////
-    const payload = { userFullName, userEmail };
+    const payload = {userId, userFullName, userEmail };
     const { accessToken, refreshToken } = await createTokenPair({
       payload,
       privateKey,
@@ -204,14 +205,14 @@ class AuthService {
       res,
     });
 
-    console.log("Login Done");
+    console.log('Login Done');
 
     return {
       user: getInfoData(user, [
-        "_id",
-        "user_email",
-        "user_fullName",
-        "user_role",
+        '_id',
+        'user_email',
+        'user_fullName',
+        'user_role',
       ]),
       accessToken,
     };
@@ -220,18 +221,18 @@ class AuthService {
   static async logout(req, res) {
     // Check if don't have RT, wont be able to logout
     const { refreshToken } = req.cookies;
-    if (!refreshToken) throw new BadRequestError("No RefreshToken in cookie");
+    if (!refreshToken) throw new BadRequestError('No RefreshToken in cookie');
     // Delete RT in cookie
     deleteTokenCookie({ tokenName: CONSTANT.RF_TOKEN_NAME, res });
     // Delete RT in Db
     const keyDeleted = await KeyTokenRepo.deleteTokenByRefreshToken(
       refreshToken
     );
-    if (!keyDeleted) throw new BadRequestError("Delete RT Error");
+    if (!keyDeleted) throw new BadRequestError('Delete RT Error');
 
     return getInfoData(keyDeleted, [
-      "keytoken_userId",
-      "keytoken_refreshTokenUsing",
+      'keytoken_userId',
+      'keytoken_refreshTokenUsing',
     ]);
   }
 
@@ -243,7 +244,7 @@ class AuthService {
     });
     if (!checkEmail)
       throw new BadRequestError(
-        "Email người dùng không tồn tại trong hệ thống"
+        'Email người dùng không tồn tại trong hệ thống'
       );
 
     req.app.locals.sessionData = { user_email };
@@ -257,14 +258,14 @@ class AuthService {
     // optionConfirm = 002 => ResetPassword
     const { timeExpireOTP, optionConfirm } = req.body;
 
-    console.log("req.app.locals.sessionData:::", req.app.locals.sessionData);
+    console.log('req.app.locals.sessionData:::', req.app.locals.sessionData);
 
     if (!req.app.locals.sessionData)
-      throw new BadRequestError("Tạo OTP không thành công");
+      throw new BadRequestError('Tạo OTP không thành công');
 
     const payload = req.app.locals.sessionData;
 
-    if (optionConfirm === "002") {
+    if (optionConfirm === '002') {
       const userExist = await UserRepo.getUserByEmail({
         user_email: payload.user_email,
       });
@@ -279,12 +280,12 @@ class AuthService {
       Date.now() + getMiliSecondFormSecond(Number(timeExpireOTP));
     req.app.locals.sessionConfirm = false;
 
-    if (optionConfirm === "001")
+    if (optionConfirm === '001')
       await sendMail(
         payload.user_email,
         htmlRegister(req.app.locals.sessionOTP)
       );
-    if (optionConfirm === "002")
+    if (optionConfirm === '002')
       await sendMail(
         payload.user_email,
         htmlResetPassword(req.app.locals.sessionOTP)
@@ -298,12 +299,12 @@ class AuthService {
     const { sessionOTP, sessionDuration } = req.app.locals;
     if (Number(OTPCode) !== Number(sessionOTP))
       throw new BadRequestError(
-        "Mã OTP không chính xác, vui lòng kiểm tra lại"
+        'Mã OTP không chính xác, vui lòng kiểm tra lại'
       );
 
     if (sessionDuration < Date.now())
       throw new BadRequestError(
-        "Mã OTP hết hạn, nhấn vào nút gửi lại để xác nhận mã khác"
+        'Mã OTP hết hạn, nhấn vào nút gửi lại để xác nhận mã khác'
       );
 
     req.app.locals.sessionConfirm = true;
@@ -316,17 +317,17 @@ class AuthService {
     const { user_password, user_confirmPassword } = req.body;
     if (!sessionConfirm)
       throw new UnavailableError(
-        "Không thể truy cập trang này khi chưa xác nhận OTP"
+        'Không thể truy cập trang này khi chưa xác nhận OTP'
       );
 
     if (user_password !== user_confirmPassword)
-      throw new BadRequestError("Mật khẩu xác nhận không khớp");
+      throw new BadRequestError('Mật khẩu xác nhận không khớp');
 
     const user = await UserRepo.getUserByEmail({
       user_email: sessionData.user_email,
     });
 
-    if (!user) throw new NotFoundError("Người dùng không tồn tại");
+    if (!user) throw new NotFoundError('Người dùng không tồn tại');
 
     const newPasswordEncode = await bcrypt.hash(user_password, constant.SALT);
 
@@ -339,19 +340,19 @@ class AuthService {
     req.app.locals.sessionData = null;
     req.app.locals.sessionConfirm = null;
 
-    return "Đổi mật khẩu thành công";
+    return 'Đổi mật khẩu thành công';
   }
 
   static async refreshAccessToken(req, res) {
     // Check cookie
     const { refreshToken } = req.cookies;
-    if (!refreshToken) throw new BadRequestError("No RefreshToken in cookie");
+    if (!refreshToken) throw new BadRequestError('No RefreshToken in cookie');
 
     // Check DB
     const keyStore = await KeyTokenRepo.findRefreshTokenUsing(refreshToken);
     if (!keyStore) {
-      await deleteTokenCookie({ tokenName: "refreshToken", res });
-      throw new BadRequestError("Refresh token dost not exist");
+      await deleteTokenCookie({ tokenName: 'refreshToken', res });
+      throw new BadRequestError('Refresh token dost not exist');
     }
 
     // Verify RT
@@ -361,7 +362,7 @@ class AuthService {
       token: refreshToken,
       key: keytoken_publicKey,
     });
-    if (!userVerify) throw new BadRequestError("Verify Token Error");
+    if (!userVerify) throw new BadRequestError('Verify Token Error');
 
     const payload = {
       userId: userVerify.userId,
@@ -390,7 +391,7 @@ class AuthService {
 
     // Save refreshToken to cookie( age: 7day)
     saveTokenCookie({
-      tokenName: "refreshToken",
+      tokenName: 'refreshToken',
       tokenValue: newRT,
       day: 7,
       res,

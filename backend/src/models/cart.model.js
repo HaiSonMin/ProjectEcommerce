@@ -3,7 +3,7 @@ const CONSTANT = require("../constant");
 const COLLECTION_NAME = CONSTANT.MODELS_NAMES.cart;
 const CartSchema = new Schema(
   {
-    cart_userId: {
+    cart_user: {
       type: Schema.Types.ObjectId,
       ref: CONSTANT.MODELS_NAMES.user,
       required: [true, "Please provide userId for cart"],

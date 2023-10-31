@@ -10,6 +10,7 @@ const BrandService = require('./brand.service');
 const DemandService = require('./demand.service');
 const RatingService = require('./rating.service');
 const CouponService = require('./coupon.service');
+const CommentService = require('./comment.service');
 const ProductService = require('./product.service');
 const PaymentService = require('./payment.service');
 const WishlistService = require('./wishlist.service');
@@ -34,6 +35,7 @@ module.exports = {
   DemandService,
   RatingService,
   CouponService,
+  CommentService,
   ProductService,
   PaymentService,
   WishlistService,

@@ -25,7 +25,7 @@ const BlogSchema = new Schema(
     },
     blog_likeByUsers: {
       type: [Schema.Types.ObjectId],
-      ref: "User",
+      ref: CONSTANT.MODELS_NAMES.user,
       default: [],
     },
     blog_numberDislikes: {
@@ -34,7 +34,7 @@ const BlogSchema = new Schema(
     },
     blog_disLikeByUsers: {
       type: [Schema.Types.ObjectId],
-      ref: "User",
+      ref: CONSTANT.MODELS_NAMES.user,
       default: [],
     },
     blog_thumb: {

@@ -10,6 +10,7 @@ const OrderController = require('./order.controller');
 const RatingController = require('./rating.controller');
 const DemandController = require('./demand.controller');
 const CouponController = require('./coupon.controller');
+const CommentController = require('./comment.controller');
 const PaymentController = require('./payment.controller');
 const ProductController = require('./product.controller');
 const DiscountController = require('./discount.controller');
@@ -33,6 +34,7 @@ module.exports = {
   DemandController,
   RatingController,
   CouponController,
+  CommentController,
   PaymentController,
   ProductController,
   DiscountController,

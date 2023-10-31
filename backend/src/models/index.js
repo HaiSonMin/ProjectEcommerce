@@ -7,6 +7,7 @@ const OrderModel = require('./order.model');
 const DemandModel = require('./demand.model');
 const CouponModel = require('./coupon.model');
 const RatingModel = require('./rating.model');
+const CommentModel = require('./comment.model');
 const PaymentModel = require('./payment.model');
 const ProductModel = require('./product.model');
 const KeyTokenModel = require('./keyToken.model');
@@ -27,6 +28,7 @@ module.exports = {
   DemandModel,
   CouponModel,
   RatingModel,
+  CommentModel,
   PaymentModel,
   ProductModel,
   QuestionModel,

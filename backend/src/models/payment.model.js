@@ -8,11 +8,11 @@ const PaymentSchema = new Schema(
       required: [true, "Please provide blog name"],
       min: [1, "Please provide value getter than 1"],
     },
-    payment_orderId: {
+    payment_order: {
       type: Schema.Types.ObjectId,
       ref: CONSTANT.MODELS_NAMES.order,
     },
-    payment_userId: {
+    payment_user: {
       type: Schema.Types.ObjectId,
       ref: CONSTANT.MODELS_NAMES.user,
     },

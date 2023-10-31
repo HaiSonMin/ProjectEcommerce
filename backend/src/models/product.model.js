@@ -1,23 +1,23 @@
-const { model, Schema } = require("mongoose"); // Erase if already required
-const slugify = require("slugify");
-const CONSTANT = require("../constant");
+const { model, Schema } = require('mongoose'); // Erase if already required
+const slugify = require('slugify');
+const CONSTANT = require('../constant');
 const COLLECTION_NAME = CONSTANT.MODELS_NAMES.product;
 const ProductSchema = new Schema(
   {
     product_name: {
       type: String,
-      required: [true, "Please provide product name"],
+      required: [true, 'Please provide product name'],
       maxlength: 100,
       unique: true,
       trim: true,
     },
     product_thumb: {
       type: String,
-      required: [true, "Please provide thumb for product"],
+      required: [true, 'Please provide thumb for product'],
     },
     product_price: {
       type: Number,
-      required: [true, "Please provide product price"],
+      required: [true, 'Please provide product price'],
     },
     // (Filter default)
     product_priceAppliedDiscount: {
@@ -26,8 +26,8 @@ const ProductSchema = new Schema(
     product_slugify: String,
     product_available: {
       type: String,
-      enum: ["AVAILABLE", "UNAVAILABLE", "COMING_SOON"],
-      default: "AVAILABLE",
+      enum: ['AVAILABLE', 'UNAVAILABLE', 'COMING_SOON'],
+      default: 'AVAILABLE',
     },
     product_promotion: [String],
     product_imagesProduct: [String],
@@ -58,10 +58,6 @@ const ProductSchema = new Schema(
     product_demands: {
       type: [Schema.Types.ObjectId],
       ref: CONSTANT.MODELS_NAMES.demand,
-    },
-    product_ratings: {
-      type: [Schema.Types.ObjectId],
-      ref: CONSTANT.MODELS_NAMES.rating,
       default: [],
     },
     product_optionFilters: {
@@ -74,9 +70,9 @@ const ProductSchema = new Schema(
   }
 );
 
-ProductSchema.index({ product_name: "text", product_description: "text" });
+ProductSchema.index({ product_name: 'text', product_description: 'text' });
 
-ProductSchema.pre("save", function (next) {
+ProductSchema.pre('save', function (next) {
   this.product_slugify = slugify(this.product_name, { lower: true });
   this.product_priceAppliedDiscount = this.product_price;
   next();
