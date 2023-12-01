@@ -105,7 +105,6 @@ class AuthService {
     /////////////////////// Payload of token ///////////////////////
     const payload = { userId, userFullName, userEmail };
 
-
     // AT save to Author
     // RT save to DB and Cookie
     const { accessToken, refreshToken } = await createTokenPair({
@@ -184,7 +183,7 @@ class AuthService {
     // AT save to Author
     // RT save to DB and Cookie
     /////////////////////// Payload of token ///////////////////////
-    const payload = {userId, userFullName, userEmail };
+    const payload = { userId, userFullName, userEmail };
     const { accessToken, refreshToken } = await createTokenPair({
       payload,
       privateKey,

@@ -1,4 +1,4 @@
-export default interface ICoupon {
+export interface ICoupon {
   _id: string | undefined;
   coupon_name: string;
   coupon_type: string;

@@ -4,12 +4,11 @@ import { InputAuth, InputChecked, Button, Heading } from '@/components/shared';
 import { useEffect, useState } from 'react';
 import { Socket } from 'socket.io-client';
 import { UseChatApi } from '@/apis-use';
-import { IChat, IChatUser } from '@/interfaces/models';
+import { IChatUser } from '@/interfaces/models';
 import { WEB_STORE_NAME } from '@/constant';
-import { IChatCreateResultApi } from '@/interfaces/result-apis';
-import { ISessionStoreChatInfoUser } from '@/interfaces/shared';
 import { setUserChat } from '@/storeReducer/public/chatSlice';
 import { useDispatch } from 'react-redux';
+import ISessionStoreChatInfoUser from '@/interfaces/shared/ISessionStoreChatInfoUser.interface';
 
 const PopupInfoStyled = styled.div`
   width: 100%;
@@ -47,7 +46,7 @@ interface IProps {
   handleCloseBoxInfo: () => void;
 }
 export default function PopupInfo({ socket, handleCloseBoxInfo }: IProps) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -75,10 +74,12 @@ export default function PopupInfo({ socket, handleCloseBoxInfo }: IProps) {
           WEB_STORE_NAME.USER_NAME_LOCAL_STORE,
           JSON.stringify(dataUserSessionStore)
         );
-       dispatch( setUserChat({
-        chat_roomId: dataResponse.metadata?._id,
-        chat_user: dataSubmit,
-      }))
+        dispatch(
+          setUserChat({
+            chat_roomId: dataResponse.metadata?._id,
+            chat_user: dataSubmit,
+          })
+        );
       },
     });
   };

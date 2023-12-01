@@ -1,6 +1,12 @@
-import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import { css, styled } from "styled-components";
-import { useState, useEffect } from "react";
+import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
+import { css, styled } from 'styled-components';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getStateProductDetail,
+  setChoseColorImageProduct,
+  setChoseColorProduct,
+} from '@/storeReducer/public/productDetailSlice';
 const CarouselImageStyled = styled.div`
   box-shadow:
     0 1px 2px 0 rgba(60, 64, 67, 0.1),
@@ -25,17 +31,18 @@ const ImageSlide = styled.div`
 `;
 
 const ImageItem = styled.div<{ $valueTransform: number }>`
-  display: block;
-  position: absolute;
-  transition: all 0.3s;
   ${({ $valueTransform }) => css`
     transform: translateX(${$valueTransform}%);
   `}
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s;
 
   & img {
-    object-fit: contain;
-    object-position: center;
-    /* width: 100%; */
+    height: 96%;
+    width: 50%;
+    margin: 1% auto;
   }
 `;
 
@@ -89,10 +96,10 @@ const DotsSlide = styled.div`
   transform: translateX(-50%);
 
   & .dot {
-    content: "";
+    content: '';
     width: 8px;
     height: 8px;
-    background-color: var(--color-grey-100);
+    background-color: var(--color-grey-300);
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.7s;
@@ -110,52 +117,58 @@ const DotsSlide = styled.div`
 `;
 
 interface IProps {
-  // [{imageName: "",image:"",linkTo:""}]
-  items: Array<any>;
+  images: Array<string>;
 }
 
-export default function CarouselImage({ items }: IProps) {
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
-
-  useEffect(() => {
-    const timerScroll = setInterval(() => {
-      setCurrentSlide((cur: number) =>
-        cur === items.length - 1 ? 0 : cur + 1
-      );
-    }, 5000);
-
-    return () => clearInterval(timerScroll);
-  }, [currentSlide]);
+export default function CarouselImage({ images }: IProps) {
+  const dispatch = useDispatch();
+  const { optionColorChoseImage } = useSelector(getStateProductDetail);
 
   const handleNextSlide = () => {
-    setCurrentSlide((cur: number) => (cur === items.length - 1 ? 0 : cur + 1));
+    dispatch(
+      setChoseColorImageProduct(
+        optionColorChoseImage === images.length - 1
+          ? 0
+          : optionColorChoseImage + 1
+      )
+    );
   };
 
   const handlePrevSlide = () => {
-    setCurrentSlide((cur: number) => (cur === 0 ? items.length - 1 : cur - 1));
+    dispatch(
+      setChoseColorImageProduct(
+        optionColorChoseImage === 0
+          ? images.length - 1
+          : optionColorChoseImage - 1
+      )
+    );
   };
 
   return (
     <CarouselImageStyled>
       <ImageSlide>
-        {items.map((item, index) => (
-          <ImageItem $valueTransform={100 * index - currentSlide * 100}>
-            <img src={item.image} alt={item.imageName} />
+        {images?.map((image, index) => (
+          <ImageItem
+            $valueTransform={100 * index - optionColorChoseImage * 100}
+          >
+            <img src={image} alt={`Image product ${index}`} />
           </ImageItem>
         ))}
-        {items.length > 1 && (
+        {images?.length > 1 && (
           <>
-            <ButtonPre className="btn-pre" onClick={handlePrevSlide}>
+            <ButtonPre className='btn-pre' onClick={handlePrevSlide}>
               <GoChevronLeft />
             </ButtonPre>
-            <ButtonNext className="btn-next" onClick={handleNextSlide}>
+            <ButtonNext className='btn-next' onClick={handleNextSlide}>
               <GoChevronRight />
             </ButtonNext>
             <DotsSlide>
-              {items.map((item, index) => (
+              {images?.map((_, index) => (
                 <div
-                  className={`dot ${index === currentSlide && "active"}`}
-                  onClick={() => setCurrentSlide(index)}
+                  className={`dot ${
+                    index === optionColorChoseImage && 'active'
+                  }`}
+                  onClick={() => dispatch(setChoseColorImageProduct(index))}
                 />
               ))}
             </DotsSlide>

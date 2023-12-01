@@ -1,5 +1,5 @@
-import { ProductApi } from "@/apis";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ProductApi } from '@/apis';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   IProductCreateResultApi,
   IProductGetOneResultApi,
@@ -7,11 +7,11 @@ import {
   IProductDeleteResultApi,
   IProductSearchResultApi,
   IProductUpdateResultApi,
-} from "@/apis-results/IProductResultApi";
-import { toast } from "react-hot-toast";
-import { useParams } from "react-router-dom";
-import { getQueriesString } from "@/utils";
-import { useQueriesString } from "@/hooks";
+  IProductGetByCategoryId,
+} from '@/interfaces/result-apis';
+import { toast } from 'react-hot-toast';
+import { getQueriesString } from '@/utils';
+import { useQueriesString } from '@/hooks';
 
 export default class UseProductApi {
   static createProduct(): IProductCreateResultApi {
@@ -19,10 +19,10 @@ export default class UseProductApi {
     const { isLoading, mutate, data } = useMutation({
       mutationFn: ProductApi.createProduct,
       onSuccess: () => {
-        toast.success("Create product successfully");
-        queryClient.invalidateQueries({ queryKey: ["products"] });
+        toast.success('Create product successfully');
+        queryClient.invalidateQueries({ queryKey: ['products'] });
       },
-      onError: () => toast.error("Create product errors"),
+      onError: () => toast.error('Create product errors'),
     });
     return {
       createProduct: mutate,
@@ -45,7 +45,7 @@ export default class UseProductApi {
     } = getQueriesString(useQueriesString());
 
     const { isLoading, data } = useQuery({
-      queryKey: ["products", sort, currentPage, limit, numericFilters],
+      queryKey: ['products', sort, currentPage, limit, numericFilters],
       queryFn: () =>
         ProductApi.getAllProducts({
           sort,
@@ -61,7 +61,7 @@ export default class UseProductApi {
 
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
-        queryKey: ["products", sort, currentPage + 1, limit, numericFilters],
+        queryKey: ['products', sort, currentPage + 1, limit, numericFilters],
         queryFn: () =>
           ProductApi.getAllProducts({
             sort,
@@ -73,7 +73,7 @@ export default class UseProductApi {
 
     if (currentPage > 1)
       queryClient.prefetchQuery({
-        queryKey: ["products", sort, currentPage - 1, limit, numericFilters],
+        queryKey: ['products', sort, currentPage - 1, limit, numericFilters],
         queryFn: () =>
           ProductApi.getAllProducts({
             sort,
@@ -91,12 +91,93 @@ export default class UseProductApi {
     };
   }
 
-  static getProductById(productId: string): IProductGetOneResultApi {
+  static getProductsByCategoryId(categoryId: string): IProductGetByCategoryId {
+    const queryClient = useQueryClient();
+    const {
+      sort,
+      page: currentPage,
+      limit,
+      numericFilters,
+    } = getQueriesString(useQueriesString());
+
     const { isLoading, data } = useQuery({
-      queryKey: ["product", productId],
+      queryKey: [
+        'productsByCategoryId',
+        categoryId,
+        sort,
+        currentPage,
+        limit,
+        numericFilters,
+      ],
+      queryFn: () =>
+        ProductApi.getProductsByCategoryId(categoryId, {
+          sort,
+          page: currentPage,
+          limit,
+          numericFilters,
+        }),
+    });
+
+    if (!isLoading && data?.metadata.totalProducts) {
+      let numberPage: number = 1;
+      numberPage = Math.ceil(data.metadata.totalProducts / limit);
+
+      if (currentPage < numberPage)
+        queryClient.prefetchQuery({
+          queryKey: [
+            'productsByCategoryId',
+            categoryId,
+            sort,
+            currentPage + 1,
+            limit,
+            numericFilters,
+          ],
+          queryFn: () =>
+            ProductApi.getProductsByCategoryId(categoryId, {
+              sort,
+              page: currentPage + 1,
+              limit,
+              numericFilters,
+            }),
+        });
+
+      if (currentPage > 1)
+        queryClient.prefetchQuery({
+          queryKey: [
+            'productsByCategoryId',
+            categoryId,
+            sort,
+            currentPage - 1,
+            limit,
+            numericFilters,
+          ],
+          queryFn: () =>
+            ProductApi.getProductsByCategoryId(categoryId, {
+              sort,
+              page: currentPage - 1,
+              limit,
+              numericFilters,
+            }),
+        });
+    }
+
+    return {
+      isGettingProducts: isLoading,
+      message: data?.message,
+      metadata: data?.metadata,
+      statusCode: data?.statusCode,
+      reasonStatusCode: data?.reasonStatusCode,
+    };
+  }
+
+  static getProductById(
+    productId: string | undefined
+  ): IProductGetOneResultApi {
+    const { isLoading, data } = useQuery({
+      queryKey: ['product', productId],
       queryFn: () =>
         ProductApi.getProductById({
-          _id: productId || "",
+          _id: productId + '',
         }),
     });
     return {
@@ -119,7 +200,7 @@ export default class UseProductApi {
     } = getQueriesString(useQueriesString());
     const { isLoading, data } = useQuery({
       queryKey: [
-        "products",
+        'products',
         sort,
         currentPage,
         limit,
@@ -142,7 +223,7 @@ export default class UseProductApi {
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
         queryKey: [
-          "products",
+          'products',
           sort,
           currentPage + 1,
           limit,
@@ -162,7 +243,7 @@ export default class UseProductApi {
     if (currentPage > 1)
       queryClient.prefetchQuery({
         queryKey: [
-          "products",
+          'products',
           sort,
           currentPage - 1,
           limit,
@@ -193,15 +274,15 @@ export default class UseProductApi {
       mutationFn: ProductApi.updateProduct,
       onSuccess: (dataUpdated) => {
         console.log(dataUpdated);
-        toast.success("Update product success");
+        toast.success('Update product success');
         queryClient.invalidateQueries({
-          queryKey: ["products"],
+          queryKey: ['products'],
         });
         queryClient.removeQueries({
-          queryKey: ["product"],
+          queryKey: ['product'],
         });
       },
-      onError: () => toast.error("Delete Error"),
+      onError: () => toast.error('Delete Error'),
     });
 
     return {
@@ -219,10 +300,10 @@ export default class UseProductApi {
     const { isLoading, data, mutate } = useMutation({
       mutationFn: ProductApi.deleteProduct,
       onSuccess: () => {
-        toast.success("Delete Product Successfully");
-        queryClient.invalidateQueries({ queryKey: ["products"] });
+        toast.success('Delete Product Successfully');
+        queryClient.invalidateQueries({ queryKey: ['products'] });
       },
-      onError: () => toast.error("Delete Error"),
+      onError: () => toast.error('Delete Error'),
     });
 
     return {

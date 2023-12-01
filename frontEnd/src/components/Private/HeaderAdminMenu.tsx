@@ -1,16 +1,17 @@
-import { Logout } from "../shared";
-import { styled } from "styled-components";
-import { useNavigate } from "react-router";
-import { HiOutlineUser } from "react-icons/hi2";
-import ButtonIcon from "../shared/ButtonIcon";
-import DarkModeToggle from "./DarkModeToggle";
-import { PATH_ADMIN } from "@/constant/path-router";
+import { styled } from 'styled-components';
+import { useNavigate } from 'react-router';
+import { HiOutlineUser } from 'react-icons/hi2';
+import ButtonIcon from '../shared/ButtonIcon';
+import DarkModeToggle from './DarkModeToggle';
+import { PATH_ADMIN } from '@/constant/path-router';
 
 const HeaderAdminMenuStyled = styled.ul`
   display: flex;
   align-items: center;
   gap: 1;
 `;
+
+const Logout = styled.div``;
 
 const HeaderAdminMenu = () => {
   const navigate = useNavigate();
@@ -21,11 +22,13 @@ const HeaderAdminMenu = () => {
           <HiOutlineUser />
         </ButtonIcon>
       </li>
-      <li>
+      {/* <li>
         <DarkModeToggle />
-      </li>
+      </li> */}
       <li>
-        <Logout />
+        <Logout>
+          Thoát
+        </Logout>
       </li>
     </HeaderAdminMenuStyled>
   );

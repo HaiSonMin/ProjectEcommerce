@@ -1,19 +1,20 @@
-const { model, Schema } = require("mongoose"); // Erase if already required
-const CONSTANT = require("../constant");
+const { model, Schema } = require('mongoose'); // Erase if already required
+const CONSTANT = require('../constant');
 const COLLECTION_NAME = CONSTANT.MODELS_NAMES.productCategory;
 const ProductCategorySchema = new Schema(
   {
     productCategory_name: {
       type: String,
-      required: [true, "Please provide product category name"],
+      required: [true, 'Please provide product category name'],
     },
     productCategory_type: {
       type: String,
-      required: [true, "Please provide product category type"],
+      required: [true, 'Please provide product category type'],
+      index: true,
     },
     productCategory_image: {
       type: String,
-      required: [true, "Please provide product category image"],
+      required: [true, 'Please provide product category image'],
     },
     productCategory_demands: {
       type: [Schema.Types.ObjectId],
@@ -26,9 +27,12 @@ const ProductCategorySchema = new Schema(
     productCategory_group: {
       type: Schema.Types.ObjectId,
       ref: CONSTANT.MODELS_NAMES.productCategory,
-      require: [true, "Please provide product category group"],
+      require: [true, 'Please provide product category group'],
     },
-    productCategory_filtersOptions: String,
+    productCategory_filtersOptions: {
+      type: String,
+      require: true,
+    },
   },
   {
     timestamps: true,

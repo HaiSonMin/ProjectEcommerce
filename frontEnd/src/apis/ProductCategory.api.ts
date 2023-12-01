@@ -1,12 +1,12 @@
-import { IProductCategory } from "@/interfaces/models";
-import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
-import { getErrorMessage, http, resultAppendFormData } from "@/utils";
-import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/interfaces/shared";
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
+import { getErrorMessage, http, resultAppendFormData } from '@/utils';
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IApi } from '@/interfaces/shared';
+import { IProductCategory } from '@/interfaces/models/productCategory.interface';
 
 class ProductCategoryApi {
   async createProductCategory(
-    args: Omit<IProductCategory, "_id">
+    args: Omit<IProductCategory, '_id'>
   ): Promise<IApi> {
     try {
       const response = await http.postForm(
@@ -22,7 +22,7 @@ class ProductCategoryApi {
   async getAllProductCategories(
     fieldsQuery: Partial<IArgsQuery>
   ): Promise<IApi> {
-    console.log("fieldsQuery:::", fieldsQuery);
+    console.log('fieldsQuery:::', fieldsQuery);
     try {
       const response = await http.get(`${PATH_API_V1.productCategory}/getAll`, {
         params: {
@@ -56,7 +56,7 @@ class ProductCategoryApi {
 
   async getProductCategoryById({
     _id: categoryId,
-  }: Pick<IProductCategory, "_id">): Promise<IApi> {
+  }: Pick<IProductCategory, '_id'>): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.productCategory}/getById/${categoryId}`
@@ -70,7 +70,7 @@ class ProductCategoryApi {
 
   async getProductCategoryByGroupId({
     productCategory_group: groupId,
-  }: Pick<IProductCategory, "productCategory_group">): Promise<IApi> {
+  }: Pick<IProductCategory, 'productCategory_group'>): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.productCategory}/getByGroupId/${groupId}`
@@ -101,6 +101,23 @@ class ProductCategoryApi {
     }
   }
 
+  async getProductCategoriesByType(categoryType: string): Promise<IApi> {
+    try {
+      const response = await http.get(
+        `${PATH_API_V1.productCategory}/getByType`,
+        {
+          params: {
+            catType: categoryType,
+          },
+        }
+      );
+      const result: IApi = response.data;
+      return result;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+
   async updateProductCategory(args: Partial<IProductCategory>): Promise<IApi> {
     try {
       const response = await http.patchForm(
@@ -116,7 +133,7 @@ class ProductCategoryApi {
 
   async deleteProductCategory({
     _id,
-  }: Pick<IProductCategory, "_id">): Promise<IApi> {
+  }: Pick<IProductCategory, '_id'>): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.productCategory}/delete/${_id}`

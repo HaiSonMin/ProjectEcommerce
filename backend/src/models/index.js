@@ -15,6 +15,7 @@ const QuestionModel = require('./question.model');
 const DiscountModel = require('./discount.model');
 const WishlistModel = require('./wishlist.model');
 const InventoryModel = require('./inventory.model');
+const NotificationModel = require('./notification.model');
 const BlogCategoryModel = require('./blogCategory.model');
 const ProductCategoryModel = require('./productCategory.model');
 const ProductCategoryGroupModel = require('./productCategoryGroup.model');
@@ -36,6 +37,7 @@ module.exports = {
   DiscountModel,
   WishlistModel,
   InventoryModel,
+  NotificationModel,
   BlogCategoryModel,
   ProductCategoryModel,
   ProductCategoryGroupModel,

@@ -22,7 +22,7 @@ class DiscountService {
       filter: {
         ...convertOperatorObject({
           numericFilters,
-          option: ["discount_value"],
+          fields: ["discount_value"],
         }),
       },
     });
@@ -42,7 +42,7 @@ class DiscountService {
       filter: {
         ...convertOperatorObject({
           numericFilters,
-          option: ["discount_value"],
+          fields: ["discount_value"],
         }),
         discount_type: "percentage",
       },
@@ -65,7 +65,7 @@ class DiscountService {
       filter: {
         ...convertOperatorObject({
           numericFilters,
-          option: ["discount_value"],
+          fields: ["discount_value"],
         }),
         discount_type: "fixed_amount",
       },

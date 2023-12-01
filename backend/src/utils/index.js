@@ -71,7 +71,7 @@ const excludeFields = () => ["sort", "limit", "page", "filter"];
 const getOptionsOperator = (options = []) => options;
 
 // Not Nested
-const convertOperatorObject = ({ options = [], numericFilters = "" }) => {
+const convertOperatorObject = ({ fields = [], numericFilters = "" }) => {
   const queryObject = {};
 
   const operatorMap = {
@@ -91,7 +91,7 @@ const convertOperatorObject = ({ options = [], numericFilters = "" }) => {
   filterOperator.split(",").forEach((item) => {
     // [product_price , $gt , 1000]
     const [field, operator, value] = item.split("-");
-    if (options.includes(field)) queryObject[field] = { [operator]: +value };
+    if (fields.includes(field)) queryObject[field] = { [operator]: +value };
   });
   return queryObject;
 };

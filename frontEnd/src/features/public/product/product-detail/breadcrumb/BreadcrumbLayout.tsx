@@ -1,9 +1,12 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { HiMiniHome } from "react-icons/hi2";
-import { IProduct } from "@/interfaces/models";
-import { PATH_PUBLIC } from "@/constant/path-router";
-import { IoIosArrowForward } from "react-icons/io";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { HiMiniHome } from 'react-icons/hi2';
+import { IBrand } from '@/interfaces/models';
+import { PATH_PUBLIC } from '@/constant/path-router';
+import { IoIosArrowForward } from 'react-icons/io';
+import { useSelector } from 'react-redux';
+import { getStateProductDetail } from '@/storeReducer/public/productDetailSlice';
+import { IProductCategory } from '@/interfaces/models/productCategory.interface';
 
 const BreadcrumbLayoutStyled = styled.div`
   display: flex;
@@ -41,52 +44,59 @@ const ItemBreadcrumbProductName = styled.div`
   color: var(--color-text);
 `;
 
-interface IProps {
-  product?: IProduct;
-}
+export default function BreadcrumbLayout() {
+  const { product, optionChose } = useSelector(getStateProductDetail);
 
-export default function BreadcrumbLayout({ product }: IProps) {
   return (
     <BreadcrumbLayoutStyled>
       <ItemBreadcrumb to={`${PATH_PUBLIC.home}`}>
-        <HiMiniHome className="icon--home" />
-        <span className="breadcrumb--name">Trang chủ</span>
+        <HiMiniHome className='icon--home' />
+        <span className='breadcrumb--name'>Trang chủ</span>
         <IoIosArrowForward />
       </ItemBreadcrumb>
-      {product?.product_category.productCategory_name ===
-      product?.product_category.productCategory_type ? (
+      {(product?.product_category as IProductCategory)?.productCategory_name ===
+      (product?.product_category as IProductCategory)?.productCategory_type ? (
         <ItemBreadcrumb to={`/${PATH_PUBLIC.productCategory}`}>
-          <span className="breadcrumb--name">
-            {product?.product_category.productCategory_name}
+          <span className='breadcrumb--name'>
+            {
+              (product?.product_category as IProductCategory)
+                ?.productCategory_name
+            }
           </span>
           <IoIosArrowForward />
         </ItemBreadcrumb>
       ) : (
         <>
           <ItemBreadcrumb to={`/${PATH_PUBLIC.home}`}>
-            <span className="breadcrumb--name">
-              {product?.product_category.productCategory_type}
+            <span className='breadcrumb--name'>
+              {
+                (product?.product_category as IProductCategory)
+                  ?.productCategory_type
+              }
             </span>
             <IoIosArrowForward />
           </ItemBreadcrumb>
           <ItemBreadcrumb to={`/${PATH_PUBLIC.home}`}>
-            <span className="breadcrumb--name">
-              {product?.product_category.productCategory_name}
+            <span className='breadcrumb--name'>
+              {
+                (product?.product_category as IProductCategory)
+                  ?.productCategory_name
+              }
             </span>
             <IoIosArrowForward />
           </ItemBreadcrumb>
         </>
       )}
-      <ItemBreadcrumb to={"#"}>
-        <span className="breadcrumb--name">
-          {product?.product_brand.brand_name}
+      <ItemBreadcrumb to={'#'}>
+        <span className='breadcrumb--name'>
+          {(product?.product_brand as IBrand)?.brand_name}
         </span>
         <IoIosArrowForward />
       </ItemBreadcrumb>
       <ItemBreadcrumbProductName>
-        <span className="breadcrumb--name">{product?.product_name}</span>{" "}
-        <span className="breadcrumb--name">
-          {product?.product_options[0].product_optionName}
+        <span className='breadcrumb--name'>{product?.product_name}</span>{' '}
+        <span className='breadcrumb--name'>
+          {product?.product_options[optionChose].product_optionName}
         </span>
       </ItemBreadcrumbProductName>
     </BreadcrumbLayoutStyled>

@@ -1,14 +1,14 @@
-const bcrypt = require("bcrypt");
-const { model, Schema } = require("mongoose"); // Erase if already required
-const crypto = require("crypto");
-const CONSTANT = require("../constant");
+const bcrypt = require('bcrypt');
+const { model, Schema } = require('mongoose'); // Erase if already required
+const crypto = require('crypto');
+const CONSTANT = require('../constant');
 const COLLECTION_NAME = CONSTANT.MODELS_NAMES.user;
 // Declare the Schema of the Mongo model
 const UserSchema = new Schema(
   {
     user_fullName: {
       type: String,
-      required: [true, "Please provide user full name"],
+      required: [true, 'Please provide user full name'],
       maxlength: 100,
     },
     user_email: {
@@ -16,26 +16,26 @@ const UserSchema = new Schema(
       match: [
         /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm,
         ,
-        "Email không đúng định dạng",
+        'Email không đúng định dạng',
       ],
-      unique: [true, "Email đã được đăng kí trước đó"],
-      required: [true, "Vui lòng bổ sung email"],
+      unique: [true, 'Email đã được đăng kí trước đó'],
+      required: [true, 'Vui lòng bổ sung email'],
     },
     user_password: {
       type: String,
-      required: [true, "Vui lòng bổ sung mật khẩu"],
+      required: [true, 'Vui lòng bổ sung mật khẩu'],
       select: false,
     },
     user_role: {
       type: String,
-      enum: ["USER", "WRITER", "READER", "ADMIN"],
-      default: "USER",
+      enum: ['USER', 'WRITER', 'READER', 'ADMIN'],
+      default: 'USER',
     },
     user_phoneNumber: {
       type: String,
       match: [
         /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
-        "Số điện thoại không đúng định dạng",
+        'Số điện thoại không đúng định dạng',
       ],
     },
     user_referralCode: String,
@@ -45,6 +45,10 @@ const UserSchema = new Schema(
     },
     user_avatar: String,
     user_isBlocking: {
+      type: Boolean,
+      default: false,
+    },
+    user_allowNotification: {
       type: Boolean,
       default: false,
     },
@@ -60,7 +64,7 @@ UserSchema.index({
   user_phoneNumber: 1,
 });
 
-UserSchema.pre("save", async function (next) {
+UserSchema.pre('save', async function (next) {
   this.user_password = await bcrypt.hash(this.user_password, CONSTANT.SALT);
   next();
 });

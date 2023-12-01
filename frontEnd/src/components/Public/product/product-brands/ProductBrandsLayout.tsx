@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
+import {IBrand} from '@/interfaces/models/brand.interface';
+import { Link } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 const ProductBrandsLayoutStyled = styled.div`
   display: flex;
@@ -17,10 +18,13 @@ const BrandItem = styled(Link)`
   border: 1px solid #e5e7eb;
   border-radius: 1rem;
   box-shadow: var(--shadow-md);
+  width: 11rem;
 
   & img {
     height: 20px;
-    max-width: none;
+    width: 100%;
+    object-fit: contain;
+    object-position: center;
     transition: all 0.3s;
   }
 
@@ -31,106 +35,16 @@ const BrandItem = styled(Link)`
   }
 `;
 
-const brandsTest = [
-  {
-    id: 1,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/acer.png",
-    linkTo: "#",
-  },
-  {
-    id: 2,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/macbook.png",
-    linkTo: "#",
-  },
-  {
-    id: 3,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Asus.png",
-    linkTo: "#",
-  },
-  {
-    id: 4,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/LG.png",
-    linkTo: "#",
-  },
-  {
-    id: 5,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Xiaomi.png",
-    linkTo: "#",
-  },
-  {
-    id: 6,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Xiaomi.png",
-    linkTo: "#",
-  },
-  {
-    id: 7,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Xiaomi.png",
-    linkTo: "#",
-  },
-  {
-    id: 8,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Xiaomi.png",
-    linkTo: "#",
-  },
-  {
-    id: 9,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Xiaomi.png",
-    linkTo: "#",
-  },
-  {
-    id: 10,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Xiaomi.png",
-    linkTo: "#",
-  },
-  {
-    id: 11,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Xiaomi.png",
-    linkTo: "#",
-  },
-  {
-    id: 12,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Xiaomi.png",
-    linkTo: "#",
-  },
-  {
-    id: 13,
-    brandName: "Hinh anh ne",
-    brandImage:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Xiaomi.png",
-    linkTo: "#",
-  },
-];
+interface IProps {
+  brands: Array<IBrand>;
+}
 
-export default function ProductBrandsLayout() {
+export default function ProductBrandsLayout({ brands }: IProps) {
   return (
     <ProductBrandsLayoutStyled>
-      {brandsTest.map((brand) => (
-        <BrandItem key={brand.id} to={brand.linkTo}>
-          <img src={brand.brandImage} alt={brand.brandName} />
+      {brands.map((brand) => (
+        <BrandItem key={brand._id} to={''}>
+          <img src={brand.brand_image} alt={brand.brand_name} />
         </BrandItem>
       ))}
     </ProductBrandsLayoutStyled>

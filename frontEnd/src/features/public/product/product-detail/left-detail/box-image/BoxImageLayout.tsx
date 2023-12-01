@@ -1,8 +1,13 @@
-import styled, { css } from "styled-components";
-import { CarouselImageProductDetail } from "@/components/shared";
-import { RiMedalLine } from "react-icons/ri";
-import { SiEbox } from "react-icons/si";
-import { GoInfo } from "react-icons/go";
+import styled, { css } from 'styled-components';
+import { CarouselImageProductDetail } from '@/components/shared';
+import { RiMedalLine } from 'react-icons/ri';
+import { SiEbox } from 'react-icons/si';
+import { GoInfo } from 'react-icons/go';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getStateProductDetail,
+  setChoseColorImageProduct,
+} from '@/storeReducer/public/productDetailSlice';
 
 const BoxImageLayoutStyled = styled.div`
   display: flex;
@@ -34,12 +39,17 @@ const TabImageHighlight = styled.div`
   }
 `;
 
-const BoxImage = styled.div`
+const BoxImage = styled.div<{ $isActive?: boolean }>`
   display: flex;
   width: 100%;
   height: 5.5rem;
   border-radius: 1rem;
   border: 1px solid var(--color-grey-400);
+  ${(props) =>
+    props.$isActive &&
+    css`
+      border: 2px solid var(--color-primary);
+    `}
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -56,43 +66,44 @@ const BoxImage = styled.div`
   }
 `;
 
-const imageTest = [
-  "https://cdn.tgdd.vn/Products/Images/42/251192/iphone-14-pro-max-tim-thumb-200x200.jpg",
-  "https://cdn.tgdd.vn/Products/Images/42/251192/iphone-14-pro-max-den-thumb-200x200.jpg",
-  "https://cdn.tgdd.vn/Products/Images/42/251192/iphone-14-pro-max-vang-thumb-200x200.jpg",
-  "https://cdn.tgdd.vn/Products/Images/42/251192/iphone-14-pro-max-bac-thumb-200x200.jpg",
-];
-
 export default function BoxImageLayout() {
+  const { product, optionColorChoseImage } = useSelector(getStateProductDetail);
+
+  const dispatch = useDispatch();
+
   return (
     <BoxImageLayoutStyled>
-      <CarouselImageProductDetail items={[]} />
+      <CarouselImageProductDetail
+        images={product?.product_imagesProduct as Array<string>}
+      />
       <ScrollTabImage>
         <TabImageHighlight>
           <BoxImage>
             <RiMedalLine />
           </BoxImage>
-          <span className="desc">Điểm nổi bật</span>
+          <span className='desc'>Điểm nổi bật</span>
         </TabImageHighlight>
-        {imageTest.map((image, i) => (
-          <TabImageHighlight>
-            <BoxImage>
-              <img src={image} alt={`image ${i}`} />
+        {product?.product_options?.[0]?.product_serials?.map((image, i) => (
+          <TabImageHighlight
+            onClick={() => dispatch(setChoseColorImageProduct(i))}
+          >
+            <BoxImage $isActive={i === optionColorChoseImage}>
+              <img src={image.serialImage} alt={`image ${image.serialName}`} />
             </BoxImage>
-            <span className="desc">index {i}</span>
+            <span className='desc'>{image.serialName}</span>
           </TabImageHighlight>
         ))}
         <TabImageHighlight>
           <BoxImage>
             <SiEbox />
           </BoxImage>
-          <span className="desc">Thông số kỹ thuật</span>
+          <span className='desc'>Thông số kỹ thuật</span>
         </TabImageHighlight>
         <TabImageHighlight>
           <BoxImage>
             <GoInfo />
           </BoxImage>
-          <span className="desc">Thông tin sản phẩm</span>
+          <span className='desc'>Thông tin sản phẩm</span>
         </TabImageHighlight>
       </ScrollTabImage>
     </BoxImageLayoutStyled>

@@ -1,10 +1,10 @@
-import IBrand from './brand.interface';
-import IDemand from './demand.interface';
+import { IBrand } from './brand.interface';
+import { IDemand } from './demand.interface';
 import IRating from './rating.interface';
 import { IFilterOption, IProductOption } from '@/interfaces/shared';
-import IProductCategory from './productCategory.interface';
+import {IProductCategory} from './productCategory.interface';
 
-export default interface IProduct {
+export interface IProduct {
   _id: string;
   product_name: string;
   product_thumb: string;
@@ -21,4 +21,14 @@ export default interface IProduct {
   product_ratings: Array<IRating> | Array<string>;
   product_options: Array<IProductOption>;
   product_optionFilters: Array<IFilterOption>;
+}
+
+export interface IProductCard {
+  _id: string;
+  product_name: string;
+  product_thumb: string;
+  product_price: number;
+  product_priceAppliedDiscount: number;
+  product_promotion: string;
+  product_ratings: Array<IRating> | Array<string>;
 }

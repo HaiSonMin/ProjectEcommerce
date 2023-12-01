@@ -16,7 +16,7 @@ class BlogService {
     const filter = {
       ...convertOperatorObject({
         numericFilters,
-        option: ["blog_numberViews", "blog_numberLikes", "blog_numberDislikes"],
+        fields: ["blog_numberViews", "blog_numberLikes", "blog_numberDislikes"],
       }),
     };
     const blogs = await BlogRepo.getAllBlogs({

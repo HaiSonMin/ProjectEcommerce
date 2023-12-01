@@ -12,7 +12,7 @@ import UseProductCategoryApi from './UseProductCategoryApi';
 import UseProductCategoryGroupApi from './UseProductCategoryGroupApi';
 
 export {
-    UseChatApi,
+  UseChatApi,
   UseUserApi,
   UseAuthApi,
   UseAdminApi,

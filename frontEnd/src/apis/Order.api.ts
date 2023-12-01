@@ -5,34 +5,31 @@ import {
   IOrderGetOneResultApi,
   IOrderUpdateResultApi,
   IOrderDeleteResultApi,
-} from "@/interfaces/result-apis/IOrderResultApi";
-import { IOrder } from "@/interfaces/models";
-import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
-import {  getErrorMessage, http } from "@/utils";
-import { PATH_API_V1 } from "@/constant/path-api";
+} from '@/interfaces/result-apis/IOrderResultApi';
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
+import { getErrorMessage, http } from '@/utils';
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IOrder } from '@/interfaces/models/order.interface';
 
 class OrderApi {
   async createOrder(args: Partial<IOrder>) {
     try {
-      const response = await http.post(
-        `${PATH_API_V1.order}/create`,
-        args
-      );
+      const response = await http.post(`${PATH_API_V1.order}/create`, args);
       const result: Omit<
         IOrderCreateResultApi,
-        "isCreatingOrder" | "createOrder"
+        'isCreatingOrder' | 'createOrder'
       > = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
-  async getOneOrder(arg: Pick<IOrder, "_id">) {
+  async getOneOrder(arg: Pick<IOrder, '_id'>) {
     try {
       const response = await http.get(
         `${PATH_API_V1.order}/getById/${arg._id}`
       );
-      const result: Omit<IOrderGetOneResultApi, "isGettingOrder"> =
+      const result: Omit<IOrderGetOneResultApi, 'isGettingOrder'> =
         response.data;
       return result;
     } catch (error) {
@@ -50,7 +47,7 @@ class OrderApi {
           numericFilters: fieldsQuery.numericFilters,
         },
       });
-      const result: Omit<IOrderGetAllResultApi, "isGettingOrders"> =
+      const result: Omit<IOrderGetAllResultApi, 'isGettingOrders'> =
         response.data;
       return result;
     } catch (error) {
@@ -69,7 +66,7 @@ class OrderApi {
           numericFilters: fieldsQuery.numericFilters,
         },
       });
-      const result: Omit<IOrderSearchResultApi, "isSearchingOrders"> =
+      const result: Omit<IOrderSearchResultApi, 'isSearchingOrders'> =
         response.data;
       return result;
     } catch (error) {
@@ -83,21 +80,21 @@ class OrderApi {
       );
       const result: Omit<
         IOrderUpdateResultApi,
-        "isUpdatingOrder" | "updateOrder"
+        'isUpdatingOrder' | 'updateOrder'
       > = response.data;
       return result;
     } catch (error) {
       throw new Error(getErrorMessage(error));
     }
   }
-  async deleteOrder(arg: Pick<IOrder, "_id">) {
+  async deleteOrder(arg: Pick<IOrder, '_id'>) {
     try {
       const response = await http.delete(
         `${PATH_API_V1.order}/delete/${arg._id}`
       );
       const result: Omit<
         IOrderDeleteResultApi,
-        "isDeletingOrder" | "deleteOrder"
+        'isDeletingOrder' | 'deleteOrder'
       > = response.data;
       return result;
     } catch (error) {

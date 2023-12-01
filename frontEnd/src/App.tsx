@@ -1,10 +1,10 @@
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useEffect } from 'react';
 import {
   ProtectMemberRouter,
   ProtectPrivateRouter,
-} from "@/components/protect-routers";
-import { SpinnerLogo } from "@/components/shared";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+} from '@/components/protect-routers';
+import { SpinnerLogo } from '@/components/shared';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import {
   UserPage,
   OrderPage,
@@ -20,179 +20,186 @@ import {
   InventoryPage,
   DashboardPage,
   AdminPageLayout,
-} from "@/pages/private";
+} from '@/pages/private';
 import {
   PATH_AUTH,
   PATH_BLOG,
   PATH_ADMIN,
   PATH_PUBLIC,
   PATH_MEMBER,
-} from "./constant/path-router";
+} from './constant/path-router';
 
-const UserTablePage = lazy(() => import("@/pages/private/user/UserTablePage"));
+const UserTablePage = lazy(() => import('@/pages/private/user/UserTablePage'));
 const UserSearchPage = lazy(
-  () => import("@/pages/private/user/UserSearchPage")
+  () => import('@/pages/private/user/UserSearchPage')
 );
 const UserCreatePage = lazy(
-  () => import("@/pages/private/user/UserCreatePage")
+  () => import('@/pages/private/user/UserCreatePage')
 );
 const CouponTablePage = lazy(
-  () => import("@/pages/private/coupon/CouponTablePage")
+  () => import('@/pages/private/coupon/CouponTablePage')
 );
 const CouponCreatePage = lazy(
-  () => import("@/pages/private/coupon/CouponCreatePage")
+  () => import('@/pages/private/coupon/CouponCreatePage')
 );
 const CouponEditPage = lazy(
-  () => import("@/pages/private/coupon/CouponUpdatePage")
+  () => import('@/pages/private/coupon/CouponUpdatePage')
 );
 
 const DiscountTablePage = lazy(
-  () => import("@/pages/private/discount/DiscountTablePage")
+  () => import('@/pages/private/discount/DiscountTablePage')
 );
 const DiscountEditPage = lazy(
-  () => import("@/pages/private/discount/DiscountUpdatePage")
+  () => import('@/pages/private/discount/DiscountUpdatePage')
 );
 const DiscountCreatePage = lazy(
-  () => import("@/pages/private/discount/DiscountCreatePage")
+  () => import('@/pages/private/discount/DiscountCreatePage')
 );
 const DiscountAddProductsPage = lazy(
-  () => import("@/pages/private/discount/DiscountAddProductsPage")
+  () => import('@/pages/private/discount/DiscountAddProductsPage')
 );
 
-const BrandPage = lazy(() => import("@/pages/private/brand/BrandPage"));
+const BrandPage = lazy(() => import('@/pages/private/brand/BrandPage'));
 const BrandTablePage = lazy(
-  () => import("@/pages/private/brand/BrandTablePage")
+  () => import('@/pages/private/brand/BrandTablePage')
 );
 
 const ProductTablePage = lazy(
-  () => import("@/pages/private/product/ProductTablePage")
+  () => import('@/pages/private/product/ProductTablePage')
 );
 const ProductCreatePage = lazy(
-  () => import("@/pages/private/product/ProductCreatePage")
+  () => import('@/pages/private/product/ProductCreatePage')
 );
 const ProductUpdatePage = lazy(
-  () => import("@/pages/private/product/ProductUpdatePage")
+  () => import('@/pages/private/product/ProductUpdatePage')
 );
 
-const DemandPage = lazy(() => import("@/pages/private/demand/DemandPage"));
+const DemandPage = lazy(() => import('@/pages/private/demand/DemandPage'));
 const DemandTablePage = lazy(
-  () => import("@/pages/private/demand/DemandTablePage")
+  () => import('@/pages/private/demand/DemandTablePage')
 );
 const DemandCreatePage = lazy(
-  () => import("@/pages/private/demand/DemandCreatePage")
+  () => import('@/pages/private/demand/DemandCreatePage')
 );
 const DemandUpdatePage = lazy(
-  () => import("@/pages/private/demand/DemandUpdatePage")
+  () => import('@/pages/private/demand/DemandUpdatePage')
 );
 
 const ProductCategoryPage = lazy(
-  () => import("@/pages/private/productCategory/ProductCategoryPage")
+  () => import('@/pages/private/productCategory/ProductCategoryPage')
 );
 const ProductCategoryTablePage = lazy(
-  () => import("@/pages/private/productCategory/ProductCategoryTablePage")
+  () => import('@/pages/private/productCategory/ProductCategoryTablePage')
 );
 
 const ProductCategoryCreatePage = lazy(
-  () => import("@/pages/private/productCategory/ProductCategoryCreatePage")
+  () => import('@/pages/private/productCategory/ProductCategoryCreatePage')
 );
 const ProductCategoryUpdatePage = lazy(
-  () => import("@/pages/private/productCategory/ProductCategoryUpdatePage")
+  () => import('@/pages/private/productCategory/ProductCategoryUpdatePage')
 );
 
 const ProductCategoryGroupPage = lazy(
-  () => import("@/pages/private/productCategoryGroup/ProductCategoryGroupPage")
+  () => import('@/pages/private/productCategoryGroup/ProductCategoryGroupPage')
 );
 const ProductCategoryGroupTablePage = lazy(
   () =>
-    import("@/pages/private/productCategoryGroup/ProductCategoryGroupTablePage")
+    import('@/pages/private/productCategoryGroup/ProductCategoryGroupTablePage')
 );
 const ProductCategoryGroupCreatePage = lazy(
   () =>
     import(
-      "@/pages/private/productCategoryGroup/ProductCategoryGroupCreatePage"
+      '@/pages/private/productCategoryGroup/ProductCategoryGroupCreatePage'
     )
 );
 const ProductCategoryGroupUpdatePage = lazy(
   () =>
     import(
-      "@/pages/private/productCategoryGroup/ProductCategoryGroupUpdatePage"
+      '@/pages/private/productCategoryGroup/ProductCategoryGroupUpdatePage'
     )
 );
 
-const PublicLayOut = lazy(() => import("@/pages/public/PublicLayOut"));
+const PublicLayOut = lazy(() => import('@/pages/public/PublicLayOut'));
 // ---------------- Auth ----------------
-const AuthLayout = lazy(() => import("@/pages/auth/AuthLayout"));
-const ConfirmOTPPage = lazy(() => import("@/pages/auth/confirm-otp"));
-const LoginPage = lazy(() => import("@/pages/auth/login"));
-const RegisterPage = lazy(() => import("@/pages/auth/register"));
-const GenerateOTPPage = lazy(() => import("@/pages/auth/generate-otp"));
-const ResetPasswordPage = lazy(() => import("@/pages/auth/reset-password"));
-const IncentivesPage = lazy(() => import("@/pages/auth/incentive"));
+const AuthLayout = lazy(() => import('@/pages/auth/AuthLayout'));
+const ConfirmOTPPage = lazy(() => import('@/pages/auth/confirm-otp'));
+const LoginPage = lazy(() => import('@/pages/auth/login'));
+const RegisterPage = lazy(() => import('@/pages/auth/register'));
+const GenerateOTPPage = lazy(() => import('@/pages/auth/generate-otp'));
+const ResetPasswordPage = lazy(() => import('@/pages/auth/reset-password'));
+const IncentivesPage = lazy(() => import('@/pages/auth/incentive'));
 // ---------------- Member ----------------
-const MemberPageLayout = lazy(() => import("@/pages/member/MemberPageLayout"));
-const MemberRankPage = lazy(() => import("@/pages/member/rank-page"));
-const MemberHomePage = lazy(() => import("@/pages/member/home-page"));
-const MemberSupportPage = lazy(() => import("@/pages/member/support-page"));
-const MemberAccountPage = lazy(() => import("@/pages/member/account-page"));
-const MemberHistoryPage = lazy(() => import("@/pages/member/history-page"));
-const MemberWarrantyPage = lazy(() => import("@/pages/member/warranty-page"));
-const MemberFeedbackPage = lazy(() => import("@/pages/member/feedback-page"));
-const MemberPromotionPage = lazy(() => import("@/pages/member/promotion-page"));
+const MemberPageLayout = lazy(() => import('@/pages/member/MemberPageLayout'));
+const MemberRankPage = lazy(() => import('@/pages/member/rank-page'));
+const MemberHomePage = lazy(() => import('@/pages/member/home-page'));
+const MemberSupportPage = lazy(() => import('@/pages/member/support-page'));
+const MemberAccountPage = lazy(() => import('@/pages/member/account-page'));
+const MemberHistoryPage = lazy(() => import('@/pages/member/history-page'));
+const MemberWarrantyPage = lazy(() => import('@/pages/member/warranty-page'));
+const MemberFeedbackPage = lazy(() => import('@/pages/member/feedback-page'));
+const MemberPromotionPage = lazy(() => import('@/pages/member/promotion-page'));
 
 const LoginSuccessGooglePage = lazy(
-  () => import("@/pages/auth/login-google-success")
+  () => import('@/pages/auth/login-google-success')
 );
 
 // ---------------- Public ----------------
 const OrderTablePage = lazy(
-  () => import("@/pages/private/order/OrderTablePage")
+  () => import('@/pages/private/order/OrderTablePage')
 );
-const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
-const HomePage = lazy(() => import("@/pages/public/home/Homepage"));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+const HomePage = lazy(() => import('@/pages/public/home/Homepage'));
 const ProductCategoryPageUser = lazy(
-  () => import("@/pages/public/product/product-category/ProductCategoryPage")
+  () => import('@/pages/public/product/product-category')
+);
+const ProductCategoryTypePageUser = lazy(
+  () => import('@/pages/public/product/product-category-type')
 );
 const ProductDetailPageUser = lazy(
-  () => import("@/pages/public/product/product-detail/ProductDetailPage")
+  () => import('@/pages/public/product/product-detail')
 );
 
 // ##### Feedback #####
-const FeedbackPage = lazy(() => import("@/pages/public/feedback/FeedBackPage"));
+const FeedbackPage = lazy(() => import('@/pages/public/feedback/FeedBackPage'));
 
 // ##### Cart #####
-const CartLayout = lazy(() => import("@/pages/public/cart/CartLayout"));
+const CartLayout = lazy(() => import('@/pages/public/cart/CartLayout'));
 const CartOrderPage = lazy(
-  () => import("@/pages/public/cart/cart-order/CartOrderPage")
+  () => import('@/pages/public/cart/cart-order/CartOrderPage')
 );
 const CartInfoOrderPage = lazy(
-  () => import("@/pages/public/cart/cart-info-order/CartInfoOrderPage")
+  () => import('@/pages/public/cart/cart-info-order/CartInfoOrderPage')
 );
 
 // ---------------- Blog ----------------
-const BlogPageLayout = lazy(() => import("@/pages/blog"));
-const BlogHomePageLayout = lazy(() => import("@/pages/blog/home"));
-const BlogCategoryPageLayout = lazy(() => import("@/pages/blog/category"));
+const BlogPageLayout = lazy(() => import('@/pages/blog'));
+const BlogHomePageLayout = lazy(() => import('@/pages/blog/home'));
+const BlogCategoryPageLayout = lazy(() => import('@/pages/blog/category'));
 
 export default function App() {
   const pathName = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
   }, [pathName]);
 
   return (
     <Suspense fallback={<SpinnerLogo />}>
       <Routes>
-        <Route element={<Navigate replace to={"/"} />} />
+        <Route element={<Navigate replace to={'/'} />} />
         {/* Public Page */}
         <Route path={PATH_PUBLIC.home} element={<PublicLayOut />}>
           <Route path={PATH_PUBLIC.home} element={<HomePage />} />
           {/* Feedback */}
           <Route path={PATH_PUBLIC.feedback} element={<FeedbackPage />} />
-          {/* Product */}
+          {/* ProductCategory */}
           <Route
             path={PATH_PUBLIC.productCategory}
             element={<ProductCategoryPageUser />}
+          />
+          <Route
+            path={PATH_PUBLIC.productCategoryType}
+            element={<ProductCategoryTypePageUser />}
           />
           <Route
             path={PATH_PUBLIC.productDetail}
@@ -200,7 +207,7 @@ export default function App() {
           />
           {/* Cart */}
           <Route path={PATH_PUBLIC.cart.root} element={<CartLayout />}>
-            <Route path={""} element={<CartOrderPage />} />
+            <Route path={''} element={<CartOrderPage />} />
             <Route
               path={PATH_PUBLIC.cart.feature.infoOrder}
               element={<CartInfoOrderPage />}
@@ -242,8 +249,8 @@ export default function App() {
           <Route path={PATH_MEMBER.home} element={<PublicLayOut />}></Route>
         </Route>
         {/* Blog Page */}
-        <Route path={PATH_BLOG.blogHome} element={<BlogPageLayout />}>
-          <Route path={""} element={<BlogHomePageLayout />} />
+        <Route path={PATH_BLOG.blog} element={<BlogPageLayout />}>
+          <Route path={''} element={<BlogHomePageLayout />} />
           <Route
             path={PATH_BLOG.category}
             element={<BlogCategoryPageLayout />}
@@ -253,20 +260,20 @@ export default function App() {
         <Route element={<ProtectPrivateRouter />}>
           <Route path={PATH_ADMIN.admin} element={<AdminPageLayout />}>
             <Route path={PATH_ADMIN.brand} element={<BrandPage />}>
-              <Route path="" element={<BrandTablePage />} />
+              <Route path='' element={<BrandTablePage />} />
             </Route>
 
             <Route
               path={PATH_ADMIN.productCategoryGroup}
               element={<ProductCategoryGroupPage />}
             >
-              <Route path="" element={<ProductCategoryGroupTablePage />} />
+              <Route path='' element={<ProductCategoryGroupTablePage />} />
               <Route
-                path={"create"}
+                path={'create'}
                 element={<ProductCategoryGroupCreatePage />}
               />
               <Route
-                path={"update/:productCategoryGroupId"}
+                path={'update/:productCategoryGroupId'}
                 element={<ProductCategoryGroupUpdatePage />}
               />
             </Route>
@@ -275,32 +282,32 @@ export default function App() {
               path={PATH_ADMIN.productCategory}
               element={<ProductCategoryPage />}
             >
-              <Route path="" element={<ProductCategoryTablePage />} />
-              <Route path={"create"} element={<ProductCategoryCreatePage />} />
+              <Route path='' element={<ProductCategoryTablePage />} />
+              <Route path={'create'} element={<ProductCategoryCreatePage />} />
               <Route
-                path={"update/:productCategoryId"}
+                path={'update/:productCategoryId'}
                 element={<ProductCategoryUpdatePage />}
               />
             </Route>
 
             <Route path={PATH_ADMIN.demand} element={<DemandPage />}>
-              <Route path="" element={<DemandTablePage />} />
-              <Route path={"create"} element={<DemandCreatePage />} />
-              <Route path={"update/:demandId"} element={<DemandUpdatePage />} />
+              <Route path='' element={<DemandTablePage />} />
+              <Route path={'create'} element={<DemandCreatePage />} />
+              <Route path={'update/:demandId'} element={<DemandUpdatePage />} />
             </Route>
 
             <Route path={PATH_ADMIN.user} element={<UserPage />}>
-              <Route path="" element={<UserTablePage />} />
+              <Route path='' element={<UserTablePage />} />
               <Route path={`search`} element={<UserSearchPage />} />
               <Route path={`createEmployees`} element={<UserCreatePage />} />
             </Route>
 
             <Route path={PATH_ADMIN.order} element={<OrderPage />}>
-              <Route path={""} element={<OrderTablePage />} />
+              <Route path={''} element={<OrderTablePage />} />
             </Route>
 
             <Route path={PATH_ADMIN.coupon} element={<CouponPage />}>
-              <Route path="" element={<CouponTablePage />} />
+              <Route path='' element={<CouponTablePage />} />
               <Route path={`create`} element={<CouponCreatePage />} />
               <Route path={`update/:couponId`} element={<CouponEditPage />} />
             </Route>
@@ -340,7 +347,7 @@ export default function App() {
           </Route>
         </Route>
 
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </Suspense>
   );

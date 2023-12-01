@@ -1,6 +1,6 @@
-import { UseMutateFunction } from "@tanstack/react-query";
-import IApi from "@/interfaces/shared/IApi.interface";
-import IBrand from "@/interfaces/models/brand.interface";
+import { UseMutateFunction } from '@tanstack/react-query';
+import { IApi } from '@/interfaces/shared/IApi.interface';
+import { IBrand } from '@/interfaces/models/brand.interface';
 
 /**
  *  ------- available -------
@@ -30,14 +30,14 @@ export interface IBrandGetAllResultApi extends IApi {
 }
 
 export interface IBrandSearchResultApi
-  extends Omit<IBrandGetAllResultApi, "isGettingBrands"> {
+  extends Omit<IBrandGetAllResultApi, 'isGettingBrands'> {
   isSearchingBrands: boolean;
 }
 
 export interface IBrandCreateResultApi extends IApi {
   isCreatingBrand: boolean;
   metadata: IBrand | undefined;
-  createBrand: UseMutateFunction<IApi, any, Omit<IBrand, "_id">>;
+  createBrand: UseMutateFunction<IApi, any, Omit<IBrand, '_id'>>;
 }
 
 export interface IBrandUpdateResultApi extends IApi {
@@ -49,5 +49,5 @@ export interface IBrandUpdateResultApi extends IApi {
 export interface IBrandDeleteResultApi extends IApi {
   isDeletingBrand: boolean;
   metadata: IBrand | undefined;
-  deleteBrand: UseMutateFunction<IApi, any, Pick<IBrand, "_id">>;
+  deleteBrand: UseMutateFunction<IApi, any, Pick<IBrand, '_id'>>;
 }

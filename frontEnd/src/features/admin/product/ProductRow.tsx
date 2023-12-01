@@ -1,12 +1,12 @@
-import { BsEye } from "react-icons/bs";
-import { CiEdit } from "react-icons/ci";
-import { styled } from "styled-components";
-import { UseProductApi } from "@/apis-use";
-import { formatCurrencyVND } from "@/utils";
-import { useNavigate } from "react-router-dom";
-import { IBrand, IProduct } from "@/interfaces/models";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { ConfirmDelete, Menus, Modal, Table } from "@/components/shared";
+import { BsEye } from 'react-icons/bs';
+import { CiEdit } from 'react-icons/ci';
+import { styled } from 'styled-components';
+import { UseProductApi } from '@/apis-use';
+import { formatCurrencyVND } from '@/utils';
+import { useNavigate } from 'react-router-dom';
+import IProduct from '@/interfaces/models/product.interface';
+import { RiDeleteBinLine } from 'react-icons/ri';
+import { ConfirmDelete, Menus, Modal, Table } from '@/components/shared';
 
 const Img = styled.img`
   display: block;
@@ -21,7 +21,7 @@ const Img = styled.img`
 const ProductName = styled.div`
   font-size: 1.6rem;
   color: var(--color-grey-600);
-  font-family: "Sono";
+  font-family: 'Sono';
   letter-spacing: 0.2px;
 `;
 
@@ -29,14 +29,14 @@ const ProductBrand = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  font-family: "Sono";
+  font-family: 'Sono';
 `;
 
 const ProductBrandOrigin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  font-family: "Sono";
+  font-family: 'Sono';
 `;
 
 const ProductCategory = styled(ProductBrand)``;
@@ -59,18 +59,18 @@ export default function ProductRow({ product }: IProps) {
       <Img src={product.product_thumb} alt={product.product_name} />
       <ProductName>{product.product_name}</ProductName>
       <ProductBrand>
-        {typeof product.product_brand === "string"
+        {typeof product.product_brand === 'string'
           ? product.product_brand
           : product.product_brand.brand_name}
       </ProductBrand>
       <ProductCategory>
-        {typeof product.product_category === "string"
+        {typeof product.product_category === 'string'
           ? product.product_category
           : product.product_category.productCategory_name}
       </ProductCategory>
 
       <ProductBrandOrigin>
-        {typeof product.product_brand === "string"
+        {typeof product.product_brand === 'string'
           ? product.product_brand
           : product.product_brand.brand_origin}
       </ProductBrandOrigin>
@@ -78,8 +78,8 @@ export default function ProductRow({ product }: IProps) {
       <ProductPrice>{formatCurrencyVND(+product.product_price)}</ProductPrice>
       <Modal>
         <Menus.Menu>
-          <Menus.ToggleButton id={product._id || ""} />
-          <Menus.List id={product._id || ""}>
+          <Menus.ToggleButton id={product._id || ''} />
+          <Menus.List id={product._id || ''}>
             <Menus.Button
               icon={<BsEye />}
               onClick={() => navigate(`detail/${product._id}`)}
@@ -92,12 +92,12 @@ export default function ProductRow({ product }: IProps) {
             >
               Edit
             </Menus.Button>
-            <Modal.Open openWindowName="deleteProduct">
+            <Modal.Open openWindowName='deleteProduct'>
               <Menus.Button icon={<RiDeleteBinLine />}>Delete</Menus.Button>
             </Modal.Open>
           </Menus.List>
         </Menus.Menu>
-        <Modal.Window windowName="deleteProduct">
+        <Modal.Window windowName='deleteProduct'>
           <ConfirmDelete
             disabled={isDeletingProduct}
             onConfirm={() => deleteProduct({ _id: product._id })}

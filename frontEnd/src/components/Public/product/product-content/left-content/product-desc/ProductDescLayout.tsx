@@ -1,6 +1,9 @@
-import { css, styled } from "styled-components";
-import { FaRegEye } from "react-icons/fa";
-import { useState } from "react";
+import { css, styled } from 'styled-components';
+import { FaRegEye } from 'react-icons/fa';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getStateProductDetail } from '@/storeReducer/public/productDetailSlice';
+import parseToHTML from 'html-react-parser';
 
 const ProductDescLayoutStyled = styled.div`
   width: 100%;
@@ -63,11 +66,8 @@ const ButtonShowMore = styled.div`
   }
 `;
 
-interface IProps {
-  productDesc: any;
-}
-
-export default function ProductDescLayout({ productDesc }: IProps) {
+export default function ProductDescLayout() {
+  const { product, optionChose } = useSelector(getStateProductDetail);
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const handlerSetShowDetail = () => setShowDetail(!showDetail);
@@ -75,7 +75,9 @@ export default function ProductDescLayout({ productDesc }: IProps) {
   return (
     <ProductDescLayoutStyled>
       <ProductDesc $showDetail={showDetail}>
-        {productDesc}
+        {parseToHTML(
+          `${product?.product_options?.[optionChose]?.product_description}`
+        )}
         {!showDetail && (
           <BoxButton>
             <ButtonShowMore onClick={handlerSetShowDetail}>

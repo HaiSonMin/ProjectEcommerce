@@ -25,7 +25,7 @@ const NumberStar = styled.div`
   & svg {
     width: 1.6rem;
     height: 1.6rem;
-    color: var(--color-organ-600);
+    color: var(--color-star-light);
     margin-bottom: 1px;
   }
 `;

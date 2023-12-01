@@ -1,6 +1,6 @@
-import IProduct from "@/interfaces/models/product.interface";
-import IApi from "@/interfaces/shared/IApi.interface";
-import { UseMutateFunction } from "@tanstack/react-query";
+import { IProduct } from '@/interfaces/models/product.interface';
+import {IApi} from '@/interfaces/shared/IApi.interface';
+import { UseMutateFunction } from '@tanstack/react-query';
 
 /**
  *  ------- available -------
@@ -40,8 +40,10 @@ export interface IProductGetAllResultApi extends IApi {
     | undefined;
 }
 
+export interface IProductGetByCategoryId extends IProductGetAllResultApi {}
+
 export interface IProductSearchResultApi
-  extends Omit<IProductGetAllResultApi, "isGettingProducts"> {
+  extends Omit<IProductGetAllResultApi, 'isGettingProducts'> {
   isSearchingProducts: boolean;
 }
 
@@ -54,5 +56,5 @@ export interface IProductUpdateResultApi extends IApi {
 export interface IProductDeleteResultApi extends IApi {
   isDeletingProduct: boolean;
   metadata: IProduct | undefined;
-  deleteProduct: UseMutateFunction<any, unknown, Pick<IProduct, "_id">>;
+  deleteProduct: UseMutateFunction<any, unknown, Pick<IProduct, '_id'>>;
 }

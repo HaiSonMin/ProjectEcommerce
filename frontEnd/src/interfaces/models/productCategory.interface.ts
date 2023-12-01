@@ -1,8 +1,8 @@
-import IBrand from "./brand.interface";
-import IDemand from "./demand.interface";
-import IProductCategoryGroup from "./productCategoryGroup.interface";
+import { IBrand } from './brand.interface';
+import { IDemand } from './demand.interface';
+import IProductCategoryGroup from './productCategoryGroup.interface';
 
-export default interface IProductCategory {
+export interface IProductCategory {
   _id: string;
   productCategory_type: string;
   productCategory_group: string | IProductCategoryGroup;

@@ -36,7 +36,13 @@ const ProductSchema = new Schema(
     // {
     //   product_optionName: String
     //   product_priceDifference: Number;
-    //   product_serials: [{product_priceDifference: Number,product_serialName: String,product_serialImage: String}]
+    //   product_serials: [
+    //   {
+    //     product_priceDifference: Number,
+    //     product_serialName: String,
+    //     product_serialImage: String
+    //   }
+    //   ]
     //   product_description: String(html)
     //   product_specificationMain: JSON.stringify
     //   product_specificationDetail: String(html)
@@ -60,9 +66,23 @@ const ProductSchema = new Schema(
       ref: CONSTANT.MODELS_NAMES.demand,
       default: [],
     },
+    product_ratings: {
+      type: [Schema.Types.ObjectId],
+      ref: CONSTANT.MODELS_NAMES.rating,
+      default: [],
+    },
+    // {
+    //  k:key,
+    //  v:value,
+    //  o:option
+    // }
     product_optionFilters: {
       type: Schema.Types.Mixed,
       required: true,
+    },
+    product_promotions: {
+      type: [String],
+      default: [],
     },
   },
   {

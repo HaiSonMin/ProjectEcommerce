@@ -10,11 +10,12 @@ const PublicLayoutStyled = styled.div`
 
 const Main = styled.main`
   background-color: var(--color-grey-100);
+  padding-bottom: 1.5rem;
 `;
 
 const Container = styled.div`
   position: relative;
-  margin: 15rem auto 0;
+  margin: 14rem auto 0;
   max-width: 120rem;
   display: flex;
   flex-direction: column;

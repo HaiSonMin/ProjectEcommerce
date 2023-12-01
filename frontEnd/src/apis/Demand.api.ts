@@ -1,11 +1,11 @@
-import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
-import { IDemand, IProductCategory } from "@/interfaces/models";
-import { getErrorMessage, http, resultAppendFormData } from "@/utils";
-import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/interfaces/shared";
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
+import { IDemand, IProductCategory } from '@/interfaces/models';
+import { getErrorMessage, http, resultAppendFormData } from '@/utils';
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IApi } from '@/interfaces/shared';
 
 class IDemandApi {
-  async createDemand(args: Omit<IDemand, "_id">): Promise<IApi> {
+  async createDemand(args: Omit<IDemand, '_id'>): Promise<IApi> {
     try {
       const response = await http.postForm(
         `${PATH_API_V1.demand}/create`,
@@ -34,7 +34,7 @@ class IDemandApi {
     }
   }
 
-  async getDemandById({ _id: demandId }: Pick<IDemand, "_id">): Promise<IApi> {
+  async getDemandById({ _id: demandId }: Pick<IDemand, '_id'>): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.demand}/getById/${demandId}`
@@ -48,7 +48,7 @@ class IDemandApi {
 
   async getDemandsByProductCategoryId({
     _id: productCategoryId,
-  }: Pick<IProductCategory, "_id">): Promise<IApi> {
+  }: Pick<IProductCategory, '_id'>): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.demand}/getByProductCategoryId/${productCategoryId}`
@@ -89,7 +89,7 @@ class IDemandApi {
     }
   }
 
-  async deleteDemand(arg: Pick<IDemand, "_id">): Promise<IApi> {
+  async deleteDemand(arg: Pick<IDemand, '_id'>): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.demand}/delete/${arg._id}`

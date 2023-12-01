@@ -1,43 +1,46 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const { ProductCategoryController } = require("../controllers");
+const { ProductCategoryController } = require('../controllers');
 
-const { checkAuthIsAdmin } = require("../middleware/auth.middleware");
-const { uploadOneImage } = require("../utils");
+const { checkAuthIsAdmin } = require('../middleware/auth.middleware');
+const { uploadOneImage } = require('../utils');
 
 // router.use(checkAuthIsAdmin);
 router
-  .route("/create")
+  .route('/create')
   .post(
-    uploadOneImage("productCategory_image"),
+    uploadOneImage('productCategory_image'),
     ProductCategoryController.createProductCategory
   );
 
-router.route("/getAll").get(ProductCategoryController.getAllProductCategories);
+router.route('/getAll').get(ProductCategoryController.getAllProductCategories);
 router
-  .route("/getById/:productCategoryId")
+  .route('/getById/:productCategoryId')
   .get(ProductCategoryController.getProductCategoryById);
 router
-  .route("/getByIds")
+  .route('/getByIds')
   .get(ProductCategoryController.getProductCategoriesByIds);
 router
-  .route("/getByGroupId/:productCategoryGroupId")
+  .route('/getByType')
+  .get(ProductCategoryController.getProductCategoriesByType);
+router
+  .route('/getByGroupId/:productCategoryGroupId')
   .get(ProductCategoryController.getProductCategoriesByGroupId);
-router.route("/search").get(ProductCategoryController.searchProductCategories);
+router.route('/search').get(ProductCategoryController.searchProductCategories);
 
 router
-  .route("/update/:productCategoryId")
+  .route('/update/:productCategoryId')
   .patch(
-    uploadOneImage("productCategory_image"),
+    uploadOneImage('productCategory_image'),
     ProductCategoryController.updateProductCategory
   );
 
 router
-  .route("/delete/:productCategoryId")
+  .route('/delete/:productCategoryId')
   .delete(ProductCategoryController.deleteProductCategory);
 
-router.route("/change").patch(ProductCategoryController.change);
+router.route('/change').patch(ProductCategoryController.change);
 
 // Only Admin have permission create product
 

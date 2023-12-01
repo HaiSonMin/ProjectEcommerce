@@ -1,4 +1,4 @@
-export default interface IUser {
+export interface IUser {
   _id: string;
   user_fullName: string;
   user_phoneNumber: string;

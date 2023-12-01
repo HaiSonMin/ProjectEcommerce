@@ -4,12 +4,12 @@ import {
   IBrandUpdateResultApi,
   IBrandDeleteResultApi,
   IBrandSearchResultApi,
-} from "@/interfaces/result-apis/IBrandResultApi";
-import { BrandApi } from "@/apis";
-import { toast } from "react-hot-toast";
-import { getQueriesString } from "@/utils";
-import { useQueriesString } from "@/hooks";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+} from '@/interfaces/result-apis/IBrandResultApi';
+import { BrandApi } from '@/apis';
+import { toast } from 'react-hot-toast';
+import { getQueriesString } from '@/utils';
+import { useQueriesString } from '@/hooks';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 class UseBrandApi {
   static createBrand(): IBrandCreateResultApi {
@@ -18,7 +18,7 @@ class UseBrandApi {
       mutationFn: BrandApi.createBrand,
       onSuccess: (data: any) => {
         toast.success(data.message);
-        queryClient.invalidateQueries({ queryKey: ["brands"] });
+        queryClient.invalidateQueries({ queryKey: ['brands'] });
       },
       onError: (error: any) => {
         toast.error(error.message);
@@ -43,7 +43,7 @@ class UseBrandApi {
       limit,
     } = getQueriesString(useQueriesString());
     const { data, isLoading } = useQuery({
-      queryKey: ["brands", currentPage, sort, limit],
+      queryKey: ['brands', currentPage, sort, limit],
       queryFn: () =>
         BrandApi.getAllBrands({
           sort,
@@ -57,7 +57,7 @@ class UseBrandApi {
     // Get Data Next Page
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
-        queryKey: ["brands", currentPage + 1, sort, limit],
+        queryKey: ['brands', currentPage + 1, sort, limit],
         queryFn: () =>
           BrandApi.getAllBrands({
             sort,
@@ -69,7 +69,7 @@ class UseBrandApi {
     // Get Data Next Page
     if (currentPage > 1)
       queryClient.prefetchQuery({
-        queryKey: ["brands", currentPage - 1, sort, limit],
+        queryKey: ['brands', currentPage - 1, sort, limit],
         queryFn: () =>
           BrandApi.getAllBrands({
             sort,
@@ -95,7 +95,7 @@ class UseBrandApi {
       page: currentPage,
     } = getQueriesString(useQueriesString());
     const { data, isLoading } = useQuery({
-      queryKey: ["brands", currentPage, keySearch],
+      queryKey: ['brands', currentPage, keySearch],
       queryFn: () =>
         BrandApi.searchBrands({
           keySearch,
@@ -109,7 +109,7 @@ class UseBrandApi {
     // Get Data Next Page
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
-        queryKey: ["brands", currentPage + 1, keySearch],
+        queryKey: ['brands', currentPage + 1, keySearch],
         queryFn: () =>
           BrandApi.searchBrands({
             keySearch,
@@ -121,7 +121,7 @@ class UseBrandApi {
     // Get Data Next Page
     if (currentPage > 1)
       queryClient.prefetchQuery({
-        queryKey: ["brands", currentPage - 1, keySearch],
+        queryKey: ['brands', currentPage - 1, keySearch],
         queryFn: () =>
           BrandApi.searchBrands({
             keySearch,
@@ -144,9 +144,9 @@ class UseBrandApi {
     const { mutate, isLoading, data } = useMutation({
       mutationFn: BrandApi.updateBrand,
       onSuccess: (data) => {
-        toast.success(data.message || "Update brand successfully");
+        toast.success(data.message || 'Update brand successfully');
         queryClient.invalidateQueries({
-          queryKey: ["brands"],
+          queryKey: ['brands'],
         });
       },
     });
@@ -166,9 +166,9 @@ class UseBrandApi {
     const { mutate, isLoading, data } = useMutation({
       mutationFn: BrandApi.deleteBrand,
       onSuccess: () => {
-        toast.success("Delete Brand Successfully");
+        toast.success('Delete Brand Successfully');
         queryClient.invalidateQueries({
-          queryKey: ["brands"],
+          queryKey: ['brands'],
         });
       },
       onError: (error: any) => {

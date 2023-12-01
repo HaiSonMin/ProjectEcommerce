@@ -1,5 +1,7 @@
-import { Heading, RatingStar } from "@/components/shared";
-import styled from "styled-components";
+import { Heading, RatingStar } from '@/components/shared';
+import { getStateProductDetail } from '@/storeReducer/public/productDetailSlice';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 const HeaderDetailLayoutStyled = styled.div`
   display: flex;
@@ -19,12 +21,16 @@ const NumberRating = styled.p`
 `;
 
 export default function HeaderDetailLayout() {
+  const { product, optionChose } = useSelector(getStateProductDetail);
   return (
     <HeaderDetailLayoutStyled>
-      <Heading $as="h4">Samsung Galaxy S23 Ultra 256GB</Heading>
+      <Heading $as='h4'>
+        {product?.product_name}{' '}
+        {product?.product_options[optionChose].product_optionName}
+      </Heading>
       <RatingStar ratePoint={5} />
       <NumberRating>
-        <span>32</span> đánh giá
+        <span>{product?.product_ratings.length}</span> đánh giá
       </NumberRating>
     </HeaderDetailLayoutStyled>
   );

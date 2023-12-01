@@ -1,16 +1,16 @@
-import { toast } from "react-hot-toast";
-import { getQueriesString } from "@/utils";
-import { useQueriesString } from "@/hooks";
-import { useParams } from "react-router-dom";
-import { ProductCategoryGroupApi } from "@/apis";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from 'react-hot-toast';
+import { getQueriesString } from '@/utils';
+import { useQueriesString } from '@/hooks';
+import { useParams } from 'react-router-dom';
+import { ProductCategoryGroupApi } from '@/apis';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   IProductCategoryGroupCreateResultApi,
   IProductCategoryGroupDeleteResultApi,
   IProductCategoryGroupGetAllResultApi,
   IProductCategoryGroupUpdateResultApi,
   IProductCategoryGroupGetByIdResultApi,
-} from "@/interfaces/result-apis/IProductCategoryGroupResultApi";
+} from '@/interfaces/result-apis/IProductCategoryGroupResultApi';
 
 export default class UseProductCategoryGroupApi {
   static createCategoryGroup(): IProductCategoryGroupCreateResultApi {
@@ -18,10 +18,10 @@ export default class UseProductCategoryGroupApi {
     const { isLoading, mutate, data } = useMutation({
       mutationFn: ProductCategoryGroupApi.createProductCategoryGroup,
       onSuccess: () => {
-        toast.success("Create product category successfully");
-        queryClient.invalidateQueries({ queryKey: ["productCategoriesGroup"] });
+        toast.success('Create product category successfully');
+        queryClient.invalidateQueries({ queryKey: ['productCategoriesGroup'] });
       },
-      onError: () => toast.error("Create product category errors"),
+      onError: () => toast.error('Create product category errors'),
     });
     return {
       createProductCategoryGroup: mutate,
@@ -44,7 +44,7 @@ export default class UseProductCategoryGroupApi {
       limit,
     } = getQueriesString(useQueriesString());
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategoriesGroup", sort, currentPage, limit],
+      queryKey: ['productCategoriesGroup', sort, currentPage, limit],
       queryFn: () =>
         ProductCategoryGroupApi.getAllProductCategoriesGroup({
           sort,
@@ -60,7 +60,7 @@ export default class UseProductCategoryGroupApi {
     // Get Data next page
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
-        queryKey: ["productCategoriesGroup", sort, currentPage + 1],
+        queryKey: ['productCategoriesGroup', sort, currentPage + 1],
         queryFn: () =>
           ProductCategoryGroupApi.getAllProductCategoriesGroup({
             sort,
@@ -71,7 +71,7 @@ export default class UseProductCategoryGroupApi {
 
     if (currentPage > 1)
       queryClient.prefetchQuery({
-        queryKey: ["productCategoriesGroup", sort, currentPage - 1],
+        queryKey: ['productCategoriesGroup', sort, currentPage - 1],
         queryFn: () =>
           ProductCategoryGroupApi.getAllProductCategoriesGroup({
             sort,
@@ -92,7 +92,7 @@ export default class UseProductCategoryGroupApi {
   static getCategoryGroupById(): IProductCategoryGroupGetByIdResultApi {
     const { productCategoryGroupId } = useParams();
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategoryGroup", productCategoryGroupId],
+      queryKey: ['productCategoryGroup', productCategoryGroupId],
       queryFn: () =>
         ProductCategoryGroupApi.getProductCategoryGroupById({
           _id: String(productCategoryGroupId),
@@ -115,7 +115,7 @@ export default class UseProductCategoryGroupApi {
       onSuccess: (data: any) => {
         toast.success(data.message);
         queryClient.invalidateQueries({
-          queryKey: ["productCategoriesGroup"],
+          queryKey: ['productCategoriesGroup'],
         });
       },
       onError: (error: any) => toast.error(error.message),
@@ -136,7 +136,7 @@ export default class UseProductCategoryGroupApi {
       mutationFn: ProductCategoryGroupApi.deleteProductCategoryGroup,
       onSuccess: (data: any) => {
         toast.success(data.message);
-        queryClient.invalidateQueries({ queryKey: ["productCategoriesGroup"] });
+        queryClient.invalidateQueries({ queryKey: ['productCategoriesGroup'] });
       },
     });
     return {

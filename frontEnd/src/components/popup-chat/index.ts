@@ -1,3 +1,3 @@
-import PopupChat from "./PopupChat";
+import PopupChat from './PopupChat';
 
-export default PopupChat
+export default PopupChat;

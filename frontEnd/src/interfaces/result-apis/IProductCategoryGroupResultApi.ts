@@ -1,6 +1,6 @@
-import IProductCategoryGroup from "@/interfaces/models/productCategoryGroup.interface";
-import IApi from "@/interfaces/shared/IApi.interface";
-import { UseMutateFunction } from "@tanstack/react-query";
+import { IProductCategoryGroup } from '@/interfaces/models/productCategoryGroup.interface';
+import { IApi } from '@/interfaces/shared/IApi.interface';
+import { UseMutateFunction } from '@tanstack/react-query';
 
 /**
  *  ------- available -------
@@ -40,7 +40,7 @@ export interface IProductCategoryGroupCreateResultApi extends IApi {
   createProductCategoryGroup: UseMutateFunction<
     any,
     unknown,
-    Omit<IProductCategoryGroup, "_id">
+    Omit<IProductCategoryGroup, '_id'>
   >;
 }
 
@@ -60,6 +60,6 @@ export interface IProductCategoryGroupDeleteResultApi extends IApi {
   deleteProductCategoryGroup: UseMutateFunction<
     any,
     unknown,
-    Pick<IProductCategoryGroup, "_id">
+    Pick<IProductCategoryGroup, '_id'>
   >;
 }

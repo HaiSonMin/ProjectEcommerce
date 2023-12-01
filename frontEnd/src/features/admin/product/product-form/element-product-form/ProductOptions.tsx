@@ -1,15 +1,11 @@
-import { styled } from "styled-components";
-import { duplicateObject, randomKey } from "@/utils";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { IoDuplicateOutline } from "react-icons/io5";
-import { IProductOption } from "@/interfaces/shared";
-import { Collapse } from "antd";
-import ProductOptionComponent from "./ProductOptionComponent";
-import ProductOptionProvider from "../context";
-import { MouseEventHandler } from "react";
-import { InputLabel } from "@/components/shared";
-import { IProduct } from "@/interfaces/models";
-import { UseFormRegister } from "react-hook-form";
+import { styled } from 'styled-components';
+import { duplicateObject, randomKey } from '@/utils';
+import { RiDeleteBin5Line } from 'react-icons/ri';
+import { IoDuplicateOutline } from 'react-icons/io5';
+import { IProductOption } from '@/interfaces/shared';
+import { Collapse } from 'antd';
+import ProductOptionComponent from './ProductOptionComponent';
+import ProductOptionProvider from '../context';
 
 const ProductFilterOptionStyled = styled.div``;
 
@@ -66,16 +62,16 @@ export default function ProductOption({
       ...productOptions,
       {
         id: randomKey(),
-        product_optionName: "",
-        product_description: "",
+        product_optionName: '',
+        product_description: '',
         product_priceDifference: 0,
         product_specificationMain: [],
-        product_specificationDetail: "",
+        product_specificationDetail: '',
         product_serials: [
           {
             id: randomKey(),
-            serialName: "",
-            serialImage: "",
+            serialName: '',
+            serialImage: '',
             serialPriceDifference: 0,
           },
         ],
@@ -121,14 +117,14 @@ export default function ProductOption({
         </BtnAddFilterOption>
         <ProductOptionBox>
           <ProductOptionCollapse
-            expandIconPosition={"start"}
+            expandIconPosition={'start'}
             items={productOptions.map((option: IProductOption, indexOption) => {
               return {
                 key: option.id,
                 label: (
                   <div>
-                    Option của sản phẩm {indexOption + 1}:{" "}
-                    <span className="font-bold">
+                    Option của sản phẩm {indexOption + 1}:{' '}
+                    <span className='font-bold'>
                       {productOptions[indexOption].product_optionName}
                     </span>
                   </div>

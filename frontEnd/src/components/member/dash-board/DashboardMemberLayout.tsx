@@ -103,11 +103,6 @@ export default function DashboardMemberLayout() {
             key: `/${PATH_MEMBER.feedback}`,
             icon: <FcIdea />,
           },
-          {
-            label: "Thoát tài khoản",
-            key: `/${PATH_MEMBER.logout}`,
-            icon: <AiOutlineLogout />,
-          },
         ]}
       />
     </SideMenuContainer>

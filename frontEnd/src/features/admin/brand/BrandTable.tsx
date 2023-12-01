@@ -1,10 +1,10 @@
-import BrandRow from "./BrandRow";
-import { useEffect } from "react";
-import { IBrand } from "@/interfaces/models";
-import { useSearchParams } from "react-router-dom";
-import { Menus, Spinner, Table, Pagination } from "@/components/shared";
-import { KEY_QUERY, VALUE_CONSTANT } from "@/constant";
-import { UseBrandApi } from "@/apis-use";
+import BrandRow from './BrandRow';
+import { useEffect } from 'react';
+import { IBrand } from '@/interfaces/models';
+import { useSearchParams } from 'react-router-dom';
+import { Menus, Spinner, Table, Pagination } from '@/components/shared';
+import { KEY_QUERY, VALUE_CONSTANT } from '@/constant';
+import { UseBrandApi } from '@/apis-use';
 
 interface IProps {
   isSearch?: boolean;
@@ -13,7 +13,7 @@ interface IProps {
 export default function BrandTable(props: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
-    searchParams.set("limit", String(VALUE_CONSTANT.LIMIT_PAGE));
+    searchParams.set('limit', String(VALUE_CONSTANT.LIMIT_DEFAULT));
     setSearchParams(searchParams);
   }, []);
 
@@ -26,12 +26,12 @@ export default function BrandTable(props: IProps) {
       | undefined,
     isGetting: boolean;
   if (!searchParams.get(KEY_QUERY.KEY_SEARCH)) {
-    console.log("Get");
+    console.log('Get');
     const { isGettingBrands, metadata } = UseBrandApi.getAllBrand();
     data = metadata;
     isGetting = isGettingBrands;
   } else {
-    console.log("Search");
+    console.log('Search');
     const { isSearchingBrands, metadata } = UseBrandApi.searchBrands();
     data = metadata;
     isGetting = isSearchingBrands;
@@ -41,7 +41,7 @@ export default function BrandTable(props: IProps) {
 
   return (
     <Menus>
-      <Table columns="1fr 1.2fr 2fr 0.4fr">
+      <Table columns='1fr 1.2fr 2fr 0.4fr'>
         <Table.Header>
           <div>Logo</div>
           <div>Brand Name</div>

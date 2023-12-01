@@ -1,12 +1,12 @@
-import { IDiscount } from "@/interfaces/models";
-import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
-import { getErrorMessage, http } from "@/utils";
-import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/interfaces/shared";
+import { IDiscount } from '@/interfaces/models';
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
+import { getErrorMessage, http } from '@/utils';
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IApi } from '@/interfaces/shared';
 
 class DiscountApi {
   async createDiscount(
-    args: Omit<IDiscount, "_id" | "discount_productIds">
+    args: Omit<IDiscount, '_id' | 'discount_productIds'>
   ): Promise<IApi> {
     try {
       const response = await http.post(`${PATH_API_V1.discount}/create`, args);
@@ -17,10 +17,10 @@ class DiscountApi {
       throw new Error(getErrorMessage(error));
     }
   }
-  async getOneDiscount(args: Pick<IDiscount, "_id">): Promise<IApi> {
+  async getOneDiscount(args: Pick<IDiscount, '_id'>): Promise<IApi> {
     try {
       const response = await http.get(
-        `${PATH_API_V1.discount}/getById/${args._id}`,
+        `${PATH_API_V1.discount}/getById/${args._id}`
       );
       const result: IApi = response.data;
       return result;
@@ -78,7 +78,7 @@ class DiscountApi {
     }
   }
 
-  async deleteDiscount(args: Pick<IDiscount, "_id">): Promise<IApi> {
+  async deleteDiscount(args: Pick<IDiscount, '_id'>): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.discount}/delete/${args._id}`

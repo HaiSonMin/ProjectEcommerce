@@ -26,7 +26,7 @@ class RatingService {
     const { sort, limit, page, fields, unFields, numericFilters } = req.query;
     const operatorFilter = convertOperatorObject({
       numericFilters,
-      option: ["rating_point"],
+      fields: ["rating_point"],
     });
     const ratings = await RatingRepo.getRatingsByProductId({
       filter: {

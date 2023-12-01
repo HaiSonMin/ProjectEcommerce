@@ -1,4 +1,4 @@
-export default interface IArgsQuery {
+export interface IArgsQuery {
   sort: string;
   page: number;
   limit: number;

@@ -1,18 +1,18 @@
-const { BadRequestError } = require("../core/error.response");
-const { ProductCategoryModel } = require("../models");
+const { BadRequestError } = require('../core/error.response');
+const { ProductCategoryModel } = require('../models');
 const {
   convertSortBy,
   skipPage,
   getSelectData,
   getUnSelectData,
-} = require("../utils");
-const { convertSortByAggregate } = require("../utils/mongoQueryAggregate");
-const DemandRepo = require("./demand.repo");
+} = require('../utils');
+const { convertSortByAggregate } = require('../utils/mongoQueryAggregate');
+const DemandRepo = require('./demand.repo');
 
 class ProductCategoryRepo {
   static async getAllProductCategories({
     // filter,
-    sort = "ctime",
+    sort = 'ctime',
     limit = 10,
     page = 1,
   }) {
@@ -22,32 +22,32 @@ class ProductCategoryRepo {
           productCategories: [
             {
               $lookup: {
-                from: "productcategorygroups",
-                localField: "productCategory_group",
-                foreignField: "_id",
-                as: "productCategory_group",
+                from: 'productcategorygroups',
+                localField: 'productCategory_group',
+                foreignField: '_id',
+                as: 'productCategory_group',
               },
             },
             {
               $unwind: {
-                path: "$productCategory_group",
+                path: '$productCategory_group',
                 preserveNullAndEmptyArrays: true,
               },
             },
             {
               $lookup: {
-                from: "brands",
-                localField: "productCategory_brands",
-                foreignField: "_id",
-                as: "productCategory_brands",
+                from: 'brands',
+                localField: 'productCategory_brands',
+                foreignField: '_id',
+                as: 'productCategory_brands',
               },
             },
             {
               $lookup: {
-                from: "demands",
-                localField: "productCategory_demands",
-                foreignField: "_id",
-                as: "productCategory_demands",
+                from: 'demands',
+                localField: 'productCategory_demands',
+                foreignField: '_id',
+                as: 'productCategory_demands',
               },
             },
             {
@@ -78,7 +78,7 @@ class ProductCategoryRepo {
             },
             {
               $sort: convertSortByAggregate({
-                localField: "productCategory_group",
+                localField: 'productCategory_group',
                 sort,
               }),
             },
@@ -89,7 +89,7 @@ class ProductCategoryRepo {
               $limit: Number(limit),
             },
           ],
-          totalProductCategories: [{ $count: "count" }],
+          totalProductCategories: [{ $count: 'count' }],
         },
       },
     ]);
@@ -104,16 +104,16 @@ class ProductCategoryRepo {
       productCategory_group: productCategoryGroupId,
     })
       .populate([
-        { path: "productCategory_demands", select: ["demand_name"] },
-        { path: "productCategory_brands", select: ["brand_name"] },
+        { path: 'productCategory_demands', select: ['demand_name'] },
+        { path: 'productCategory_brands', select: ['brand_name'] },
       ])
       .exec();
   }
 
   static async getProductCategoryById({ productCategoryId }) {
     return await ProductCategoryModel.findById(productCategoryId)
-      .populate("productCategory_brands", ["brand_name"])
-      .populate("productCategory_demands", ["demand_name"])
+      .populate('productCategory_brands', ['brand_name'])
+      .populate('productCategory_demands', ['demand_name'])
       .exec();
   }
 
@@ -123,8 +123,24 @@ class ProductCategoryRepo {
       .exec();
   }
 
+  static async getProductCategoriesByType({ productCategory_type }) {
+    return await ProductCategoryModel.find({ productCategory_type })
+      .populate([
+        {
+          path: 'productCategory_demands',
+          select: ['demand_name', 'demand_image'],
+        },
+        {
+          path: 'productCategory_brands',
+          select: ['brand_name', 'brand_image'],
+        },
+      ])
+      .lean()
+      .exec();
+  }
+
   static async searchProductCategories({ keySearch, limit = 10, page = 1 }) {
-    const regexSearch = new RegExp(keySearch, "i");
+    const regexSearch = new RegExp(keySearch, 'i');
     const [productCategories, totalProductCategories] = await Promise.all([
       ProductCategoryModel.find({
         $or: [
@@ -134,7 +150,7 @@ class ProductCategoryRepo {
       })
         .skip(skipPage({ limit, page }))
         .limit(limit)
-        .populate("productCategory_group", ["productCategoryGroup_name"])
+        .populate('productCategory_group', ['productCategoryGroup_name'])
         .exec(),
       ProductCategoryModel.countDocuments({
         $or: [

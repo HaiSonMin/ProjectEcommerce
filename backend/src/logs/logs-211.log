@@ -1,0 +1,5 @@
+{"message":"Unexpected token ']', ...\"a5\",\r\n    ],\r\n    \"o\"... is not valid JSON","method":"GET","url":"/api/v1/notification/getAll","timeStamp":"02/11/2023 12:43:25"}
+{"message":"Unexpected token ']', ...\"a5\",\r\n    ],\r\n    \"o\"... is not valid JSON","method":"GET","url":"/api/v1/notification/getAll","timeStamp":"02/11/2023 12:44:17"}
+{"message":"Phiên đăng nhập hết hạn","method":"GET","url":"/api/v1/notification/getAll","timeStamp":"02/11/2023 12:44:29"}
+{"message":"Phiên đăng nhập hết hạn","method":"GET","url":"/api/v1/notification/getAll","timeStamp":"02/11/2023 12:44:54"}
+{"message":"Phiên đăng nhập hết hạn","method":"GET","url":"/api/v1/notification/getAll","timeStamp":"02/11/2023 12:44:57"}

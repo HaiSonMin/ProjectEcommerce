@@ -18,6 +18,7 @@ const DiscountService = require('./discount.service');
 const QuestionService = require('./question.service');
 const InventoryService = require('./inventory.service');
 const BlogCategoryService = require('./blogCategory.service');
+const NotificationService = require('./notification.service');
 const SpecificationService = require('./specification.service');
 const ProductCategoryService = require('./productCategory.service');
 const ProductCategoryGroupService = require('./productCategoryGroup.service');
@@ -43,6 +44,7 @@ module.exports = {
   QuestionService,
   InventoryService,
   BlogCategoryService,
+  NotificationService,
   SpecificationService,
   ProductCategoryService,
   ProductCategoryGroupService,

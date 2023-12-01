@@ -1,11 +1,11 @@
-const { BadRequestError, NotFoundError } = require("../core/error.response");
-const { ProductCategoryModel, DemandModel } = require("../models");
+const { BadRequestError, NotFoundError } = require('../core/error.response');
+const { ProductCategoryModel, DemandModel } = require('../models');
 const {
   ProductCategoryRepo,
   DemandRepo,
   ProductCategoryGroupRepo,
-} = require("../repositories");
-const { capitalizeFirstLetter } = require("../utils");
+} = require('../repositories');
+const { capitalizeFirstLetter } = require('../utils');
 
 class ProductCategoryService {
   static async createProductCategory(req, res) {
@@ -16,7 +16,7 @@ class ProductCategoryService {
       ...payload,
       productCategory_image: path,
     });
-    if (!newProductCategory) throw new BadRequestError("Create Category Error");
+    if (!newProductCategory) throw new BadRequestError('Create Category Error');
     return newProductCategory;
   }
 
@@ -41,7 +41,7 @@ class ProductCategoryService {
       productCategoryId,
     });
 
-    if (!productCategory) throw new NotFoundError("Product category not found");
+    if (!productCategory) throw new NotFoundError('Product category not found');
     return productCategory;
   }
 
@@ -53,7 +53,7 @@ class ProductCategoryService {
       });
 
     if (!productCategories.length)
-      throw new NotFoundError("Product categories not found");
+      throw new NotFoundError('Product categories not found');
     return productCategories;
   }
 
@@ -62,6 +62,15 @@ class ProductCategoryService {
     const productCategories =
       await ProductCategoryRepo.getProductCategoriesByIds({
         productCategoriesIds,
+      });
+    return productCategories;
+  }
+
+  static async getProductCategoriesByType(req, res) {
+    const { catType } = req.query;
+    const productCategories =
+      await ProductCategoryRepo.getProductCategoriesByType({
+        productCategory_type: catType,
       });
     return productCategories;
   }
@@ -97,7 +106,7 @@ class ProductCategoryService {
         },
       });
     if (!productCategoryUpdated)
-      throw new BadRequestError("Updated Category Error");
+      throw new BadRequestError('Updated Category Error');
     return productCategoryUpdated;
   }
 
@@ -108,7 +117,7 @@ class ProductCategoryService {
         productCategoryId,
       });
     if (!productCategoryDeleted)
-      throw new BadRequestError("Delete Category Error");
+      throw new BadRequestError('Delete Category Error');
     return productCategoryDeleted;
   }
 

@@ -1,7 +1,7 @@
-import Modal from "@/components/shared/Modal";
-import { styled } from "styled-components";
-import ProductRatingForm from "./ProductRatingForm";
-import Button from "@/components/shared/Button";
+import Modal from '@/components/shared/Modal';
+import { styled } from 'styled-components';
+import ProductRatingForm from './ProductRatingForm';
+import Button from '@/components/shared/Button';
 
 const ProductRatingFormStyled = styled.div`
   margin: 1rem auto;
@@ -25,11 +25,11 @@ export default function ProductRatingModal() {
       <Modal>
         <RatingNow>
           <p>Hãy đánh giá sản phẩm của chúng tôi</p>
-          <Modal.Open openWindowName="ratingProduct">
-            <Button $width="20%">Đánh giá ngay</Button>
+          <Modal.Open openWindowName='ratingProduct'>
+            <Button>Đánh giá ngay</Button>
           </Modal.Open>
         </RatingNow>
-        <Modal.Window windowName="ratingProduct">
+        <Modal.Window windowName='ratingProduct'>
           <ProductRatingForm />
         </Modal.Window>
       </Modal>

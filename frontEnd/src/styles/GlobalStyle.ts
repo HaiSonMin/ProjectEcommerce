@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
 :root {
@@ -37,6 +37,9 @@ const GlobalStyles = createGlobalStyle`
   --color-green-900: #00ec00;
   --color-yellow-100: #383624;
   --color-yellow-700: #f0ff2b;
+
+  --color-star-bold: #f59e0b;
+  --color-star-light: #ffbf00;
 
   --color-silver-100: #e5e7eb;
   --color-silver-700: #374151;

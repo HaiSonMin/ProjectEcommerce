@@ -1,14 +1,15 @@
-import logoPage from "@/assets/logos/logo_dark.png";
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
-import { FiPhone } from "react-icons/fi";
-import { LuPackageSearch } from "react-icons/lu";
-import { TbShoppingBag } from "react-icons/tb";
-import { MdOutlineDiscount } from "react-icons/md";
-import { VscFeedback } from "react-icons/vsc";
-import HeaderSearch from "./search-input/HeaderSearch";
-import HeaderButtonAuth from "./HeaderButtonAuth";
-import { PATH_PUBLIC, PATH_MEMBER } from "@/constant/path-router";
+import logoPage from '@/assets/logos/logo_dark.png';
+import { Link } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { FiPhone } from 'react-icons/fi';
+import { LuPackageSearch } from 'react-icons/lu';
+import { TbShoppingBag } from 'react-icons/tb';
+import { MdOutlineDiscount } from 'react-icons/md';
+import { VscFeedback } from 'react-icons/vsc';
+import HeaderSearch from './search-input/HeaderSearch';
+import HeaderButtonAuth from './header-auth';
+import { PATH_PUBLIC, PATH_MEMBER, PATH_BLOG } from '@/constant/path-router';
+import { FaBloggerB } from 'react-icons/fa';
 
 const HeaderMenuTopStyled = styled.div`
   padding: 1rem 0;
@@ -34,8 +35,8 @@ const Navs = styled.div`
     cursor: pointer;
 
     & svg {
-      width: 2.8rem;
-      height: 2.8rem;
+      width: 2.4rem;
+      height: 2.4rem;
     }
 
     &:hover {
@@ -46,6 +47,7 @@ const Navs = styled.div`
 
 const LogoPage = styled(Link)`
   width: 18rem;
+  margin-right: 5px;
   & img {
     width: 100%;
   }
@@ -54,7 +56,7 @@ const LogoPage = styled(Link)`
 const NavTelItem = styled.a``;
 const NavLinkItem = styled(Link)`
   & p {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   cursor: pointer;
 `;
@@ -78,11 +80,19 @@ export default function HeaderMenu() {
   return (
     <HeaderMenuTopStyled>
       <Navs>
-        <LogoPage to={"/"}>
-          <img src={logoPage} alt="Logo Page" />
+        <LogoPage to={'/'}>
+          <img src={logoPage} alt='Logo Page' />
         </LogoPage>
         <HeaderSearch />
-        <NavLinkItem className="nav-styled" to={`/${PATH_PUBLIC.feedback}`}>
+        <NavLinkItem className='nav-styled' to={`/${PATH_BLOG.blog}`}>
+          <FaBloggerB />
+          <p>
+            Tin tức
+            <br />
+            kiến thức
+          </p>
+        </NavLinkItem>
+        <NavLinkItem className='nav-styled' to={`/${PATH_PUBLIC.feedback}`}>
           <VscFeedback />
           <p>
             Góp ý và
@@ -90,7 +100,7 @@ export default function HeaderMenu() {
             phản hồi
           </p>
         </NavLinkItem>
-        <NavTelItem className="nav-styled" href={"tel: 0345299087"}>
+        <NavTelItem className='nav-styled' href={'tel: 0345299087'}>
           <FiPhone />
           <p>
             Gọi mua hàng
@@ -98,7 +108,7 @@ export default function HeaderMenu() {
             0345.299.087
           </p>
         </NavTelItem>
-        <NavLinkItem className="nav-styled" to={`/${PATH_MEMBER.member}`}>
+        <NavLinkItem className='nav-styled' to={`/${PATH_MEMBER.member}`}>
           <MdOutlineDiscount />
           <p>
             Xem mã
@@ -106,7 +116,7 @@ export default function HeaderMenu() {
             giảm giá
           </p>
         </NavLinkItem>
-        <NavLinkItem className="nav-styled" to={"/#"}>
+        <NavLinkItem className='nav-styled' to={'/#'}>
           <LuPackageSearch />
           <p>
             Tra cứu
@@ -114,7 +124,7 @@ export default function HeaderMenu() {
             Đơn hàng
           </p>
         </NavLinkItem>
-        <NavLinkItem className="nav-styled" to={`/${PATH_PUBLIC.cart.root}`}>
+        <NavLinkItem className='nav-styled' to={`/${PATH_PUBLIC.cart.root}`}>
           <CartBlock>
             <TbShoppingBag />
             <CountBuy>2</CountBuy>

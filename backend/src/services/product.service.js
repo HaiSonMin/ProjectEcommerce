@@ -1,13 +1,13 @@
-const CONSTANT = require("../constant");
-const { BadRequestError, NotFoundError } = require("../core/error.response");
-const redis = require("../databases/init.redisDB");
-const { ProductModel, RatingModel } = require("../models");
+const CONSTANT = require('../constant');
+const { BadRequestError, NotFoundError } = require('../core/error.response');
+const redis = require('../databases/init.redisDB');
+const { ProductModel, RatingModel } = require('../models');
 const {
   BrandRepo,
   ProductRepo,
   ProductCategoryRepo,
-} = require("../repositories");
-const { getFieldsPath, setDataNested } = require("../utils");
+} = require('../repositories');
+const { getFieldsPath, setDataNested } = require('../utils');
 
 class ProductService {
   static async createProduct(req, res) {
@@ -30,12 +30,12 @@ class ProductService {
     // 3. Check image
     const fieldsImage = req?.files;
     if (!Object.keys(fieldsImage).length)
-      throw new BadRequestError("Please provide images for product");
+      throw new BadRequestError('Please provide images for product');
 
     // 3. Create product
     let dataCreate = { ...payload };
     for (const [key, value] of Object.entries(getFieldsPath(fieldsImage))) {
-      if (!key.includes("["))
+      if (!key.includes('['))
         dataCreate = {
           ...dataCreate,
           [key]: value,
@@ -48,10 +48,9 @@ class ProductService {
       ...dataCreate,
       product_thumb: dataCreate.product_thumb[0],
     };
-    console.log("dataCreated::::", dataCreate);
 
     const newProduct = await ProductModel.create(dataCreate);
-    if (!newProduct) throw new BadRequestError("Create product error");
+    if (!newProduct) throw new BadRequestError('Create product error');
 
     return newProduct;
   }
@@ -59,28 +58,13 @@ class ProductService {
   static async getAllProducts(req, res) {
     const { sort, limit, page, status, numericFilters } = req.query;
 
-    console.log(numericFilters);
-
-    // console.log(convertOperatorObject({ options, numericFilters }));
-    const productRedis = await redis.get("products");
-    if (productRedis) return JSON.parse(productRedis);
-
     const { products, totalProducts } = await ProductRepo.getAllProducts({
       sort,
       page,
       limit,
       status,
+      filter: numericFilters,
     });
-
-    redis.setex(
-      "products",
-      CONSTANT.TIME_STORE_REDIS,
-      JSON.stringify({
-        totalProducts: totalProducts,
-        productsPerPage: products.length,
-        products,
-      })
-    );
 
     return {
       totalProducts: totalProducts,
@@ -92,16 +76,28 @@ class ProductService {
   static async getProductById(req, res) {
     const { productId } = req.params;
     const product = await ProductRepo.getProductById({ productId });
-    console.log("product:::", product);
+    console.log('product:::', product);
     if (!product) throw new NotFoundError("Product doesn't exists");
     return product;
   }
 
   static async getProductByCategoryId(req, res) {
     const { categoryId } = req.params;
-    const product = await ProductRepo.getProductByCategoryId({ categoryId });
-    if (!product) throw new NotFoundError("Product doesn't exists");
-    return product;
+    const { sort, limit, page, numericFilters } = req.query;
+
+    const { products, totalProducts } =
+      await ProductRepo.getProductByCategoryId({
+        categoryId,
+        limit,
+        page,
+        sort,
+        filter: numericFilters,
+      });
+    return {
+      totalProducts: totalProducts,
+      productsPerPage: products.length,
+      products,
+    };
   }
 
   static async searchProduct(req, res) {
@@ -127,17 +123,17 @@ class ProductService {
 
     // 1.Check product
     const product = await ProductRepo.getProductById({ productId });
-    if (!product) throw new NotFoundError("Product not found for update");
+    if (!product) throw new NotFoundError('Product not found for update');
 
     // 2.Check Product brand if update product brand
-    if (keyPayload.includes("product_brand")) {
+    if (keyPayload.includes('product_brand')) {
       const brandId = payload.product_brand;
       const findBrand = await BrandRepo.getBrandById({ brandId });
       if (!findBrand) throw new NotFoundError("Brand doesn't exist");
     }
 
     // 3.Check Product category if update product category
-    if (keyPayload.includes("product_category")) {
+    if (keyPayload.includes('product_category')) {
       const productCategoryId = payload.product_category;
       const findProductCategory =
         await ProductCategoryRepo.getProductCategoryById({ productCategoryId });
@@ -147,7 +143,7 @@ class ProductService {
 
     if (!Object.keys(payload).length)
       // Check Product brand has exist
-      throw new BadRequestError("Missing Payload Update");
+      throw new BadRequestError('Missing Payload Update');
 
     // 4. Update Main info
     let dataUpdate = { ...product };
@@ -159,12 +155,12 @@ class ProductService {
     // 4.2 If add more image
     if (Object.keys(fieldsPath).length) {
       for (const [key, value] of Object.entries(fieldsPath)) {
-        if (key === "product_thumb")
+        if (key === 'product_thumb')
           dataUpdate = {
             ...dataUpdate,
             [key]: value[0],
           };
-        else if (!key.includes("[")) {
+        else if (!key.includes('[')) {
           dataUpdate = {
             ...dataUpdate,
             [key]: [...dataUpdate[key], ...value],
@@ -179,7 +175,7 @@ class ProductService {
       payload: dataUpdate,
     });
 
-    if (!productUpdated) throw new BadRequestError("Product update error");
+    if (!productUpdated) throw new BadRequestError('Product update error');
     return productUpdated;
   }
 
@@ -187,7 +183,7 @@ class ProductService {
     const { productId } = req.params;
     // 1. Delete product
     const productDeleted = await ProductRepo.deleteProductById({ productId });
-    if (!productDeleted) throw new BadRequestError("Product delete error");
+    if (!productDeleted) throw new BadRequestError('Product delete error');
     // 2. Delete ratings in product
     await RatingModel.deleteMany({ rating_productId: productId });
 

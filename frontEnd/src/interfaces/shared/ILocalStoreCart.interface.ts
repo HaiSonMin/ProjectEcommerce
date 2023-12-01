@@ -1,4 +1,4 @@
-export default interface ILocalStoreCart {
+export interface ILocalStoreCart {
   userId: string;
   products: Array<{
     productId: string;

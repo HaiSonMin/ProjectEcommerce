@@ -1,4 +1,4 @@
-export default interface IApi {
+export interface IApi {
   metadata: any | undefined;
   message: any | undefined;
   reasonStatusCode: string | undefined;

@@ -25,6 +25,6 @@ class RedisDB {
   }
 }
 
-const redis = RedisDB.getInstance()
+const redis = RedisDB.getInstance();
 
 module.exports = redis;

@@ -1,9 +1,11 @@
-import { Button } from "@/components/shared";
-import styled, { css } from "styled-components";
-import { LiaCartPlusSolid } from "react-icons/lia";
-import { Link } from "react-router-dom";
-import { PATH_PUBLIC } from "@/constant/path-router";
-import { formatCurrencyVND } from "@/utils";
+import { Button } from '@/components/shared';
+import styled, { css } from 'styled-components';
+import { LiaCartPlusSolid } from 'react-icons/lia';
+import { Link } from 'react-router-dom';
+import { PATH_PUBLIC } from '@/constant/path-router';
+import { formatCurrencyVND } from '@/utils';
+import { useSelector } from 'react-redux';
+import { getStateProductDetail } from '@/storeReducer/public/productDetailSlice';
 
 const ButtonBuyOptionLayoutStyled = styled.div`
   display: flex;
@@ -75,25 +77,28 @@ const ButtonBuyInstallment = styled(Link)`
 `;
 
 export default function ButtonBuyOptionLayout() {
+  const { product, optionChose, optionColorChose } = useSelector(
+    getStateProductDetail
+  );
   return (
     <ButtonBuyOptionLayoutStyled>
       <TopButtonBuy>
-        <Link className="btn__buy" to={`/${PATH_PUBLIC.cart}`}>
+        <Link className='btn__buy' to={`/${PATH_PUBLIC.cart}`}>
           <span>Mua ngay với giá {formatCurrencyVND(23000000)}</span>
           <span>(Giao nhanh chóng trong 2 giờ hoặc nhận tại cửa hàng)</span>
         </Link>
 
-        <div className="btn__add--card">
+        <div className='btn__add--card'>
           <LiaCartPlusSolid />
           <span>Thêm vào giỏ</span>
         </div>
       </TopButtonBuy>
       <BottomButtonBuy>
-        <ButtonBuyInstallment to={"#"}>
+        <ButtonBuyInstallment to={'#'}>
           <span>Trả góp 0%</span>
           <span>Trả góp chỉ từ {formatCurrencyVND(23000000)}</span>
         </ButtonBuyInstallment>
-        <ButtonBuyInstallment to={"#"}>
+        <ButtonBuyInstallment to={'#'}>
           <span>Trả góp qua thẻ</span>
           <span>(Visa, Mastercard, JCB)</span>
         </ButtonBuyInstallment>

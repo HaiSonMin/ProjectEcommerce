@@ -1,4 +1,4 @@
-export default interface ILocalStoreUser {
+export interface ILocalStoreUser {
   userId: string;
   userEmail: string;
   userFullName: string;

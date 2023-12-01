@@ -1,10 +1,8 @@
 import { IChat, IChatContent, IChatUser } from '@/interfaces/models';
-import IArgsQuery from '@/interfaces/shared/IArgsQuery.interface';
-import { http, getErrorMessage, resultAppendFormData } from '@/utils';
-
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
+import { http, getErrorMessage } from '@/utils';
 import { PATH_API_V1 } from '@/constant/path-api';
 import { IApi } from '@/interfaces/shared';
-import { IChatCreateResultApi } from '@/interfaces/result-apis';
 
 class ChatApi {
   async createChat(args: IChatUser): Promise<IApi> {

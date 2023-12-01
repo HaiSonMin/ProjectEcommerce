@@ -1,0 +1,12 @@
+{"message":"Operation `products.aggregate()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/product/getAll?sort=product_price-asc","timeStamp":"05/11/2023 21:00:38"}
+{"message":"Operation `products.findOne()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/product/getById/64fdab73ed633ce4753c4436","timeStamp":"05/11/2023 21:00:51"}
+{"message":"Operation `productcategories.find()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/productCategory/getByType?catType=Phone","timeStamp":"05/11/2023 21:01:03"}
+{"message":"Operation `products.find()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/product/getByCategoryId/64f0d371a71b241dc454c144?sort=ctime&page=1&limit=10&numericFilters=","timeStamp":"05/11/2023 21:01:03"}
+{"message":"Operation `productcategories.find()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/productCategory/getByType?catType=Phone","timeStamp":"05/11/2023 21:01:14"}
+{"message":"Operation `products.find()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/product/getByCategoryId/64f0d371a71b241dc454c144?sort=ctime&page=1&limit=10&numericFilters=","timeStamp":"05/11/2023 21:01:14"}
+{"message":"Operation `productcategories.find()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/productCategory/getByType?catType=Phone","timeStamp":"05/11/2023 21:02:56"}
+{"message":"Operation `products.find()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/product/getByCategoryId/64f0d371a71b241dc454c144?sort=ctime&page=1&limit=10&numericFilters=","timeStamp":"05/11/2023 21:02:56"}
+{"message":"Operation `productcategories.aggregate()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/productCategory/getAll?sort=ctime&page=1&limit=1","timeStamp":"05/11/2023 21:03:01"}
+{"message":"Operation `productcategorygroups.find()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/productCategoryGroup/getAll?sort=ctime&page=1&limit=10","timeStamp":"05/11/2023 21:03:01"}
+{"message":"Operation `productcategories.aggregate()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/productCategory/getAll?sort=ctime&page=1&limit=1","timeStamp":"05/11/2023 21:03:12"}
+{"message":"Operation `productcategorygroups.find()` buffering timed out after 10000ms","method":"GET","url":"/api/v1/productCategoryGroup/getAll?sort=ctime&page=1&limit=10","timeStamp":"05/11/2023 21:03:12"}

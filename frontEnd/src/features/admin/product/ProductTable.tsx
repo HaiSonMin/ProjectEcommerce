@@ -1,7 +1,7 @@
-import { ProductRow } from "./";
-import { IProduct } from "@/interfaces/models";
-import { UseProductApi } from "@/apis-use";
-import { Menus, Pagination, Spinner, Table } from "@/components/shared";
+import { ProductRow } from './';
+import { UseProductApi } from '@/apis-use';
+import { Menus, Pagination, Spinner, Table } from '@/components/shared';
+import IProduct from '@/interfaces/models/product.interface';
 
 interface Iprops {
   isSearch?: boolean;
@@ -25,7 +25,7 @@ export default function ProductTable(props: Iprops) {
 
   return (
     <Menus>
-      <Table columns="0.5fr 1.5fr 0.8fr 0.8fr 0.8fr 0.8fr 0.5fr">
+      <Table columns='0.5fr 1.5fr 0.8fr 0.8fr 0.8fr 0.8fr 0.5fr'>
         <Table.Header>
           <div>Thumb</div>
           <div>Name</div>

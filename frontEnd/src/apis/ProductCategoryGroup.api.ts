@@ -1,12 +1,12 @@
-import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
-import { IProductCategoryGroup } from "@/interfaces/models";
-import { http, resultAppendFormData } from "@/utils";
-import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/interfaces/shared";
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
+import { IProductCategoryGroup } from '@/interfaces/models/productCategoryGroup.interface';
+import { http, resultAppendFormData } from '@/utils';
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IApi } from '@/interfaces/shared';
 
 class ProductCategoryGroupApi {
   async createProductCategoryGroup(
-    args: Omit<IProductCategoryGroup, "_id">
+    args: Omit<IProductCategoryGroup, '_id'>
   ): Promise<IApi> {
     try {
       const response = await http.postForm(
@@ -42,7 +42,7 @@ class ProductCategoryGroupApi {
 
   async getProductCategoryGroupById({
     _id: categoryGroupId,
-  }: Pick<IProductCategoryGroup, "_id">): Promise<IApi> {
+  }: Pick<IProductCategoryGroup, '_id'>): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.productCategoryGroup}/getById/${categoryGroupId}`
@@ -71,7 +71,7 @@ class ProductCategoryGroupApi {
   }
 
   async deleteProductCategoryGroup(
-    arg: Pick<IProductCategoryGroup, "_id">
+    arg: Pick<IProductCategoryGroup, '_id'>
   ): Promise<IApi> {
     try {
       const response = await http.delete(

@@ -1,7 +1,13 @@
-import { Heading } from "@/components/shared";
-import { css, styled } from "styled-components";
-import ItemOption from "./ItemOption";
-import { formatCurrencyVND } from "@/utils";
+import { Heading } from '@/components/shared';
+import { css, styled } from 'styled-components';
+import ItemOption from './ItemOption';
+import { formatCurrencyVND } from '@/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getStateProductDetail,
+  setChoseColorProduct,
+  setChoseOptionProduct,
+} from '@/storeReducer/public/productDetailSlice';
 
 const OptionLayoutStyled = styled.div``;
 
@@ -57,97 +63,68 @@ const OptionColorStyled = styled.div`
 `;
 
 export default function ItemOptionLayout() {
+  const dispatch = useDispatch();
+  const { product, optionChose, optionColorChose } = useSelector(
+    getStateProductDetail
+  );
+
+  console.log('product?.product_options::::', product?.product_options);
   return (
     <OptionLayoutStyled>
       <OptionsBox>
-        <ItemOption>
-          <OptionStyled>
-            <p className="option--name">1TB</p>
-            <p className="option--price">{formatCurrencyVND(23000000)}</p>
-          </OptionStyled>
-        </ItemOption>
-        <ItemOption>
-          <OptionStyled>
-            <p className="option--name">1TB</p>
-            <p className="option--price">{formatCurrencyVND(23000000)}</p>
-          </OptionStyled>
-        </ItemOption>
-        <ItemOption>
-          <OptionStyled>
-            <p className="option--name">1TB</p>
-            <p className="option--price">{formatCurrencyVND(23000000)}</p>
-          </OptionStyled>
-        </ItemOption>
+        {product?.product_options.map((option, i) => (
+          <ItemOption
+            key={option.id}
+            isActive={i === optionChose}
+            onClick={() => dispatch(setChoseOptionProduct(i))}
+          >
+            <OptionStyled>
+              <p className='option--name'>{option.product_optionName}</p>
+              <p className='option--price'>
+                {formatCurrencyVND(
+                  product.product_price +
+                    Number(product.product_options[i].product_priceDifference)
+                )}
+              </p>
+            </OptionStyled>
+          </ItemOption>
+        ))}
       </OptionsBox>
-      <Heading $as="h6" className="mb-[8px]">
+      <Heading $as='h6' className='mb-[8px]'>
         Chọn màu yêu thích của bạn
       </Heading>
       <OptionsBox>
-        <ItemOption>
-          <OptionColorStyled>
-            <div className="box--image">
-              <img
-                src="https://cdn2.cellphones.com.vn/insecure/rs:fill:50:50/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/a/galaxy-z-fold-5-kem-1_1.jpg"
-                alt="image"
-              />
-            </div>
-            <div className="box__option">
-              <p className="box__option--color">Kem</p>
-              <p className="box__option--price">
-                {formatCurrencyVND(23000000)}
-              </p>
-            </div>
-          </OptionColorStyled>
-        </ItemOption>
-
-        <ItemOption>
-          <OptionColorStyled>
-            <div className="box--image">
-              <img
-                src="https://cdn2.cellphones.com.vn/insecure/rs:fill:50:50/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/a/galaxy-z-fold-5-kem-1_1.jpg"
-                alt="image"
-              />
-            </div>
-            <div className="box__option">
-              <p className="box__option--color">Kem</p>
-              <p className="box__option--price">
-                {formatCurrencyVND(23000000)}
-              </p>
-            </div>
-          </OptionColorStyled>
-        </ItemOption>
-        <ItemOption>
-          <OptionColorStyled>
-            <div className="box--image">
-              <img
-                src="https://cdn2.cellphones.com.vn/insecure/rs:fill:50:50/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/a/galaxy-z-fold-5-kem-1_1.jpg"
-                alt="image"
-              />
-            </div>
-            <div className="box__option">
-              <p className="box__option--color">Kem</p>
-              <p className="box__option--price">
-                {formatCurrencyVND(23000000)}
-              </p>
-            </div>
-          </OptionColorStyled>
-        </ItemOption>
-        <ItemOption>
-          <OptionColorStyled>
-            <div className="box--image">
-              <img
-                src="https://cdn2.cellphones.com.vn/insecure/rs:fill:50:50/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/a/galaxy-z-fold-5-kem-1_1.jpg"
-                alt="image"
-              />
-            </div>
-            <div className="box__option">
-              <p className="box__option--color">Kem</p>
-              <p className="box__option--price">
-                {formatCurrencyVND(23000000)}
-              </p>
-            </div>
-          </OptionColorStyled>
-        </ItemOption>
+        {product?.product_options[optionChose].product_serials?.map(
+          (serial, i) => (
+            <ItemOption
+              key={serial.id}
+              isActive={i === optionColorChose}
+              onClick={() => dispatch(setChoseColorProduct(i))}
+            >
+              <OptionColorStyled>
+                <div className='box--image'>
+                  <img src={serial.serialImage} alt='image' />
+                </div>
+                <div className='box__option'>
+                  <p className='box__option--color'>{serial.serialName}</p>
+                  <p className='box__option--price'>
+                    {formatCurrencyVND(
+                      product.product_price +
+                        Number(
+                          product.product_options[optionChose]
+                            .product_priceDifference
+                        ) +
+                        Number(
+                          product.product_options[optionChose]
+                            ?.product_serials?.[i]?.serialPriceDifference
+                        )
+                    )}
+                  </p>
+                </div>
+              </OptionColorStyled>
+            </ItemOption>
+          )
+        )}
       </OptionsBox>
     </OptionLayoutStyled>
   );

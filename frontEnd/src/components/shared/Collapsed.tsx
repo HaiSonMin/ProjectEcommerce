@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { IoIosArrowBack, IoIosArrowDown } from "react-icons/io";
-import styled, { css } from "styled-components";
-import Collapse from "react-css-collapse";
+import { useState } from 'react';
+import { IoIosArrowBack, IoIosArrowDown } from 'react-icons/io';
+import styled, { css } from 'styled-components';
+import Collapse from 'react-css-collapse';
 
-const CollapseStyled = styled.li``;
+const CollapseStyled = styled.div`
+  margin-top: 1rem;
+`;
 
 const CollapseTitle = styled.div`
   display: flex;

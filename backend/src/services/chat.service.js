@@ -7,7 +7,7 @@ class ChatService {
     const { chat_userName, chat_userEmail, chat_userPhone, chat_userSex } =
       req.body;
 
-    if ((!chat_userName || !chat_userEmail || !chat_userPhone || !chat_userSex))
+    if (!chat_userName || !chat_userEmail || !chat_userPhone || !chat_userSex)
       throw new BadRequestError('Vui lòng điền đầy đủ thông tin');
 
     const chatUser = {

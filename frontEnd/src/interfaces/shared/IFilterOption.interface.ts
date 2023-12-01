@@ -7,6 +7,6 @@ export interface IFilterItem {
 export interface IFilterOption {
   id: string;
   filterOption: string;
-  filterOptionInfo: string;
+  filterOptionInfo?: string;
   filterItems: Array<IFilterItem>;
 }

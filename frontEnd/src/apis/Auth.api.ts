@@ -7,7 +7,7 @@ import {
   IAuthRegister,
 } from '@/interfaces/models/auth.interface';
 import { getATLocalStorage, getErrorMessage, http } from '@/utils';
-import IUser from '@/interfaces/models/user.interface';
+import { IUser } from '@/interfaces/models/user.interface';
 
 class AuthApi {
   async loginGoogle(): Promise<IApi> {

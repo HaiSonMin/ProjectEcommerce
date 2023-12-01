@@ -1,8 +1,8 @@
-import { styled } from "styled-components";
-import ProductDescLayout from "./product-desc";
-import ProductRatingsLayout from "./product-ratings";
-import FrequentlyAskedQuestionsLayout from "./FAQ";
-import QuestionsAnswersLayout from "./questions-answers";
+import { styled } from 'styled-components';
+import ProductDescLayout from './product-desc';
+import ProductRatingsLayout from './product-ratings';
+import FrequentlyAskedQuestionsLayout from './FAQ';
+import QuestionsAnswersLayout from './questions-answers';
 
 const ProductLeftContentLayoutStyled = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const ProductLeftContentLayoutStyled = styled.div`
 export default function ProductLeftContentLayout() {
   return (
     <ProductLeftContentLayoutStyled>
-      <ProductDescLayout productDesc={"abc"} />
+      <ProductDescLayout />
       <FrequentlyAskedQuestionsLayout />
       <ProductRatingsLayout />
       <QuestionsAnswersLayout />

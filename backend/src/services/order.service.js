@@ -73,7 +73,7 @@ class OrderService {
       filter: {
         ...convertOperatorObject({
           numericFilters,
-          options: ["order_totalAmount"],
+          fields: ["order_totalAmount"],
         }),
       },
     });
@@ -101,7 +101,7 @@ class OrderService {
       keySearch,
       filter: {
         ...convertOperatorObject({
-          options: ["order_totalAmount"],
+          fields: ["order_totalAmount"],
           numericFilters,
         }),
       },

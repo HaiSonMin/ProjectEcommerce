@@ -1,7 +1,7 @@
-import { getQueriesString } from "@/utils";
-import { toast } from "react-hot-toast";
-import { ProductCategoryApi } from "@/apis";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getQueriesString } from '@/utils';
+import { toast } from 'react-hot-toast';
+import { ProductCategoryApi } from '@/apis';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   IProductCategoriesGetMulti,
   IProductCategoryCreateResultApi,
@@ -10,10 +10,10 @@ import {
   IProductCategoryUpdateResultApi,
   IProductCategoryGetByIdResultApi,
   IProductCategorySearchResultApi,
-} from "@/apis-results/IProductCategoryResultApi";
-import { useQueriesString } from "@/hooks";
-import { useParams } from "react-router-dom";
-import { IApi } from "@/interfaces/shared";
+} from '@/interfaces/result-apis/IProductCategoryResultApi';
+import { useQueriesString } from '@/hooks';
+import { useParams } from 'react-router-dom';
+import { IApi } from '@/interfaces/shared';
 
 export default class UseProductCategoryApi {
   static createCategory(): IProductCategoryCreateResultApi {
@@ -21,8 +21,8 @@ export default class UseProductCategoryApi {
     const { isLoading, mutate, data } = useMutation({
       mutationFn: ProductCategoryApi.createProductCategory,
       onSuccess: () => {
-        toast.success("Create product category successfully");
-        queryClient.invalidateQueries({ queryKey: ["productCategories"] });
+        toast.success('Create product category successfully');
+        queryClient.invalidateQueries({ queryKey: ['productCategories'] });
       },
       onError: (error: any) => toast.error(error.message),
     });
@@ -40,7 +40,7 @@ export default class UseProductCategoryApi {
     limitCustom: number
   ): IProductCategoryGetAllResultApi {
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategories", limitCustom],
+      queryKey: ['productCategories', limitCustom],
       queryFn: () =>
         ProductCategoryApi.getAllProductCategories({
           limit: limitCustom,
@@ -65,7 +65,7 @@ export default class UseProductCategoryApi {
 
     const currentPage = pageCustom || page;
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategories", sort, currentPage, limit],
+      queryKey: ['productCategories', sort, currentPage, limit],
       queryFn: () =>
         ProductCategoryApi.getAllProductCategories({
           sort,
@@ -79,7 +79,7 @@ export default class UseProductCategoryApi {
     // Get Data next page
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
-        queryKey: ["productCategories", sort, currentPage + 1, limit],
+        queryKey: ['productCategories', sort, currentPage + 1, limit],
         queryFn: () =>
           ProductCategoryApi.getAllProductCategories({
             sort,
@@ -90,7 +90,7 @@ export default class UseProductCategoryApi {
 
     if (currentPage > 1)
       queryClient.prefetchQuery({
-        queryKey: ["productCategories", sort, currentPage - 1, limit],
+        queryKey: ['productCategories', sort, currentPage - 1, limit],
         queryFn: () =>
           ProductCategoryApi.getAllProductCategories({
             sort,
@@ -118,7 +118,7 @@ export default class UseProductCategoryApi {
       limit,
     } = getQueriesString(useQueriesString());
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategories", keySearch, currentPage, limit],
+      queryKey: ['productCategories', keySearch, currentPage, limit],
       queryFn: () =>
         ProductCategoryApi.searchCategories({
           keySearch,
@@ -132,7 +132,7 @@ export default class UseProductCategoryApi {
     // Get Data next page
     if (currentPage < numberPage)
       queryClient.prefetchQuery({
-        queryKey: ["productCategories", keySearch, currentPage + 1, limit],
+        queryKey: ['productCategories', keySearch, currentPage + 1, limit],
         queryFn: () =>
           ProductCategoryApi.searchCategories({
             keySearch,
@@ -143,7 +143,7 @@ export default class UseProductCategoryApi {
 
     if (currentPage > 1)
       queryClient.prefetchQuery({
-        queryKey: ["productCategories", keySearch, currentPage - 1, limit],
+        queryKey: ['productCategories', keySearch, currentPage - 1, limit],
         queryFn: () =>
           ProductCategoryApi.searchCategories({
             keySearch,
@@ -166,7 +166,7 @@ export default class UseProductCategoryApi {
   ): IProductCategoryGetByIdResultApi {
     const { productCategoryId } = useParams();
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategory", productCategoryId, categoryId],
+      queryKey: ['productCategory', productCategoryId, categoryId],
       queryFn: () =>
         ProductCategoryApi.getProductCategoryById({
           _id: String(productCategoryId || categoryId),
@@ -184,7 +184,7 @@ export default class UseProductCategoryApi {
 
   static getCategoriesByGroupId(groupId: string): IProductCategoriesGetMulti {
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategoriesByGroup", groupId],
+      queryKey: ['productCategoriesByGroup', groupId],
       queryFn: () =>
         ProductCategoryApi.getProductCategoryByGroupId({
           productCategory_group: groupId,
@@ -204,9 +204,27 @@ export default class UseProductCategoryApi {
     categoriesIds: Array<string> | undefined
   ): IProductCategoriesGetMulti {
     const { isLoading, data } = useQuery({
-      queryKey: ["productCategories"],
+      queryKey: ['productCategories'],
       queryFn: () =>
         ProductCategoryApi.getProductCategoriesByIds(categoriesIds),
+    });
+
+    return {
+      isGettingProductCategories: isLoading,
+      message: data?.message,
+      metadata: data?.metadata,
+      statusCode: data?.statusCode,
+      reasonStatusCode: data?.reasonStatusCode,
+    };
+  }
+
+  static getCategoriesByType(
+    productCategoryType: string | undefined
+  ): IProductCategoriesGetMulti {
+    const { isLoading, data } = useQuery({
+      queryKey: ['productCategories'],
+      queryFn: () =>
+        ProductCategoryApi.getProductCategoriesByType(productCategoryType + ''),
     });
 
     return {
@@ -228,10 +246,10 @@ export default class UseProductCategoryApi {
           `Update category ${data.metadata?.productCategory_name} successfully`
         );
         queryClient.invalidateQueries({
-          queryKey: ["productCategories"],
+          queryKey: ['productCategories'],
         });
         queryClient.removeQueries({
-          queryKey: ["productCategory", productCategoryId],
+          queryKey: ['productCategory', productCategoryId],
         });
       },
       onError: (error: any) => {
@@ -256,7 +274,7 @@ export default class UseProductCategoryApi {
       mutationFn: ProductCategoryApi.deleteProductCategory,
       onSuccess: (data: any) => {
         toast.success(data.message);
-        queryClient.invalidateQueries({ queryKey: ["productCategories"] });
+        queryClient.invalidateQueries({ queryKey: ['productCategories'] });
       },
     });
     return {

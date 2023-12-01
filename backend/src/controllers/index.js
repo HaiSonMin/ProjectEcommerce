@@ -17,6 +17,7 @@ const DiscountController = require('./discount.controller');
 const WishlistController = require('./wishlist.controller');
 const InventoryController = require('./inventory.controller');
 const BlogCategoryController = require('./blogCategory.controller');
+const NotificationController = require('./notification.controller');
 const SpecificationController = require('./specification.controller');
 const ProductCategoryController = require('./productCategory.controller');
 const ProductCategoryGroupController = require('./productCategoryGroup.controller');
@@ -41,6 +42,7 @@ module.exports = {
   WishlistController,
   InventoryController,
   BlogCategoryController,
+  NotificationController,
   SpecificationController,
   ProductCategoryController,
   ProductCategoryGroupController,

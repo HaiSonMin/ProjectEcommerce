@@ -1,15 +1,15 @@
-import { CarouselImage } from "@/components/shared";
-import { styled } from "styled-components";
-import { ProductContentLayout } from "@/components/public/product";
-import ProductsCardContainer from "./productsCardContainer";
-import FilterContainer from "./productFilter";
-import SortContainer from "./productSort";
-import ProductDealHotLayout from "@/components/public/product/product-deal-hot/ProductDealHotLayout";
-import ProductDemandsLayout from "./product-demands";
+import { CarouselImage } from '@/components/shared';
+import { styled } from 'styled-components';
+import { ProductContentLayout } from '@/components/public/product';
+import ProductsCardContainer from './shared/productsCardContainer';
+import FilterContainer from './shared/productFilter';
+import SortContainer from './shared/productSort';
+import ProductDealHotLayout from '@/components/public/product/product-deal-hot/ProductDealHotLayout';
+import ProductDemandsLayout from './product-demands';
 import {
   ProductBrandsLayout,
   ProductHotSaleLayout,
-} from "@/components/public/product";
+} from '@/components/public/product';
 
 const ProductCategoryLayoutStyled = styled.div`
   padding: 1.5rem 0;
@@ -23,39 +23,41 @@ const ContainerImage = styled.div`
 
 const items = [
   {
-    linkTo: "#",
-    imageName: "Hinh anh 1",
+    linkTo: '#',
+    imageName: 'Hinh anh 1',
     image:
-      "https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Lenovo.png",
+      'https://cdn2.cellphones.com.vn/x50,webp,q30/media/wysiwyg/Icon/brand_logo/Lenovo.png',
   },
   {
-    linkTo: "#",
-    imageName: "Hinh anh 1",
-    image: "https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png",
+    linkTo: '#',
+    imageName: 'Hinh anh 1',
+    image: 'https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png',
   },
   {
-    linkTo: "#",
-    imageName: "Hinh anh 1",
-    image: "https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png",
+    linkTo: '#',
+    imageName: 'Hinh anh 1',
+    image: 'https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png',
   },
   {
-    linkTo: "#",
-    imageName: "Hinh anh 1",
-    image: "https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png",
+    linkTo: '#',
+    imageName: 'Hinh anh 1',
+    image: 'https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png',
   },
   {
-    linkTo: "#",
-    imageName: "Hinh anh 1",
-    image: "https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png",
+    linkTo: '#',
+    imageName: 'Hinh anh 1',
+    image: 'https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png',
   },
   {
-    linkTo: "#",
-    imageName: "Hinh anh 1",
-    image: "https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png",
+    linkTo: '#',
+    imageName: 'Hinh anh 1',
+    image: 'https://cdn.tgdd.vn/2023/08/banner/800-200-800x200-46.png',
   },
 ];
 
 export default function ProductCategoryLayout() {
+
+
   return (
     <ProductCategoryLayoutStyled>
       <ContainerImage>

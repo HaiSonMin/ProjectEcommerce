@@ -1,6 +1,6 @@
-import IUser from "./user.interface";
+import { IUser } from './user.interface';
 
-export default interface IOrder {
+export interface IOrder {
   _id: string | undefined;
   order_status: string;
   order_byUser: IUser | string;

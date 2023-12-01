@@ -1,4 +1,5 @@
-import ProductCategoryLayout from "@/features/public/product/product-category";
+import CategoryLayout from "@/components/public/home/categories-hot";
+
 export default function ProductCategoryPage() {
-  return <ProductCategoryLayout />;
+  return <CategoryLayout />;
 }

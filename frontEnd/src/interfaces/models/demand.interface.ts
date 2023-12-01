@@ -1,6 +1,6 @@
-import IProductCategory from "./productCategory.interface";
+import { IProductCategory } from './productCategory.interface';
 
-export default interface IDemand {
+export interface IDemand {
   _id: string;
   demand_name: string;
   demand_image: string;

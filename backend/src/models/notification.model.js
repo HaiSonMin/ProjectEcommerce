@@ -6,16 +6,17 @@ const NotificationSchema = new Schema(
   {
     notification_type: {
       type: String,
-      enum: [
-        'PRODUCT-001', // CREATE NEW PRODUCT
-        'ORDER-001', // ORDER SUCCESS
-        'ORDER-002', // ORDER FAIL
-        'SHIPPING-001', // ON DELIVERY
-        'SHIPPING-002', // DELIVERED
-        'COUPON-001', // HAVE NEW COUPON
-        'DISCOUNT-001', // PRODUCT IS ON SALE
-      ],
+      enum: Object.keys(CONSTANT.TYPE_NOTIFICATION),
       required: [true, 'Please provide notification type'],
+    },
+    // We need store in redis
+    // notification_status: {
+    //   type: String, // If MQ send message fail, after 10-30p(option setup), message will be send again
+    //   enum: ['SUCCESS', 'FAIL'],
+    // },
+    notification_thumb: {
+      type: String, // It's image when system push notification
+      required: true,
     },
     notification_message: {
       type: String,
@@ -24,6 +25,7 @@ const NotificationSchema = new Schema(
     notification_user: {
       type: Schema.Types.ObjectId,
       ref: CONSTANT.MODELS_NAMES.user,
+      index: true,
     },
     notification_options: {
       type: Schema.Types.Mixed,

@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
-import { keyframes, styled } from "styled-components";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import StarReview from "./StarReview";
-import { formatCurrencyVND } from "@/utils";
+import { Link } from 'react-router-dom';
+import { keyframes, styled } from 'styled-components';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import StarReview from './StarReview';
+import { formatCurrencyVND } from '@/utils';
+import { IProductCard } from '@/interfaces/models';
+import { PATH_PUBLIC } from '@/constant/path-router';
 
 const CartStyled = styled.div<{ $width: number }>`
   position: relative;
@@ -143,40 +145,44 @@ const CardWishlist = styled.div`
 
 interface IProps {
   width: number;
-  item: {
-    img: string;
-    title: string;
-    priceDiscount: number;
-    priceOld: number;
-    rating: number;
-    discountValue: number;
-  };
+  item: IProductCard;
 }
 
 export default function Cart({ width, item }: IProps) {
   return (
     <CartStyled $width={width}>
-      <CardInfo to={"/#"}>
+      <CardInfo to={`/${PATH_PUBLIC.productDetail}?id=${item._id}`}>
         <CardImg>
-          <img src={item.img} alt={item.title} />
+          <img
+            src={
+              item.product_thumb ||
+              'https://res.cloudinary.com/dbpldobhx/image/upload/v1694346089/FullStackWebEcommerce/Brands/f0qtbmxswbqic6yvrrik.png'
+            }
+            alt={item.product_name || 'Image product'}
+          />
         </CardImg>
         <CartContext>
-          <CardTitle>{item.title}</CardTitle>
+          <CardTitle>{item.product_name || 'Iphone 14Promax'}</CardTitle>
           <CardPreOrder>Pre Order</CardPreOrder>
           <CartPrices>
-            <p className="price-discount">
-              {formatCurrencyVND(item.priceDiscount)}
+            <p className='price-discount'>
+              {formatCurrencyVND(
+                item.product_priceAppliedDiscount || 23_000_000
+              )}
             </p>
-            <p className="price-old"> {formatCurrencyVND(item.priceOld)}</p>
+            <p className='price-old'>
+              {' '}
+              {formatCurrencyVND(item.product_price || 25_000_000)}
+            </p>
           </CartPrices>
         </CartContext>
         <CarDiscount>
-          <span>-{item.discountValue}%</span>
+          <span>-{10}%</span>
         </CarDiscount>
       </CardInfo>
       <CartRating>
-        <StarReview star={item.rating} size="18px" />
-        <span>({item.rating}) Reviews</span>
+        <StarReview star={4.2} size='18px' />
+        <span>({item.product_ratings?.length || 5}) Reviews</span>
       </CartRating>
       <CardEndow>
         <p>Phần Mềm Diệt Virus, Office chính hãng chỉ từ 150k </p>

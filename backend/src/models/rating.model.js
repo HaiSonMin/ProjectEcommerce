@@ -1,13 +1,13 @@
-const { model, Schema } = require("mongoose"); // Erase if already required
-const CONSTANT = require("../constant");
+const { model, Schema } = require('mongoose'); // Erase if already required
+const CONSTANT = require('../constant');
 const COLLECTION_NAME = CONSTANT.MODELS_NAMES.rating;
 const RatingSchema = new Schema(
   {
     rating_point: {
       type: Number,
       required: true,
-      min: [1, "Please provide rating point getter than equal 1"],
-      max: [5, "Please provide rating point less than equal 5"],
+      min: [1, 'Please provide rating point getter than equal 1'],
+      max: [5, 'Please provide rating point less than equal 5'],
     },
     rating_product: {
       type: Schema.Types.ObjectId,
@@ -23,8 +23,10 @@ const RatingSchema = new Schema(
     rating_description: {
       type: String,
     },
-    rating_response: String,
-    rating_responseAdmin: {
+    rating_response: {
+      type: String,
+    },
+    rating_responseBy: {
       type: Schema.Types.ObjectId,
       ref: CONSTANT.MODELS_NAMES.user,
     },

@@ -1,5 +1,5 @@
 const PATH_BLOG = {
-  blogHome: "blog",
-  category: "category",
+  blog: 'blog',
+  category: 'category',
 };
 export default PATH_BLOG;

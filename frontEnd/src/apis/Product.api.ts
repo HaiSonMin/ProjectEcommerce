@@ -1,8 +1,8 @@
-import { IApi } from "@/interfaces/shared";
-import { IProduct } from "@/interfaces/models";
-import { PATH_API_V1 } from "@/constant/path-api";
-import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
-import { http, getErrorMessage, resultAppendFormDataRecursive } from "@/utils";
+import { IApi } from '@/interfaces/shared';
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
+import { http, getErrorMessage, resultAppendFormDataRecursive } from '@/utils';
+import { IProduct } from '@/interfaces/models/product.interface';
 
 class ProductApi {
   async createProduct(args: Partial<IProduct>): Promise<IApi> {
@@ -19,13 +19,14 @@ class ProductApi {
     }
   }
 
-  async getProductById(arg: Pick<IProduct, "_id">): Promise<IApi> {
+  async getProductById(arg: Pick<IProduct, '_id'>): Promise<IApi> {
     try {
       const response = await http.get(
         `${PATH_API_V1.product}/getById/${arg._id}`
       );
 
       const result: IApi = response.data;
+      console.log('resultProduct:::', result);
 
       return result;
     } catch (error) {
@@ -44,6 +45,30 @@ class ProductApi {
           numericFilters: fieldsQuery.numericFilters,
         },
       });
+
+      const result: IApi = response.data;
+      return result;
+    } catch (error) {
+      throw new Error(getErrorMessage(error));
+    }
+  }
+
+  async getProductsByCategoryId(
+    categoryId: string,
+    fieldsQuery: Partial<IArgsQuery>
+  ): Promise<IApi> {
+    try {
+      const response = await http.get(
+        `${PATH_API_V1.product}/getByCategoryId/${categoryId}`,
+        {
+          params: {
+            sort: fieldsQuery.sort,
+            page: fieldsQuery.page,
+            limit: fieldsQuery.limit,
+            numericFilters: fieldsQuery.numericFilters,
+          },
+        }
+      );
 
       const result: IApi = response.data;
       return result;
@@ -85,7 +110,7 @@ class ProductApi {
     }
   }
 
-  async deleteProduct(arg: Pick<IProduct, "_id">): Promise<IApi> {
+  async deleteProduct(arg: Pick<IProduct, '_id'>): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.product}/delete/${arg._id}`

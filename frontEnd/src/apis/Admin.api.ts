@@ -1,9 +1,9 @@
-import { IUser } from "@/interfaces/models";
-import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
-import { http, getErrorMessage } from "@/utils";
-import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/interfaces/shared";
-import { IAuthRegister } from "@/interfaces/models/auth.interface";
+import { IUser } from '@/interfaces/models';
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
+import { http, getErrorMessage } from '@/utils';
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IApi } from '@/interfaces/shared';
+import { IAuthRegister } from '@/interfaces/models/auth.interface';
 class AdminApi {
   async createUser(args: IAuthRegister): Promise<IApi> {
     console.log(args);
@@ -64,7 +64,7 @@ class AdminApi {
     return result;
   }
 
-  async deleteUser(arg: Pick<IUser, "_id">): Promise<IApi> {
+  async deleteUser(arg: Pick<IUser, '_id'>): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.admin}/delete/${arg._id}`

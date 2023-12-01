@@ -1,11 +1,10 @@
-import { styled } from "styled-components";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { BiChevronRight } from "react-icons/bi";
-import { IProductCategoryGroup } from "@/interfaces/models";
-import MenuListChildren from "./MenuListChildren";
-import { PATH_PUBLIC } from "@/constant/path-router";
-// import { PATH_PUBLIC } from "@/constant/path-router";
+import { styled } from 'styled-components';
+import { useState } from 'react';
+import { useNavigate, createSearchParams } from 'react-router-dom';
+import { BiChevronRight } from 'react-icons/bi';
+import MenuListChildren from './MenuListChildren';
+import { PATH_PUBLIC } from '@/constant/path-router';
+import IProductCategoryGroup from '@/interfaces/models/productCategoryGroup.interface';
 
 const MenuItemStyled = styled.li`
   display: flex;
@@ -41,14 +40,16 @@ const MenuItemContent = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
-  & div {
+  .box-links {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
 `;
 
-const MenuLink = styled(Link)`
+const MenuLink = styled.div`
+  cursor: pointer;
+  display: inline;
   &:hover {
     color: var(--color-primary);
   }
@@ -63,9 +64,11 @@ interface IProps {
 
 export default function MenuItem({ productCategoryGroup }: IProps) {
   const [isDisplayChild, setIsDisplayChild] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-  const typeNames = {};
+  // console.log('productCategoryGroup:::', productCategoryGroup);
 
+  let typeNames = {};
   productCategoryGroup.productCategoryGroup_categoryChildren.forEach(
     (category) => {
       if (!typeNames[category.productCategory_type])
@@ -74,6 +77,13 @@ export default function MenuItem({ productCategoryGroup }: IProps) {
     }
   );
 
+  const handleNavigate = (categoryType: any) => {
+    navigate({
+      pathname: PATH_PUBLIC.productCategoryType,
+      search: `${createSearchParams({ catType: categoryType })}`,
+    });
+  };
+
   return (
     <MenuItemStyled
       onMouseEnter={() => setIsDisplayChild(true)}
@@ -81,11 +91,11 @@ export default function MenuItem({ productCategoryGroup }: IProps) {
     >
       <MenuItemContent>
         <IconType src={productCategoryGroup.productCategoryGroup_image} />
-        <div>
+        <div className='box-links'>
           {Object.keys(typeNames).map((type, i) => (
-            <MenuLink to={PATH_PUBLIC.productCategory} key={type}>
-              {type.split(" ")}
-              {i !== Object.keys(typeNames).length - 1 && ", "}
+            <MenuLink onClick={() => handleNavigate(type)} key={type}>
+              {type.split(' ')}
+              {i !== Object.keys(typeNames).length - 1 && ', '}
             </MenuLink>
           ))}
         </div>

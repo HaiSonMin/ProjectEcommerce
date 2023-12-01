@@ -1,6 +1,6 @@
-import ICoupon from "@/interfaces/models/coupon.interface";
-import { IApi } from "@/interfaces/shared";
-import { UseMutateFunction } from "@tanstack/react-query";
+import { ICoupon } from '@/interfaces/models/coupon.interface';
+import { IApi } from '@/interfaces/shared';
+import { UseMutateFunction } from '@tanstack/react-query';
 
 export interface ICouponCreateResultApi extends IApi {
   isCreatingCoupon: boolean;
@@ -25,7 +25,7 @@ export interface ICouponGetOneResultApi extends IApi {
 }
 
 export interface ICouponSearchResultApi
-  extends Omit<ICouponGetAllResultApi, "isGettingCoupons"> {
+  extends Omit<ICouponGetAllResultApi, 'isGettingCoupons'> {
   isSearchingCoupons: boolean;
 }
 
@@ -38,5 +38,5 @@ export interface ICouponUpdateResultApi extends IApi {
 export interface ICouponDeleteResultApi extends IApi {
   isDeletingCoupon: boolean;
   metadata: ICoupon | undefined;
-  deleteCoupon: UseMutateFunction<any, unknown, Pick<ICoupon, "_id">>;
+  deleteCoupon: UseMutateFunction<any, unknown, Pick<ICoupon, '_id'>>;
 }

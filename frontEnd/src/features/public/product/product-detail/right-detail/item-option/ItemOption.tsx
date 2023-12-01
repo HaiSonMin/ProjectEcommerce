@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 const ItemOptionStyled = styled.div<{ $isActive: boolean }>`
   position: relative;
@@ -12,7 +12,7 @@ const ItemOptionStyled = styled.div<{ $isActive: boolean }>`
       border-color: var(--color-primary);
       &::before {
         display: block;
-        content: "✓";
+        content: '✓';
         position: absolute;
         left: 0px;
         top: 0px;
@@ -27,6 +27,22 @@ const ItemOptionStyled = styled.div<{ $isActive: boolean }>`
     `}
 `;
 
-export default function ItemOption({ children }) {
-  return <ItemOptionStyled $isActive={true}>{children}</ItemOptionStyled>;
+interface IProps {
+  children: React.ReactNode;
+  key: string;
+  isActive: boolean;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+}
+
+export default function ItemOption({
+  children,
+  key,
+  isActive,
+  onClick,
+}: IProps) {
+  return (
+    <ItemOptionStyled key={key} $isActive={isActive} onClick={onClick}>
+      {children}
+    </ItemOptionStyled>
+  );
 }

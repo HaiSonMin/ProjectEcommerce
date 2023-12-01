@@ -58,6 +58,7 @@ app.use(passport.session());
 require('./src/middleware/passportGoogleSSO.middleware');
 require('./src/databases/init.mongoDB');
 require('./src/databases/init.redisDB');
+require('./src/databases/init.rabbitMQ');
 const { checkConnect } = require('./src/helpers');
 checkConnect.checkOverload();
 app.use('/', require('./src/routes'));

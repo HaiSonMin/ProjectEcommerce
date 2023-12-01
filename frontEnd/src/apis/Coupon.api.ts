@@ -1,5 +1,5 @@
-import ICoupon from '@/interfaces/models/coupon.interface';
-import IArgsQuery from '@/interfaces/shared/IArgsQuery.interface';
+import { ICoupon } from '@/interfaces/models/coupon.interface';
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
 import { getErrorMessage, http } from '@/utils';
 import { PATH_API_V1 } from '@/constant/path-api';
 import { IApi } from '@/interfaces/shared';

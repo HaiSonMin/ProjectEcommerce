@@ -90,7 +90,7 @@ class CouponService {
       filter: {
         ...convertOperatorObject({
           numericFilters,
-          option: [
+          fields: [
             "coupon_value",
             "coupon_minimumOrderValue",
             "coupon_numberOfApplication",

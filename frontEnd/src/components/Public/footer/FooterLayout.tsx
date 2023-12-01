@@ -1,6 +1,6 @@
-import { styled } from "styled-components";
-import FooterTop from "./footer-top";
-import FooterBottom from "./footer-bottom";
+import { styled } from 'styled-components';
+import FooterTop from './footer-top';
+import FooterBottom from './footer-bottom';
 
 const FooterLayoutStyled = styled.footer`
   box-shadow:

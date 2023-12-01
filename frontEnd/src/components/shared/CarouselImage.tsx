@@ -1,8 +1,9 @@
-import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import { css, styled } from "styled-components";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Dot from "./Dot";
+import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
+import { css, styled } from 'styled-components';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Dot from './Dot';
+import { randomKey } from '@/utils';
 const CarouselImageStyled = styled.div`
   box-shadow:
     0 1px 2px 0 rgba(60, 64, 67, 0.1),
@@ -90,7 +91,7 @@ const DotsSlide = styled.div`
   transform: translateX(-50%);
 
   & .dot {
-    content: "";
+    content: '';
     width: 8px;
     height: 8px;
     background-color: var(--color-grey-100);
@@ -147,6 +148,7 @@ export default function CarouselImage({ items }: IProps) {
       <ImageSlide>
         {items.map((item, index) => (
           <ImageItem
+            key={randomKey()}
             to={item.linkTo}
             $valueTransform={
               PERCENTAGE_TRANSFORM * index - currentSlide * PERCENTAGE_TRANSFORM
@@ -157,15 +159,16 @@ export default function CarouselImage({ items }: IProps) {
         ))}
         {items.length > 1 && (
           <>
-            <ButtonPre className="btn-pre" onClick={handlePrevSlide}>
+            <ButtonPre className='btn-pre' onClick={handlePrevSlide}>
               <GoChevronLeft />
             </ButtonPre>
-            <ButtonNext className="btn-next" onClick={handleNextSlide}>
+            <ButtonNext className='btn-next' onClick={handleNextSlide}>
               <GoChevronRight />
             </ButtonNext>
             <DotsSlide>
               {items.map((_, index) => (
                 <Dot
+                  key={randomKey()}
                   $isActive={index === currentSlide}
                   onClick={() => setCurrentSlide(index)}
                 />

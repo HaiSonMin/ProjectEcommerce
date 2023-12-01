@@ -1,5 +1,5 @@
-import IProductCategory from "@/interfaces/models/productCategory.interface";
-import IApi from "@/interfaces/shared/IApi.interface";
+import {IProductCategory} from "@/interfaces/models/productCategory.interface";
+import {IApi} from "@/interfaces/shared/IApi.interface";
 import { UseMutateFunction } from "@tanstack/react-query";
 
 /**

@@ -1,12 +1,12 @@
-import { IBrand } from "@/interfaces/models";
-import IArgsQuery from "@/interfaces/shared/IArgsQuery.interface";
-import { http, getErrorMessage, resultAppendFormData } from "@/utils";
+import { IBrand } from '@/interfaces/models';
+import { IArgsQuery } from '@/interfaces/shared/IArgsQuery.interface';
+import { http, getErrorMessage, resultAppendFormData } from '@/utils';
 
-import { PATH_API_V1 } from "@/constant/path-api";
-import { IApi } from "@/interfaces/shared";
+import { PATH_API_V1 } from '@/constant/path-api';
+import { IApi } from '@/interfaces/shared';
 
 class BrandApi {
-  async createBrand(args: Omit<IBrand, "_id">): Promise<IApi> {
+  async createBrand(args: Omit<IBrand, '_id'>): Promise<IApi> {
     try {
       const response = await http.postForm(
         `${PATH_API_V1.brand}/create`,
@@ -61,7 +61,7 @@ class BrandApi {
     return result;
   }
 
-  async deleteBrand(arg: Pick<IBrand, "_id">): Promise<IApi> {
+  async deleteBrand(arg: Pick<IBrand, '_id'>): Promise<IApi> {
     try {
       const response = await http.delete(
         `${PATH_API_V1.brand}/delete/${arg._id}`

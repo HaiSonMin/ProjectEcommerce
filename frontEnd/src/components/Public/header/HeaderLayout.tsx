@@ -9,7 +9,7 @@ const HeaderLayoutStyled = styled.header`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  z-index: 1000;
+  z-index: 900;
 `;
 
 export default function HeaderLayout() {

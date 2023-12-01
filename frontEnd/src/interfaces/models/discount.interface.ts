@@ -1,4 +1,4 @@
-export default interface IDiscount {
+export interface IDiscount {
     _id: string | undefined;
     discount_name: string;
     discount_type: string;

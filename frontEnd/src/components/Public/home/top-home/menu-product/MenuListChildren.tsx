@@ -1,12 +1,13 @@
-import { IProductCategoryGroupChildren } from "@/interfaces/models/productCategoryGroup.interface";
-import { randomKey, removeSpaceString } from "@/utils";
-import { HiArrowLongRight } from "react-icons/hi2";
-import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import { PATH_PUBLIC } from '@/constant/path-router';
+import { IProductCategoryGroupChildren } from '@/interfaces/models/productCategoryGroup.interface';
+import { randomKey, removeSpaceString } from '@/utils';
+import { HiArrowLongRight } from 'react-icons/hi2';
+import { Link, createSearchParams, useNavigate } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 const MenuListChildStyled = styled.div<{ $display: boolean }>`
   ${(props) => css`
-    display: ${props.$display ? "flex" : "none"};
+    display: ${props.$display ? 'flex' : 'none'};
   `}
   position: absolute;
   top: 0;
@@ -38,6 +39,7 @@ const MenuListChildStyled = styled.div<{ $display: boolean }>`
         display: flex;
         align-items: center;
         gap: 4px;
+        cursor: pointer;
         & svg {
           width: 1.8rem;
           height: 1.8rem;
@@ -81,12 +83,20 @@ export default function MenuListChildren({
     acc[productCategory_type][productCategory_name] =
       productCategory_demands.map((demand) => demand.demand_name);
 
-    acc[productCategory_type]["brands"] = productCategory_brands.map(
+    acc[productCategory_type]['brands'] = productCategory_brands.map(
       (brand) => brand.brand_name
     );
 
     return acc;
   }, {});
+  const navigate = useNavigate();
+
+  const handleNavigate = (categoryType: any) => {
+    navigate({
+      pathname: PATH_PUBLIC.productCategoryType,
+      search: `${createSearchParams({ catType: categoryType })}`,
+    });
+  };
 
   return (
     <MenuListChildStyled
@@ -99,22 +109,25 @@ export default function MenuListChildren({
         // option2: {CategoryName1:[""],CategoryName2:[""], brands: ["Apple", "Samsung"]}
         const options: any = item[1];
         return (
-          <aside className="type" key={randomKey()}>
-            <div className="type-header">
+          <aside className='type' key={randomKey()}>
+            <div className='type-header'>
               <p>{categoryType}</p>
               {Object.keys(options).length <= 2 && (
-                <Link className="type-header--seeall" to={"#"}>
+                <div
+                  className='type-header--seeall'
+                  onClick={() => handleNavigate(categoryType)}
+                >
                   <span>See all</span>
                   <HiArrowLongRight />
-                </Link>
+                </div>
               )}
             </div>
-            <hr className="mb-3 mt-2 " />
-            <div className="type-category">
+            <hr className='mb-3 mt-2 ' />
+            <div className='type-category'>
               {Object.keys(options).length <= 2 ? (
                 // CategoryName & CategoryType trùng nhau => render brand
                 <>
-                  {options["brands"].slice(0, 7).map((brandLink: string) => (
+                  {options['brands'].slice(0, 7).map((brandLink: string) => (
                     <Link
                       key={randomKey()}
                       to={`${removeSpaceString(
@@ -127,7 +140,7 @@ export default function MenuListChildren({
                     </Link>
                   ))}
                   {/* if keys of transformedData <=4 => render more demand */}
-                  {options["brands"].length <= 10 &&
+                  {options['brands'].length <= 10 &&
                     Object.keys(transformedData).length <= 4 &&
                     options[Object.keys(options)[0]].map(
                       (demandLink: string) => (
@@ -148,7 +161,7 @@ export default function MenuListChildren({
                 // Demands
                 Object.keys(options).map(
                   (demandLink: string) =>
-                    demandLink !== "brands" && (
+                    demandLink !== 'brands' && (
                       <Link
                         key={randomKey()}
                         to={`${removeSpaceString(
