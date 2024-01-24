@@ -120,6 +120,7 @@ const ProductCategoryGroupUpdatePage = lazy(
 );
 
 const PublicLayOut = lazy(() => import('@/pages/public/PublicLayOut'));
+
 // ---------------- Auth ----------------
 const AuthLayout = lazy(() => import('@/pages/auth/AuthLayout'));
 const ConfirmOTPPage = lazy(() => import('@/pages/auth/confirm-otp'));
@@ -128,6 +129,7 @@ const RegisterPage = lazy(() => import('@/pages/auth/register'));
 const GenerateOTPPage = lazy(() => import('@/pages/auth/generate-otp'));
 const ResetPasswordPage = lazy(() => import('@/pages/auth/reset-password'));
 const IncentivesPage = lazy(() => import('@/pages/auth/incentive'));
+
 // ---------------- Member ----------------
 const MemberPageLayout = lazy(() => import('@/pages/member/MemberPageLayout'));
 const MemberRankPage = lazy(() => import('@/pages/member/rank-page'));

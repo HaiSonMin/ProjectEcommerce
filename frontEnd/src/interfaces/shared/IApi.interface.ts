@@ -4,3 +4,4 @@ export interface IApi {
   reasonStatusCode: string | undefined;
   statusCode: number | string | undefined;
 }
+export interface ICustomer {}

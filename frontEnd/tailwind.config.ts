@@ -1,18 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     screens: {
-      phone: "540px",
+      phone: '540px',
       // => @media (min-width: 540px) { ... }
 
-      tablet: "770px",
+      tablet: '770px',
       // => @media (min-width: 640px) { ... }
 
-      laptop: "1024px",
+      laptop: '1024px',
       // => @media (min-width: 1024px) { ... }
 
-      desktop: "1280px",
+      desktop: '1280px',
       // => @media (min-width: 1280px) { ... }
     },
     extend: {},

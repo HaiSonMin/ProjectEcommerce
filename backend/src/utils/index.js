@@ -81,6 +81,7 @@ const convertOperatorObject = ({ fields = [], numericFilters = "" }) => {
     "[lte]": "$lte",
     "[eq]": "$eq",
   };
+  
   // product_price[gt]1000 => product_price-&gt-1000
   const regEx = /\b(\[gt\]|\[gte\]|\[lt\]|\[lte\]|\[eq\])\b/g;
   let filterOperator = numericFilters.replace(

@@ -1,20 +1,20 @@
-import { UseAuthApi } from "@/apis-use";
-import { PATH_API_V1 } from "@/constant/path-api";
-import { WEB_STORE_NAME } from "@/constant";
-import { IApi } from "@/interfaces/shared";
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import { UseAuthApi } from '@/apis-use';
+import { PATH_API_V1 } from '@/constant/path-api';
+import { WEB_STORE_NAME } from '@/constant';
+import { IApi } from '@/interfaces/shared';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 class Http {
   baseUrl: string;
   instance: AxiosInstance;
   constructor() {
-    this.baseUrl = import.meta.env.VITE_API_URL || "http://localhost:9000/api";
+    this.baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:9000/api';
     this.instance = axios.create({
-      baseURL: import.meta.env.VITE_API_URL || this.baseUrl,
+      baseURL: this.baseUrl,
       withCredentials: true,
       timeout: 20000, // 20s
       headers: {
-        "Content-Type": "application/json; charset=UTF-8",
+        'Content-Type': 'application/json; charset=UTF-8',
         Authorization: `Bearer  ${localStorage.getItem(
           WEB_STORE_NAME.AT_NAME_LOCAL_STORE
         )}`,
